@@ -1,0 +1,5 @@
+{
+  "clientId": "在這裡貼上你的 Spotify Client ID",
+  "clientSecret": "在這裡貼上你的 Spotify Client Secret",
+  "market": "TW"
+}

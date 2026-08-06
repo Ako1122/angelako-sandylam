@@ -1,0 +1,3620 @@
+[
+  {
+    "id": "c0001",
+    "title": "愛情 I Don't Know",
+    "album": "林憶蓮",
+    "lang": "粵語",
+    "cover": "images/covers/01.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/6c/1a/a0/6c1aa0c3-4c83-7a52-24e5-67abf50f03f4/mzaf_6438024038188416503.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0002",
+    "title": "第一次約會",
+    "album": "林憶蓮",
+    "lang": "粵語",
+    "cover": "images/covers/01.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/33/37/fa/3337fa10-f139-2c6b-8766-9770ccaa7f93/mzaf_608614759512695800.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0003",
+    "title": "少女的心",
+    "album": "林憶蓮",
+    "lang": "粵語",
+    "cover": "images/covers/01.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/0f/32/97/0f329786-10eb-e78a-5367-770acfdb7d64/mzaf_7343146349572501996.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0004",
+    "title": "太陽傘下",
+    "album": "林憶蓮",
+    "lang": "粵語",
+    "cover": "images/covers/01.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/cc/fa/57/ccfa5789-896c-3be9-a8f0-46064e03d221/mzaf_97000997450035142.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0005",
+    "title": "不想你走",
+    "album": "林憶蓮",
+    "lang": "粵語",
+    "cover": "images/covers/01.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/9c/69/42/9c69423e-4624-8430-1b9e-0617a3ea426d/mzaf_4616378383872133383.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0006",
+    "title": "美的片刻",
+    "album": "林憶蓮",
+    "lang": "粵語",
+    "cover": "images/covers/01.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/43/9e/a0/439ea07d-8a5c-3fed-800d-d92dbd7a4552/mzaf_9881949881864977688.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0007",
+    "title": "高速愛情車",
+    "album": "林憶蓮",
+    "lang": "粵語",
+    "cover": "images/covers/01.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/ba/08/2c/ba082cb5-4597-2e35-6780-7383ad55434f/mzaf_3689270713451488762.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0008",
+    "title": "苦難中的少年",
+    "album": "林憶蓮",
+    "lang": "粵語",
+    "cover": "images/covers/01.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/b0/12/ae/b012aee3-ff1f-787d-13de-bfa33111ab76/mzaf_15160300876039669223.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0009",
+    "title": "搖擺口紅",
+    "album": "林憶蓮",
+    "lang": "粵語",
+    "cover": "images/covers/01.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/c8/36/9b/c8369ba4-bff6-a8ab-d421-81e6dcaca92d/mzaf_3727546560295222433.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0010",
+    "title": "無聲約會",
+    "album": "林憶蓮",
+    "lang": "粵語",
+    "cover": "images/covers/01.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/92/74/a6/9274a6a6-ace8-26bc-c9f2-b70697c2c509/mzaf_11982061001255442048.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0011",
+    "title": "放縱",
+    "album": "放縱",
+    "lang": "粵語",
+    "cover": "images/covers/02.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/04/db/15/04db158b-cdd9-6e9e-24bd-57d959a50ee2/mzaf_12761142734089490443.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0012",
+    "title": "愛神 Holiday",
+    "album": "放縱",
+    "lang": "粵語",
+    "cover": "images/covers/02.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/19/74/e8/1974e83d-3577-353e-51db-4e458c7eb5dc/mzaf_14072204234956539259.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0013",
+    "title": "明天是否愛我",
+    "album": "放縱",
+    "lang": "粵語",
+    "cover": "images/covers/02.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/ff/fd/e4/fffde4a1-9380-4576-e203-0696fe457159/mzaf_6376375183660954575.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0014",
+    "title": "快快救我",
+    "album": "放縱",
+    "lang": "粵語",
+    "cover": "images/covers/02.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/a5/c9/81/a5c98189-c513-8974-cbb4-d5b816566186/mzaf_9866551916171458531.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0015",
+    "title": "偷吻",
+    "album": "放縱",
+    "lang": "粵語",
+    "cover": "images/covers/02.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/9a/2f/27/9a2f2727-1dff-18c0-dddc-840d827af3be/mzaf_12390344914061372499.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0016",
+    "title": "心碎巷",
+    "album": "放縱",
+    "lang": "粵語",
+    "cover": "images/covers/02.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/14/f9/16/14f916f9-314b-d928-36f9-d07898b8af49/mzaf_4990565093521255591.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0017",
+    "title": "為我心痴",
+    "album": "放縱",
+    "lang": "粵語",
+    "cover": "images/covers/02.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/31/27/51/312751ba-6cb3-23a1-1e94-7a4987760912/mzaf_10171379572632055146.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0018",
+    "title": "長街的一角",
+    "album": "放縱",
+    "lang": "粵語",
+    "cover": "images/covers/02.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/d9/0b/5c/d90b5c5a-7a3d-97d6-8ea1-cc5fe783b699/mzaf_12959670912627821405.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0019",
+    "title": "但我已給你",
+    "album": "放縱",
+    "lang": "粵語",
+    "cover": "images/covers/02.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/9d/da/4e/9dda4e0e-c713-f0c7-d65b-82fd24b8e160/mzaf_8816122900664854738.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0020",
+    "title": "心裡探險",
+    "album": "放縱",
+    "lang": "粵語",
+    "cover": "images/covers/02.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/4e/80/80/4e808097-7e7c-9929-66a0-8effa0d22eb7/mzaf_15123762828165077396.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0021",
+    "title": "愛的廢墟",
+    "album": "憶蓮",
+    "lang": "粵語",
+    "cover": "images/covers/03.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/Music/0e/12/8e/mzm.nbuimrvy.aac.p.m4a"
+  },
+  {
+    "id": "c0022",
+    "title": "東方西方",
+    "album": "憶蓮",
+    "lang": "粵語",
+    "cover": "images/covers/03.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/bd/e0/5f/bde05f1a-0c3f-0311-505b-82760fa74c03/mzaf_5222594426079019046.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0023",
+    "title": "迷亂",
+    "album": "憶蓮",
+    "lang": "粵語",
+    "cover": "images/covers/03.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/Music/9a/99/d4/mzm.wphrzmtt.aac.p.m4a"
+  },
+  {
+    "id": "c0024",
+    "title": "純情筆記",
+    "album": "憶蓮",
+    "lang": "粵語",
+    "cover": "images/covers/03.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/Music/5e/e3/61/mzm.ihmflbcm.aac.p.m4a"
+  },
+  {
+    "id": "c0025",
+    "title": "邂逅",
+    "album": "憶蓮",
+    "lang": "粵語",
+    "cover": "images/covers/03.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/be/22/ae/be22aeb8-9260-f87e-0a46-86dd56b19887/mzaf_3733796144928492735.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0026",
+    "title": "激情",
+    "album": "憶蓮",
+    "lang": "粵語",
+    "cover": "images/covers/03.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/Music/e3/c1/4c/mzm.zwtmcsus.aac.p.m4a"
+  },
+  {
+    "id": "c0027",
+    "title": "獨行少女",
+    "album": "憶蓮",
+    "lang": "粵語",
+    "cover": "images/covers/03.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/7b/93/58/7b9358b3-b85f-fee9-6f92-b884550d6845/mzaf_12885652735511838456.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0028",
+    "title": "情愛火花",
+    "album": "憶蓮",
+    "lang": "粵語",
+    "cover": "images/covers/03.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/Music/b7/e3/4c/mzm.xxuiegae.aac.p.m4a"
+  },
+  {
+    "id": "c0029",
+    "title": "決絕",
+    "album": "憶蓮",
+    "lang": "粵語",
+    "cover": "images/covers/03.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/53/62/6c/53626c8d-47c6-b593-691d-a81aad6ad103/mzaf_9355926033205360756.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0030",
+    "title": "夜行人",
+    "album": "憶蓮",
+    "lang": "粵語",
+    "cover": "images/covers/03.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/Music/e4/23/e5/mzm.zbnnjzrm.aac.p.m4a"
+  },
+  {
+    "id": "c0031",
+    "title": "灰色",
+    "album": "灰色",
+    "lang": "粵語",
+    "cover": "images/covers/04.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/d0/87/a3/d087a3dd-24f6-f4f2-3dd8-d1ebfe134959/mzaf_6283512407088045559.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0032",
+    "title": "\"早晨…\"",
+    "album": "灰色",
+    "lang": "粵語",
+    "cover": "images/covers/04.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/b4/0d/2c/b40d2cdc-6391-8dac-bf42-cb9d14590bdb/mzaf_18317662830306911145.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0033",
+    "title": "住家男人",
+    "album": "灰色",
+    "lang": "粵語",
+    "cover": "images/covers/04.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/62/09/fe/6209fefe-4b77-9029-3212-1df952960ece/mzaf_1950654998319626775.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0034",
+    "title": "無情實驗",
+    "album": "灰色",
+    "lang": "粵語",
+    "cover": "images/covers/04.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/54/5b/e7/545be7f7-2077-4903-1c7c-bebd9a333cc3/mzaf_344748015907198724.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0035",
+    "title": "戲假情真",
+    "album": "灰色",
+    "lang": "粵語",
+    "cover": "images/covers/04.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/fe/bf/16/febf165c-0697-4f48-3f04-3ed610397dd5/mzaf_1155019536176821076.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0036",
+    "title": "灰色化粧",
+    "album": "灰色",
+    "lang": "粵語",
+    "cover": "images/covers/04.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/d9/6e/7a/d96e7a9e-0da5-5a83-7662-11c72fb51abd/mzaf_17445344453671150529.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0037",
+    "title": "點唱機",
+    "album": "灰色",
+    "lang": "粵語",
+    "cover": "images/covers/04.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/ce/ef/3c/ceef3c6f-7295-351f-47ee-6f48f5f1adff/mzaf_4440749916931081968.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0038",
+    "title": "鷹與星",
+    "album": "灰色",
+    "lang": "粵語",
+    "cover": "images/covers/04.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/63/ec/9c/63ec9c0b-8282-68a5-dae5-b297a023c453/mzaf_8074230186250443854.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0039",
+    "title": "祇可活一次",
+    "album": "灰色",
+    "lang": "粵語",
+    "cover": "images/covers/04.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/5d/4e/10/5d4e10f3-524b-5096-7440-cbec6c00c301/mzaf_479124267718660068.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0040",
+    "title": "某一個終點",
+    "album": "灰色",
+    "lang": "粵語",
+    "cover": "images/covers/04.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/c6/c4/21/c6c421e6-85fa-2ff9-f622-26c54a439f99/mzaf_4537993001319555453.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0041",
+    "title": "自製空間",
+    "album": "Ready",
+    "lang": "粵語",
+    "cover": "images/covers/05.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/1a/55/7b/1a557b74-15e3-4968-296a-e90ea472464f/mzaf_16018781452156714538.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0042",
+    "title": "黃昏",
+    "album": "Ready",
+    "lang": "粵語",
+    "cover": "images/covers/05.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/2c/99/d3/2c99d3e1-aabe-5dc4-455a-23a76d914b27/mzaf_11123344694086025583.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0043",
+    "title": "最佳男主角",
+    "album": "Ready",
+    "lang": "粵語",
+    "cover": "images/covers/05.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/db/7a/fb/db7afb8c-5379-1f94-e09f-bae8615f4ef9/mzaf_12866177373191850049.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0044",
+    "title": "他",
+    "album": "Ready",
+    "lang": "粵語",
+    "cover": "images/covers/05.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/b4/95/c0/b495c0dd-c6e1-b9a4-3464-005c974718f3/mzaf_10538752914261598368.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0045",
+    "title": "不醉夜…",
+    "album": "Ready",
+    "lang": "粵語",
+    "cover": "images/covers/05.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/af/2e/dd/af2edddf-4b78-1f42-ecf4-2309d75ff0af/mzaf_3060231551623797051.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0046",
+    "title": "滴汗",
+    "album": "Ready",
+    "lang": "粵語",
+    "cover": "images/covers/05.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/ef/c6/22/efc62227-87c9-e7aa-55db-f9480b5fe57b/mzaf_10514286190374246880.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0047",
+    "title": "下雨天",
+    "album": "Ready",
+    "lang": "粵語",
+    "cover": "images/covers/05.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/a1/94/b2/a194b256-4d41-4565-be6a-b7c5f73f025d/mzaf_14677342451335616846.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0048",
+    "title": "最佳男主角（頒獎典禮後… at his penthouse suite）",
+    "album": "Ready",
+    "lang": "粵語",
+    "cover": "images/covers/05.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/47/7b/c7/477bc7b9-c7c5-8a9e-a5ee-4222b2ad45e2/mzaf_2887861715402704189.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0049",
+    "title": "真想你知道",
+    "album": "Ready",
+    "lang": "粵語",
+    "cover": "images/covers/05.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/5d/0f/ff/5d0fff8c-dd65-7f40-40c4-52081168cb9c/mzaf_16889726562107384878.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0050",
+    "title": "命運是否這樣",
+    "album": "Ready",
+    "lang": "粵語",
+    "cover": "images/covers/05.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/21/e9/56/21e9567a-d88e-e89b-5678-27a2b7229fae/mzaf_2405214534096467726.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0051",
+    "title": "三更夜半",
+    "album": "都市觸覺 Part I City Rhythm",
+    "lang": "粵語",
+    "cover": "images/covers/06.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/67/17/d4/6717d47d-ae87-834e-dbda-e67a7f3d896c/mzaf_814236641281649201.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0052",
+    "title": "雷電風雨夜",
+    "album": "都市觸覺 Part I City Rhythm",
+    "lang": "粵語",
+    "cover": "images/covers/06.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/3b/f2/e2/3bf2e258-9635-991f-9d23-03f1d5a07b8a/mzaf_3694340242261664194.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0053",
+    "title": "夜了…沒有藉口",
+    "album": "都市觸覺 Part I City Rhythm",
+    "lang": "粵語",
+    "cover": "images/covers/06.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/6c/49/4b/6c494bba-162c-1e7c-c111-65b484240637/mzaf_16937430452141853829.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0054",
+    "title": "還有…（王傑合唱）",
+    "album": "都市觸覺 Part I City Rhythm",
+    "lang": "粵語",
+    "cover": "images/covers/06.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/a3/09/86/a3098657-9a4c-6d47-bdb0-709dda25b6c3/mzaf_10833867984045792131.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0055",
+    "title": "又見朝陽",
+    "album": "都市觸覺 Part I City Rhythm",
+    "lang": "粵語",
+    "cover": "images/covers/06.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/6a/e4/c6/6ae4c691-2837-fa81-f84d-3447c6fd4206/mzaf_9769228326072280272.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0056",
+    "title": "一接觸",
+    "album": "都市觸覺 Part I City Rhythm",
+    "lang": "粵語",
+    "cover": "images/covers/06.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/1a/0e/d4/1a0ed440-5207-b549-d8e0-1c4b417c8664/mzaf_9010926599635448185.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0057",
+    "title": "你是我的男人",
+    "album": "都市觸覺 Part I City Rhythm",
+    "lang": "粵語",
+    "cover": "images/covers/06.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/af/e2/61/afe261c6-3243-9d17-294f-db86c8b08fef/mzaf_5705538033239041965.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0058",
+    "title": "偷閒",
+    "album": "都市觸覺 Part I City Rhythm",
+    "lang": "粵語",
+    "cover": "images/covers/06.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/ff/20/26/ff20268d-2e9b-54d4-9aee-e52893d5b470/mzaf_653466820722595890.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0059",
+    "title": "講多錯多",
+    "album": "都市觸覺 Part I City Rhythm",
+    "lang": "粵語",
+    "cover": "images/covers/06.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/6f/98/8b/6f988b96-b609-b576-53cc-ec06845d2e3c/mzaf_7476008192570582423.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0060",
+    "title": "因你瘋了",
+    "album": "都市觸覺 Part I City Rhythm",
+    "lang": "粵語",
+    "cover": "images/covers/06.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/05/30/26/053026c4-7f0d-3dc6-aa30-c6e9d81eddfe/mzaf_6433896682160710189.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0061",
+    "title": "依然",
+    "album": "都市觸覺 Part II 逃離鋼筋森林",
+    "lang": "粵語",
+    "cover": "images/covers/07.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/46/d2/91/46d29182-2d28-befa-e122-bb42721114bc/mzaf_5766261923016779271.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0062",
+    "title": "逃離鋼筋森林",
+    "album": "都市觸覺 Part II 逃離鋼筋森林",
+    "lang": "粵語",
+    "cover": "images/covers/07.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/90/3a/8d/903a8db7-495f-1529-7239-7e04f188f356/mzaf_1709620772157925760.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0063",
+    "title": "擁有",
+    "album": "都市觸覺 Part II 逃離鋼筋森林",
+    "lang": "粵語",
+    "cover": "images/covers/07.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/8c/c6/6f/8cc66feb-3d00-a5e0-49c5-2892264fbba3/mzaf_11146666204655772875.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0064",
+    "title": "燒",
+    "album": "都市觸覺 Part II 逃離鋼筋森林",
+    "lang": "粵語",
+    "cover": "images/covers/07.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/85/4e/b8/854eb820-3a63-fa5e-d3a7-615eef0672fc/mzaf_3110035369840740428.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0065",
+    "title": "可以… 可是",
+    "album": "都市觸覺 Part II 逃離鋼筋森林",
+    "lang": "粵語",
+    "cover": "images/covers/07.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/6f/5a/cd/6f5acde3-9fcc-2e70-6086-603a65db21c6/mzaf_13040174884562243406.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0066",
+    "title": "不不不",
+    "album": "都市觸覺 Part II 逃離鋼筋森林",
+    "lang": "粵語",
+    "cover": "images/covers/07.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/97/0b/3b/970b3bfc-db2f-7f72-9b14-5d8d8b76ef84/mzaf_12076392484948085224.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0067",
+    "title": "痴纏",
+    "album": "都市觸覺 Part II 逃離鋼筋森林",
+    "lang": "粵語",
+    "cover": "images/covers/07.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/71/3a/99/713a998a-3717-14ae-ef52-c6efeb81f389/mzaf_9908567365774860834.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0068",
+    "title": "回家對著你媽媽",
+    "album": "都市觸覺 Part II 逃離鋼筋森林",
+    "lang": "粵語",
+    "cover": "images/covers/07.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/17/ab/96/17ab9633-48fa-8595-03d4-6bd53e184f01/mzaf_7785892608319754880.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0069",
+    "title": "別再靠緊我",
+    "album": "都市觸覺 Part II 逃離鋼筋森林",
+    "lang": "粵語",
+    "cover": "images/covers/07.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/9c/0a/a6/9c0aa613-cc6f-86d2-bb83-5e460cf74bd8/mzaf_7315312021341656691.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0070",
+    "title": "此情只待成追憶（倫永亮合唱）",
+    "album": "都市觸覺 Part II 逃離鋼筋森林",
+    "lang": "粵語",
+    "cover": "images/covers/07.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/b6/3b/e4/b63be483-4331-c8b9-03cd-863d462c3e7f/mzaf_14300766197254276125.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0071",
+    "title": "為何相愛・為何結束",
+    "album": "都市觸覺 Part II 逃離鋼筋森林",
+    "lang": "粵語",
+    "cover": "images/covers/07.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/1c/87/23/1c872347-ee1e-f886-d279-34baa1d916c7/mzaf_5585523115322530033.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0072",
+    "title": "傾斜",
+    "album": "都市觸覺 Part III Faces And Places",
+    "lang": "粵語",
+    "cover": "images/covers/08.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/64/70/73/64707344-0ef5-2fc6-f95c-136efd6762f1/mzaf_8251935171063451788.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0073",
+    "title": "你令我性感",
+    "album": "都市觸覺 Part III Faces And Places",
+    "lang": "粵語",
+    "cover": "images/covers/08.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/e0/35/e1/e035e154-6344-e306-9cb7-96aa3a34fb67/mzaf_2810515095578061027.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0074",
+    "title": "埃及玫瑰",
+    "album": "都市觸覺 Part III Faces And Places",
+    "lang": "粵語",
+    "cover": "images/covers/08.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/46/12/b2/4612b220-1f8e-3caf-d176-8e3ead4c1b3c/mzaf_4788543670256347821.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0075",
+    "title": "風笑痴",
+    "album": "都市觸覺 Part III Faces And Places",
+    "lang": "粵語",
+    "cover": "images/covers/08.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/b7/a4/85/b7a485cc-7dab-05e2-0e11-e9c5c891b583/mzaf_6186842013738566352.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0076",
+    "title": "微雨撲巴黎",
+    "album": "都市觸覺 Part III Faces And Places",
+    "lang": "粵語",
+    "cover": "images/covers/08.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/7e/b9/0a/7eb90a09-d13f-8b7c-d252-68488ed6551c/mzaf_18075677731655361338.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0077",
+    "title": "夜生活",
+    "album": "都市觸覺 Part III Faces And Places",
+    "lang": "粵語",
+    "cover": "images/covers/08.jpg",
+    "coverConfirmed": true,
+    "preview_url": null
+  },
+  {
+    "id": "c0078",
+    "title": "前塵",
+    "album": "都市觸覺 Part III Faces And Places",
+    "lang": "粵語",
+    "cover": "images/covers/08.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/48/34/e5/4834e514-3f5f-bb5d-ce3e-1b44da7c3de9/mzaf_15364781283588044228.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0079",
+    "title": "怱怱",
+    "album": "都市觸覺 Part III Faces And Places",
+    "lang": "粵語",
+    "cover": "images/covers/08.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/Music7/v4/6d/f0/54/6df0548e-42a3-e3cb-c2d8-c1b90364b281/mzaf_5145504004266924054.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0080",
+    "title": "都市心",
+    "album": "都市觸覺 Part III Faces And Places",
+    "lang": "粵語",
+    "cover": "images/covers/08.jpg",
+    "coverConfirmed": true,
+    "preview_url": null
+  },
+  {
+    "id": "c0081",
+    "title": "再不在乎",
+    "album": "都市觸覺 Part III Faces And Places",
+    "lang": "粵語",
+    "cover": "images/covers/08.jpg",
+    "coverConfirmed": true,
+    "preview_url": null
+  },
+  {
+    "id": "c0082",
+    "title": "破曉（I）",
+    "album": "夢了、瘋了、倦了",
+    "lang": "粵語",
+    "cover": "images/covers/09.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/e5/5d/f9/e55df916-d1ee-4214-1c5e-512c6c06c288/mzaf_8576831967185296173.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0083",
+    "title": "讓我笑吧！",
+    "album": "夢了、瘋了、倦了",
+    "lang": "粵語",
+    "cover": "images/covers/09.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/70/e2/c0/70e2c093-0245-2005-84bb-f31032143bd2/mzaf_11941154967893771045.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0084",
+    "title": "心野夜",
+    "album": "夢了、瘋了、倦了",
+    "lang": "粵語",
+    "cover": "images/covers/09.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/26/02/d1/2602d156-920a-f647-6672-2edd277bd72b/mzaf_12960845347206821505.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0085",
+    "title": "哈囉感覺！",
+    "album": "夢了、瘋了、倦了",
+    "lang": "粵語",
+    "cover": "images/covers/09.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/09/4d/4c/094d4c29-9d6a-394a-994e-99c836919446/mzaf_14805354871582025802.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0086",
+    "title": "微涼",
+    "album": "夢了、瘋了、倦了",
+    "lang": "粵語",
+    "cover": "images/covers/09.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/fe/b4/4c/feb44cdf-9493-e387-082d-190be3373caa/mzaf_9648539901106159185.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0087",
+    "title": "瘋了",
+    "album": "夢了、瘋了、倦了",
+    "lang": "粵語",
+    "cover": "images/covers/09.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/a4/40/87/a440874d-b494-4e23-feab-8a7aa3a53dbf/mzaf_2957890984920455751.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0088",
+    "title": "我要等的正是你（陳百強合唱）",
+    "album": "夢了、瘋了、倦了",
+    "lang": "粵語",
+    "cover": "images/covers/09.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/59/97/31/599731b1-8ede-bd87-8277-3cfe8025a55b/mzaf_2075796607291907943.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0089",
+    "title": "破曉（II）",
+    "album": "夢了、瘋了、倦了",
+    "lang": "粵語",
+    "cover": "images/covers/09.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/e6/f9/21/e6f921f9-31b9-6ad2-b21b-f366daaf4ba7/mzaf_5282454570495398496.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0090",
+    "title": "多謝",
+    "album": "夢了、瘋了、倦了",
+    "lang": "粵語",
+    "cover": "images/covers/09.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/9f/d2/8e/9fd28ea4-79b6-68f0-3e2f-6cd2887ad1bc/mzaf_9727777904829839982.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0091",
+    "title": "夢了",
+    "album": "夢了、瘋了、倦了",
+    "lang": "粵語",
+    "cover": "images/covers/09.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/fd/20/29/fd202971-d8e9-1ca8-8cc8-8340d813afc9/mzaf_10532412682828785468.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0092",
+    "title": "Wildflower Overture~只要我活過哭過",
+    "album": "野花",
+    "lang": "粵語",
+    "cover": "images/covers/10.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/a8/44/85/a8448548-6d0e-e9d9-4bbf-4a411233e8db/mzaf_2506921625714336100.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0093",
+    "title": "一輩子心情",
+    "album": "野花",
+    "lang": "粵語",
+    "cover": "images/covers/10.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/7e/86/48/7e86483b-1faf-c738-5118-2fd57d2f1424/mzaf_4764075574740278800.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0094",
+    "title": "花之色",
+    "album": "野花",
+    "lang": "粵語",
+    "cover": "images/covers/10.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/a7/22/e1/a722e1a6-ed8f-3ac2-1416-43fcbd754166/mzaf_9588474736533555033.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0095",
+    "title": "夜來香",
+    "album": "野花",
+    "lang": "粵語",
+    "cover": "images/covers/10.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/34/e7/07/34e707aa-cee1-c75d-9310-a53e4d60d6c4/mzaf_14589402904514286056.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0096",
+    "title": "薔薇之戀",
+    "album": "野花",
+    "lang": "粵語",
+    "cover": "images/covers/10.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/1b/53/be/1b53bef2-e940-cc4b-03cc-c61361c57720/mzaf_16888403365245783533.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0097",
+    "title": "再生戀",
+    "album": "野花",
+    "lang": "粵語",
+    "cover": "images/covers/10.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/90/41/fc/9041fc4a-94bb-953b-d4a9-5e3b39252543/mzaf_5026233223395477354.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0098",
+    "title": "野花",
+    "album": "野花",
+    "lang": "粵語",
+    "cover": "images/covers/10.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/54/a3/48/54a34891-3c5e-40e2-d850-6661290c1b56/mzaf_5687473809427828489.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0099",
+    "title": "沒有發生的愛情",
+    "album": "野花",
+    "lang": "粵語",
+    "cover": "images/covers/10.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/e8/03/70/e80370b2-6866-559a-4279-10e7b56984a2/mzaf_17452663875439356578.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0100",
+    "title": "沒有你還是愛你",
+    "album": "野花",
+    "lang": "粵語",
+    "cover": "images/covers/10.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/31/58/34/3158346a-75ed-ca8b-1712-b06da66dfd06/mzaf_13535620651478025106.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0101",
+    "title": "醒醒",
+    "album": "回來愛的身邊",
+    "lang": "粵語",
+    "cover": "images/covers/11.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/2e/c5/99/2ec5991a-43d1-867d-b413-7252510af3b0/mzaf_9379181504163111479.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0102",
+    "title": "沒結果",
+    "album": "回來愛的身邊",
+    "lang": "粵語",
+    "cover": "images/covers/11.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/92/ad/a8/92ada845-840b-9879-5b1d-9b2cadf8f1ec/mzaf_15875297623836548942.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0103",
+    "title": "由你開始",
+    "album": "回來愛的身邊",
+    "lang": "粵語",
+    "cover": "images/covers/11.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/f2/74/17/f2741711-1058-6ba8-ea30-cf4efe6ce7c2/mzaf_15380143137287944120.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0104",
+    "title": "回來愛的身邊",
+    "album": "回來愛的身邊",
+    "lang": "粵語",
+    "cover": "images/covers/11.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/58/e6/90/58e690b5-eb7c-0ffa-ad5b-ef64307cd74a/mzaf_4355814948927111830.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0105",
+    "title": "躲起來",
+    "album": "回來愛的身邊",
+    "lang": "粵語",
+    "cover": "images/covers/11.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/33/0c/30/330c3055-71f1-c2b3-58b3-f6821fdf9890/mzaf_17673453340099420714.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0106",
+    "title": "寵愛",
+    "album": "回來愛的身邊",
+    "lang": "粵語",
+    "cover": "images/covers/11.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/8d/c5/05/8dc505b8-a482-f3a2-5854-dea05ff39114/mzaf_6427715577217291812.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0107",
+    "title": "暖暖紅塵",
+    "album": "回來愛的身邊",
+    "lang": "粵語",
+    "cover": "images/covers/11.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/98/9c/55/989c550a-2fdf-57c0-89d5-1290b35f13be/mzaf_12453027792495564486.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0108",
+    "title": "始終一天",
+    "album": "回來愛的身邊",
+    "lang": "粵語",
+    "cover": "images/covers/11.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/3c/c6/94/3cc694e8-39a7-0b3d-b510-8285d0a33e7b/mzaf_3305791436679933719.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0109",
+    "title": "愛的世界",
+    "album": "回來愛的身邊",
+    "lang": "粵語",
+    "cover": "images/covers/11.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/43/3d/a1/433da1f5-73e1-11aa-2e88-89f6cb12e42c/mzaf_4396153044003287666.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0110",
+    "title": "不捨不棄",
+    "album": "回來愛的身邊",
+    "lang": "粵語",
+    "cover": "images/covers/11.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/e6/02/c7/e602c7cb-df0b-3f7d-c9aa-3e338c6aa4a3/mzaf_14532199311754864875.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0111",
+    "title": "不如重新開始",
+    "album": "不如重新開始",
+    "lang": "粵語",
+    "cover": "images/covers/12.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/f3/e4/07/f3e40755-c250-ae7c-192c-569653e88f21/mzaf_18433910734729541200.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0112",
+    "title": "天大地大",
+    "album": "不如重新開始",
+    "lang": "粵語",
+    "cover": "images/covers/12.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/67/6c/90/676c90c3-7b8b-30a2-72ce-6be6c3611bac/mzaf_12475247163365242169.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0113",
+    "title": "紅顏未老",
+    "album": "不如重新開始",
+    "lang": "粵語",
+    "cover": "images/covers/12.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/46/ce/17/46ce172c-1983-a108-d8e8-10fcea9ea1ab/mzaf_5441599487798564684.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0114",
+    "title": "當我眼前只有你",
+    "album": "不如重新開始",
+    "lang": "粵語",
+    "cover": "images/covers/12.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/48/29/32/4829324d-a4dd-b136-8a21-0bede36f79f3/mzaf_2740796788128660038.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0115",
+    "title": "始終一天（'93翻天覆地版）",
+    "album": "不如重新開始",
+    "lang": "粵語",
+    "cover": "images/covers/12.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/02/47/02/02470256-390b-cf79-f53d-9b4f1b8e2080/mzaf_11709860999211206198.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0116",
+    "title": "震撼（Featuring 風火海）",
+    "album": "不如重新開始",
+    "lang": "粵語",
+    "cover": "images/covers/12.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/79/cf/2e/79cf2e9e-a35f-ff32-8c46-79a3b12616d2/mzaf_5843183235737255701.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0117",
+    "title": "假如讓你吻下去",
+    "album": "不如重新開始",
+    "lang": "粵語",
+    "cover": "images/covers/12.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/fc/ab/41/fcab41f9-69ab-a132-5a55-f28fe6635b69/mzaf_17718173377169245980.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0118",
+    "title": "戀愛在不遠處等我",
+    "album": "不如重新開始",
+    "lang": "粵語",
+    "cover": "images/covers/12.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/9f/cb/9b/9fcb9b85-2590-75ca-34fb-9862863bd040/mzaf_2979829997893601020.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0119",
+    "title": "風中的歌",
+    "album": "不如重新開始",
+    "lang": "粵語",
+    "cover": "images/covers/12.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/9d/c0/59/9dc0590e-f194-ab7f-1df2-c359706ea3f0/mzaf_9691315824283874624.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0120",
+    "title": "多些那些…",
+    "album": "Sandy '94",
+    "lang": "粵語",
+    "cover": "images/covers/13.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/6d/ec/ec/6decec34-741f-8a7e-5665-1fc0ed07e08b/mzaf_12924180627448411984.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0121",
+    "title": "芝加哥的故事",
+    "album": "Sandy '94",
+    "lang": "粵語",
+    "cover": "images/covers/13.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/a7/4b/0a/a74b0a93-6fa1-448c-c02d-a992022ec251/mzaf_16034504306386028984.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0122",
+    "title": "誰像你好？",
+    "album": "Sandy '94",
+    "lang": "粵語",
+    "cover": "images/covers/13.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/90/b8/99/90b899fb-5890-7428-9fa5-03c244e49d62/mzaf_13473878377678042949.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0123",
+    "title": "對不起了愛（倫永亮合唱）",
+    "album": "Sandy '94",
+    "lang": "粵語",
+    "cover": "images/covers/13.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/34/0c/61/340c61b8-289f-5aa4-e5a2-8f543085a21f/mzaf_1197714955042610856.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0124",
+    "title": "決心（remix）",
+    "album": "Sandy '94",
+    "lang": "粵語",
+    "cover": "images/covers/13.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/c4/a9/f5/c4a9f506-39ed-3ff0-99ea-b05ed9aa24ca/mzaf_5776796982452449970.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0125",
+    "title": "沉淪",
+    "album": "Sandy '94",
+    "lang": "粵語",
+    "cover": "images/covers/13.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/ca/1d/14/ca1d1437-8313-9b20-efe8-2745b2d64ae2/mzaf_7895031757789355395.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0126",
+    "title": "赤裸的秘密",
+    "album": "Sandy '94",
+    "lang": "粵語",
+    "cover": "images/covers/13.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/60/8f/ea/608fea35-3909-2a31-ff18-f5d6c1ae8298/mzaf_11477156516360184772.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0127",
+    "title": "感情不老",
+    "album": "Sandy '94",
+    "lang": "粵語",
+    "cover": "images/covers/13.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/ac/38/06/ac380692-654b-e921-b8c8-bd5c49951f18/mzaf_9161972998743054094.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0128",
+    "title": "明天醒來時",
+    "album": "Sandy '94",
+    "lang": "粵語",
+    "cover": "images/covers/13.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/0f/d2/9b/0fd29ba1-2ae5-06ac-c0b9-83792e786662/mzaf_13974002307729819917.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0129",
+    "title": "決心",
+    "album": "Sandy '94",
+    "lang": "粵語",
+    "cover": "images/covers/13.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/a3/ee/9e/a3ee9eaa-69fe-9875-f563-4e8e9373e645/mzaf_14826418049581601619.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0130",
+    "title": "天衣無縫",
+    "album": "感覺完美",
+    "lang": "粵語",
+    "cover": "images/covers/14.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/bd/44/1d/bd441de0-bd5b-ea09-b541-3b1282311eae/mzaf_8101889684366337675.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0131",
+    "title": "哭",
+    "album": "感覺完美",
+    "lang": "粵語",
+    "cover": "images/covers/14.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/52/91/46/52914679-f0d9-583d-1155-b1030798cf7e/mzaf_15539821257138304015.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0132",
+    "title": "感覺完美",
+    "album": "感覺完美",
+    "lang": "粵語",
+    "cover": "images/covers/14.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/08/a6/82/08a68258-d6bf-7f00-a653-f33fa0c4e2e5/mzaf_2260557839472222632.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0133",
+    "title": "轉身",
+    "album": "感覺完美",
+    "lang": "粵語",
+    "cover": "images/covers/14.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/61/bd/30/61bd30fd-c737-3598-5ae8-7b3e737b0095/mzaf_5020491103469735457.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0134",
+    "title": "傾慕",
+    "album": "感覺完美",
+    "lang": "粵語",
+    "cover": "images/covers/14.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/51/90/17/51901726-d523-ab80-758c-3929f34becfc/mzaf_6372137018159443306.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0135",
+    "title": "Whatever",
+    "album": "感覺完美",
+    "lang": "粵語",
+    "cover": "images/covers/14.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/e6/96/64/e6966477-0194-2291-e111-d2e3683cfa10/mzaf_3686121049751521021.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0136",
+    "title": "世界快樂",
+    "album": "感覺完美",
+    "lang": "粵語",
+    "cover": "images/covers/14.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/52/29/62/52296259-47a1-b479-0249-65a002de1fdb/mzaf_16460087651815841784.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0137",
+    "title": "有緣千里",
+    "album": "感覺完美",
+    "lang": "粵語",
+    "cover": "images/covers/14.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/75/e7/e0/75e7e06f-c113-0223-7461-d1a10e11b304/mzaf_871040752962949559.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0138",
+    "title": "開始",
+    "album": "感覺完美",
+    "lang": "粵語",
+    "cover": "images/covers/14.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/d4/e1/42/d4e14265-dc7b-e9fc-011a-9bfcd8dd7ff0/mzaf_4190942670309974073.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0139",
+    "title": "勇敢",
+    "album": "感覺完美",
+    "lang": "粵語",
+    "cover": "images/covers/14.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/e9/96/76/e9967661-af99-adf7-7ba4-29ecd864ea91/mzaf_4278366506939911259.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0140",
+    "title": "Incomplete",
+    "album": "本色",
+    "lang": "粵語",
+    "cover": "images/covers/15.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/92/9c/89/929c89d3-a139-b10c-72c2-d1c00eedefba/mzaf_9455644997692906252.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0141",
+    "title": "沒結果之後",
+    "album": "本色",
+    "lang": "粵語",
+    "cover": "images/covers/15.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/a5/b9/ee/a5b9eec9-55c4-1147-76ba-131491d12905/mzaf_855131451649512642.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0142",
+    "title": "還是我 還是你",
+    "album": "本色",
+    "lang": "粵語",
+    "cover": "images/covers/15.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/16/f8/09/16f8091b-1355-2a88-ad9f-2a7a42695b44/mzaf_15507538910083492159.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0143",
+    "title": "時光本是無罪",
+    "album": "本色",
+    "lang": "粵語",
+    "cover": "images/covers/15.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/a6/ff/7d/a6ff7d75-f1ed-2796-5db8-329b4c91c731/mzaf_13514920772802317649.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0144",
+    "title": "為何他會離開你",
+    "album": "本色",
+    "lang": "粵語",
+    "cover": "images/covers/15.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/27/2a/35/272a3547-0be4-9a21-dc9c-129a01b37206/mzaf_17226491184991197877.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0145",
+    "title": "本色",
+    "album": "本色",
+    "lang": "粵語",
+    "cover": "images/covers/15.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/d9/5b/93/d95b93ed-1523-5558-c6a6-2ba8f8399561/mzaf_14175413762914551585.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0146",
+    "title": "不敢奢想改變你",
+    "album": "本色",
+    "lang": "粵語",
+    "cover": "images/covers/15.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/3f/f6/7b/3ff67bb4-7937-c416-c7b8-076e1b54dcbf/mzaf_6296597971087954379.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0147",
+    "title": "聆聽",
+    "album": "本色",
+    "lang": "粵語",
+    "cover": "images/covers/15.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/7a/49/58/7a4958fd-2b6c-02e1-be6d-1326a542a4aa/mzaf_12806905490885905653.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0148",
+    "title": "夜有所夢",
+    "album": "本色",
+    "lang": "粵語",
+    "cover": "images/covers/15.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/10/09/32/1009327a-e16b-4148-356f-dd3b61fcd42e/mzaf_1233794352463739687.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0149",
+    "title": "再見悲哀",
+    "album": "本色",
+    "lang": "粵語",
+    "cover": "images/covers/15.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/78/9d/d1/789dd1cc-a4f7-92e2-ade4-dc9e233313e4/mzaf_17802552021647806013.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0150",
+    "title": "赤裸的秘密",
+    "album": "Re:Workz",
+    "lang": "粵語",
+    "cover": "images/covers/16.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview126/v4/50/19/77/501977c6-13a6-20b0-8935-d48853f84562/mzaf_17433015444097674448.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0151",
+    "title": "破曉",
+    "album": "Re:Workz",
+    "lang": "粵語",
+    "cover": "images/covers/16.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview116/v4/ba/5a/00/ba5a00f4-6e90-7775-57d7-1137e5ad50a2/mzaf_18243183605908354468.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0152",
+    "title": "前塵",
+    "album": "Re:Workz",
+    "lang": "粵語",
+    "cover": "images/covers/16.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview126/v4/5d/51/1b/5d511b9c-4587-19ed-5081-8590aee74039/mzaf_3062568656799438129.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0153",
+    "title": "下雨天（恭碩良合唱）",
+    "album": "Re:Workz",
+    "lang": "粵語",
+    "cover": "images/covers/16.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview126/v4/c9/9d/16/c99d16dd-9774-691b-6d63-4e33fdb6cc62/mzaf_208371014235219628.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0154",
+    "title": "喜樂",
+    "album": "Re:Workz",
+    "lang": "粵語",
+    "cover": "images/covers/16.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview126/v4/49/6f/e2/496fe2d1-4808-ec14-8ed6-c79dec78ff26/mzaf_18022526413029286187.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0155",
+    "title": "哭",
+    "album": "Re:Workz",
+    "lang": "粵語",
+    "cover": "images/covers/16.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview126/v4/6f/1f/6a/6f1f6a78-1b28-e1e8-ed36-14fcf0f69e28/mzaf_18367093711798524924.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0156",
+    "title": "沉淪",
+    "album": "Re:Workz",
+    "lang": "粵語",
+    "cover": "images/covers/16.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview116/v4/ef/d3/e1/efd3e131-1df5-0463-d9c5-e63d5039d32f/mzaf_18192577989228699322.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0157",
+    "title": "點唱機",
+    "album": "Re:Workz",
+    "lang": "粵語",
+    "cover": "images/covers/16.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview126/v4/4d/e5/7a/4de57a5d-f233-f4d3-2f44-05740d09ab8e/mzaf_3298084495785454029.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0158",
+    "title": "願",
+    "album": "Re:Workz",
+    "lang": "粵語",
+    "cover": "images/covers/16.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview116/v4/b7/00/1d/b7001dc5-581d-ecf2-5129-38e8123e26aa/mzaf_9494292611362629874.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0159",
+    "title": "李香蘭",
+    "album": "陪著我走",
+    "lang": "粵語",
+    "cover": "images/covers/17.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/90/b9/e0/90b9e05c-b93b-2bff-4c5a-9c90e2b2887d/mzaf_4737172833009460174.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0160",
+    "title": "殘夢",
+    "album": "陪著我走",
+    "lang": "粵語",
+    "cover": "images/covers/17.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/74/08/1f/74081f61-df2e-21f3-9f0e-234611cc398c/mzaf_5123847525424942380.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0161",
+    "title": "鐵塔凌雲",
+    "album": "陪著我走",
+    "lang": "粵語",
+    "cover": "images/covers/17.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/42/70/e1/4270e109-09d3-fd8b-de06-7cab2dfe7cb6/mzaf_14122797867988474565.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0162",
+    "title": "陪著你走",
+    "album": "陪著我走",
+    "lang": "粵語",
+    "cover": "images/covers/17.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/29/75/5b/29755b9c-a635-426b-8a55-d190d8eea84f/mzaf_8795233697896783989.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0163",
+    "title": "分分鐘需要你",
+    "album": "陪著我走",
+    "lang": "粵語",
+    "cover": "images/covers/17.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/02/29/4f/02294f4a-aca9-8548-d71d-6f64ace24b0f/mzaf_14122376328389376692.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0164",
+    "title": "笛子姑娘",
+    "album": "陪著我走",
+    "lang": "粵語",
+    "cover": "images/covers/17.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/c2/14/5a/c2145a19-71fd-6a6c-f263-f923cc97aad8/mzaf_8379542264626676961.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0165",
+    "title": "天各一方",
+    "album": "陪著我走",
+    "lang": "粵語",
+    "cover": "images/covers/17.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/da/a8/96/daa89690-2c29-8b52-b743-8b4bd67d0166/mzaf_9750403744842126852.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0166",
+    "title": "童年時",
+    "album": "陪著我走",
+    "lang": "粵語",
+    "cover": "images/covers/17.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/a8/ca/c3/a8cac3b3-9c7b-da2b-bc88-3e8803933769/mzaf_46143557064656123.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0167",
+    "title": "愛的根源",
+    "album": "陪著我走",
+    "lang": "粵語",
+    "cover": "images/covers/17.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/05/4f/0c/054f0cd8-0b8f-7f76-7a53-02a0a92b10e4/mzaf_12065609533185409941.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0168",
+    "title": "看吧！",
+    "album": "Open Up",
+    "lang": "粵語",
+    "cover": "images/covers/18.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/11/50/3e/11503e99-3e02-416f-6287-0bffc178a5a7/mzaf_17329352735228307250.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0169",
+    "title": "枯榮",
+    "album": "蓋亞",
+    "lang": "粵語",
+    "cover": "images/covers/19.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/89/ed/ba/89edba84-c23d-7c44-04ac-a890b27560cd/mzaf_8920621558480956947.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0170",
+    "title": "兩心花",
+    "album": "蓋亞",
+    "lang": "粵語",
+    "cover": "images/covers/19.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview114/v4/ba/7e/9d/ba7e9dce-70b9-44b9-da08-39e32ae66dc8/mzaf_1137147549789804027.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0171",
+    "title": "無淚眼",
+    "album": "蓋亞",
+    "lang": "粵語",
+    "cover": "images/covers/19.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview114/v4/f4/aa/ee/f4aaee6c-134d-2895-d285-efc2ff91e2c9/mzaf_5994546371093844856.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0172",
+    "title": "千禧願",
+    "album": "林憶蓮's",
+    "lang": "粵語",
+    "cover": "images/covers/20.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/b6/fa/fa/b6fafa1e-bacf-0227-a499-cdbdc16ba2ed/mzaf_9721952466503285740.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0173",
+    "title": "對不起謝謝你",
+    "album": "林憶蓮's",
+    "lang": "粵語",
+    "cover": "images/covers/20.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/94/aa/47/94aa473f-bce5-9461-b2b3-281199dd9257/mzaf_9095827787142922561.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0174",
+    "title": "願",
+    "album": "電影《晚9朝5》原聲大碟",
+    "lang": "粵語",
+    "cover": "images/covers/21.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/bb/51/ec/bb51ec11-3d6b-9cda-e3d6-93e2bd16967e/mzaf_7133524300684422484.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0175",
+    "title": "寂寞流星群",
+    "album": "2001蓮",
+    "lang": "粵語",
+    "cover": "images/covers/22.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/4e/50/b4/4e50b400-9bc4-2d27-3541-43e37d96fc94/mzaf_14948778902064878597.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0176",
+    "title": "天地再生",
+    "album": "回憶總是溫柔的",
+    "lang": "粵語",
+    "cover": "images/covers/23.jpg",
+    "coverConfirmed": true,
+    "preview_url": null
+  },
+  {
+    "id": "c0177",
+    "title": "無憾",
+    "album": "傾斜都市燒燒燒 Dance Mega Mix",
+    "lang": "粵語",
+    "cover": "images/covers/24.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/f1/9c/fc/f19cfcac-63ae-b72b-ba0c-8421a2f68941/mzaf_3170264261444955721.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0178",
+    "title": "推搪",
+    "album": "都市觸覺之推搪",
+    "lang": "粵語",
+    "cover": "images/covers/25.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/a6/c5/dc/a6c5dc3e-4f70-774c-0611-676337f92cff/mzaf_12028176845154576480.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0179",
+    "title": "冬季來的女人",
+    "album": "都市觸覺之推搪",
+    "lang": "粵語",
+    "cover": "images/covers/25.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/82/fc/76/82fc7685-498f-9f29-c40a-64e58064463c/mzaf_5628271919738847944.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0180",
+    "title": "一分鐘都市一分鐘戀愛",
+    "album": "City Rhythm Take Two",
+    "lang": "粵語",
+    "cover": "images/covers/26.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/cd/93/15/cd9315b1-1243-900f-dc76-8860c1c9e6c3/mzaf_420009089891714736.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0181",
+    "title": "溫柔的你",
+    "album": "故事的角色",
+    "lang": "粵語",
+    "cover": "images/covers/27.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/42/65/b9/4265b996-bd31-eb87-d2c7-bf50336e198f/mzaf_10993378423172133817.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0182",
+    "title": "暗示",
+    "album": "滿天星音樂, Vol.1（粵語版）",
+    "lang": "粵語",
+    "cover": "images/covers/28.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/8a/89/7b/8a897b9a-33a7-ebb7-5648-2171cefb6df5/mzaf_7786347076304139987.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0183",
+    "title": "如何愛下去",
+    "album": "關於她的愛情故事",
+    "lang": "粵語",
+    "cover": "images/covers/29.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/ca/e9/07/cae9075c-372d-6749-8c4f-f01622965ab8/mzaf_1672342586216849767.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0184",
+    "title": "情人",
+    "album": "關於她的愛情故事",
+    "lang": "粵語",
+    "cover": "images/covers/29.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/cc/05/99/cc05992a-fa84-d7b9-378c-a41244a47440/mzaf_14217126493874948465.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0185",
+    "title": "赤裸的秘密（劇場版）",
+    "album": "關於她的愛情故事",
+    "lang": "粵語",
+    "cover": "images/covers/29.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/b1/f7/ef/b1f7efef-c1be-2ad6-393f-f24a5efdd54a/mzaf_6376964421360930604.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0186",
+    "title": "回歸",
+    "album": "Love Returns",
+    "lang": "粵語",
+    "cover": "images/covers/30.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview124/v4/11/c5/b6/11c5b640-4515-259b-0d05-bf387c1e39e9/mzaf_5674571574938287633.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0187",
+    "title": "綠水清風",
+    "album": "Dragon Dancing",
+    "lang": "粵語",
+    "cover": "images/covers/32.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/89/97/90/899790b4-7114-77a4-d58a-77a0d215d5ca/mzaf_10687230876845460039.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0188",
+    "title": "踏上成長路（杜德偉、張學友、劉美君、劉德華合唱）",
+    "album": "香港心連心",
+    "lang": "粵語",
+    "cover": "images/covers/31.jpg",
+    "coverConfirmed": true,
+    "preview_url": null
+  },
+  {
+    "id": "c0189",
+    "title": "成長路",
+    "album": "華納白金經典十三首第二輯",
+    "lang": "粵語",
+    "cover": "images/covers/33.webp",
+    "coverConfirmed": true,
+    "preview_url": null
+  },
+  {
+    "id": "c0190",
+    "title": "兩個女人（梅艷芳合唱）",
+    "album": "With",
+    "lang": "粵語",
+    "cover": "images/covers/34.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview126/v4/bf/77/cc/bf77cc47-de70-bb0f-28ea-2ac842e7c4aa/mzaf_11708759989158863616.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0191",
+    "title": "下落不明（黃耀明合唱）",
+    "album": "我的廿一世紀",
+    "lang": "粵語",
+    "cover": "images/covers/35.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/7a/02/6f/7a026f36-6534-ffd1-fe7d-9339e867a8d1/mzaf_5784992615845475048.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0192",
+    "title": "路過蜻蜓",
+    "album": "ReImagine Leslie Cheung",
+    "lang": "粵語",
+    "cover": "images/covers/36.png",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/4c/47/bc/4c47bc6b-9cc1-2336-952d-8d7dd6d26c34/mzaf_11463044152750999905.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0193",
+    "title": "幾個風雨天（林志美、陳秀雯、甄妮合唱）",
+    "album": "Diva Remix",
+    "lang": "粵語",
+    "cover": "images/covers/37.webp",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/9e/4d/e4/9e4de4e9-3e7c-2ead-cf4e-576d7b042de5/mzaf_530767194586422465.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0194",
+    "title": "我沒有恨誰 (白嘉倩合唱)",
+    "album": "我有我",
+    "lang": "粵語",
+    "cover": "images/covers/38.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/30/70/4e/30704ef0-0d16-59f1-f48b-2a8d3258aeb1/mzaf_16476775620862430814.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0195",
+    "title": "Encore",
+    "album": "Encore",
+    "lang": "粵語",
+    "cover": "images/covers/39.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/83/11/a7/8311a745-fa35-9143-9075-dc3afc19538f/mzaf_7237753445177867211.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0196",
+    "title": "Diva",
+    "album": "Encore",
+    "lang": "粵語",
+    "cover": "images/covers/39.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/cb/3e/13/cb3e131e-780c-f5d9-ba36-0c4dbda2cf05/mzaf_1087091620851834462.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0197",
+    "title": "日與夜（獨唱版）",
+    "album": "Encore",
+    "lang": "粵語",
+    "cover": "images/covers/39.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/c9/11/9e/c9119e82-9bb8-5cbf-04f0-8ec45ba57278/mzaf_15123842577282754685.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0198",
+    "title": "我們都愛",
+    "album": "Encore",
+    "lang": "粵語",
+    "cover": "images/covers/39.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/27/63/85/27638535-a715-5b0a-60ce-d2f64d158d58/mzaf_17662974342114347431.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0199",
+    "title": "你令我性感",
+    "album": "Encore",
+    "lang": "粵語",
+    "cover": "images/covers/39.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/b9/0a/ab/b90aab13-a07f-9900-1fec-d5cbaf4e1f01/mzaf_16501067485569797185.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0200",
+    "title": "不不不",
+    "album": "Encore",
+    "lang": "粵語",
+    "cover": "images/covers/39.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/b0/dc/33/b0dc3344-326f-c6dc-5190-09e8637594ea/mzaf_7786512276342449638.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0201",
+    "title": "燒",
+    "album": "Encore",
+    "lang": "粵語",
+    "cover": "images/covers/39.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/6b/b3/ba/6bb3ba68-8a37-148f-475a-c89125cfa3fd/mzaf_15477826756729509946.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0202",
+    "title": "一分鐘都市一分鐘戀愛",
+    "album": "Encore",
+    "lang": "粵語",
+    "cover": "images/covers/39.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/d8/96/7f/d8967f21-a766-ef74-bf41-f409237e7f4a/mzaf_11699734435507293558.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0203",
+    "title": "逃離鋼筋森林",
+    "album": "Encore",
+    "lang": "粵語",
+    "cover": "images/covers/39.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/5b/d5/69/5bd5694e-83e7-3a6c-8ed8-8b7c03f9e819/mzaf_14087583575537398166.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0204",
+    "title": "傾斜",
+    "album": "Encore",
+    "lang": "粵語",
+    "cover": "images/covers/39.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/07/d7/8f/07d78f56-c37f-d226-f53e-947503102bff/mzaf_2734218813207557262.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0205",
+    "title": "日與夜（張學友合唱）",
+    "album": "Encore",
+    "lang": "粵語",
+    "cover": "images/covers/39.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/de/c3/a8/dec3a8ad-6d49-85f6-870f-ff873cfb4f5e/mzaf_9093448613327383194.plus.aac.p.m4a"
+  },
+  {
+    "id": "m0001",
+    "title": "愛上一個不回家的人",
+    "album": "愛上一個不回家的人",
+    "lang": "國語",
+    "cover": "images/covers/40.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/e7/4e/a0/e74ea0b2-a36d-4f0f-e8a6-3b2be0289c23/mzaf_3847511093235594645.plus.aac.p.m4a"
+  },
+  {
+    "id": "m0002",
+    "title": "你給我的愛不是愛",
+    "album": "愛上一個不回家的人",
+    "lang": "國語",
+    "cover": "images/covers/40.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/38/65/6c/38656c84-cce1-c2e9-a946-545a7df58eb8/mzaf_383394161567859362.plus.aac.p.m4a"
+  },
+  {
+    "id": "m0003",
+    "title": "你是我的男人",
+    "album": "愛上一個不回家的人",
+    "lang": "國語",
+    "cover": "images/covers/40.jpg",
+    "coverConfirmed": true,
+    "preview_url": null
+  },
+  {
+    "id": "m0004",
+    "title": "哈囉寂寞",
+    "album": "愛上一個不回家的人",
+    "lang": "國語",
+    "cover": "images/covers/40.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/ee/ed/3e/eeed3e0a-0c17-124b-6195-7f1dce87d889/mzaf_18113071249566634065.plus.aac.p.m4a"
+  },
+  {
+    "id": "m0005",
+    "title": "情人的眼淚",
+    "album": "愛上一個不回家的人",
+    "lang": "國語",
+    "cover": "images/covers/40.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/cc/1b/a1/cc1ba14c-e5c4-fd31-e200-171fb3d486cf/mzaf_3641679495881099541.plus.aac.p.m4a"
+  },
+  {
+    "id": "m0006",
+    "title": "走在大街的女子",
+    "album": "愛上一個不回家的人",
+    "lang": "國語",
+    "cover": "images/covers/40.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/03/72/96/03729675-87b5-0a1f-3434-c86d6b0f676f/mzaf_7210465414716670751.plus.aac.p.m4a"
+  },
+  {
+    "id": "m0007",
+    "title": "夜長夢多",
+    "album": "愛上一個不回家的人",
+    "lang": "國語",
+    "cover": "images/covers/40.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/df/71/8f/df718f83-08e4-f691-15d5-7cbbfa6be70a/mzaf_109323667518327678.plus.aac.p.m4a"
+  },
+  {
+    "id": "m0008",
+    "title": "是該結束的時候",
+    "album": "愛上一個不回家的人",
+    "lang": "國語",
+    "cover": "images/covers/40.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/4c/66/cf/4c66cf71-12dc-a041-c186-3ab15a4241c0/mzaf_10956649817316849563.plus.aac.p.m4a"
+  },
+  {
+    "id": "m0009",
+    "title": "愛傷害了你我",
+    "album": "愛上一個不回家的人",
+    "lang": "國語",
+    "cover": "images/covers/40.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/f8/40/9b/f8409bc7-13f4-6505-e468-fe73d9a6bc2e/mzaf_11197829553591906416.plus.aac.p.m4a"
+  },
+  {
+    "id": "m0010",
+    "title": "灰色的逃脫",
+    "album": "都市心",
+    "lang": "國語",
+    "cover": "images/covers/41.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/97/04/b3/9704b33f-41ff-5cbc-757a-af7ca4dc3c8f/mzaf_1005078334096124219.plus.aac.p.m4a"
+  },
+  {
+    "id": "m0011",
+    "title": "怱怱",
+    "album": "都市心",
+    "lang": "國語",
+    "cover": "images/covers/41.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/70/81/48/7081485f-3d9c-01ce-ba03-2ce232fa9ab5/mzaf_6799824482887927567.plus.aac.p.m4a"
+  },
+  {
+    "id": "m0012",
+    "title": "誰是我的唯一",
+    "album": "都市心",
+    "lang": "國語",
+    "cover": "images/covers/41.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/54/d3/d0/54d3d0b3-e91f-9ab6-06b5-88a57466f53a/mzaf_4858931702934868459.plus.aac.p.m4a"
+  },
+  {
+    "id": "m0013",
+    "title": "我的夜生活",
+    "album": "都市心",
+    "lang": "國語",
+    "cover": "images/covers/41.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/79/23/4f/79234f0a-ee0a-7e7a-c336-f7496a82f075/mzaf_15112527684498026578.plus.aac.p.m4a"
+  },
+  {
+    "id": "m0014",
+    "title": "夜來香",
+    "album": "都市心",
+    "lang": "國語",
+    "cover": "images/covers/41.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/34/e7/07/34e707aa-cee1-c75d-9310-a53e4d60d6c4/mzaf_14589402904514286056.plus.aac.p.m4a"
+  },
+  {
+    "id": "m0015",
+    "title": "破曉",
+    "album": "都市心",
+    "lang": "國語",
+    "cover": "images/covers/41.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/f9/53/c6/f953c63b-ebf1-1be1-661a-066f17e50c44/mzaf_6340663486953146142.plus.aac.p.m4a"
+  },
+  {
+    "id": "m0016",
+    "title": "前塵",
+    "album": "都市心",
+    "lang": "國語",
+    "cover": "images/covers/41.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/b9/72/c5/b972c5cf-0b0c-d62e-e9d9-3aa8ba9cd72f/mzaf_6257036196785248414.plus.aac.p.m4a"
+  },
+  {
+    "id": "m0017",
+    "title": "我只是個不擅等待的情人",
+    "album": "都市心",
+    "lang": "國語",
+    "cover": "images/covers/41.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/af/9e/56/af9e56b0-f325-a21e-2014-afa3c4efafce/mzaf_429651337017070236.plus.aac.p.m4a"
+  },
+  {
+    "id": "m0018",
+    "title": "放縱全部的愛",
+    "album": "都市心",
+    "lang": "國語",
+    "cover": "images/covers/41.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/c4/bd/f3/c4bdf320-fc15-8567-b8bc-7e841dbc18ab/mzaf_8505065647983916108.plus.aac.p.m4a"
+  },
+  {
+    "id": "m0019",
+    "title": "危險關係",
+    "album": "都市心",
+    "lang": "國語",
+    "cover": "images/covers/41.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/98/af/84/98af8475-dcbb-44ba-648b-51a39d8ecf19/mzaf_16271646323263438144.plus.aac.p.m4a"
+  },
+  {
+    "id": "m0020",
+    "title": "愛上一個不回家的人之意亂情迷 3 A.M.",
+    "album": "都市心",
+    "lang": "國語",
+    "cover": "images/covers/41.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/e0/4a/08/e04a08ea-d3bc-6a84-118d-26da951199db/mzaf_12921166740776731514.plus.aac.p.m4a"
+  },
+  {
+    "id": "m0021",
+    "title": "不必在乎我是誰",
+    "album": "不必在乎我是誰",
+    "lang": "國語",
+    "cover": "images/covers/42.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/fb/6b/c0/fb6bc040-7e8e-8bab-9775-d60b4a433c39/mzaf_12031003013978263011.plus.aac.p.m4a"
+  },
+  {
+    "id": "m0022",
+    "title": "非愛不可",
+    "album": "不必在乎我是誰",
+    "lang": "國語",
+    "cover": "images/covers/42.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/d5/6b/3e/d56b3e88-0ded-8a52-2593-4b695be6ba8c/mzaf_130017672004557979.plus.aac.p.m4a"
+  },
+  {
+    "id": "m0023",
+    "title": "還是不要說抱歉",
+    "album": "不必在乎我是誰",
+    "lang": "國語",
+    "cover": "images/covers/42.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/82/02/71/8202718d-470a-001a-8302-6485f217ac18/mzaf_14148844181026312470.plus.aac.p.m4a"
+  },
+  {
+    "id": "m0024",
+    "title": "再生戀",
+    "album": "不必在乎我是誰",
+    "lang": "國語",
+    "cover": "images/covers/42.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/01/5d/12/015d1265-926e-d1f6-bfcd-89b63215e5b3/mzaf_8285065398996227481.plus.aac.p.m4a"
+  },
+  {
+    "id": "m0025",
+    "title": "是情非情",
+    "album": "不必在乎我是誰",
+    "lang": "國語",
+    "cover": "images/covers/42.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/f0/35/d6/f035d68b-1dbd-e571-c5bd-857f2beb978e/mzaf_17744947128646913465.plus.aac.p.m4a"
+  },
+  {
+    "id": "m0026",
+    "title": "當愛已成往事（李宗盛合唱）",
+    "album": "不必在乎我是誰",
+    "lang": "國語",
+    "cover": "images/covers/42.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/59/66/53/5966530b-09c9-bedc-b602-192c8b5afcde/mzaf_8538010883173241782.plus.aac.p.m4a"
+  },
+  {
+    "id": "m0027",
+    "title": "讓愛人去流浪",
+    "album": "不必在乎我是誰",
+    "lang": "國語",
+    "cover": "images/covers/42.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/cc/8a/6c/cc8a6cb0-db85-7e16-8c67-dea5e6cb3946/mzaf_3803850738150098943.plus.aac.p.m4a"
+  },
+  {
+    "id": "m0028",
+    "title": "醒醒",
+    "album": "不必在乎我是誰",
+    "lang": "國語",
+    "cover": "images/covers/42.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/8a/c1/d3/8ac1d3db-8ce6-3855-c164-25cb866d8ed7/mzaf_12669090986508007653.plus.aac.p.m4a"
+  },
+  {
+    "id": "m0029",
+    "title": "給等最久的人",
+    "album": "不必在乎我是誰",
+    "lang": "國語",
+    "cover": "images/covers/42.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/0f/32/d6/0f32d6e3-17f4-2af7-d8be-bed6c3be65b9/mzaf_13482894819446696681.plus.aac.p.m4a"
+  },
+  {
+    "id": "m0030",
+    "title": "快樂的壞東西",
+    "album": "不必在乎我是誰",
+    "lang": "國語",
+    "cover": "images/covers/42.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/c6/b0/85/c6b0858d-f370-13e9-8297-5e474450211f/mzaf_6135315694243349238.plus.aac.p.m4a"
+  },
+  {
+    "id": "m0031",
+    "title": "只要珍惜",
+    "album": "不必在乎我是誰",
+    "lang": "國語",
+    "cover": "images/covers/42.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/a2/17/4f/a2174f88-7f5b-8e3d-7ba6-93c9b39eefd3/mzaf_8847370073557584519.plus.aac.p.m4a"
+  },
+  {
+    "id": "m0032",
+    "title": "兩個人的路",
+    "album": "憶往情深…－新曲+精選",
+    "lang": "國語",
+    "cover": "images/covers/43.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/13/73/84/137384ed-7ba0-7a0b-43ea-fb0e5bf0ba6b/mzaf_11150345280663009552.plus.aac.p.m4a"
+  },
+  {
+    "id": "m0033",
+    "title": "傷痕",
+    "album": "Love, Sandy",
+    "lang": "國語",
+    "cover": "images/covers/44.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/8b/02/24/8b0224f5-03a9-e339-eab4-ff6d89a53329/mzaf_9411208116260212987.plus.aac.p.m4a"
+  },
+  {
+    "id": "m0034",
+    "title": "這些那些",
+    "album": "Love, Sandy",
+    "lang": "國語",
+    "cover": "images/covers/44.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/9f/d6/4f/9fd64f56-fa1f-c78c-5463-da5cb98baec2/mzaf_16421690764336257031.plus.aac.p.m4a"
+  },
+  {
+    "id": "m0035",
+    "title": "聽說愛情回來過",
+    "album": "Love, Sandy",
+    "lang": "國語",
+    "cover": "images/covers/44.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/21/78/b9/2178b982-56f5-84cf-1609-672ed066b879/mzaf_15587270743115863591.plus.aac.p.m4a"
+  },
+  {
+    "id": "m0036",
+    "title": "知難不退",
+    "album": "Love, Sandy",
+    "lang": "國語",
+    "cover": "images/covers/44.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/b1/43/2b/b1432b51-0f04-d7bd-8a94-951286c33d7a/mzaf_669552019949698858.plus.aac.p.m4a"
+  },
+  {
+    "id": "m0037",
+    "title": "有所謂",
+    "album": "Love, Sandy",
+    "lang": "國語",
+    "cover": "images/covers/44.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/9a/9d/63/9a9d63e7-660f-fb1c-b073-1393baafc619/mzaf_16782235110431312803.plus.aac.p.m4a"
+  },
+  {
+    "id": "m0038",
+    "title": "為你我受冷風吹",
+    "album": "Love, Sandy",
+    "lang": "國語",
+    "cover": "images/covers/44.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/d6/87/fe/d687fecd-fb0f-301d-b567-6df9a77fa088/mzaf_9940298404947938765.plus.aac.p.m4a"
+  },
+  {
+    "id": "m0039",
+    "title": "愛不了多久",
+    "album": "Love, Sandy",
+    "lang": "國語",
+    "cover": "images/covers/44.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/cd/2a/b6/cd2ab6e7-1fe1-5f54-ef23-a42cda63854b/mzaf_14050689172330248795.plus.aac.p.m4a"
+  },
+  {
+    "id": "m0040",
+    "title": "不愛的理由",
+    "album": "Love, Sandy",
+    "lang": "國語",
+    "cover": "images/covers/44.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/d5/bf/37/d5bf3776-49db-f7f4-832a-c1bb8e892cfa/mzaf_18145872900719463692.plus.aac.p.m4a"
+  },
+  {
+    "id": "m0041",
+    "title": "影子情人",
+    "album": "Love, Sandy",
+    "lang": "國語",
+    "cover": "images/covers/44.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/1b/62/0f/1b620fc1-3e53-92da-e6d3-7de9ace1a9a4/mzaf_5952792200071712320.plus.aac.p.m4a"
+  },
+  {
+    "id": "m0042",
+    "title": "夜太黑",
+    "album": "夜太黑",
+    "lang": "國語",
+    "cover": "images/covers/45.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/46/8c/0d/468c0d54-9a89-4876-1a01-ff1b3f5e8fc6/mzaf_14017180233805344026.plus.aac.p.m4a"
+  },
+  {
+    "id": "m0043",
+    "title": "不許哭",
+    "album": "夜太黑",
+    "lang": "國語",
+    "cover": "images/covers/45.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/cd/a6/3b/cda63b8f-6969-21ca-b659-889590f4f98e/mzaf_5243074715245762867.plus.aac.p.m4a"
+  },
+  {
+    "id": "m0044",
+    "title": "誘惑的街",
+    "album": "夜太黑",
+    "lang": "國語",
+    "cover": "images/covers/45.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/64/36/2e/64362ee6-2374-3dfa-e383-d52e197f5c92/mzaf_2464222356262036878.plus.aac.p.m4a"
+  },
+  {
+    "id": "m0045",
+    "title": "我明白（李宗盛合唱）",
+    "album": "夜太黑",
+    "lang": "國語",
+    "cover": "images/covers/45.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/87/ca/3e/87ca3e3b-6759-88d8-66a2-1fb44057f18c/mzaf_17879158770371432353.plus.aac.p.m4a"
+  },
+  {
+    "id": "m0046",
+    "title": "讓我試",
+    "album": "夜太黑",
+    "lang": "國語",
+    "cover": "images/covers/45.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/ad/45/b3/ad45b329-4055-13a8-6c98-2eedd658c807/mzaf_8843578670657249114.plus.aac.p.m4a"
+  },
+  {
+    "id": "m0047",
+    "title": "野風",
+    "album": "夜太黑",
+    "lang": "國語",
+    "cover": "images/covers/45.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/4c/cf/86/4ccf86e6-781f-3e31-bf8d-7d5bdd1b6dd2/mzaf_2022250054699715422.plus.aac.p.m4a"
+  },
+  {
+    "id": "m0048",
+    "title": "我心仍在（杜德偉合唱）",
+    "album": "夜太黑",
+    "lang": "國語",
+    "cover": "images/covers/45.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/80/92/f7/8092f776-e0b3-8b20-0397-9ae047712c87/mzaf_10875922032025076241.plus.aac.p.m4a"
+  },
+  {
+    "id": "m0049",
+    "title": "愈愛愈美麗",
+    "album": "夜太黑",
+    "lang": "國語",
+    "cover": "images/covers/45.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/b5/25/8c/b5258cb8-2f84-41e7-414f-01008257a5c2/mzaf_12789638394790033618.plus.aac.p.m4a"
+  },
+  {
+    "id": "m0050",
+    "title": "我明白（獨唱版）",
+    "album": "夜太黑",
+    "lang": "國語",
+    "cover": "images/covers/45.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/8e/e2/32/8ee23276-5170-3428-895c-e0051e2f4311/mzaf_1031327089889667832.plus.aac.p.m4a"
+  },
+  {
+    "id": "m0051",
+    "title": "鏗鏘玫瑰",
+    "album": "鏗鏘玫瑰",
+    "lang": "國語",
+    "cover": "images/covers/46.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/3f/8f/f2/3f8ff272-baeb-0c80-7fc8-a2cddec3c1e1/mzaf_2681193194276826245.plus.aac.p.m4a"
+  },
+  {
+    "id": "m0052",
+    "title": "理由",
+    "album": "鏗鏘玫瑰",
+    "lang": "國語",
+    "cover": "images/covers/46.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/6a/11/3f/6a113f08-1c98-d050-1007-b3fda43a0db3/mzaf_7820715768706128188.plus.aac.p.m4a"
+  },
+  {
+    "id": "m0053",
+    "title": "Let Go",
+    "album": "鏗鏘玫瑰",
+    "lang": "國語",
+    "cover": "images/covers/46.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/a0/16/a0/a016a0ff-52e7-379e-9388-66daf500fbcc/mzaf_2039980281348096788.plus.aac.p.m4a"
+  },
+  {
+    "id": "m0054",
+    "title": "風箏",
+    "album": "鏗鏘玫瑰",
+    "lang": "國語",
+    "cover": "images/covers/46.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/e1/31/f3/e131f31c-8e33-fa90-ed8c-b3101b58894e/mzaf_4383225854544117014.plus.aac.p.m4a"
+  },
+  {
+    "id": "m0055",
+    "title": "讓一讓",
+    "album": "鏗鏘玫瑰",
+    "lang": "國語",
+    "cover": "images/covers/46.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/88/4b/c9/884bc9c5-765a-6299-bc51-6a85dbae96cb/mzaf_17648982055452845874.plus.aac.p.m4a"
+  },
+  {
+    "id": "m0056",
+    "title": "飛翔",
+    "album": "鏗鏘玫瑰",
+    "lang": "國語",
+    "cover": "images/covers/46.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/f6/c3/33/f6c333cb-5371-23d2-1451-42e1b1dccd38/mzaf_14904185090406237843.plus.aac.p.m4a"
+  },
+  {
+    "id": "m0057",
+    "title": "明白",
+    "album": "鏗鏘玫瑰",
+    "lang": "國語",
+    "cover": "images/covers/46.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/eb/50/45/eb504539-1c3c-d7b5-fd43-cfee76909e01/mzaf_5607316468645771923.plus.aac.p.m4a"
+  },
+  {
+    "id": "m0058",
+    "title": "頹廢",
+    "album": "鏗鏘玫瑰",
+    "lang": "國語",
+    "cover": "images/covers/46.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/4e/ba/c2/4ebac2f6-89bc-720d-4fbf-b01ad4141d40/mzaf_4336671129214602532.plus.aac.p.m4a"
+  },
+  {
+    "id": "m0059",
+    "title": "該不該",
+    "album": "鏗鏘玫瑰",
+    "lang": "國語",
+    "cover": "images/covers/46.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/e9/0e/2b/e90e2bf2-8281-4db3-c204-8112aa644396/mzaf_2544522814270866655.plus.aac.p.m4a"
+  },
+  {
+    "id": "m0060",
+    "title": "飛翔（Power Landing Version）",
+    "album": "鏗鏘玫瑰",
+    "lang": "國語",
+    "cover": "images/covers/46.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/4f/d2/ab/4fd2ab58-a7f7-bbbd-0c51-e9bb63296631/mzaf_3553409666210656202.plus.aac.p.m4a"
+  },
+  {
+    "id": "m0061",
+    "title": "盼你在此",
+    "album": "林憶蓮's",
+    "lang": "國語",
+    "cover": "images/covers/20.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/b6/be/c7/b6bec7bf-0b90-937a-07ce-ab7e2b354dad/mzaf_13431361710924776942.plus.aac.p.m4a"
+  },
+  {
+    "id": "m0062",
+    "title": "至少還有你",
+    "album": "林憶蓮's",
+    "lang": "國語",
+    "cover": "images/covers/20.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview116/v4/c7/0e/80/c70e80a9-11d5-3377-45c9-60fc07334b2c/mzaf_6606301258719857469.plus.aac.p.m4a"
+  },
+  {
+    "id": "m0063",
+    "title": "沒有人抽菸",
+    "album": "林憶蓮's",
+    "lang": "國語",
+    "cover": "images/covers/20.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/b2/6d/a4/b26da4ea-37c9-d33c-8767-dacd0a6f93e1/mzaf_4067136044909132566.plus.aac.p.m4a"
+  },
+  {
+    "id": "m0064",
+    "title": "愛過我的每一天",
+    "album": "林憶蓮's",
+    "lang": "國語",
+    "cover": "images/covers/20.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/46/7a/85/467a851f-73fd-4276-014d-9a268895ebd1/mzaf_880864613844843527.plus.aac.p.m4a"
+  },
+  {
+    "id": "m0065",
+    "title": "失蹤",
+    "album": "林憶蓮's",
+    "lang": "國語",
+    "cover": "images/covers/20.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/71/ec/82/71ec8278-5ccb-220e-e598-f07333bb30d3/mzaf_17948484478481802075.plus.aac.p.m4a"
+  },
+  {
+    "id": "m0066",
+    "title": "飛的理由",
+    "album": "林憶蓮's",
+    "lang": "國語",
+    "cover": "images/covers/20.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/19/2c/bc/192cbc53-9dbc-1399-be78-e10839c0175d/mzaf_4451940814509925242.plus.aac.p.m4a"
+  },
+  {
+    "id": "m0067",
+    "title": "我坐在這裡",
+    "album": "林憶蓮's",
+    "lang": "國語",
+    "cover": "images/covers/20.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/d5/78/81/d5788169-a582-6871-315e-9f7d00b0315f/mzaf_2524558409452183153.plus.aac.p.m4a"
+  },
+  {
+    "id": "m0068",
+    "title": "不會結束的故事",
+    "album": "林憶蓮's",
+    "lang": "國語",
+    "cover": "images/covers/20.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/c7/90/08/c7900898-f52c-c358-3c0b-1a46be31d6aa/mzaf_11549804154604771344.plus.aac.p.m4a"
+  },
+  {
+    "id": "m0069",
+    "title": "Now or Never",
+    "album": "林憶蓮's",
+    "lang": "國語",
+    "cover": "images/covers/20.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/c9/34/3a/c9343a3c-e6f3-442d-05ee-59e686d94390/mzaf_18186156931808719028.plus.aac.p.m4a"
+  },
+  {
+    "id": "m0070",
+    "title": "至少還有你（Sentimental Version）",
+    "album": "林憶蓮's",
+    "lang": "國語",
+    "cover": "images/covers/20.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/18/f4/1a/18f41aca-0b57-25d1-4c0c-52623cfcb283/mzaf_9836712618173238529.plus.aac.p.m4a"
+  },
+  {
+    "id": "m0071",
+    "title": "存在",
+    "album": "2001蓮",
+    "lang": "國語",
+    "cover": "images/covers/22.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/17/61/c4/1761c4ce-d717-ac2e-a986-42e979a6cda7/mzaf_4134945036333093632.plus.aac.p.m4a"
+  },
+  {
+    "id": "m0072",
+    "title": "Better Man",
+    "album": "2001蓮",
+    "lang": "國語",
+    "cover": "images/covers/22.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/05/f3/99/05f39969-47e5-808f-c364-5264d140b55a/mzaf_562592747916374791.plus.aac.p.m4a"
+  },
+  {
+    "id": "m0073",
+    "title": "遠走高飛",
+    "album": "2001蓮",
+    "lang": "國語",
+    "cover": "images/covers/22.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/6d/14/b3/6d14b3d3-db57-73bf-d422-5e622f703f14/mzaf_2436319685067756171.plus.aac.p.m4a"
+  },
+  {
+    "id": "m0074",
+    "title": "等你說愛我",
+    "album": "2001蓮",
+    "lang": "國語",
+    "cover": "images/covers/22.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/0a/e5/24/0ae5240b-9a0c-1ebc-3810-8b54749de071/mzaf_12575309900195769666.plus.aac.p.m4a"
+  },
+  {
+    "id": "m0075",
+    "title": "不還你",
+    "album": "2001蓮",
+    "lang": "國語",
+    "cover": "images/covers/22.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/8d/5d/fd/8d5dfdf2-5a71-ed64-d368-df147c09686b/mzaf_5084445342608063530.plus.aac.p.m4a"
+  },
+  {
+    "id": "m0076",
+    "title": "重遇",
+    "album": "2001蓮",
+    "lang": "國語",
+    "cover": "images/covers/22.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/b6/46/59/b646594f-86a2-2b51-4ad4-3a87f9e2a8c8/mzaf_1348731347558222060.plus.aac.p.m4a"
+  },
+  {
+    "id": "m0077",
+    "title": "數愛",
+    "album": "2001蓮",
+    "lang": "國語",
+    "cover": "images/covers/22.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/1f/7c/d0/1f7cd064-de28-aaf4-b00a-e5c1ebabb1ff/mzaf_17311847921691414156.plus.aac.p.m4a"
+  },
+  {
+    "id": "m0078",
+    "title": "只有你",
+    "album": "2001蓮",
+    "lang": "國語",
+    "cover": "images/covers/22.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/2c/6f/1a/2c6f1abf-af24-7b14-699f-6c8143453700/mzaf_12048846709633698688.plus.aac.p.m4a"
+  },
+  {
+    "id": "m0079",
+    "title": "與愛長流",
+    "album": "2001蓮",
+    "lang": "國語",
+    "cover": "images/covers/22.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/b4/21/84/b421845f-346c-a968-709d-096e77965af5/mzaf_2914451950560354228.plus.aac.p.m4a"
+  },
+  {
+    "id": "m0080",
+    "title": "站在第一排",
+    "album": "原來…",
+    "lang": "國語",
+    "cover": "images/covers/47.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/79/b9/37/79b93790-d7dc-afae-f9f1-403e966a2d63/mzaf_3435346581603628253.plus.aac.p.m4a"
+  },
+  {
+    "id": "m0081",
+    "title": "默讀傷悲",
+    "album": "原來…",
+    "lang": "國語",
+    "cover": "images/covers/47.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/09/6b/ad/096bad51-f0d9-3567-562f-8ffc27700637/mzaf_16537834718273424707.plus.aac.p.m4a"
+  },
+  {
+    "id": "m0082",
+    "title": "我的心在跳舞",
+    "album": "原來…",
+    "lang": "國語",
+    "cover": "images/covers/47.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/57/1b/3a/571b3a23-4690-2cc8-67fa-a4f5d806efe7/mzaf_7884772145105495670.plus.aac.p.m4a"
+  },
+  {
+    "id": "m0083",
+    "title": "再一個夜晚",
+    "album": "原來…",
+    "lang": "國語",
+    "cover": "images/covers/47.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/d2/9d/80/d29d80b3-9300-80af-ec54-93011368c43d/mzaf_3406484293511943492.plus.aac.p.m4a"
+  },
+  {
+    "id": "m0084",
+    "title": "I'm Not Strong Enough",
+    "album": "原來…",
+    "lang": "國語",
+    "cover": "images/covers/47.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/fe/7a/c7/fe7ac7e2-5d80-9313-3310-bba51f6395bf/mzaf_7129932880912993795.plus.aac.p.m4a"
+  },
+  {
+    "id": "m0085",
+    "title": "紙飛機",
+    "album": "原來…",
+    "lang": "國語",
+    "cover": "images/covers/47.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/f0/c3/6c/f0c36c54-ea1d-56b9-72da-ca5ec6622085/mzaf_819423628524265424.plus.aac.p.m4a"
+  },
+  {
+    "id": "m0086",
+    "title": "十二小時不下雨",
+    "album": "原來…",
+    "lang": "國語",
+    "cover": "images/covers/47.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/ae/6b/99/ae6b9960-43ef-8784-cdc1-d3934670f011/mzaf_5437515995389065787.plus.aac.p.m4a"
+  },
+  {
+    "id": "m0087",
+    "title": "It Wasn't Meant to Be",
+    "album": "原來…",
+    "lang": "國語",
+    "cover": "images/covers/47.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/0a/9e/95/0a9e95e7-05cd-7aac-27f6-62d7a421da73/mzaf_3343137053738391796.plus.aac.p.m4a"
+  },
+  {
+    "id": "m0088",
+    "title": "捨不得說再見",
+    "album": "原來…",
+    "lang": "國語",
+    "cover": "images/covers/47.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/a9/25/25/a92525b8-75d1-bb0a-fb41-bccec54241e4/mzaf_9539111481610532087.plus.aac.p.m4a"
+  },
+  {
+    "id": "m0089",
+    "title": "回到原來",
+    "album": "原來…",
+    "lang": "國語",
+    "cover": "images/covers/47.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/99/69/da/9969dabd-fed7-fd9c-d527-b377ba0d1766/mzaf_11518847656180016405.plus.aac.p.m4a"
+  },
+  {
+    "id": "m0090",
+    "title": "明明",
+    "album": "原來…",
+    "lang": "國語",
+    "cover": "images/covers/47.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/aa/28/58/aa2858b8-b1be-3a49-4682-683418c7082f/mzaf_7503807961029030933.plus.aac.p.m4a"
+  },
+  {
+    "id": "m0091",
+    "title": "一個人",
+    "album": "呼吸",
+    "lang": "國語",
+    "cover": "images/covers/48.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/b9/75/26/b975268f-e73e-7a8c-b583-6645187ab5fe/mzaf_9976684581011228841.plus.aac.p.m4a"
+  },
+  {
+    "id": "m0092",
+    "title": "面對面",
+    "album": "呼吸",
+    "lang": "國語",
+    "cover": "images/covers/48.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/63/4f/e2/634fe293-272f-7aba-4782-af98c3d49cb8/mzaf_7837334638018184891.plus.aac.p.m4a"
+  },
+  {
+    "id": "m0093",
+    "title": "日子",
+    "album": "呼吸",
+    "lang": "國語",
+    "cover": "images/covers/48.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/10/14/15/1014150d-284f-c205-f732-cf260c7ffd1b/mzaf_15005236549685761701.plus.aac.p.m4a"
+  },
+  {
+    "id": "m0094",
+    "title": "詞不達意",
+    "album": "呼吸",
+    "lang": "國語",
+    "cover": "images/covers/48.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/23/c1/4e/23c14e54-6654-eb62-ae4e-cfc897d3afc4/mzaf_3801057165297560056.plus.aac.p.m4a"
+  },
+  {
+    "id": "m0095",
+    "title": "南方的風",
+    "album": "呼吸",
+    "lang": "國語",
+    "cover": "images/covers/48.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/73/df/33/73df3393-9f67-acd1-d054-c569da0dd1d2/mzaf_7774968711692351531.plus.aac.p.m4a"
+  },
+  {
+    "id": "m0096",
+    "title": "放開手",
+    "album": "呼吸",
+    "lang": "國語",
+    "cover": "images/covers/48.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/9d/a1/60/9da16055-02df-8475-d22c-be0468496b79/mzaf_4944964884912708538.plus.aac.p.m4a"
+  },
+  {
+    "id": "m0097",
+    "title": "箴言",
+    "album": "呼吸",
+    "lang": "國語",
+    "cover": "images/covers/48.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/df/ec/cd/dfeccd0b-dd53-e77d-f295-5d96965411c5/mzaf_5425887000314602217.plus.aac.p.m4a"
+  },
+  {
+    "id": "m0098",
+    "title": "要不要",
+    "album": "呼吸",
+    "lang": "國語",
+    "cover": "images/covers/48.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/d4/a3/ae/d4a3aef9-9943-4793-c988-b7f859b487b0/mzaf_15523123472711948909.plus.aac.p.m4a"
+  },
+  {
+    "id": "m0099",
+    "title": "日子（Q Mix）",
+    "album": "呼吸",
+    "lang": "國語",
+    "cover": "images/covers/48.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/6d/89/08/6d8908a6-66e0-3e36-127f-1cb3d5ec681c/mzaf_2162520726089088915.plus.aac.p.m4a"
+  },
+  {
+    "id": "m0100",
+    "title": "呼吸",
+    "album": "呼吸",
+    "lang": "國語",
+    "cover": "images/covers/48.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/9c/a4/33/9ca433a3-34b0-0b29-e7d5-10dd9c3a2e0a/mzaf_7110756630632208292.plus.aac.p.m4a"
+  },
+  {
+    "id": "m0101",
+    "title": "斷線",
+    "album": "呼吸",
+    "lang": "國語",
+    "cover": "images/covers/48.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/30/7a/b3/307ab385-2f51-c704-6705-3c25ea95dcea/mzaf_15753071313193708908.plus.aac.p.m4a"
+  },
+  {
+    "id": "m0102",
+    "title": "相信",
+    "album": "呼吸",
+    "lang": "國語",
+    "cover": "images/covers/48.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/6a/ab/bd/6aabbdec-6c7e-e49b-d9aa-05cc6c4b8376/mzaf_4534089610371428490.plus.aac.p.m4a"
+  },
+  {
+    "id": "m0103",
+    "title": "玩伴",
+    "album": "呼吸",
+    "lang": "國語",
+    "cover": "images/covers/48.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/28/7b/98/287b98c4-46ef-1e48-22db-b11e034aa719/mzaf_10316613811363713007.plus.aac.p.m4a"
+  },
+  {
+    "id": "m0104",
+    "title": "一個人（不安份 Mix）",
+    "album": "呼吸",
+    "lang": "國語",
+    "cover": "images/covers/48.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/2e/e9/d9/2ee9d9a5-68fc-a22d-3b46-f52267e4bac4/mzaf_16621538281816056581.plus.aac.p.m4a"
+  },
+  {
+    "id": "m0105",
+    "title": "無言歌",
+    "album": "蓋亞",
+    "lang": "國語",
+    "cover": "images/covers/19.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/91/08/17/91081740-495c-2f9f-6654-0931c4bc6636/mzaf_13648634182234858161.plus.aac.p.m4a"
+  },
+  {
+    "id": "m0106",
+    "title": "愛笑了",
+    "album": "蓋亞",
+    "lang": "國語",
+    "cover": "images/covers/19.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/6b/a3/1c/6ba31caf-b185-4766-b7ea-b13a6699b67f/mzaf_2771630673869809064.plus.aac.p.m4a"
+  },
+  {
+    "id": "m0107",
+    "title": "紅眼眶",
+    "album": "蓋亞",
+    "lang": "國語",
+    "cover": "images/covers/19.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/ad/8c/b3/ad8cb3c4-acb4-7786-947f-6cb09d20d371/mzaf_12122861607233972191.plus.aac.p.m4a"
+  },
+  {
+    "id": "m0108",
+    "title": "也許",
+    "album": "蓋亞",
+    "lang": "國語",
+    "cover": "images/covers/19.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/fd/26/62/fd26625f-0106-b895-098b-39a85d3fa8af/mzaf_15333347186652296005.plus.aac.p.m4a"
+  },
+  {
+    "id": "m0109",
+    "title": "灰",
+    "album": "蓋亞",
+    "lang": "國語",
+    "cover": "images/covers/19.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/f3/91/14/f3911418-8393-2663-035e-a51f68e14002/mzaf_12953232550752579211.plus.aac.p.m4a"
+  },
+  {
+    "id": "m0110",
+    "title": "寂寞擁擠",
+    "album": "蓋亞",
+    "lang": "國語",
+    "cover": "images/covers/19.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/c6/bf/bb/c6bfbbac-503c-b09d-248a-cf2536ee8c37/mzaf_5877878065949619761.plus.aac.p.m4a"
+  },
+  {
+    "id": "m0111",
+    "title": "蓋亞",
+    "album": "蓋亞",
+    "lang": "國語",
+    "cover": "images/covers/19.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/f4/f5/ea/f4f5eab4-067b-418d-8823-1f4a8b2d46c4/mzaf_14219516991995704470.plus.aac.p.m4a"
+  },
+  {
+    "id": "m0112",
+    "title": "柿子",
+    "album": "蓋亞",
+    "lang": "國語",
+    "cover": "images/covers/19.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/97/39/4b/97394b42-5461-2379-5018-ac9df65a6129/mzaf_11192743311672990048.plus.aac.p.m4a"
+  },
+  {
+    "id": "m0113",
+    "title": "假釋",
+    "album": "蓋亞",
+    "lang": "國語",
+    "cover": "images/covers/19.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/e3/a0/9c/e3a09c98-1ea0-ddc9-ac8e-2485482027f4/mzaf_13082012714032772023.plus.aac.p.m4a"
+  },
+  {
+    "id": "m0114",
+    "title": "Stay",
+    "album": "蓋亞",
+    "lang": "國語",
+    "cover": "images/covers/19.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/f3/63/70/f3637085-a16c-b5f5-323d-89319e87f60a/mzaf_10893688888111054140.plus.aac.p.m4a"
+  },
+  {
+    "id": "m0115",
+    "title": "太陽系",
+    "album": "0",
+    "lang": "國語",
+    "cover": "images/covers/49.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview126/v4/9e/02/eb/9e02eb43-9a6d-d05f-c3b6-d7f8eefee512/mzaf_12259317716785348381.plus.aac.p.m4a"
+  },
+  {
+    "id": "m0116",
+    "title": "纖維",
+    "album": "0",
+    "lang": "國語",
+    "cover": "images/covers/49.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview126/v4/59/dc/7c/59dc7cb3-d811-08dc-ce92-4d86c3b382a9/mzaf_9212380494050726406.plus.aac.p.m4a"
+  },
+  {
+    "id": "m0117",
+    "title": "晨光",
+    "album": "0",
+    "lang": "國語",
+    "cover": "images/covers/49.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview116/v4/07/c9/1e/07c91e18-eacf-f043-daa0-6eff5d8c0f4d/mzaf_7714537128011002007.plus.aac.p.m4a"
+  },
+  {
+    "id": "m0118",
+    "title": "沙文",
+    "album": "0",
+    "lang": "國語",
+    "cover": "images/covers/49.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview126/v4/19/fc/a9/19fca9bc-94d2-c252-37cf-a0639f19cf44/mzaf_5100944592557944933.plus.aac.p.m4a"
+  },
+  {
+    "id": "m0119",
+    "title": "歸零",
+    "album": "0",
+    "lang": "國語",
+    "cover": "images/covers/49.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview126/v4/66/19/f6/6619f622-272f-647f-dd54-5a66085e4b54/mzaf_18083106722812177084.plus.aac.p.m4a"
+  },
+  {
+    "id": "m0120",
+    "title": "幻覺動物",
+    "album": "0",
+    "lang": "國語",
+    "cover": "images/covers/49.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview116/v4/36/55/3f/36553f9b-a132-8b43-ff4b-2d4dda62a93e/mzaf_18105633382798237005.plus.aac.p.m4a"
+  },
+  {
+    "id": "m0121",
+    "title": "魅惑",
+    "album": "0",
+    "lang": "國語",
+    "cover": "images/covers/49.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview126/v4/aa/fd/1c/aafd1c86-4c9c-40b9-3846-73f530aed202/mzaf_8310216233225538588.plus.aac.p.m4a"
+  },
+  {
+    "id": "m0122",
+    "title": "一呼⋯一吸",
+    "album": "0",
+    "lang": "國語",
+    "cover": "images/covers/49.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview126/v4/ac/fb/26/acfb2648-6788-75c9-eaa1-f09f19e881f8/mzaf_3148729483377912584.plus.aac.p.m4a"
+  },
+  {
+    "id": "e0001",
+    "title": "breathe in... breathe out",
+    "album": "0",
+    "lang": "英語",
+    "cover": "images/covers/49.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview126/v4/72/88/5c/72885c69-e511-ee73-da58-9921063e4869/mzaf_2394752251046827471.plus.aac.p.m4a"
+  },
+  {
+    "id": "e0002",
+    "title": "rivers",
+    "album": "0",
+    "lang": "英語",
+    "cover": "images/covers/49.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview126/v4/4d/72/34/4d72347d-743d-d4fd-4349-026ce7022d16/mzaf_5100956440995042196.plus.aac.p.m4a"
+  },
+  {
+    "id": "e0003",
+    "title": "Angels",
+    "album": "0",
+    "lang": "英語",
+    "cover": "images/covers/49.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview126/v4/5f/2b/65/5f2b6545-a86d-53fe-c24d-4e233bb750c7/mzaf_2765159595767135151.plus.aac.p.m4a"
+  },
+  {
+    "id": "j0002",
+    "title": "出會わずにいられない",
+    "album": "Simple",
+    "lang": "日語",
+    "cover": "images/covers/50.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/a0/2c/91/a02c9127-f7d4-e77d-45d5-c3727c0664ee/mzaf_3616098668187980786.plus.aac.p.m4a"
+  },
+  {
+    "id": "j0003",
+    "title": "I Love You につつまれて",
+    "album": "Simple",
+    "lang": "日語",
+    "cover": "images/covers/50.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/77/b6/1d/77b61d93-5c6c-3602-3074-963f716bdf23/mzaf_6790971423146562283.plus.aac.p.m4a"
+  },
+  {
+    "id": "j0004",
+    "title": "Sweet Blue",
+    "album": "Simple",
+    "lang": "日語",
+    "cover": "images/covers/50.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/5c/3f/41/5c3f4153-68dd-3cc9-f0c2-0b2042703dfa/mzaf_16433296298480886287.plus.aac.p.m4a"
+  },
+  {
+    "id": "j0005",
+    "title": "My Dear My Love",
+    "album": "Simple",
+    "lang": "日語",
+    "cover": "images/covers/50.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/0e/08/1c/0e081c42-7ffa-0289-bd02-c3e229a6ef6d/mzaf_121640993221927285.plus.aac.p.m4a"
+  },
+  {
+    "id": "j0006",
+    "title": "決心~Re-Mix Version",
+    "album": "Simple",
+    "lang": "日語",
+    "cover": "images/covers/50.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/c2/fa/b4/c2fab4ac-0ff2-7227-7a0a-1b066406842d/mzaf_13000319016757416281.plus.aac.p.m4a"
+  },
+  {
+    "id": "j0007",
+    "title": "もしもあなたに逢わなければ",
+    "album": "Simple",
+    "lang": "日語",
+    "cover": "images/covers/50.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/11/60/13/11601335-c62b-8b2a-c158-d1a4d61a3a35/mzaf_1513861941300598912.plus.aac.p.m4a"
+  },
+  {
+    "id": "j0008",
+    "title": "あなたに贈る",
+    "album": "Simple",
+    "lang": "日語",
+    "cover": "images/covers/50.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/a3/52/f1/a352f178-f637-c983-628b-f672699c6abf/mzaf_5388603365650715266.plus.aac.p.m4a"
+  },
+  {
+    "id": "j0009",
+    "title": "シンプル",
+    "album": "Simple",
+    "lang": "日語",
+    "cover": "images/covers/50.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/a2/73/ab/a273ab2e-0442-4c8d-a07b-75f8bc511901/mzaf_15689280068084119411.plus.aac.p.m4a"
+  },
+  {
+    "id": "j0010",
+    "title": "どこまでもこの道を",
+    "album": "Simple",
+    "lang": "日語",
+    "cover": "images/covers/50.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/23/16/d2/2316d2a4-48f1-5b21-7699-0601ad549d6b/mzaf_10248659138760806437.plus.aac.p.m4a"
+  },
+  {
+    "id": "j0011",
+    "title": "だからって…",
+    "album": "だからって…",
+    "lang": "日語",
+    "cover": "images/covers/51.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/79/d1/15/79d11513-215c-99c0-190d-512e498c4669/mzaf_3214378709903157286.plus.aac.p.m4a"
+  },
+  {
+    "id": "j0012",
+    "title": "決心",
+    "album": "だからって…",
+    "lang": "日語",
+    "cover": "images/covers/51.jpg",
+    "coverConfirmed": true,
+    "preview_url": null
+  },
+  {
+    "id": "j0013",
+    "title": "どうしてよ",
+    "album": "どうしてよ",
+    "lang": "日語",
+    "cover": "images/covers/52.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/2d/cb/3b/2dcb3b68-cd2d-5084-4344-e32d36bffe41/mzaf_8150985623001925962.plus.aac.p.m4a"
+  },
+  {
+    "id": "j0014",
+    "title": "泣かせて欲しい",
+    "album": "どうしてよ",
+    "lang": "日語",
+    "cover": "images/covers/52.jpg",
+    "coverConfirmed": true,
+    "preview_url": null
+  },
+  {
+    "id": "e0004",
+    "title": "I Still Believe",
+    "album": "愛上一個不回家的人",
+    "lang": "英語",
+    "cover": "images/covers/40.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/66/e4/c0/66e4c02f-7324-eb7e-7f51-9fffa4f92a68/mzaf_4229492860988158830.plus.aac.p.m4a"
+  },
+  {
+    "id": "e0005",
+    "title": "Love and Life and You and Me",
+    "album": "都市心",
+    "lang": "英語",
+    "cover": "images/covers/41.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/78/16/50/78165091-a2fa-d2e8-9fcc-b80243fdc19b/mzaf_10529610101336393982.plus.aac.p.m4a"
+  },
+  {
+    "id": "e0006",
+    "title": "Never Give Up On Love",
+    "album": "Open Up",
+    "lang": "英語",
+    "cover": "images/covers/18.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/29/96/a0/2996a064-3797-8e3f-940f-d03deead3d65/mzaf_16366293819564541175.plus.aac.p.m4a"
+  },
+  {
+    "id": "e0007",
+    "title": "Steal a Kiss",
+    "album": "Open Up",
+    "lang": "英語",
+    "cover": "images/covers/18.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/78/d5/3f/78d53ffe-03e1-7e1f-0ccb-dbac637c0f94/mzaf_6430292009441300995.plus.aac.p.m4a"
+  },
+  {
+    "id": "e0008",
+    "title": "Pieces of Mind",
+    "album": "Open Up",
+    "lang": "英語",
+    "cover": "images/covers/18.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/d8/58/54/d8585444-80c9-d271-8e12-32f6ad7c8d6c/mzaf_13057826074726216925.plus.aac.p.m4a"
+  },
+  {
+    "id": "e0009",
+    "title": "Remember",
+    "album": "Open Up",
+    "lang": "英語",
+    "cover": "images/covers/18.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/01/c1/dc/01c1dc21-6819-b404-4177-98ac53c79c98/mzaf_5609273318551164849.plus.aac.p.m4a"
+  },
+  {
+    "id": "j0015",
+    "title": "Heart Beat",
+    "album": "Open Up",
+    "lang": "日語",
+    "cover": "images/covers/18.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/6d/46/87/6d4687eb-f964-c870-8975-11912477616d/mzaf_9523444827204088996.plus.aac.p.m4a"
+  },
+  {
+    "id": "j0016",
+    "title": "Tokyo Gray Line",
+    "album": "Open Up",
+    "lang": "日語",
+    "cover": "images/covers/18.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/5a/7e/36/5a7e3652-8122-438b-e963-4e901e1fab65/mzaf_7325492567887179366.plus.aac.p.m4a"
+  },
+  {
+    "id": "j0017",
+    "title": "Go for It!",
+    "album": "Open Up",
+    "lang": "日語",
+    "cover": "images/covers/18.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/cd/d7/77/cdd7771c-2861-eac4-ac38-c295411a2395/mzaf_17269672591090036534.plus.aac.p.m4a"
+  },
+  {
+    "id": "j0018",
+    "title": "大好きな人生",
+    "album": "Open Up",
+    "lang": "日語",
+    "cover": "images/covers/18.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/37/30/5f/37305f08-6907-b623-f571-4a2386250da1/mzaf_15998239000204953845.plus.aac.p.m4a"
+  },
+  {
+    "id": "j0019",
+    "title": "I'll Never Forget You",
+    "album": "Open Up",
+    "lang": "日語",
+    "cover": "images/covers/18.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/0e/17/ef/0e17efde-b32f-cdd3-a61b-f70867ffe58a/mzaf_15214131522348103544.plus.aac.p.m4a"
+  },
+  {
+    "id": "m0123",
+    "title": "暖（倫永亮合唱）",
+    "album": "D調人生",
+    "lang": "國語",
+    "cover": "images/covers/53.webp",
+    "coverConfirmed": true,
+    "preview_url": null
+  },
+  {
+    "id": "m0124",
+    "title": "讓心勇敢飛（群星合唱）",
+    "album": "讓心勇敢飛",
+    "lang": "國語",
+    "cover": "images/covers/54.jpg",
+    "coverConfirmed": true,
+    "preview_url": null
+  },
+  {
+    "id": "e0010",
+    "title": "You Don't Bring Me Flowers（杜德偉合唱）",
+    "album": "All For You",
+    "lang": "英語",
+    "cover": "images/covers/55.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/13/ab/b7/13abb7fd-209e-005a-de2c-4028d4f2027b/mzaf_12023934700122231038.plus.aac.p.m4a"
+  },
+  {
+    "id": "j0020",
+    "title": "Color Of The Moon",
+    "album": "Friends of Love The Earth Project",
+    "lang": "日語",
+    "cover": "images/covers/56.jpg",
+    "coverConfirmed": true,
+    "preview_url": null
+  },
+  {
+    "id": "e0011",
+    "title": "Stars of the East（Dick Lee合唱）",
+    "album": "Peace Life Love",
+    "lang": "英語",
+    "cover": "images/covers/57.png",
+    "coverConfirmed": true,
+    "preview_url": null
+  },
+  {
+    "id": "e0012",
+    "title": "Another Day（Dick Lee合唱）",
+    "album": "Peace Life Love",
+    "lang": "英語",
+    "cover": "images/covers/57.png",
+    "coverConfirmed": true,
+    "preview_url": null
+  },
+  {
+    "id": "e0013",
+    "title": "The Story of My Life",
+    "album": "All For Love",
+    "lang": "英語",
+    "cover": "images/covers/58.webp",
+    "coverConfirmed": true,
+    "preview_url": null
+  },
+  {
+    "id": "e0014",
+    "title": "From Now On（張國榮合唱）",
+    "album": "滾石最賣座英文主打歌全紀錄之英雄美人",
+    "lang": "英語",
+    "cover": "images/covers/59.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/0f/3a/90/0f3a9073-b0e9-9a44-432d-acf912cb21b6/mzaf_16613558467330674467.plus.aac.p.m4a"
+  },
+  {
+    "id": "m0125",
+    "title": "We Are One（張惠妹、那英、蔡健雅合唱）",
+    "album": "We Are One",
+    "lang": "國語",
+    "cover": "images/covers/60.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview116/v4/a7/07/cd/a707cda8-f519-36c0-d9a4-2a8c0033bc6f/mzaf_4637803700240106364.plus.aac.p.m4a"
+  },
+  {
+    "id": "m0126",
+    "title": "We Are One（群星合唱）",
+    "album": "We Are One",
+    "lang": "國語",
+    "cover": "images/covers/61.png",
+    "coverConfirmed": true,
+    "preview_url": null
+  },
+  {
+    "id": "e0015",
+    "title": "Get Here",
+    "album": "Love Is The Answer",
+    "lang": "英語",
+    "cover": "images/covers/62.jpg",
+    "coverConfirmed": true,
+    "preview_url": null
+  },
+  {
+    "id": "m0127",
+    "title": "有淚盡情流",
+    "album": "閉上眼睛去旅行3",
+    "lang": "國語",
+    "cover": "images/covers/63.jpg",
+    "coverConfirmed": true,
+    "preview_url": null
+  },
+  {
+    "id": "e0016",
+    "title": "Within You'll Remain",
+    "album": "陪著我走",
+    "lang": "英語",
+    "cover": "images/covers/17.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/f3/eb/4f/f3eb4f5e-3391-04f7-dd48-0a874ca3bcbf/mzaf_10281953694994927357.plus.aac.p.m4a"
+  },
+  {
+    "id": "t0001",
+    "title": "阿彌陀佛心咒（許志安、梁漢文、倫永亮合唱）",
+    "album": "樂行佛國",
+    "lang": "藏文",
+    "cover": "images/covers/64.jpg",
+    "coverConfirmed": true,
+    "preview_url": null
+  },
+  {
+    "id": "t0002",
+    "title": "西方淨土祈願文",
+    "album": "樂行佛國",
+    "lang": "藏文",
+    "cover": "images/covers/64.jpg",
+    "coverConfirmed": true,
+    "preview_url": null
+  },
+  {
+    "id": "m0128",
+    "title": "玫瑰香",
+    "album": "紅玫瑰白玫瑰電影原聲帶",
+    "lang": "國語",
+    "cover": "images/covers/65.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/06/1b/6f/061b6f3d-7c25-2c83-8e69-99a77a923307/mzaf_5396387964969324566.plus.aac.p.m4a"
+  },
+  {
+    "id": "m0129",
+    "title": "相愛時候到了",
+    "album": "滿天星音樂, Vol.1（國語版）",
+    "lang": "國語",
+    "cover": "images/covers/66.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/9b/ec/8b/9bec8bd2-a6db-0235-d8d4-574930ff4a9a/mzaf_1912617318575441214.plus.aac.p.m4a"
+  },
+  {
+    "id": "m0130",
+    "title": "春雨",
+    "album": "滿天星音樂, Vol.1（國語版）",
+    "lang": "國語",
+    "cover": "images/covers/66.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/c6/a2/a7/c6a2a7d8-3ef8-1265-0e26-f03695f27981/mzaf_14638849195725649230.plus.aac.p.m4a"
+  },
+  {
+    "id": "m0131",
+    "title": "盛夏光年",
+    "album": "女也",
+    "lang": "國語",
+    "cover": "images/covers/67.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/d4/09/c7/d409c793-b1d7-0f22-1a6d-42cc9456239c/mzaf_10687835286723773644.plus.aac.p.m4a"
+  },
+  {
+    "id": "m0132",
+    "title": "他們都是我們的孩子（陶喆合唱）",
+    "album": "2002麥當勞世界兒童日",
+    "lang": "國語",
+    "cover": "images/covers/68.png",
+    "coverConfirmed": true,
+    "preview_url": null
+  },
+  {
+    "id": "m0133",
+    "title": "我不能忘記你",
+    "album": "《記憶大師》電影原聲音樂|梁翹柏作品",
+    "lang": "國語",
+    "cover": "images/covers/69.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/6c/08/d9/6c08d968-2488-4260-ce3c-bb453e682a40/mzaf_5074393552156091682.plus.aac.p.m4a"
+  },
+  {
+    "id": "m0134",
+    "title": "是你治癒了我的孤單",
+    "album": "不完全自救手冊",
+    "lang": "國語",
+    "cover": "images/covers/70.webp",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/73/2b/3d/732b3d34-8e9f-9b21-5574-2f4f054b3e69/mzaf_15423579868819571938.plus.aac.p.m4a"
+  },
+  {
+    "id": "m0135",
+    "title": "愛的味道",
+    "album": "愛的味道 (國) - EP",
+    "lang": "國語",
+    "cover": "images/covers/77.webp",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/85/90/34/85903494-ae6d-a566-ee84-83f71ef93ff4/mzaf_2873442344441724587.plus.aac.p.m4a"
+  },
+  {
+    "id": "e0017",
+    "title": "I Will Always Love You",
+    "album": "I Swear 愛是唯一",
+    "lang": "英語",
+    "cover": "images/covers/71.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/23/6a/0f/236a0fac-16db-9de9-028f-fe80c044d242/mzaf_3211115724358406871.plus.aac.p.m4a"
+  },
+  {
+    "id": "e0018",
+    "title": "I Swear（齊豫、劉美君、杜麗莎合唱）",
+    "album": "I Swear 愛是唯一",
+    "lang": "英語",
+    "cover": "images/covers/71.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/20/29/24/20292410-a271-15d4-e3a0-6edcfb13922d/mzaf_5916525837526567147.plus.aac.p.m4a"
+  },
+  {
+    "id": "e0019",
+    "title": "Brave",
+    "album": "I Swear 愛是唯一",
+    "lang": "英語",
+    "cover": "images/covers/71.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/4d/e7/88/4de788b2-36a9-2d81-bbd7-d1adba3cafc0/mzaf_8655133970849379624.plus.aac.p.m4a"
+  },
+  {
+    "id": "e0020",
+    "title": "(Was It) Only Just a Dream",
+    "album": "I Swear 愛是唯一",
+    "lang": "英語",
+    "cover": "images/covers/71.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/28/9b/66/289b6614-a9ca-ff4d-7248-757e1bf2c715/mzaf_17944787008693374052.plus.aac.p.m4a"
+  },
+  {
+    "id": "e0021",
+    "title": "Cuts Both Ways",
+    "album": "I Swear 愛是唯一",
+    "lang": "英語",
+    "cover": "images/covers/71.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/43/7d/c4/437dc489-4dae-5618-f874-b62daf3a69a5/mzaf_17129989898822386743.plus.aac.p.m4a"
+  },
+  {
+    "id": "e0022",
+    "title": "When Can I See You",
+    "album": "I Swear 愛是唯一",
+    "lang": "英語",
+    "cover": "images/covers/71.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/bd/58/21/bd582100-3cac-2e70-3920-ff609190f724/mzaf_15010761070187498978.plus.aac.p.m4a"
+  },
+  {
+    "id": "e0023",
+    "title": "In Another Life",
+    "album": "I Swear 愛是唯一",
+    "lang": "英語",
+    "cover": "images/covers/71.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/68/65/64/68656487-a443-aedd-84bd-62a11c6f4c3c/mzaf_8800897473536722109.plus.aac.p.m4a"
+  },
+  {
+    "id": "e0024",
+    "title": "From Now On",
+    "album": "I Swear 愛是唯一",
+    "lang": "英語",
+    "cover": "images/covers/71.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/3d/ad/c3/3dadc3ed-cfa4-0f33-6205-ea64777d9189/mzaf_476999459384639942.plus.aac.p.m4a"
+  },
+  {
+    "id": "e0025",
+    "title": "Hero",
+    "album": "I Swear 愛是唯一",
+    "lang": "英語",
+    "cover": "images/covers/71.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/66/ad/7d/66ad7d42-5a60-e8e5-8de2-f496d24cb778/mzaf_14978482583836755654.plus.aac.p.m4a"
+  },
+  {
+    "id": "e0026",
+    "title": "Rhythm of My Heart",
+    "album": "Wonderful World 美妙世界",
+    "lang": "英語",
+    "cover": "images/covers/72.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/00/83/80/0083804b-a10a-b051-6754-de689b212176/mzaf_14285436552536869124.plus.aac.p.m4a"
+  },
+  {
+    "id": "e0027",
+    "title": "What a Wonderful World（齊豫、劉美君合唱）",
+    "album": "Wonderful World 美妙世界",
+    "lang": "英語",
+    "cover": "images/covers/72.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/74/17/64/74176490-9268-6443-6026-62db6d69531a/mzaf_12989951619740946322.plus.aac.p.m4a"
+  },
+  {
+    "id": "e0028",
+    "title": "Waiting For",
+    "album": "Wonderful World 美妙世界",
+    "lang": "英語",
+    "cover": "images/covers/72.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/e9/4c/03/e94c034b-1f62-f109-a7d3-28289c6df268/mzaf_13517078986818675642.plus.aac.p.m4a"
+  },
+  {
+    "id": "e0029",
+    "title": "The Rose（齊豫合唱）",
+    "album": "Wonderful World 美妙世界",
+    "lang": "英語",
+    "cover": "images/covers/72.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/d5/7c/d7/d57cd74c-e37d-c4eb-a927-6386e7cf1d75/mzaf_17061318381689030331.plus.aac.p.m4a"
+  },
+  {
+    "id": "e0030",
+    "title": "Take a Bow",
+    "album": "Wonderful World 美妙世界",
+    "lang": "英語",
+    "cover": "images/covers/72.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/54/be/70/54be70ab-a1e1-5dcb-06b0-01ab05aa3bc7/mzaf_18167482768896543887.plus.aac.p.m4a"
+  },
+  {
+    "id": "e0031",
+    "title": "Seasons of Love",
+    "album": "Wonderful World 美妙世界",
+    "lang": "英語",
+    "cover": "images/covers/72.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/e8/a8/62/e8a8629c-5108-b049-74dd-358fd665024e/mzaf_15496378273795337648.plus.aac.p.m4a"
+  },
+  {
+    "id": "e0032",
+    "title": "Because You Loved Me",
+    "album": "Wonderful World 美妙世界",
+    "lang": "英語",
+    "cover": "images/covers/72.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/36/b2/04/36b204fb-6359-2c3d-2c03-4efd06d2048f/mzaf_1962684081486692706.plus.aac.p.m4a"
+  },
+  {
+    "id": "e0033",
+    "title": "If You Don't Know Me By Now",
+    "album": "Wonderful World 美妙世界",
+    "lang": "英語",
+    "cover": "images/covers/72.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/47/25/d5/4725d500-60ee-fb74-9d87-8ecb31b8ddd4/mzaf_6537901335308277681.plus.aac.p.m4a"
+  },
+  {
+    "id": "e0034",
+    "title": "Daddy's Home",
+    "album": "Wonderful World 美妙世界",
+    "lang": "英語",
+    "cover": "images/covers/72.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/40/6e/e3/406ee3be-7342-06c4-e435-804af7564df1/mzaf_8782960027255481531.plus.aac.p.m4a"
+  },
+  {
+    "id": "e0035",
+    "title": "To Love Somebody",
+    "album": "Wonderful World 美妙世界",
+    "lang": "英語",
+    "cover": "images/covers/72.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/a6/7a/df/a67adf3e-ab54-8fdb-8112-8e0dcbf7a5c1/mzaf_9546815871184214660.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0206",
+    "title": "難忘您",
+    "album": "難忘您華納白金經典十五首",
+    "lang": "粵語",
+    "cover": "images/covers/73.webp",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/00/48/82/0048820a-4430-7012-e4ff-7d413e3e2d96/mzaf_12378207309642285907.plus.aac.p.m4a"
+  },
+  {
+    "id": "c0207",
+    "title": "我仍說願意",
+    "album": "新裝憶蓮",
+    "lang": "粵語",
+    "cover": "images/covers/75.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/fe/e6/60/fee66019-468c-e597-dbcf-552b804cac02/mzaf_3861425750866681975.plus.aac.p.m4a"
+  },
+  {
+    "id": "m0139",
+    "title": "屬於我",
+    "album": "屬於我的林憶蓮",
+    "lang": "國語",
+    "cover": "images/covers/74.jpg",
+    "coverConfirmed": true,
+    "preview_url": null
+  },
+  {
+    "id": "m0136",
+    "title": "最好的事",
+    "album": "最好的...林憶蓮 2003新歌+精選",
+    "lang": "國語",
+    "cover": "images/covers/76.jpg",
+    "coverConfirmed": true,
+    "preview_url": null
+  },
+  {
+    "id": "m0137",
+    "title": "走在大街的女子（A CAPPELLA）",
+    "album": "最好的...林憶蓮 2003新歌+精選",
+    "lang": "國語",
+    "cover": "images/covers/76.jpg",
+    "coverConfirmed": true,
+    "preview_url": null
+  },
+  {
+    "id": "m0138",
+    "title": "匆匆 - REMIX（DJ HASEBE）",
+    "album": "最好的...林憶蓮 2003新歌+精選",
+    "lang": "國語",
+    "cover": "images/covers/76.jpg",
+    "coverConfirmed": true,
+    "preview_url": null
+  }
+]

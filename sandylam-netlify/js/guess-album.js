@@ -1,0 +1,549 @@
+const DATA_URL = "data/songs.json";
+let allSongs = [],
+  songsWithPreview = [],
+  gameQueue = [],
+  currentQuestion = 0,
+  score = 0,
+  totalTimeMs = 0,
+  questionStartTime = null,
+  gameMode = "easy",
+  gameOver = false,
+  answered = false,
+  currentAudio = null,
+  selectedLangs = [];
+
+// XSS 防護
+function esc(str) {
+  const d = document.createElement("div");
+  d.textContent = str;
+  return d.innerHTML;
+}
+
+function shuffle(a) {
+  const b = a.slice();
+  for (let i = b.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [b[i], b[j]] = [b[j], b[i]];
+  }
+  return b;
+}
+
+function showScreen(id) {
+  ["album-intro", "album-game", "album-result"].forEach((s) => {
+    document.getElementById(s).hidden = s !== id;
+  });
+}
+
+function stopAudio() {
+  if (currentAudio) {
+    currentAudio.pause();
+    currentAudio.currentTime = 0;
+    currentAudio = null;
+  }
+  const b = document.getElementById("audioPlayBtn");
+  if (b) b.textContent = "▶ 播放";
+}
+
+function autoPlay() {
+  const song = gameQueue[currentQuestion];
+  if (!song || !song.preview_url) return;
+  stopAudio();
+  currentAudio = new Audio(song.preview_url);
+  currentAudio.play().catch(() => {});
+  document.getElementById("audioPlayBtn").textContent = "⏸ 暫停";
+  currentAudio.addEventListener("ended", () => {
+    document.getElementById("audioPlayBtn").textContent = "▶ 重播";
+    currentAudio = null;
+  });
+}
+
+function initLangSelection() {
+  const langMap = {};
+  songsWithPreview.forEach((s) => {
+    langMap[s.lang] = (langMap[s.lang] || 0) + 1;
+  });
+
+  const container = document.getElementById("langOptions");
+  container.innerHTML = "";
+  Object.keys(langMap)
+    .sort((a, b) => langMap[b] - langMap[a])
+    .forEach((lang) => {
+      const label = document.createElement("label");
+      label.className = "lang-checkbox";
+      label.innerHTML =
+        '<input type="checkbox" value="' +
+        lang +
+        '" checked>' +
+        '<span class="lang-name">' +
+        lang +
+        "</span>" +
+        '<span class="lang-count">(' +
+        langMap[lang] +
+        "首)</span>";
+      container.appendChild(label);
+    });
+
+  container.addEventListener("change", updateModeAvailability);
+  updateModeAvailability();
+}
+
+function getSelectedLangs() {
+  const checks = document.querySelectorAll("#langOptions input:checked");
+  return Array.from(checks).map((c) => c.value);
+}
+
+function getPoolSize() {
+  const langs = getSelectedLangs();
+  return songsWithPreview.filter((s) => langs.includes(s.lang)).length;
+}
+
+function updateModeAvailability() {
+  const poolSize = getPoolSize();
+  const langs = getSelectedLangs();
+  const info = document.getElementById("langPoolInfo");
+
+  const easyRadio = document.querySelector(
+    'input[name="album-mode"][value="easy"]',
+  );
+  const mediumRadio = document.querySelector(
+    'input[name="album-mode"][value="medium"]',
+  );
+  const hardRadio = document.querySelector(
+    'input[name="album-mode"][value="hard"]',
+  );
+
+  const easyOption = easyRadio.closest(".mode-option");
+  const mediumOption = mediumRadio.closest(".mode-option");
+  const hardOption = hardRadio.closest(".mode-option");
+
+  if (langs.length === 0) {
+    info.textContent = "請至少選擇一種語言";
+    easyRadio.disabled = true;
+    easyOption.classList.add("disabled");
+    mediumRadio.disabled = true;
+    mediumOption.classList.add("disabled");
+    hardRadio.disabled = true;
+    hardOption.classList.add("disabled");
+    return;
+  }
+
+  info.textContent = "可用曲目：" + poolSize + " 首";
+
+  if (poolSize >= 20) {
+    easyRadio.disabled = false;
+    easyOption.classList.remove("disabled");
+  } else {
+    easyRadio.disabled = true;
+    easyOption.classList.add("disabled");
+    if (easyRadio.checked) hardRadio.checked = true;
+  }
+
+  if (poolSize >= 50) {
+    mediumRadio.disabled = false;
+    mediumOption.classList.remove("disabled");
+  } else {
+    mediumRadio.disabled = true;
+    mediumOption.classList.add("disabled");
+    if (mediumRadio.checked) hardRadio.checked = true;
+  }
+
+  hardRadio.disabled = false;
+  hardOption.classList.remove("disabled");
+}
+
+function startGame() {
+  selectedLangs = getSelectedLangs();
+  if (selectedLangs.length === 0) {
+    alert("請至少選擇一種語言");
+    return;
+  }
+
+  gameMode = document.querySelector('input[name="album-mode"]:checked').value;
+  const pool = songsWithPreview.filter((s) => selectedLangs.includes(s.lang));
+  const count =
+    gameMode === "easy" ? 20 : gameMode === "medium" ? 50 : pool.length;
+  gameQueue = shuffle(pool).slice(0, count);
+  currentQuestion = 0;
+  score = 0;
+  totalTimeMs = 0;
+  gameOver = false;
+  showScreen("album-game");
+  loadQuestion();
+}
+
+function loadQuestion() {
+  answered = false;
+  stopAudio();
+
+  document.getElementById("albumProgress").textContent =
+    "第 " + (currentQuestion + 1) + " / " + gameQueue.length + " 題";
+  document.getElementById("albumScore").textContent = "正確：" + score;
+  document.getElementById("albumTimer").textContent =
+    "⏱ " + (totalTimeMs / 1000).toFixed(2) + "s";
+
+  const correct = gameQueue[currentQuestion];
+  const correctAlbum = correct.album;
+  const correctCover = correct.cover;
+  const usedAlbums = new Set([correctAlbum]);
+  const usedCovers = new Set([correctCover]);
+  const wrongAlbums = [];
+
+  const allAlbumsMap = new Map();
+  allSongs.forEach((s) => {
+    if (!allAlbumsMap.has(s.album) && s.cover && s.cover !== correctCover) {
+      allAlbumsMap.set(s.album, { album: s.album, cover: s.cover });
+    }
+  });
+
+  const shuffledAlbums = shuffle(Array.from(allAlbumsMap.values()));
+  for (const a of shuffledAlbums) {
+    if (wrongAlbums.length >= 3) break;
+    if (!usedAlbums.has(a.album) && !usedCovers.has(a.cover)) {
+      wrongAlbums.push(a);
+      usedAlbums.add(a.album);
+      usedCovers.add(a.cover);
+    }
+  }
+
+  const options = shuffle([
+    { album: correctAlbum, cover: correctCover, isCorrect: true },
+    ...wrongAlbums.map((a) => ({
+      album: a.album,
+      cover: a.cover,
+      isCorrect: false,
+    })),
+  ]);
+
+  const el = document.getElementById("albumOptions");
+  el.innerHTML = "";
+  options.forEach((opt) => {
+    const btn = document.createElement("button");
+    btn.className = "album-option-btn";
+    btn.innerHTML =
+      '<div class="album-cover-wrap"><img src="' +
+      esc(opt.cover) +
+      '" alt=""></div>' +
+      '<p class="album-name">' +
+      esc(opt.album) +
+      "</p>";
+    btn.dataset.album = opt.album;
+    btn.dataset.correct = opt.isCorrect;
+    btn.addEventListener("click", () =>
+      handleAnswer(btn, opt.isCorrect, correct),
+    );
+    el.appendChild(btn);
+  });
+
+  document.getElementById("albumNextBtn").hidden = true;
+  questionStartTime = performance.now();
+
+  autoPlay();
+}
+
+function handleAnswer(btnEl, isCorrect, correctSong) {
+  if (answered) return;
+  answered = true;
+  totalTimeMs += performance.now() - questionStartTime;
+  if (isCorrect) score++;
+
+  document.querySelectorAll(".album-option-btn").forEach((btn) => {
+    btn.disabled = true;
+    const wrap = btn.querySelector(".album-cover-wrap");
+    if (btn.dataset.correct === "true") {
+      btn.classList.add("correct");
+      const badge = document.createElement("span");
+      badge.className = "answer-badge correct-badge";
+      badge.textContent = "○";
+      wrap.appendChild(badge);
+    } else if (btn === btnEl && !isCorrect) {
+      btn.classList.add("wrong");
+      const badge = document.createElement("span");
+      badge.className = "answer-badge wrong-badge";
+      badge.textContent = "✕";
+      wrap.appendChild(badge);
+    }
+  });
+
+  document.getElementById("albumScore").textContent = "正確：" + score;
+  document.getElementById("albumTimer").textContent =
+    "⏱ " + (totalTimeMs / 1000).toFixed(2) + "s";
+
+  if (gameMode === "hard" && !isCorrect) {
+    gameOver = true;
+    const nb = document.getElementById("albumNextBtn");
+    nb.hidden = false;
+    nb.textContent = "查看結果";
+    nb.scrollIntoView({ behavior: "smooth", block: "center" });
+    return;
+  }
+
+  const nb = document.getElementById("albumNextBtn");
+  nb.hidden = false;
+  nb.textContent =
+    currentQuestion >= gameQueue.length - 1 ? "查看結果" : "下一題";
+  nb.scrollIntoView({ behavior: "smooth", block: "center" });
+}
+
+function nextQuestion() {
+  stopAudio();
+  if (gameOver || currentQuestion >= gameQueue.length - 1) {
+    showResult();
+    return;
+  }
+  currentQuestion++;
+  loadQuestion();
+}
+
+function playCurrentSong() {
+  const song = gameQueue[currentQuestion];
+  if (!song || !song.preview_url) return;
+  if (currentAudio) {
+    if (currentAudio.paused) {
+      currentAudio.play();
+      document.getElementById("audioPlayBtn").textContent = "⏸ 暫停";
+    } else {
+      currentAudio.pause();
+      document.getElementById("audioPlayBtn").textContent = "▶ 播放";
+    }
+    return;
+  }
+  currentAudio = new Audio(song.preview_url);
+  currentAudio.play().catch(() => {});
+  document.getElementById("audioPlayBtn").textContent = "⏸ 暫停";
+  currentAudio.addEventListener("ended", () => {
+    document.getElementById("audioPlayBtn").textContent = "▶ 重播";
+    currentAudio = null;
+  });
+}
+
+function showResult() {
+  stopAudio();
+  showScreen("album-result");
+  const ml = {
+    easy: "初級（20題）",
+    medium: "中級（50題）",
+    hard: "最高級（全曲目）",
+  };
+  const tq = currentQuestion + 1;
+  document.getElementById("resultMode").textContent =
+    ml[gameMode] + "｜" + selectedLangs.join("、");
+  document.getElementById("resultScore").textContent = score + " / " + tq;
+  document.getElementById("resultDetail").textContent =
+    "總用時：" + (totalTimeMs / 1000).toFixed(2) + " 秒";
+  document.getElementById("albumCardPreviewWrap").hidden = true;
+
+  document.getElementById("submitScoreWrap").hidden = false;
+  document.getElementById("scoreSubmitted").hidden = true;
+  document.getElementById("resultLeaderboard").hidden = true;
+}
+
+function submitScore() {
+  const nameInput = document.getElementById("playerName");
+  const name = nameInput.value.trim();
+  if (!name) {
+    nameInput.focus();
+    return;
+  }
+
+  const tq = currentQuestion + 1;
+  const submitBtn = document.getElementById("submitScoreBtn");
+  submitBtn.disabled = true;
+  submitBtn.textContent = "提交中...";
+
+  fetch("/.netlify/functions/submit-score", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      name: name,
+      score: score,
+      total: tq,
+      mode: "album-" + gameMode,
+      langs: selectedLangs,
+      time: Math.round(totalTimeMs / 10) / 100,
+    }),
+  })
+    .then((res) => res.json())
+    .then(() => {
+      document.getElementById("submitScoreWrap").hidden = true;
+      document.getElementById("scoreSubmitted").hidden = false;
+      loadLeaderboard("album-" + gameMode, "resultLeaderboard");
+    })
+    .catch(() => {
+      submitBtn.disabled = false;
+      submitBtn.textContent = "提交成績";
+      document.getElementById("scoreSubmitted").textContent =
+        "提交失敗，請重試";
+      document.getElementById("scoreSubmitted").hidden = false;
+    });
+}
+
+function loadLeaderboard(mode, containerId) {
+  const container = document.getElementById(containerId);
+  container.hidden = false;
+  container.innerHTML = '<p class="leaderboard-loading">載入排行榜中...</p>';
+
+  fetch("/.netlify/functions/get-leaderboard?mode=" + mode)
+    .then((res) => res.json())
+    .then((data) => {
+      if (!data || data.length === 0) {
+        container.innerHTML =
+          '<p class="leaderboard-empty">目前還沒有紀錄，等你來挑戰！</p>';
+        return;
+      }
+      let html = '<div class="leaderboard-card">';
+      html += '<table class="leaderboard-table">';
+      html +=
+        "<thead><tr><th>#</th><th>選手</th><th>分數</th><th>正確率</th><th>用時</th><th>語言</th></tr></thead>";
+      html += "<tbody>";
+      data.forEach((entry) => {
+        const langsStr = entry.langs ? entry.langs.join("、") : "-";
+        html += "<tr>";
+        html += '<td class="rank-col">' + entry.rank + "</td>";
+        html += '<td class="name-col">' + esc(entry.name) + "</td>";
+        html += "<td>" + entry.score + "/" + entry.total + "</td>";
+        html += "<td>" + entry.accuracy + "%</td>";
+        html += "<td>" + entry.time + "s</td>";
+        html += '<td class="langs-col">' + esc(langsStr) + "</td>";
+        html += "</tr>";
+      });
+      html += "</tbody></table></div>";
+      container.innerHTML = html;
+    })
+    .catch(() => {
+      container.innerHTML =
+        '<p class="leaderboard-empty">載入失敗，請稍後再試</p>';
+    });
+}
+
+function loadImage(src) {
+  return new Promise((r) => {
+    const img = new Image();
+    img.crossOrigin = "anonymous";
+    img.onload = () => r(img);
+    img.onerror = () => r(null);
+    img.src = src;
+  });
+}
+
+async function generateAlbumCard() {
+  const ml = {
+    easy: "初級（20題）",
+    medium: "中級（50題）",
+    hard: "最高級（全曲目）",
+  };
+  const tq = currentQuestion + 1;
+  const ts = (totalTimeMs / 1000).toFixed(2);
+  const acc = tq > 0 ? Math.round((score / tq) * 100) : 0;
+  const w = 600,
+    h = 520;
+  const canvas = document.getElementById("albumResultCanvas");
+  canvas.width = w;
+  canvas.height = h;
+  const ctx = canvas.getContext("2d");
+
+  ctx.fillStyle = "#F6F2EA";
+  ctx.fillRect(0, 0, w, h);
+
+  ctx.textAlign = "center";
+  ctx.fillStyle = "#708090";
+  ctx.font = "600 13px 'Noto Sans TC',sans-serif";
+  ctx.fillText("SANDY LAM GUESS THE ALBUM", w / 2, 40);
+
+  ctx.fillStyle = "#201E1F";
+  ctx.font = "700 26px 'Noto Serif TC',serif";
+  ctx.fillText("猜專輯挑戰成績", w / 2, 80);
+
+  ctx.fillStyle = "#5C6B73";
+  ctx.font = "500 15px 'Noto Sans TC',sans-serif";
+  ctx.fillText(ml[gameMode] + "｜" + selectedLangs.join("、"), w / 2, 115);
+
+  ctx.beginPath();
+  ctx.arc(w / 2, 200, 60, 0, Math.PI * 2);
+  ctx.fillStyle = "#708090";
+  ctx.fill();
+  ctx.fillStyle = "#F6F2EA";
+  ctx.font = "700 36px 'Noto Sans TC',sans-serif";
+  ctx.fillText(score, w / 2, 208);
+  ctx.font = "500 13px 'Noto Sans TC',sans-serif";
+  ctx.fillText("/ " + tq + " 題", w / 2, 230);
+
+  ctx.fillStyle = "#201E1F";
+  ctx.font = "600 16px 'Noto Sans TC',sans-serif";
+  ctx.fillText("正確率", w / 4, 310);
+  ctx.fillStyle = "#B08A3E";
+  ctx.font = "700 28px 'Noto Sans TC',sans-serif";
+  ctx.fillText(acc + "%", w / 4, 346);
+
+  ctx.fillStyle = "#201E1F";
+  ctx.font = "600 16px 'Noto Sans TC',sans-serif";
+  ctx.fillText("總用時", (w * 3) / 4, 310);
+  ctx.fillStyle = "#B08A3E";
+  ctx.font = "700 28px 'Noto Sans TC',sans-serif";
+  ctx.fillText(ts + "s", (w * 3) / 4, 346);
+
+  const avg = tq > 0 ? (totalTimeMs / tq / 1000).toFixed(2) : "0.00";
+  ctx.fillStyle = "#201E1F";
+  ctx.font = "600 16px 'Noto Sans TC',sans-serif";
+  ctx.fillText("平均每題", w / 2, 390);
+  ctx.fillStyle = "#B08A3E";
+  ctx.font = "700 28px 'Noto Sans TC',sans-serif";
+  ctx.fillText(avg + "s", w / 2, 426);
+
+  ctx.strokeStyle = "rgba(32,30,31,.15)";
+  ctx.beginPath();
+  ctx.moveTo(60, 450);
+  ctx.lineTo(w - 60, 450);
+  ctx.stroke();
+
+  const url = "https://sandylam.netlify.app/guess-album.html";
+  ctx.textAlign = "left";
+  ctx.fillStyle = "#201E1F";
+  ctx.font = "600 13px 'Noto Sans TC',sans-serif";
+  ctx.fillText("你也來挑戰看看！", 60, 480);
+  ctx.fillStyle = "#708090";
+  ctx.font = "500 12px 'Noto Sans TC',sans-serif";
+  ctx.fillText(url, 60, 502);
+
+  const qr = await loadImage(
+    "https://api.qrserver.com/v1/create-qr-code/?size=120x120&margin=0&data=" +
+      encodeURIComponent(url),
+  );
+  if (qr) ctx.drawImage(qr, w - 120, 460, 60, 60);
+
+  const du = canvas.toDataURL("image/png");
+  document.getElementById("albumCardPreviewImg").src = du;
+  document.getElementById("albumCardDownloadLink").href = du;
+  document.getElementById("albumCardPreviewWrap").hidden = false;
+}
+
+async function boot() {
+  const res = await fetch(DATA_URL);
+  allSongs = await res.json();
+  songsWithPreview = allSongs.filter((s) => s.preview_url);
+
+  initLangSelection();
+
+  document.getElementById("albumStartBtn").addEventListener("click", startGame);
+  document
+    .getElementById("audioPlayBtn")
+    .addEventListener("click", playCurrentSong);
+  document
+    .getElementById("albumNextBtn")
+    .addEventListener("click", nextQuestion);
+  document.getElementById("albumRestart").addEventListener("click", () => {
+    stopAudio();
+    showScreen("album-intro");
+  });
+  document
+    .getElementById("albumGenerateCard")
+    .addEventListener("click", generateAlbumCard);
+  document
+    .getElementById("submitScoreBtn")
+    .addEventListener("click", submitScore);
+
+  loadLeaderboard("album-hard", "lbHard");
+  loadLeaderboard("album-medium", "lbMedium");
+  loadLeaderboard("album-easy", "lbEasy");
+}
+
+boot();

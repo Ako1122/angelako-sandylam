@@ -1,0 +1,133 @@
+
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>猜歌挑戰 — 林憶蓮</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700&family=Noto+Serif+TC:wght@700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/guess.css">
+</head>
+<body>
+
+  <nav class="site-nav">
+    <a href="index.html" class="nav-link">首頁</a>
+    <a href="tournament.html" class="nav-link">冠軍賽</a>
+    <a href="guess.html" class="nav-link active">猜歌挑戰</a>
+    <a href="guess-album.html" class="nav-link">猜專輯</a>
+  </nav>
+
+  <!-- 選擇語言 + 難度 -->
+  <section id="guess-intro" class="screen">
+    <div class="champion-inner">
+      <p class="eyebrow">Song Guess Challenge</p>
+      <h2>猜歌挑戰</h2>
+      <p class="intro-desc">聽 30 秒音樂片段，猜出是哪首歌！</p>
+
+      <div class="lang-selection">
+        <p class="selection-title">選擇語言（至少選一種）</p>
+        <div class="lang-options" id="langOptions"></div>
+        <p class="lang-pool-info" id="langPoolInfo"></p>
+      </div>
+
+      <div class="mode-selection">
+        <p class="selection-title">選擇難度</p>
+        <label class="mode-option">
+          <input type="radio" name="guess-mode" value="easy" checked>
+          <span class="mode-label">初級（20題）</span>
+          <span class="mode-desc">輕鬆入門，20 題隨機出題</span>
+        </label>
+        <label class="mode-option">
+          <input type="radio" name="guess-mode" value="medium">
+          <span class="mode-label">中級（50題）</span>
+          <span class="mode-desc">進階挑戰，50 題隨機出題</span>
+        </label>
+        <label class="mode-option">
+          <input type="radio" name="guess-mode" value="hard">
+          <span class="mode-label">最高級（全曲目）</span>
+          <span class="mode-desc">終極挑戰，答錯即結束</span>
+        </label>
+      </div>
+
+      <button class="btn-primary" id="guessStartBtn">開始挑戰</button>
+
+      <div class="leaderboard-section">
+        <h3 class="leaderboard-title">🏆 排行榜</h3>
+        <div class="leaderboard-grid">
+          <div class="leaderboard-col">
+            <h4 class="lb-col-title">最高級（全曲目）</h4>
+            <div id="lbHard"></div>
+          </div>
+          <div class="leaderboard-col">
+            <h4 class="lb-col-title">中級（50題）</h4>
+            <div id="lbMedium"></div>
+          </div>
+          <div class="leaderboard-col">
+            <h4 class="lb-col-title">初級（20題）</h4>
+            <div id="lbEasy"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 遊戲進行中 -->
+  <section id="guess-game" class="screen" hidden>
+    <div class="guess-game-inner">
+      <div class="guess-status">
+        <span id="guessProgress">第 1 / 20 題</span>
+        <span id="guessScore">正確：0</span>
+        <span id="guessTimer">⏱ 0.00s</span>
+      </div>
+
+      <div class="audio-player-wrap">
+        <button class="audio-play-btn" id="audioPlayBtn">⏸ 暫停</button>
+      </div>
+
+      <div class="guess-options" id="guessOptions"></div>
+
+      <button class="btn-primary" id="guessNextBtn" hidden>下一題</button>
+    </div>
+  </section>
+
+  <!-- 結果頁 -->
+  <section id="guess-result" class="screen" hidden>
+    <div class="champion-inner">
+      <img class="result-photo" src="images/champion.jpeg" alt="Sandy Lam">
+      <p class="eyebrow">Result</p>
+      <h2>挑戰結束！</h2>
+      <div class="guess-result-card">
+        <p class="result-mode" id="resultMode"></p>
+        <p class="result-big" id="resultScore"></p>
+        <p class="result-detail" id="resultDetail"></p>
+      </div>
+
+      <div id="submitScoreWrap" class="submit-score-wrap" hidden>
+        <p class="submit-title">登上排行榜</p>
+        <div class="submit-form">
+          <input type="text" id="playerName" placeholder="輸入你的暱稱" maxlength="20">
+          <button class="btn-primary" id="submitScoreBtn">提交成績</button>
+        </div>
+      </div>
+      <p id="scoreSubmitted" class="score-submitted" hidden>✓ 成績已提交！</p>
+
+      <div id="resultLeaderboard" hidden></div>
+
+      <div class="champion-actions">
+        <button class="btn-primary" id="guessGenerateCard">產生成績圖</button>
+        <button class="btn-secondary" id="guessRestart">再玩一次</button>
+      </div>
+      <canvas id="guessResultCanvas" hidden></canvas>
+      <div id="guessCardPreviewWrap" hidden>
+        <img id="guessCardPreviewImg" alt="成績圖">
+        <a id="guessCardDownloadLink" class="btn-secondary" download="guess-result.png">下載圖片</a>
+      </div>
+    </div>
+  </section>
+
+  <script src="js/guess.js"></script>
+</body>
+</html>
+

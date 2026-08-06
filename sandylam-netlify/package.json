@@ -1,0 +1,16 @@
+{
+  "name": "sandy-tournament-guess-rundown-0728",
+  "version": "1.0.0",
+  "description": "- ✅ 賽制引擎、投票畫面，都已經完成。 - ✅ **粵語曲目已擴充到 207 首**，涵蓋 39 張專輯／原聲帶／精選輯／重唱版本，   移除了純音樂、國語誤植曲目等 8 首。 - ✅ 39 張封面全部套用完成，`coverConfirmed` 皆為 `true`。 - ✅ 首頁標題改為「你最愛的林憶蓮粵語歌曲是哪首？」，並加上你提供的照片。 - ✅ **新增玩法選擇**：首頁可選「全部歌曲挑戰賽」或「隨機 100 首快速賽」。 - ✅ **戰績圖第三版**：改成「50強（一列10首）→ 25強（一列5首）→ 10強（一列5首）」   三層名單，圖片會愈往下愈大張；最後顯示亞軍（小）與冠軍（大）封面，   最下方附上網站網址 `https://sandylam.netlify.app/` 與可掃描的 QR Code，   方便玩家下載後直接分享出去。 - ⏳ 國語 / 日語 / 英語專輯：等你貼給我之後會用同樣方式整理，直接累加進 `data/songs.json`。",
+  "main": "convert-songs.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "@upstash/redis": "^1.38.0"
+  }
+}

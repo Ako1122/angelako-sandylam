@@ -1,0 +1,151 @@
+
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>冠軍賽 — 林憶蓮鐵粉挑戰賽</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5491012467741215"
+     crossorigin="anonymous"></script>
+</head>
+<body>
+
+<header class="site-header">
+  <nav class="site-nav">
+    <a href="index.html" class="nav-link">首頁</a>
+    <a href="tournament.html" class="nav-link active">冠軍賽</a>
+    <a href="guess.html" class="nav-link">猜歌挑戰</a>
+    <a href="guess-album.html" class="nav-link">猜專輯</a>
+  </nav>
+  <div class="brand">
+    <span class="brand-disc" aria-hidden="true"></span>
+    <span class="brand-name" id="artistName">林憶蓮鐵粉挑戰賽</span>
+  </div>
+  <div class="progress" id="progressWrap" hidden>
+    <span id="progressLabel">第 1 輪</span>
+    <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+  </div>
+</header>
+
+<main id="app">
+
+  <!-- INTRO -->
+  <section id="screen-intro" class="screen">
+    <div class="intro-inner">
+      <p class="eyebrow">Song Tournament</p>
+      <img class="intro-photo" src="images/intro-sandy.jpg" alt="林憶蓮">
+      <h1 id="introTitle">你最愛的<br>林憶蓮歌曲<br>是哪首？</h1>
+      <p class="intro-desc" id="introDesc">
+        載入中…
+      </p>
+      <div class="rule-card">
+        <p class="rule-title">賽制</p>
+        <ul class="rule-list">
+          <li><span class="rule-n">301 首以上</span>每 20 首一組，選出 10 首晉級</li>
+          <li><span class="rule-n">201–300 首</span>每 16 首一組，選出 8 首晉級</li>
+          <li><span class="rule-n">101–200 首</span>每 8 首一組，選出 4 首晉級</li>
+          <li><span class="rule-n">51–100 首</span>每 4 首一組，選出 2 首晉級</li>
+          <li><span class="rule-n">2–50 首</span>兩首捉對，選出 1 首晉級，直到冠軍誕生</li>
+        </ul>
+      </div>
+
+      <div class="lang-card">
+        <p class="rule-title">第一步：選擇要玩的歌曲語言（可複選，至少選一種）</p>
+        <div class="lang-options" id="langOptions">
+          <label class="lang-option">
+            <input type="checkbox" name="lang" value="粵語" checked>
+            <span class="lang-label">粵語</span>
+            <span class="lang-count" data-lang-count="粵語"></span>
+          </label>
+          <label class="lang-option">
+            <input type="checkbox" name="lang" value="國語">
+            <span class="lang-label">國語</span>
+            <span class="lang-count" data-lang-count="國語"></span>
+          </label>
+          <label class="lang-option">
+            <input type="checkbox" name="lang" value="英語">
+            <span class="lang-label">英語</span>
+            <span class="lang-count" data-lang-count="英語"></span>
+          </label>
+          <label class="lang-option">
+            <input type="checkbox" name="lang" value="日語">
+            <span class="lang-label">日語</span>
+            <span class="lang-count" data-lang-count="日語"></span>
+          </label>
+          <label class="lang-option">
+            <input type="checkbox" name="lang" value="藏文">
+            <span class="lang-label">藏文</span>
+            <span class="lang-count" data-lang-count="藏文"></span>
+          </label>
+        </div>
+        <p class="lang-hint" id="langHint" hidden>請至少選擇一種語言才能開始</p>
+      </div>
+
+      <div class="mode-card">
+        <p class="rule-title">第二步：選擇挑戰方式</p>
+        <label class="mode-option">
+          <input type="radio" name="mode" value="all" checked>
+          <span class="mode-label">全部歌曲挑戰賽</span>
+          <span class="mode-sub">所有歌曲一路捉對廝殺，最紮實但輪數較多</span>
+        </label>
+        <label class="mode-option">
+          <input type="radio" name="mode" value="random200">
+          <span class="mode-label">隨機 200 首</span>
+          <span class="mode-sub">快速賽，隨機抽 200 首出來比，比較快選出冠軍</span>
+        </label>
+        <label class="mode-option">
+          <input type="radio" name="mode" value="random100">
+          <span class="mode-label">隨機 100 首</span>
+          <span class="mode-sub">快速賽，隨機抽 100 首出來比，比較快選出冠軍</span>
+        </label>
+      </div>
+      <button class="btn-primary" id="startBtn">開始比賽</button>
+    </div>
+  </section>
+
+  <!-- ROUND -->
+  <section id="screen-round" class="screen" hidden>
+    <div class="round-meta">
+      <p class="round-heading" id="roundHeading">16強</p>
+      <p class="round-sub" id="roundSub">第 1 組 / 共 5 組 · 選出 4 首晉級下一輪</p>
+    </div>
+    <div class="pick-counter" id="pickCounter">已選 0 / 4</div>
+    <div class="song-grid" id="songGrid"></div>
+    <button class="btn-primary btn-confirm" id="confirmBtn" disabled>確認晉級名單</button>
+  </section>
+
+  <!-- CHAMPION -->
+  <section id="screen-champion" class="screen" hidden>
+    <div class="champion-inner">
+      <p class="eyebrow">Champion</p>
+      <h2>最終冠軍</h2>
+      <div class="champion-card">
+        <img id="championCover" src="" alt="">
+        <p class="champion-title" id="championTitle"></p>
+        <p class="champion-album" id="championAlbum"></p>
+      </div>
+      <div class="champion-actions">
+        <button class="btn-primary" id="generateCardBtn">產生晉級戰績圖</button>
+        <button class="btn-secondary" id="restartBtn">再玩一次</button>
+      </div>
+      <canvas id="resultCanvas" hidden></canvas>
+      <div id="cardPreviewWrap" hidden>
+        <img id="cardPreviewImg" alt="戰績圖預覽">
+        <a id="cardDownloadLink" class="btn-secondary" download="my-champion.png">下載圖片</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <p>每一輪同一首歌只出現一次；晉級後會在下一輪重新洗牌分組。</p>
+</footer>
+
+<script src="js/app.js"></script>
+</body>
+</html>
+
