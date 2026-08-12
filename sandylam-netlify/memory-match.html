@@ -1,0 +1,110 @@
+
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>記憶翻牌 — 林憶蓮</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700&family=Noto+Serif+TC:wght@700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/memory-match.css">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5491012467741215"
+     crossorigin="anonymous"></script>
+</head>
+<body>
+
+  <nav class="site-nav">
+    <a href="index.html" class="nav-link">首頁</a>
+    <a href="tournament.html" class="nav-link">冠軍賽</a>
+    <a href="guess.html" class="nav-link">猜歌挑戰</a>
+    <a href="guess-album.html" class="nav-link">猜專輯</a>
+    <a href="memory-match.html" class="nav-link active">記憶翻牌</a>
+  </nav>
+
+  <!-- 選擇難度 -->
+  <section id="memory-intro" class="screen">
+    <div class="champion-inner">
+      <p class="eyebrow">Memory Match</p>
+      <h2>記憶翻牌</h2>
+      <p class="intro-desc">翻開專輯封面，找出兩張一樣的配對，看誰最快配對完成！</p>
+
+      <div class="mode-selection">
+        <p class="selection-title">選擇難度</p>
+        <label class="mode-option">
+          <input type="radio" name="memory-mode" value="10" checked>
+          <span class="mode-label">初級（10 組封面）</span>
+          <span class="mode-desc">20 張牌，輕鬆入門</span>
+        </label>
+        <label class="mode-option">
+          <input type="radio" name="memory-mode" value="20">
+          <span class="mode-label">中級（20 組封面）</span>
+          <span class="mode-desc">40 張牌，進階挑戰</span>
+        </label>
+        <label class="mode-option">
+          <input type="radio" name="memory-mode" value="25">
+          <span class="mode-label">高級（25 組封面）</span>
+          <span class="mode-desc">50 張牌，終極挑戰</span>
+        </label>
+      </div>
+
+      <button class="btn-primary" id="memoryStartBtn">開始挑戰</button>
+
+      <div class="leaderboard-section">
+        <h3 class="leaderboard-title">🏆 排行榜</h3>
+        <div id="lbMemory"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 遊戲進行中 -->
+  <section id="memory-game" class="screen" hidden>
+    <div class="memory-game-inner">
+      <div class="memory-status">
+        <span id="memoryProgress">0 / 10 組</span>
+        <span id="memoryMoves">翻牌：0</span>
+        <span id="memoryTimer">⏱ 0.00s</span>
+      </div>
+
+      <div class="memory-grid" id="memoryGrid"></div>
+    </div>
+  </section>
+
+  <!-- 結果頁 -->
+  <section id="memory-result" class="screen" hidden>
+    <div class="champion-inner">
+      <img class="result-photo" src="images/champion.jpeg" alt="Sandy Lam">
+      <p class="eyebrow">Result</p>
+      <h2>配對完成！</h2>
+      <div class="guess-result-card">
+        <p class="result-mode" id="resultMode"></p>
+        <p class="result-big" id="resultScore"></p>
+        <p class="result-detail" id="resultDetail"></p>
+      </div>
+
+      <div id="submitScoreWrap" class="submit-score-wrap" hidden>
+        <p class="submit-title">登上排行榜</p>
+        <div class="submit-form">
+          <input type="text" id="playerName" placeholder="輸入你的暱稱" maxlength="20">
+          <button class="btn-primary" id="submitScoreBtn">提交成績</button>
+        </div>
+      </div>
+      <p id="scoreSubmitted" class="score-submitted" hidden>✓ 成績已提交！</p>
+
+      <div id="resultLeaderboard" hidden></div>
+
+      <div class="champion-actions">
+        <button class="btn-primary" id="memoryGenerateCard">產生成績圖</button>
+        <button class="btn-secondary" id="memoryRestart">再玩一次</button>
+      </div>
+      <canvas id="memoryResultCanvas" hidden></canvas>
+      <div id="memoryCardPreviewWrap" hidden>
+        <img id="memoryCardPreviewImg" alt="成績圖">
+        <a id="memoryCardDownloadLink" class="btn-secondary" download="memory-match-result.png">下載圖片</a>
+      </div>
+    </div>
+  </section>
+
+  <script src="js/memory-match.js"></script>
+</body>
+</html>
