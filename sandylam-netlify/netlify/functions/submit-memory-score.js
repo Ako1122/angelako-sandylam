@@ -5,7 +5,7 @@ const redis = new Redis({
   token: process.env.UPSTASH_REDIS_REST_TOKEN,
 });
 
-const KEY = "leaderboard:memory";
+const VALID_DIFFICULTIES = ["10", "20", "25"];
 
 exports.handler = async (event) => {
   if (event.httpMethod !== "POST") {
@@ -22,6 +22,14 @@ exports.handler = async (event) => {
         body: JSON.stringify({ error: "缺少必要欄位" }),
       };
     }
+    if (!VALID_DIFFICULTIES.includes(String(difficulty))) {
+      return {
+        statusCode: 400,
+        body: JSON.stringify({ error: "難度參數不正確" }),
+      };
+    }
+
+    const KEY = "leaderboard:memory-" + difficulty;
 
     // 純比速度：時間越短分數越高。用負數存，配合 rev:true 排序（大分數排前面）
     const sortScore = -time;

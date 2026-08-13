@@ -5,10 +5,19 @@ const redis = new Redis({
   token: process.env.UPSTASH_REDIS_REST_TOKEN,
 });
 
-const KEY = "leaderboard:memory";
+const VALID_DIFFICULTIES = ["10", "20", "25"];
 
-exports.handler = async () => {
+exports.handler = async (event) => {
   try {
+    const difficulty = String(event.queryStringParameters?.difficulty || "10");
+    if (!VALID_DIFFICULTIES.includes(difficulty)) {
+      return {
+        statusCode: 400,
+        body: JSON.stringify({ error: "難度參數不正確" }),
+      };
+    }
+    const KEY = "leaderboard:memory-" + difficulty;
+
     // 取前 10 名（時間最短排最前）
     const entries = await redis.zrange(KEY, 0, 9, { rev: true });
 

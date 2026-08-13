@@ -11,12 +11,18 @@ let startTime = null;
 let elapsedMs = 0;
 let timerHandle = null;
 let gameFinished = false;
+let gameSession = 0; // 每開始新的一局就 +1，用來辨識過期的提交回應
 
 const diffLabel = {
   10: "初級（10 組封面）",
   20: "中級（20 組封面）",
   25: "高級（25 組封面）",
 };
+
+const introBoardIds = { 10: "lbEasy", 20: "lbMedium", 25: "lbHard" };
+function introBoardId(difficulty) {
+  return introBoardIds[difficulty];
+}
 
 // XSS 防護
 function esc(str) {
@@ -70,6 +76,7 @@ function stopTimer() {
 }
 
 function startGame() {
+  gameSession++;
   difficulty = parseInt(
     document.querySelector('input[name="memory-mode"]:checked').value,
     10,
@@ -182,6 +189,13 @@ function showResult() {
   document.getElementById("submitScoreWrap").hidden = false;
   document.getElementById("scoreSubmitted").hidden = true;
   document.getElementById("resultLeaderboard").hidden = true;
+
+  // 重置提交按鈕跟姓名欄位，避免上一局還沒回應完的提交請求
+  // 把「提交中...」的卡住狀態帶到這一局的畫面上
+  const submitBtn = document.getElementById("submitScoreBtn");
+  submitBtn.disabled = false;
+  submitBtn.textContent = "提交成績";
+  document.getElementById("playerName").value = "";
 }
 
 function submitScore() {
@@ -192,6 +206,7 @@ function submitScore() {
     return;
   }
 
+  const thisSession = gameSession;
   const submitBtn = document.getElementById("submitScoreBtn");
   submitBtn.disabled = true;
   submitBtn.textContent = "提交中...";
@@ -208,12 +223,14 @@ function submitScore() {
   })
     .then((res) => res.json())
     .then(() => {
+      if (thisSession !== gameSession) return; // 已經在玩新的一局了，這個回應過期了，不要動畫面
       document.getElementById("submitScoreWrap").hidden = true;
       document.getElementById("scoreSubmitted").hidden = false;
-      loadLeaderboard("resultLeaderboard");
-      loadLeaderboard("lbMemory");
+      loadLeaderboard("resultLeaderboard", difficulty);
+      loadLeaderboard(introBoardId(difficulty), difficulty);
     })
     .catch(() => {
+      if (thisSession !== gameSession) return;
       submitBtn.disabled = false;
       submitBtn.textContent = "提交成績";
       document.getElementById("scoreSubmitted").textContent =
@@ -222,12 +239,12 @@ function submitScore() {
     });
 }
 
-function loadLeaderboard(containerId) {
+function loadLeaderboard(containerId, difficulty) {
   const container = document.getElementById(containerId);
   container.hidden = false;
   container.innerHTML = '<p class="leaderboard-loading">載入排行榜中...</p>';
 
-  fetch("/.netlify/functions/get-memory-leaderboard")
+  fetch("/.netlify/functions/get-memory-leaderboard?difficulty=" + difficulty)
     .then((res) => res.json())
     .then((data) => {
       if (!data || data.length === 0) {
@@ -238,14 +255,12 @@ function loadLeaderboard(containerId) {
       let html = '<div class="leaderboard-card">';
       html += '<table class="leaderboard-table">';
       html +=
-        "<thead><tr><th>#</th><th>選手</th><th>難度</th><th>翻牌</th><th>用時</th></tr></thead>";
+        "<thead><tr><th>#</th><th>選手</th><th>翻牌</th><th>用時</th></tr></thead>";
       html += "<tbody>";
       data.forEach((entry) => {
         html += "<tr>";
         html += '<td class="rank-col">' + entry.rank + "</td>";
         html += '<td class="name-col">' + esc(entry.name) + "</td>";
-        html +=
-          '<td class="diff-col">' + esc(entry.difficulty + " 組") + "</td>";
         html += "<td>" + entry.moves + "</td>";
         html += "<td>" + entry.time + "s</td>";
         html += "</tr>";
@@ -355,7 +370,9 @@ async function boot() {
     .getElementById("submitScoreBtn")
     .addEventListener("click", submitScore);
 
-  loadLeaderboard("lbMemory");
+  loadLeaderboard("lbEasy", 10);
+  loadLeaderboard("lbMedium", 20);
+  loadLeaderboard("lbHard", 25);
 }
 
 boot();
