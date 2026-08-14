@@ -1,0 +1,88 @@
+
+.guess-game-inner{max-width:600px;margin:0 auto;padding:1.5rem 1rem;text-align:center}
+.guess-status{display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;padding:.5rem .75rem;background:rgba(112,128,144,.08);border-radius:8px;font:600 13px "Noto Sans TC",sans-serif;color:#201E1F}
+.guess-status span:nth-child(2){color:#708090}
+.guess-status span:nth-child(3){color:#5C6B73}
+
+.audio-player-wrap{display:flex;align-items:center;justify-content:center;margin-bottom:1rem;padding:.6rem;background:#201E1F;border-radius:8px}
+.audio-play-btn{background:#708090;color:#F6F2EA;border:none;border-radius:6px;padding:.5rem 1.2rem;font:700 13px "Noto Sans TC",sans-serif;cursor:pointer;transition:background .2s}
+.audio-play-btn:hover{background:#5a6e7a}
+
+.guess-options{display:grid;grid-template-columns:1fr;gap:.4rem;margin-bottom:.75rem}
+.guess-option-btn{display:flex;align-items:center;gap:.5rem;text-align:left;background:#fff;border:2.5px solid rgba(32,30,31,.15);border-radius:8px;padding:.55rem .75rem;font:500 15px "Noto Sans TC",sans-serif;color:#201E1F;cursor:pointer;transition:all .15s;word-break:break-word}
+.guess-option-btn:hover:not(:disabled){border-color:#708090;background:rgba(112,128,144,.05)}
+.guess-option-btn:disabled{cursor:default}
+.guess-option-btn.correct{border-color:#1a7a3a;border-width:3.5px;background:rgba(26,122,58,.1);color:#1a7a3a;font-weight:700}
+.guess-option-btn.wrong{border-color:#a82318;border-width:3.5px;background:rgba(168,35,24,.08);color:#a82318;font-weight:700}
+
+.option-title{font:700 16px "Noto Sans TC",sans-serif;color:inherit}
+
+.answer-badge{font-weight:900;font-size:18px;flex-shrink:0;width:24px;text-align:center}
+.correct-badge{color:#1a7a3a}
+.wrong-badge{color:#a82318}
+
+.lang-selection{margin-bottom:1.5rem}
+.selection-title{font:700 15px "Noto Sans TC",sans-serif;color:#201E1F;margin-bottom:.75rem}
+.lang-options{display:flex;flex-wrap:wrap;gap:.5rem;justify-content:center;margin-bottom:.5rem}
+.lang-checkbox{display:flex;align-items:center;gap:.3rem;background:#fff;border:1.5px solid rgba(32,30,31,.15);border-radius:6px;padding:.4rem .75rem;cursor:pointer;transition:all .2s;font:500 14px "Noto Sans TC",sans-serif}
+.lang-checkbox:has(input:checked){border-color:#708090;background:rgba(112,128,144,.08)}
+.lang-checkbox input{accent-color:#708090}
+.lang-name{color:#201E1F}
+.lang-count{color:#5C6B73;font-size:12px}
+.lang-pool-info{font:500 13px "Noto Sans TC",sans-serif;color:#708090;margin-top:.5rem}
+
+.mode-selection{margin-bottom:1.5rem}
+.mode-option{display:block;padding:.6rem 1rem;margin-bottom:.4rem;border:1.5px solid rgba(32,30,31,.1);border-radius:8px;cursor:pointer;transition:all .2s}
+.mode-option:has(input:checked){border-color:#708090;background:rgba(112,128,144,.06)}
+.mode-option.disabled{opacity:.4;cursor:not-allowed}
+.mode-label{font:700 14px "Noto Sans TC",sans-serif;color:#201E1F;display:block}
+.mode-desc{font:400 12px "Noto Sans TC",sans-serif;color:#5C6B73}
+
+/* 結果頁 */
+.result-photo{width:180px;height:auto;border-radius:12px;margin:0 auto 1rem;display:block}
+.guess-result-card{text-align:center;padding:1.5rem;margin:1rem 0;background:#fff;border-radius:12px;border:1.5px solid rgba(32,30,31,.1)}
+.result-mode{font:500 14px "Noto Sans TC",sans-serif;color:#5C6B73;margin-bottom:.5rem}
+.result-big{font:700 48px "Noto Serif TC",serif;color:#708090;margin:.5rem 0}
+.result-detail{font:500 16px "Noto Sans TC",sans-serif;color:#201E1F}
+
+/* 提交成績表單 */
+.submit-score-wrap{margin:1.5rem 0;padding:1.25rem;background:#fff;border-radius:10px;border:1.5px solid rgba(32,30,31,.1)}
+.submit-title{font:700 15px "Noto Sans TC",sans-serif;color:#201E1F;margin-bottom:.75rem}
+.submit-form{display:flex;gap:.5rem;align-items:center;justify-content:center}
+.submit-form input{flex:1;max-width:200px;padding:.6rem .75rem;border:1.5px solid rgba(32,30,31,.2);border-radius:8px;font:500 14px "Noto Sans TC",sans-serif;outline:none;transition:border-color .2s}
+.submit-form input:focus{border-color:#708090}
+.score-submitted{font:600 14px "Noto Sans TC",sans-serif;color:#2d8a4e;margin-top:1rem}
+
+/* 排行榜 */
+.leaderboard-section{margin-top:2.5rem;text-align:center}
+.leaderboard-title{font:700 18px "Noto Sans TC",sans-serif;color:#201E1F;margin-bottom:1rem}
+.leaderboard-grid{display:grid;grid-template-columns:1fr;gap:1.5rem;text-align:center}
+.leaderboard-col{min-width:0}
+.lb-col-title{font:700 14px "Noto Sans TC",sans-serif;color:#708090;margin-bottom:.75rem}
+
+.leaderboard-card{background:#fff;border-radius:10px;border:1.5px solid rgba(32,30,31,.1);overflow:hidden}
+.leaderboard-table{width:100%;border-collapse:collapse;font:400 13px "Noto Sans TC",sans-serif;color:#201E1F}
+.leaderboard-table thead{background:rgba(112,128,144,.06)}
+.leaderboard-table th{font-weight:600;padding:.5rem .4rem;text-align:center;font-size:12px;color:#5C6B73}
+.leaderboard-table td{padding:.4rem .3rem;text-align:center;border-top:1px solid rgba(32,30,31,.06)}
+.leaderboard-table tbody tr:hover{background:rgba(112,128,144,.04)}
+.rank-col{font-weight:700;color:#708090}
+.name-col{font-weight:600;text-align:left;padding-left:.5rem}
+.langs-col{font-size:11px;color:#5C6B73}
+
+.leaderboard-loading{font:500 14px "Noto Sans TC",sans-serif;color:#5C6B73;padding:1.5rem 0}
+.leaderboard-empty{font:500 14px "Noto Sans TC",sans-serif;color:#5C6B73;padding:1.5rem 0}
+
+/* 版本說明提示 */
+.game-notice{max-width:600px;margin:0 auto 1.5rem;padding:.85rem 1rem;background:rgba(176,138,62,.1);border:1.5px solid rgba(176,138,62,.35);border-radius:8px;font:500 12.5px "Noto Sans TC",sans-serif;color:#8a6a2c;line-height:1.6;text-align:left}
+
+/* 翻唱來源資訊面板 — 作答後於播放器下方顯示 */
+.cover-source-info{max-width:600px;margin:0 auto 1rem;padding:.75rem 1rem;background:rgba(112,128,144,.08);border-left:3px solid #708090;border-radius:6px;text-align:left}
+.cover-source-info .source-label{font:600 11px "Noto Sans TC",sans-serif;color:#708090;letter-spacing:.05em;display:block;margin-bottom:.2rem}
+.cover-source-info .source-name{font:700 15px "Noto Sans TC",sans-serif;color:#201E1F}
+
+@media(max-width:480px){
+  .leaderboard-table{font-size:11px}
+  .leaderboard-table th,.leaderboard-table td{padding:.35rem .2rem}
+}
+
