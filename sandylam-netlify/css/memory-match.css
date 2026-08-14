@@ -72,8 +72,10 @@
   .leaderboard-table th,.leaderboard-table td{padding:.35rem .2rem}
 }
 
-/* 橫式螢幕（桌機、平板橫放、手機橫放）：牌陣改成寬扁排法，不然會變成一長條要一直往下滑 */
-@media(orientation:landscape){
+/* 橫式螢幕，且是滑鼠裝置（桌機/筆電）才重新排版成寬扁牌陣；
+   手機/平板即使橫放也是觸控裝置，沒有 hover+pointer:fine，
+   會直接沿用跟直式一樣的排版跟卡片大小，只是畫面變寬會置中，不會被硬塞多欄位壓扁 */
+@media(orientation:landscape) and (hover:hover) and (pointer:fine){
   .memory-game-inner{max-width:min(960px,94vw)}
   .memory-grid,
   .memory-grid.cols-4,
@@ -82,14 +84,4 @@
     grid-template-columns:repeat(10,1fr);
   }
   .memory-card-back{font-size:16px}
-}
-
-/* 橫式但螢幕本身很窄（手機橫放）：卡片會被壓太扁，欄數收斂一點，維持可讀性 */
-@media(orientation:landscape) and (max-height:480px){
-  .memory-grid,
-  .memory-grid.cols-4,
-  .memory-grid.cols-5{
-    grid-template-columns:repeat(8,1fr);
-    gap:6px;
-  }
 }
