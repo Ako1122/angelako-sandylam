@@ -4,7 +4,7 @@ const SONGS_URL = "data/songs.json";
 // 這些封面檔案，除非是該題的正確答案，否則不可以出現在干擾選項中
 const BLOCKED_DISTRACTOR_COVERS = new Set(
   [
-    "08.jpg","18.jpg","19.jpg","20.jpg","21.jpg","23.jpg","27.jpg","28.jpg",
+    "08.jpg","16.jpg","18.jpg","19.jpg","20.jpg","21.jpg","23.jpg","27.jpg","28.jpg",
     "30.jpg","31.jpg","32.jpg","33.webp","34.jpg","35.jpg","36.png","37.webp",
     "38.jpg","41.jpg","43.jpg","44.jpg","46.jpg","45.jpg","47.jpg","49.jpg","50.jpg",
     "51.jpg","52.jpg","53.webp","54.jpg","55.jpg","56.jpg","57.png","58.webp",
