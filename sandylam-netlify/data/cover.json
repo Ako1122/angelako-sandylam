@@ -497,7 +497,7 @@
     "correctAnswer": "前塵",
     "album": "都市觸覺 Part III Faces And Places",
     "correctCover": "images/covers/08.jpg",
-    "excludeCoverFile": null,
+    "excludeCoverFile": "images/covers/41.jpg",
     "excludeSongName": null,
     "appleMusicUrl": "https://music.apple.com/ca/song/paradise-in-my-heart/265696201",
     "trackId": "265696201",
@@ -506,7 +506,7 @@
   {
     "id": "cover0043",
     "name": "The Cover Girls - No One In This World",
-    "correctAnswer": "匆匆",
+    "correctAnswer": "怱怱",
     "album": "都市觸覺 Part III Faces And Places",
     "correctCover": "images/covers/08.jpg",
     "excludeCoverFile": null,
