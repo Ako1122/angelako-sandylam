@@ -106,7 +106,7 @@ function startGame() {
 
 function renderGrid() {
   const grid = document.getElementById("memoryGrid");
-  grid.className = "memory-grid " + (difficulty <= 10 ? "cols-4" : "cols-5");
+  grid.className = "memory-grid diff-" + difficulty;
   grid.innerHTML = "";
 
   cards.forEach((card) => {

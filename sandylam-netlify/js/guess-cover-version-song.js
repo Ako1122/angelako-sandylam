@@ -3,7 +3,8 @@ const SONGS_URL = "data/songs.json";
 
 let allCovers = [],
   coverPool = [],
-  songTitlePool = [], // [{title, isChinese}] 去重後的原曲庫，供猜歌名干擾項使用
+  songTitlePool = [], // [{title, lang}] 去重後的原曲庫，供猜歌名干擾項使用
+  titleLangMap = {}, // title -> lang（用於判斷正確答案的語系）
   gameQueue = [],
   currentQuestion = 0,
   score = 0,
@@ -30,9 +31,20 @@ function shuffle(a) {
   return b;
 }
 
-// 中文字元判斷（含繁簡漢字），用來區分中文歌名 / 英文歌名
+// 中文字元判斷（含繁簡漢字），用來當作備援判斷中文歌名 / 英文歌名
 function isChineseTitle(str) {
   return /[\u4e00-\u9fff\u3400-\u4dbf]/.test(str || "");
+}
+
+const ZH_LANGS = new Set(["粵語", "國語"]);
+
+// 判斷「正確答案」歌名的語系分類：'zh'（中文，含粵語/國語）或 'en'（英文）
+// 優先用 songs.json 的 lang 欄位比對；找不到精確符合時，退回用字元判斷
+function getAnswerType(correctAnswer) {
+  const lang = titleLangMap[correctAnswer];
+  if (lang === "英語") return "en";
+  if (ZH_LANGS.has(lang)) return "zh";
+  return isChineseTitle(correctAnswer) ? "zh" : "en";
 }
 
 function showScreen(id) {
@@ -136,34 +148,29 @@ function startGame() {
 function buildDistractorTitles(correct) {
   const correctAnswer = correct.correctAnswer;
   const excludeName = correct.excludeSongName || null;
-  const wantChinese = isChineseTitle(correctAnswer);
+  const answerType = getAnswerType(correctAnswer); // 'zh' 或 'en'
 
   const usedTitles = new Set([correctAnswer]);
   if (excludeName) usedTitles.add(excludeName);
 
   const wrongTitles = [];
 
-  // 第一輪：只從同語系（中文／英文）的歌名庫抽取，並避開指定不可出現的歌名
-  const sameLangPool = shuffle(
-    songTitlePool.filter(
-      (t) => t.isChinese === wantChinese && !usedTitles.has(t.title),
-    ),
+  // 干擾選項規則：
+  // - 正確答案是中文歌名 → 干擾項只能是中文歌名（粵語／國語）
+  // - 正確答案是英文歌名 → 干擾項只能是英文歌名
+  // - 日文歌名一律不可以出現在干擾選項中（不論正確答案語系為何）
+  const candidatePool = shuffle(
+    songTitlePool.filter((t) => {
+      if (usedTitles.has(t.title)) return false;
+      if (t.lang === "日語") return false;
+      if (answerType === "en") return t.lang === "英語";
+      return ZH_LANGS.has(t.lang);
+    }),
   );
-  for (const t of sameLangPool) {
+
+  for (const t of candidatePool) {
     if (wrongTitles.length >= 3) break;
     if (!usedTitles.has(t.title)) {
-      wrongTitles.push(t.title);
-      usedTitles.add(t.title);
-    }
-  }
-
-  // 備援：若同語系歌名不足 3 個，從其餘歌名庫補齊（仍避開不可出現歌名）
-  if (wrongTitles.length < 3) {
-    const restPool = shuffle(
-      songTitlePool.filter((t) => !usedTitles.has(t.title)),
-    );
-    for (const t of restPool) {
-      if (wrongTitles.length >= 3) break;
       wrongTitles.push(t.title);
       usedTitles.add(t.title);
     }
@@ -467,13 +474,15 @@ async function boot() {
 
   coverPool = allCovers.filter((c) => c.previewUrl && c.correctAnswer);
 
-  // 建立去重歌名庫（供猜歌名干擾項使用），並標記中文／英文
+  // 建立去重歌名庫（供猜歌名干擾項使用），並記錄語言別（粵語/國語/英語/日語...）
   const seen = new Set();
   songTitlePool = [];
   allSongs.forEach((s) => {
-    if (!s.title || seen.has(s.title)) return;
+    if (!s.title) return;
+    if (!(s.title in titleLangMap)) titleLangMap[s.title] = s.lang;
+    if (seen.has(s.title)) return;
     seen.add(s.title);
-    songTitlePool.push({ title: s.title, isChinese: isChineseTitle(s.title) });
+    songTitlePool.push({ title: s.title, lang: s.lang });
   });
 
   updateModeAvailability();
