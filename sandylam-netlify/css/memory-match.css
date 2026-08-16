@@ -11,10 +11,14 @@
 .mode-label{font:700 14px "Noto Sans TC",sans-serif;color:#201E1F;display:block}
 .mode-desc{font:400 12px "Noto Sans TC",sans-serif;color:#5C6B73}
 
-/* 卡片盤面 */
+/* 卡片盤面：直式跟橫式的欄數都寫死，跟直式的規則剛好對調
+   初級(10組) 直式4欄 / 橫式5欄
+   中級(20組) 直式5欄 / 橫式8欄
+   高級(25組) 直式5欄 / 橫式10欄 */
 .memory-grid{display:grid;gap:8px;margin:0 auto 1rem;max-width:600px}
-.memory-grid.cols-4{grid-template-columns:repeat(4,1fr)}
-.memory-grid.cols-5{grid-template-columns:repeat(5,1fr)}
+.memory-grid.diff-10{grid-template-columns:repeat(4,1fr)}
+.memory-grid.diff-20{grid-template-columns:repeat(5,1fr)}
+.memory-grid.diff-25{grid-template-columns:repeat(5,1fr)}
 
 .memory-card{aspect-ratio:1/1;perspective:600px;cursor:pointer}
 .memory-card.matched{cursor:default}
@@ -72,16 +76,11 @@
   .leaderboard-table th,.leaderboard-table td{padding:.35rem .2rem}
 }
 
-/* 橫式螢幕，且是滑鼠裝置（桌機/筆電）才重新排版成寬扁牌陣；
-   手機/平板即使橫放也是觸控裝置，沒有 hover+pointer:fine，
-   會直接沿用跟直式一樣的排版跟卡片大小，只是畫面變寬會置中，不會被硬塞多欄位壓扁 */
-@media(orientation:landscape) and (hover:hover) and (pointer:fine){
+/* 橫式螢幕：欄數跟直式對調（4x5→5x4、5x8→8x5、5x10→10x5） */
+@media(orientation:landscape){
   .memory-game-inner{max-width:min(960px,94vw)}
-  .memory-grid,
-  .memory-grid.cols-4,
-  .memory-grid.cols-5{
-    max-width:min(900px,90vw);
-    grid-template-columns:repeat(10,1fr);
-  }
-  .memory-card-back{font-size:16px}
+  .memory-grid{max-width:min(900px,90vw)}
+  .memory-grid.diff-10{grid-template-columns:repeat(5,1fr)}
+  .memory-grid.diff-20{grid-template-columns:repeat(8,1fr)}
+  .memory-grid.diff-25{grid-template-columns:repeat(10,1fr)}
 }

@@ -4,11 +4,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>猜專輯挑戰 — 林憶蓮</title>
+  <title>猜翻唱專輯挑戰 — 林憶蓮</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700&family=Noto+Serif+TC:wght@700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="css/guess-album.css">
+  <link rel="stylesheet" href="css/guess-cover-version-album.css">
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5491012467741215"
      crossorigin="anonymous"></script>
 </head>
@@ -18,25 +18,20 @@
     <a href="index.html" class="nav-link">首頁</a>
     <a href="tournament.html" class="nav-link">冠軍賽</a>
     <a href="guess.html" class="nav-link">猜歌挑戰</a>
-    <a href="guess-album.html" class="nav-link active">猜專輯</a>
+    <a href="guess-album.html" class="nav-link">猜專輯</a>
     <a href="guess-cover-version-song.html" class="nav-link">猜翻唱歌名</a>
-    <a href="guess-cover-version-album.html" class="nav-link">猜翻唱專輯</a>
+    <a href="guess-cover-version-album.html" class="nav-link active">猜翻唱專輯</a>
     <a href="memory-match.html" class="nav-link">記憶翻牌</a>
   </nav>
 
-
-  <!-- 選擇語言 + 難度 -->
+  <!-- 選擇難度 -->
   <section id="album-intro" class="screen">
     <div class="champion-inner">
-      <p class="eyebrow">Guess The Album</p>
-      <h2>猜專輯挑戰</h2>
-      <p class="intro-desc">聽 30 秒音樂片段，猜出是哪張專輯！</p>
+      <p class="eyebrow">Cover Version Album Guess</p>
+      <h2>猜翻唱專輯挑戰</h2>
+      <p class="intro-desc">聽一段「翻唱原曲或其他人演繹版本」的音樂片段，猜猜看這首歌收錄在 Sandy 的哪張專輯！</p>
 
-      <div class="lang-selection">
-        <p class="selection-title">選擇語言（至少選一種）</p>
-        <div class="lang-options" id="langOptions"></div>
-        <p class="lang-pool-info" id="langPoolInfo"></p>
-      </div>
+      <p class="game-notice">由於許多翻唱歌曲原曲年代久遠，無法找到數位發行版本，部分歌曲將提供其他翻唱或演繹版本在遊戲內，敬請見諒。</p>
 
       <div class="mode-selection">
         <p class="selection-title">選擇難度</p>
@@ -56,6 +51,7 @@
           <span class="mode-desc">終極挑戰，答錯即結束</span>
         </label>
       </div>
+      <p class="lang-pool-info" id="poolInfo"></p>
 
       <button class="btn-primary" id="albumStartBtn">開始挑戰</button>
 
@@ -90,6 +86,11 @@
 
       <div class="audio-player-wrap">
         <button class="audio-play-btn" id="audioPlayBtn">⏸ 暫停</button>
+      </div>
+
+      <div class="cover-source-info" id="coverSourceInfo" hidden>
+        <span class="source-label">翻唱原曲 / 演繹版本</span>
+        <span class="source-name" id="coverSourceName"></span>
       </div>
 
       <div class="album-options" id="albumOptions"></div>
@@ -128,12 +129,11 @@
       <canvas id="albumResultCanvas" hidden></canvas>
       <div id="albumCardPreviewWrap" hidden>
         <img id="albumCardPreviewImg" alt="成績圖">
-        <a id="albumCardDownloadLink" class="btn-secondary" download="album-guess-result.png">下載圖片</a>
+        <a id="albumCardDownloadLink" class="btn-secondary" download="guess-cover-version-album-result.png">下載圖片</a>
       </div>
     </div>
   </section>
 
-  <script src="js/guess-album.js"></script>
+  <script src="js/guess-cover-version-album.js"></script>
 </body>
 </html>
-
