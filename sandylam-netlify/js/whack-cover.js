@@ -37,7 +37,7 @@ const DIFFICULTY = {
 const HIT_SCORE_BASE = 100;
 const MISS_PENALTY = 50;
 const GRID_SIZE = 16; // 4x4
-const HOLE_COOLDOWN_MS = 380; // 同一個洞收回後，要冷卻這麼久才能再冒出下一隻，避免連續無間隔跳格
+const HOLE_COOLDOWN_MS = 700; // 同一個洞收回後，要冷卻這麼久才能再冒出下一隻，避免連續無間隔跳格
 
 let songPool = [], // 有 preview_url 且有 cover 的歌曲，用來選「正在播放」的目標曲目
   uniqueCovers = [], // 去重後的專輯封面庫（用於干擾選項）
