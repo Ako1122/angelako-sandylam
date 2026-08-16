@@ -14,16 +14,9 @@
 <body>
 
 <header class="site-header">
-  <nav class="site-nav">
-    <a href="index.html" class="nav-link">首頁</a>
-    <a href="tournament.html" class="nav-link active">冠軍賽</a>
-    <a href="guess.html" class="nav-link">猜歌挑戰</a>
-    <a href="guess-album.html" class="nav-link">猜專輯</a>
-    <a href="guess-cover-version-song.html" class="nav-link">猜翻唱歌名</a>
-    <a href="guess-cover-version-album.html" class="nav-link">猜翻唱專輯</a>
-    <a href="memory-match.html" class="nav-link">記憶翻牌</a>
-    <a href="whack-cover.html" class="nav-link">打地鼠猜封面</a>
-  </nav>
+  <button class="menu-toggle" id="menuToggle" type="button" aria-expanded="false" aria-controls="siteNav">
+    <span>MENU</span><span class="chevron">▾</span>
+  </button>
   <div class="brand">
     <span class="brand-disc" aria-hidden="true"></span>
     <span class="brand-name" id="artistName">林憶蓮鐵粉挑戰賽</span>
@@ -33,6 +26,16 @@
     <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
   </div>
 </header>
+<nav class="site-nav" id="siteNav">
+  <a href="index.html" class="nav-link">首頁</a>
+  <a href="tournament.html" class="nav-link active">冠軍賽</a>
+  <a href="guess.html" class="nav-link">猜歌挑戰</a>
+  <a href="guess-album.html" class="nav-link">猜專輯</a>
+  <a href="guess-cover-version-song.html" class="nav-link">猜翻唱歌名</a>
+  <a href="guess-cover-version-album.html" class="nav-link">猜翻唱專輯</a>
+  <a href="memory-match.html" class="nav-link">記憶翻牌</a>
+  <a href="whack-cover.html" class="nav-link">打地鼠猜封面</a>
+</nav>
 
 <main id="app">
 
@@ -149,6 +152,7 @@
   <p>每一輪同一首歌只出現一次；晉級後會在下一輪重新洗牌分組。</p>
 </footer>
 
+<script src="js/nav-toggle.js" defer></script>
 <script src="js/app.js"></script>
 </body>
 </html>
