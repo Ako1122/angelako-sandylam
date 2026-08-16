@@ -57,7 +57,8 @@ let songPool = [], // 有 preview_url 且有 cover 的歌曲，用來選「正�
   spawnTimerId = null,
   gameRunning = false,
   holes = [], // { el, imgEl, active, isTarget, hideTimer }
-  recentDecoyCovers = [];
+  recentDecoyCovers = [],
+  imageCache = new Map(); // 封面圖片快取，避免遊戲中第一次顯示時要重新下載造成延遲
 
 function esc(str) {
   const d = document.createElement("div");
@@ -72,6 +73,37 @@ function shuffle(a) {
     [b[i], b[j]] = [b[j], b[i]];
   }
   return b;
+}
+
+/* ---------------- 圖片預先載入（避免遊戲中出圖 lag） ---------------- */
+
+function preloadImage(src) {
+  if (imageCache.has(src)) return imageCache.get(src);
+
+  const promise = new Promise((resolve) => {
+    const img = new Image();
+    img.onload = () => {
+      // decode() 會把圖片完整解碼好，之後顯示才不會有解碼卡頓
+      if (img.decode) {
+        img.decode().then(resolve).catch(resolve);
+      } else {
+        resolve();
+      }
+    };
+    img.onerror = resolve; // 單張失敗不擋整體流程
+    img.src = src;
+  });
+
+  imageCache.set(src, promise);
+  return promise;
+}
+
+function preloadAllCovers() {
+  const paths = uniqueCovers.map((c) => c.cover);
+  const loadAll = Promise.all(paths.map(preloadImage));
+  // 就算網路不好，最多等 8 秒就放行，避免玩家被卡在「載入中」出不去
+  const timeout = new Promise((resolve) => setTimeout(resolve, 8000));
+  return Promise.race([loadAll, timeout]);
 }
 
 function showScreen(id) {
@@ -454,6 +486,17 @@ async function boot() {
   loadLeaderboard("hard", "lbHard");
   loadLeaderboard("medium", "lbMedium");
   loadLeaderboard("easy", "lbEasy");
+
+  // 遊戲開始前先把所有可能用到的封面圖片預先載入＋解碼好，
+  // 這樣遊戲進行中同一張封面第一次出現時就不會有下載/解碼造成的延遲
+  const startBtn = document.getElementById("whackStartBtn");
+  startBtn.disabled = true;
+  const originalLabel = startBtn.textContent;
+  startBtn.textContent = "圖片準備中...";
+  preloadAllCovers().then(() => {
+    startBtn.disabled = false;
+    startBtn.textContent = originalLabel;
+  });
 }
 
 boot();
