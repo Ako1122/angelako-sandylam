@@ -58,7 +58,8 @@ let songPool = [], // 有 preview_url 且有 cover 的歌曲，用來選「正�
   gameRunning = false,
   holes = [], // { el, imgEl, active, isTarget, hideTimer }
   recentDecoyCovers = [],
-  imageCache = new Map(); // 封面圖片快取，避免遊戲中第一次顯示時要重新下載造成延遲
+  imageCache = new Map(), // 封面圖片快取，避免遊戲中第一次顯示時要重新下載造成延遲
+  lastHiddenHoleIndex = -1; // 剛收回封面的洞，下一次出洞一定會避開（跟冷卻時間機制雙重保險）
 
 function esc(str) {
   const d = document.createElement("div");
@@ -144,6 +145,7 @@ function buildGrid() {
     grid.appendChild(hole);
 
     const holeState = {
+      index: i,
       el: hole,
       imgEl: img,
       active: false,
@@ -192,7 +194,10 @@ function spawnMole() {
   if (activeCount >= diff.maxConcurrent) return;
 
   const emptyHoles = holes.filter(
-    (h) => !h.active && performance.now() >= h.cooldownUntil,
+    (h) =>
+      !h.active &&
+      performance.now() >= h.cooldownUntil &&
+      h.index !== lastHiddenHoleIndex,
   );
   if (emptyHoles.length === 0) return;
 
@@ -229,6 +234,7 @@ function hideMole(hole, reason) {
   hole.el.classList.remove("active");
   clearTimeout(hole.hideTimer);
   hole.cooldownUntil = performance.now() + HOLE_COOLDOWN_MS;
+  lastHiddenHoleIndex = hole.index;
 
   if (reason === "expire") {
     // 目標封面沒點到，連擊中斷但不扣分
@@ -354,6 +360,7 @@ function startGame() {
   waveElapsed = 0;
   recentDecoyCovers = [];
   currentTarget = null;
+  lastHiddenHoleIndex = -1;
   gameRunning = true;
 
   buildGrid();
@@ -381,6 +388,13 @@ function endGame() {
   document.getElementById("resultScore").textContent = score + " 分";
   document.getElementById("resultDetail").textContent =
     "命中 " + hits + " 次．失手 " + misses + " 次．最高連擊 " + maxCombo + "．準確率 " + accuracy + "%";
+
+  // 重置提交表單狀態，避免沿用上一輪殘留的「提交中...」鎖定狀態或舊暱稱
+  const nameInput = document.getElementById("playerName");
+  nameInput.value = "";
+  const submitBtn = document.getElementById("submitScoreBtn");
+  submitBtn.disabled = false;
+  submitBtn.textContent = "提交成績";
 
   document.getElementById("submitScoreWrap").hidden = false;
   document.getElementById("scoreSubmitted").hidden = true;
