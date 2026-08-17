@@ -25,6 +25,12 @@ html,body{
 
 a{ color: inherit; }
 
+/* 全站標題統一使用襯線展示字體（跟冠軍賽標題同一種字型），避免各頁面標題字體不一致 */
+h1, h2, h3, h4{
+  font-family: var(--font-display);
+  margin: 0 0 0.5em;
+}
+
 /* ---------- Header ---------- */
 .nav-wrap{ position: relative; }
 .site-header{
