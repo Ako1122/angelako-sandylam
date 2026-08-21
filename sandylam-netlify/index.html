@@ -13,28 +13,31 @@
 </head>
 <body>
 
+<div class="nav-wrap">
 <header class="site-header">
-  <nav class="site-nav">
-    <a href="index.html" class="nav-link active">首頁</a>
-    <a href="tournament.html" class="nav-link">冠軍賽</a>
-    <a href="guess.html" class="nav-link">猜歌挑戰</a>
-    <a href="guess-album.html" class="nav-link">猜專輯</a>
-    <a href="guess-cover-version-song.html" class="nav-link">猜翻唱歌名</a>
-    <a href="guess-cover-version-album.html" class="nav-link">猜翻唱專輯</a>
-    <a href="memory-match.html" class="nav-link">記憶翻牌</a>
-  </nav>
+  <button class="menu-toggle" id="menuToggle" type="button" aria-expanded="false" aria-controls="siteNav">
+    <span>MENU</span><span class="chevron">▾</span>
+  </button>
   <div class="brand">
     <span class="brand-disc" aria-hidden="true"></span>
     <span class="brand-name">林憶蓮鐵粉挑戰賽</span>
   </div>
 </header>
+<nav class="site-nav" id="siteNav">
+  <a href="index.html" class="nav-link active">首頁</a>
+  <a href="tournament.html" class="nav-link">冠軍賽</a>
+  <a href="guess.html" class="nav-link">猜歌挑戰</a>
+  <a href="guess-album.html" class="nav-link">猜專輯</a>
+  <a href="guess-cover-version-song.html" class="nav-link">猜翻唱歌名</a>
+  <a href="guess-cover-version-album.html" class="nav-link">猜翻唱專輯</a>
+  <a href="memory-match.html" class="nav-link">記憶翻牌</a>
+</nav>
+</div>
 
 <main id="app">
   <section class="screen">
     <div class="intro-inner home-inner">
-      <p class="eyebrow">Sandy Lam Ultimate Fan Challenge</p>
       <img class="intro-photo" src="images/intro-sandy.jpg" alt="林憶蓮">
-      <h1 class="home-title">林憶蓮鐵粉挑戰賽</h1>
       <p class="intro-desc">選擇你想挑戰的遊戲，證明你是最強鐵粉！</p>
 
       <div class="game-cards">
@@ -85,9 +88,10 @@
 </main>
 
 <footer class="site-footer">
-  <p>林憶蓮鐵粉挑戰賽 — 收錄 402 首歌曲，涵蓋 77 張專輯</p>
+  <p>林憶蓮鐵粉挑戰賽 created by 荒唐事務所</p>
 </footer>
 
+<script src="js/nav-toggle.js" defer></script>
 </body>
 </html>
 
