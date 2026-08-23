@@ -134,8 +134,7 @@
   border-radius:8px;
   overflow:hidden;
   box-shadow:0 4px 10px rgba(32,30,31,.25);
-  transform:translate(-50%, 0);
-  will-change:top;
+  will-change:transform;
 }
 .falling-cover img{
   width:100%; height:100%;

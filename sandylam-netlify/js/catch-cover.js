@@ -6,20 +6,20 @@ const CATCH_BAND_BOTTOM = 92;
 const MISS_TOP = 104; // 超過這個 top 視為掉出畫面、沒接到
 const LANE_COOLDOWN_MS = 700; // 同一條軌道封面離開後，要冷卻這麼久才能再出下一個
 const BASKET_HALF_WIDTH = 11; // 籃子寬度的一半（field 寬度百分比），對應 CSS 的 22% 寬
-const BASKET_SPEED_PER_FRAME = 0.99; // 籃子每個動畫影格移動的百分比（已提速 10%）
+const BASKET_SPEED_PER_FRAME = 1.29; // 籃子每個動畫影格移動的百分比（已累計提速 10% + 30%）
 
 const HIT_SCORE_BASE = 100;
 const MISS_PENALTY = 50;
 
 // 難度參數：spawnInterval / fallDuration 會隨時間從 start 線性加速到 end
-// fallDuration 已經整體加快 20%（除以 1.2）
+// fallDuration 已經累計加快 20% x 20%（連續兩次各再除以 1.2）
 const DIFFICULTY = {
   easy: {
     duration: 30,
     spawnIntervalStart: 1500,
     spawnIntervalEnd: 1150,
-    fallDurationStart: 3833,
-    fallDurationEnd: 3167,
+    fallDurationStart: 3194,
+    fallDurationEnd: 2639,
     maxConcurrent: 1,
     targetProb: 0.5,
     waveDuration: 12,
@@ -28,8 +28,8 @@ const DIFFICULTY = {
     duration: 45,
     spawnIntervalStart: 1200,
     spawnIntervalEnd: 850,
-    fallDurationStart: 3333,
-    fallDurationEnd: 2667,
+    fallDurationStart: 2778,
+    fallDurationEnd: 2222,
     maxConcurrent: 2,
     targetProb: 0.4,
     waveDuration: 10,
@@ -38,8 +38,8 @@ const DIFFICULTY = {
     duration: 60,
     spawnIntervalStart: 950,
     spawnIntervalEnd: 650,
-    fallDurationStart: 2833,
-    fallDurationEnd: 2167,
+    fallDurationStart: 2361,
+    fallDurationEnd: 1806,
     maxConcurrent: 3,
     targetProb: 0.3,
     waveDuration: 8,
@@ -71,7 +71,9 @@ let songPool = [],
   leftPressed = false,
   rightPressed = false,
   fieldEl = null,
-  basketEl = null;
+  basketEl = null,
+  fieldHeightPx = 600,
+  fieldWidthPx = 500;
 
 function esc(str) {
   const d = document.createElement("div");
@@ -178,7 +180,10 @@ function buildField() {
   fieldEl.querySelectorAll(".falling-cover").forEach((el) => el.remove());
   basketEl = document.getElementById("catchBasket");
   basketX = 50;
-  basketEl.style.left = basketX + "%";
+  basketEl.style.transform = "translate(-50%, 0)";
+  fieldHeightPx = fieldEl.getBoundingClientRect().height;
+  fieldWidthPx = fieldEl.getBoundingClientRect().width;
+  fieldHeightPx = fieldEl.getBoundingClientRect().height;
 
   lanes = [];
   for (let i = 0; i < LANE_COUNT; i++) {
@@ -222,6 +227,7 @@ function spawnCover() {
   el.className = "falling-cover";
   el.style.left = laneCenterPercent(lane.index) + "%";
   el.style.top = "-18%";
+  el.style.transform = "translate(-50%, 0)";
   const img = document.createElement("img");
   img.src = coverPath;
   img.alt = label;
@@ -339,15 +345,19 @@ function animationLoop() {
   if (leftPressed) basketX -= BASKET_SPEED_PER_FRAME;
   if (rightPressed) basketX += BASKET_SPEED_PER_FRAME;
   basketX = Math.max(BASKET_HALF_WIDTH, Math.min(100 - BASKET_HALF_WIDTH, basketX));
-  basketEl.style.left = basketX + "%";
+  const basketOffsetPx = ((basketX - 50) / 100) * fieldWidthPx;
+  basketEl.style.transform = "translate(calc(-50% + " + basketOffsetPx + "px), 0)";
 
   const now = performance.now();
 
   fallingCovers.forEach((c) => {
     if (c.removed) return;
     const t = (now - c.spawnTime) / c.fallDuration;
-    const topPercent = -18 + t * 122; // -18% -> 104%
-    c.el.style.top = topPercent + "%";
+    const topPercent = -18 + t * 122; // -18% -> 104%（純粹用來判定接取的概念位置）
+    const deltaPercent = topPercent - -18; // 相對起始位置移動的百分比
+    const deltaPx = (deltaPercent / 100) * fieldHeightPx;
+    // 用 transform 取代 top，避免每一幀觸發版面重算（layout），才不會在封面多、掉落快時卡到來不及繪製
+    c.el.style.transform = "translate(-50%, " + deltaPx + "px)";
 
     if (topPercent >= CATCH_BAND_TOP && topPercent <= CATCH_BAND_BOTTOM) {
       const laneCenter = laneCenterPercent(c.lane.index);
