@@ -6,19 +6,20 @@ const CATCH_BAND_BOTTOM = 92;
 const MISS_TOP = 104; // 超過這個 top 視為掉出畫面、沒接到
 const LANE_COOLDOWN_MS = 700; // 同一條軌道封面離開後，要冷卻這麼久才能再出下一個
 const BASKET_HALF_WIDTH = 11; // 籃子寬度的一半（field 寬度百分比），對應 CSS 的 22% 寬
-const BASKET_SPEED_PER_FRAME = 0.9; // 籃子每個動畫影格移動的百分比
+const BASKET_SPEED_PER_FRAME = 0.99; // 籃子每個動畫影格移動的百分比（已提速 10%）
 
 const HIT_SCORE_BASE = 100;
 const MISS_PENALTY = 50;
 
 // 難度參數：spawnInterval / fallDuration 會隨時間從 start 線性加速到 end
+// fallDuration 已經整體加快 20%（除以 1.2）
 const DIFFICULTY = {
   easy: {
     duration: 30,
     spawnIntervalStart: 1500,
     spawnIntervalEnd: 1150,
-    fallDurationStart: 4600,
-    fallDurationEnd: 3800,
+    fallDurationStart: 3833,
+    fallDurationEnd: 3167,
     maxConcurrent: 1,
     targetProb: 0.5,
     waveDuration: 12,
@@ -27,8 +28,8 @@ const DIFFICULTY = {
     duration: 45,
     spawnIntervalStart: 1200,
     spawnIntervalEnd: 850,
-    fallDurationStart: 4000,
-    fallDurationEnd: 3200,
+    fallDurationStart: 3333,
+    fallDurationEnd: 2667,
     maxConcurrent: 2,
     targetProb: 0.4,
     waveDuration: 10,
@@ -37,8 +38,8 @@ const DIFFICULTY = {
     duration: 60,
     spawnIntervalStart: 950,
     spawnIntervalEnd: 650,
-    fallDurationStart: 3400,
-    fallDurationEnd: 2600,
+    fallDurationStart: 2833,
+    fallDurationEnd: 2167,
     maxConcurrent: 3,
     targetProb: 0.3,
     waveDuration: 8,
