@@ -181,15 +181,18 @@ function buildField() {
   basketEl = document.getElementById("catchBasket");
   basketX = 50;
   basketEl.style.transform = "translate(-50%, 0)";
-  fieldHeightPx = fieldEl.getBoundingClientRect().height;
-  fieldWidthPx = fieldEl.getBoundingClientRect().width;
-  fieldHeightPx = fieldEl.getBoundingClientRect().height;
 
   lanes = [];
   for (let i = 0; i < LANE_COUNT; i++) {
     lanes.push({ index: i, occupied: false, cooldownUntil: 0 });
   }
   fallingCovers = [];
+}
+
+function measureField() {
+  // 一定要在畫面真的顯示出來之後才能量尺寸，量到隱藏狀態的元素會拿到 0
+  fieldHeightPx = fieldEl.getBoundingClientRect().height;
+  fieldWidthPx = fieldEl.getBoundingClientRect().width;
 }
 
 function laneCenterPercent(laneIndex) {
@@ -425,6 +428,7 @@ function startGame() {
 
   buildField();
   showScreen("catch-game");
+  measureField();
   updateStatus();
 
   pickNewTarget();
@@ -573,6 +577,11 @@ function setupControls() {
   document.addEventListener("keyup", (e) => {
     if (e.key === "ArrowLeft") leftPressed = false;
     if (e.key === "ArrowRight") rightPressed = false;
+  });
+
+  // 手機瀏覽器網址列收合/展開等狀況會改變可視區域尺寸，遊戲中即時重新量測避免位移計算跑掉
+  window.addEventListener("resize", () => {
+    if (gameRunning && fieldEl) measureField();
   });
 }
 
