@@ -1,0 +1,229 @@
+
+.guess-game-inner{max-width:600px;margin:0 auto;padding:1.5rem 1rem;text-align:center}
+.guess-status{display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;padding:.5rem .75rem;background:rgba(112,128,144,.08);border-radius:8px;font:600 13px "Noto Sans TC",sans-serif;color:#201E1F}
+.guess-status span:nth-child(2){color:#708090}
+.guess-status span:nth-child(3){color:#5C6B73}
+
+.audio-player-wrap{display:flex;align-items:center;justify-content:center;margin-bottom:1rem;padding:.6rem;background:#201E1F;border-radius:8px}
+.audio-play-btn{background:#708090;color:#F6F2EA;border:none;border-radius:6px;padding:.5rem 1.2rem;font:700 13px "Noto Sans TC",sans-serif;cursor:pointer;transition:background .2s}
+.audio-play-btn:hover{background:#5a6e7a}
+
+.guess-options{display:grid;grid-template-columns:1fr;gap:.4rem;margin-bottom:.75rem}
+.guess-option-btn{display:flex;align-items:center;gap:.5rem;text-align:left;background:#fff;border:2.5px solid rgba(32,30,31,.15);border-radius:8px;padding:.55rem .75rem;font:500 15px "Noto Sans TC",sans-serif;color:#201E1F;cursor:pointer;transition:all .15s;word-break:break-word}
+.guess-option-btn:hover:not(:disabled){border-color:#708090;background:rgba(112,128,144,.05)}
+.guess-option-btn:disabled{cursor:default}
+.guess-option-btn.correct{border-color:#1a7a3a;border-width:3.5px;background:rgba(26,122,58,.1);color:#1a7a3a;font-weight:700}
+.guess-option-btn.wrong{border-color:#a82318;border-width:3.5px;background:rgba(168,35,24,.08);color:#a82318;font-weight:700}
+
+.option-title{font:700 16px "Noto Sans TC",sans-serif;color:inherit}
+
+.answer-badge{font-weight:900;font-size:18px;flex-shrink:0;width:24px;text-align:center}
+.correct-badge{color:#1a7a3a}
+.wrong-badge{color:#a82318}
+
+.lang-selection{margin-bottom:1.5rem}
+.selection-title{font:700 15px "Noto Sans TC",sans-serif;color:#201E1F;margin-bottom:.75rem}
+.lang-options{display:flex;flex-wrap:wrap;gap:.5rem;justify-content:center;margin-bottom:.5rem}
+.lang-checkbox{display:flex;align-items:center;gap:.3rem;background:#fff;border:1.5px solid rgba(32,30,31,.15);border-radius:6px;padding:.4rem .75rem;cursor:pointer;transition:all .2s;font:500 14px "Noto Sans TC",sans-serif}
+.lang-checkbox:has(input:checked){border-color:#708090;background:rgba(112,128,144,.08)}
+.lang-checkbox input{accent-color:#708090}
+.lang-name{color:#201E1F}
+.lang-count{color:#5C6B73;font-size:12px}
+.lang-pool-info{font:500 13px "Noto Sans TC",sans-serif;color:#708090;margin-top:.5rem}
+
+.mode-selection{margin-bottom:1.5rem}
+.mode-option{display:block;padding:.6rem 1rem;margin-bottom:.4rem;border:1.5px solid rgba(32,30,31,.1);border-radius:8px;cursor:pointer;transition:all .2s}
+.mode-option:has(input:checked){border-color:#708090;background:rgba(112,128,144,.06)}
+.mode-option.disabled{opacity:.4;cursor:not-allowed}
+.mode-label{font:700 14px "Noto Sans TC",sans-serif;color:#201E1F;display:block}
+.mode-desc{font:400 12px "Noto Sans TC",sans-serif;color:#5C6B73}
+
+/* 結果頁 */
+.result-photo{width:180px;height:auto;border-radius:12px;margin:0 auto 1rem;display:block}
+.guess-result-card{text-align:center;padding:1.5rem;margin:1rem 0;background:#fff;border-radius:12px;border:1.5px solid rgba(32,30,31,.1)}
+.result-mode{font:500 14px "Noto Sans TC",sans-serif;color:#5C6B73;margin-bottom:.5rem}
+.result-big{font:700 48px "Noto Serif TC",serif;color:#708090;margin:.5rem 0}
+.result-detail{font:500 16px "Noto Sans TC",sans-serif;color:#201E1F}
+
+/* 提交成績表單 */
+.submit-score-wrap{margin:1.5rem 0;padding:1.25rem;background:#fff;border-radius:10px;border:1.5px solid rgba(32,30,31,.1)}
+.submit-title{font:700 15px "Noto Sans TC",sans-serif;color:#201E1F;margin-bottom:.75rem}
+.submit-form{display:flex;gap:.5rem;align-items:center;justify-content:center}
+.submit-form input{flex:1;max-width:200px;padding:.6rem .75rem;border:1.5px solid rgba(32,30,31,.2);border-radius:8px;font:500 14px "Noto Sans TC",sans-serif;outline:none;transition:border-color .2s}
+.submit-form input:focus{border-color:#708090}
+.score-submitted{font:600 14px "Noto Sans TC",sans-serif;color:#2d8a4e;margin-top:1rem}
+
+/* 排行榜 */
+.leaderboard-section{margin-top:2.5rem;text-align:center}
+.leaderboard-title{font:700 18px "Noto Serif TC",serif;color:#201E1F;margin-bottom:1rem}
+.leaderboard-grid{display:grid;grid-template-columns:1fr;gap:1.5rem;text-align:center}
+.leaderboard-col{min-width:0}
+.lb-col-title{font:700 14px "Noto Serif TC",serif;color:#708090;margin-bottom:.75rem}
+
+.leaderboard-card{background:#fff;border-radius:10px;border:1.5px solid rgba(32,30,31,.1);overflow:hidden}
+.leaderboard-table{width:100%;border-collapse:collapse;font:400 13px "Noto Sans TC",sans-serif;color:#201E1F}
+.leaderboard-table thead{background:rgba(112,128,144,.06)}
+.leaderboard-table th{font-weight:600;padding:.5rem .4rem;text-align:center;font-size:12px;color:#5C6B73}
+.leaderboard-table td{padding:.4rem .3rem;text-align:center;border-top:1px solid rgba(32,30,31,.06)}
+.leaderboard-table tbody tr:hover{background:rgba(112,128,144,.04)}
+.rank-col{font-weight:700;color:#708090}
+.name-col{font-weight:600;text-align:left;padding-left:.5rem}
+.langs-col{font-size:11px;color:#5C6B73}
+
+.leaderboard-loading{font:500 14px "Noto Sans TC",sans-serif;color:#5C6B73;padding:1.5rem 0}
+.leaderboard-empty{font:500 14px "Noto Sans TC",sans-serif;color:#5C6B73;padding:1.5rem 0}
+
+@media(max-width:480px){
+  .leaderboard-table{font-size:11px}
+  .leaderboard-table th,.leaderboard-table td{padding:.35rem .2rem}
+}
+
+/* ===== 接住封面專屬樣式 ===== */
+
+.catch-game-inner{max-width:640px;margin:0 auto;padding:1.5rem 1rem;text-align:center}
+
+.whack-status{
+  display:flex;justify-content:center;gap:1.5rem;flex-wrap:wrap;
+  font:700 15px "Noto Sans TC",sans-serif;color:#201E1F;
+  margin-bottom:.85rem;
+}
+.whack-status span{
+  background:#fff;border:1.5px solid rgba(32,30,31,.1);border-radius:8px;
+  padding:.35rem .9rem;
+}
+#catchTimeLeft{color:#B08A3E}
+#catchCombo{color:#708090}
+
+.whack-target-banner{
+  background:linear-gradient(135deg,#708090,#4a5f6b);
+  color:#F6F2EA;border-radius:10px;padding:.7rem 1rem;
+  margin-bottom:1rem;
+  display:flex;flex-direction:column;gap:.15rem;
+}
+.whack-target-banner .target-label{
+  font:600 11px "Noto Sans TC",sans-serif;letter-spacing:.1em;
+  text-transform:uppercase;opacity:.85;
+}
+.whack-target-banner .target-hint{
+  font:700 15px "Noto Sans TC",sans-serif;
+}
+.whack-target-banner.pulse{
+  animation:whack-banner-pulse .5s ease;
+}
+@keyframes whack-banner-pulse{
+  0%{ transform:scale(1.03); box-shadow:0 0 0 4px rgba(176,138,62,.35); }
+  100%{ transform:scale(1); box-shadow:0 0 0 0 rgba(176,138,62,0); }
+}
+
+.catch-field{
+  position:relative;
+  width:100%;
+  max-width:520px;
+  aspect-ratio: 3 / 4;
+  margin:0 auto 1rem;
+  background: linear-gradient(180deg, rgba(112,128,144,.06) 0%, rgba(112,128,144,.02) 100%);
+  border:1.5px solid rgba(32,30,31,.1);
+  border-radius:14px;
+  overflow:hidden;
+}
+
+.falling-cover{
+  position:absolute;
+  width:15%;
+  aspect-ratio:1/1;
+  border-radius:8px;
+  overflow:hidden;
+  box-shadow:0 4px 10px rgba(32,30,31,.25);
+  transform:translate(-50%, 0);
+  will-change:top;
+}
+.falling-cover img{
+  width:100%; height:100%;
+  object-fit:cover;
+  display:block;
+}
+.falling-cover.caught-hit img{ outline:4px solid #2d8a4e; outline-offset:-4px; }
+.falling-cover.caught-wrong img{
+  outline:4px solid #b03a3a; outline-offset:-4px;
+  animation:whack-shake .25s ease;
+}
+
+.catch-basket{
+  position:absolute;
+  bottom:4%;
+  left:50%;
+  width:22%;
+  aspect-ratio: 3/1.6;
+  transform:translate(-50%, 0);
+  background: linear-gradient(180deg, #B08A3E 0%, #8a6a2c 100%);
+  border-radius: 0 0 14px 14px;
+  box-shadow: inset 0 4px 6px rgba(255,255,255,.25), 0 4px 8px rgba(32,30,31,.25);
+}
+.catch-basket::before{
+  content:"";
+  position:absolute;
+  top:-6%; left:-4%; right:-4%;
+  height:22%;
+  border-radius:6px;
+  background:#4a5f6b;
+}
+
+.catch-controls{
+  display:flex; justify-content:center; gap:20px;
+  margin-top: .3rem;
+}
+.catch-btn{
+  width:64px; height:64px;
+  border-radius:50%;
+  border:1.5px solid rgba(32,30,31,.15);
+  background:#fff;
+  font-size:22px;
+  color:var(--ink,#201E1F);
+  box-shadow:0 3px 8px rgba(32,30,31,.12);
+  cursor:pointer;
+  user-select:none;
+  -webkit-tap-highlight-color: transparent;
+}
+.catch-btn:active{
+  background: rgba(112,128,144,.15);
+  transform: scale(0.95);
+}
+
+.whack-float-score{
+  position:absolute; top:-6px; left:50%;
+  transform:translate(-50%,0);
+  font:700 14px "Noto Sans TC",sans-serif;
+  pointer-events:none;
+  animation:whack-float-up .6s ease forwards;
+  white-space:nowrap;
+  z-index:5;
+}
+.whack-float-score.plus{ color:#2d8a4e; }
+.whack-float-score.minus{ color:#b03a3a; }
+
+@keyframes whack-float-up{
+  0%{ opacity:1; transform:translate(-50%,0); }
+  100%{ opacity:0; transform:translate(-50%,-28px); }
+}
+
+@keyframes whack-shake{
+  0%,100%{ transform:rotate(0); }
+  25%{ transform:rotate(-4deg); }
+  75%{ transform:rotate(4deg); }
+}
+
+.whack-flash-wrong{
+  position:fixed; inset:0; background:rgba(176,58,58,.18);
+  pointer-events:none; z-index:50; opacity:0;
+  transition:opacity .08s ease;
+}
+.whack-flash-wrong.show{ opacity:1; }
+
+@media(max-width:480px){
+  .catch-btn{ width:56px; height:56px; font-size:19px; }
+  .catch-controls{ gap:14px; }
+  .whack-status{ gap:.6rem; }
+  .whack-status span{ padding:.3rem .6rem; font-size:13px; }
+  .whack-target-banner .target-hint{ font-size:13px; }
+}
+
