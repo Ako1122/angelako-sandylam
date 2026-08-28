@@ -7,6 +7,16 @@ const SWIPE_THRESHOLD = 14; // px，超過這個位移才判定成一次拖曳�
 
 const TIMED_DURATION = 180; // 3 分鐘挑戰（秒）
 
+// 這些封面不會被抽選進消消樂的 6 張候選封面裡
+const EXCLUDED_MATCH3_COVERS = new Set(
+  [
+    "53.webp", "54.jpg", "55.jpg", "56.jpg", "57.png", "58.webp", "59.jpg",
+    "60.jpg", "61.png", "61.jpg", "62.jpg", "64.jpg", "65.jpg", "66.jpg", "67.jpg",
+    "68.png", "69.jpg", "70.webp", "77.webp", "34.jpg", "33.webp", "31.jpg",
+    "35.jpg", "36.png", "37.webp", "38.jpg", "27.jpg", "28.jpg", "32.jpg",
+  ].map((f) => "images/covers/" + f),
+);
+
 // 連鎖倍率：comboLevel 1 = 玩家手動交換觸發的第一輪；2 以後都是自動連鎖
 function comboMultiplier(level) {
   if (level >= 4) return 3;
@@ -569,7 +579,9 @@ async function boot() {
       albumMap.set(s.album, { album: s.album, cover: s.cover });
     }
   });
-  uniqueCovers = Array.from(albumMap.values());
+  uniqueCovers = Array.from(albumMap.values()).filter(
+    (c) => !EXCLUDED_MATCH3_COVERS.has(c.cover),
+  );
 
   document.getElementById("m3StartBtn").addEventListener("click", startGame);
   document.getElementById("m3StopBtn").addEventListener("click", () => {
