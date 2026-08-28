@@ -1,0 +1,123 @@
+
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>封面消消樂 — 林憶蓮</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700&family=Noto+Serif+TC:wght@700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/match3.css">
+</head>
+<body>
+
+  <div class="nav-wrap">
+  <header class="site-header">
+    <button class="menu-toggle" id="menuToggle" type="button" aria-expanded="false" aria-controls="siteNav">
+      <span>MENU</span><span class="chevron">▾</span>
+    </button>
+    <div class="brand">
+      <span class="brand-disc" aria-hidden="true"></span>
+      <span class="brand-name">林憶蓮鐵粉挑戰賽</span>
+    </div>
+  </header>
+  <nav class="site-nav" id="siteNav">
+    <a href="index.html" class="nav-link">首頁</a>
+    <a href="tournament.html" class="nav-link">冠軍賽</a>
+    <a href="guess.html" class="nav-link">猜歌挑戰</a>
+    <a href="guess-album.html" class="nav-link">猜專輯</a>
+    <a href="guess-cover-version-song.html" class="nav-link">猜翻唱歌名</a>
+    <a href="guess-cover-version-album.html" class="nav-link">猜翻唱專輯</a>
+    <a href="memory-match.html" class="nav-link">記憶翻牌</a>
+    <a href="match3.html" class="nav-link active">封面消消樂</a>
+  </nav>
+  </div>
+
+  <!-- 選擇模式 -->
+  <section id="m3-intro" class="screen">
+    <div class="champion-inner">
+      <p class="eyebrow">Cover Match-3</p>
+      <h2>封面消消樂</h2>
+      <p class="intro-desc">
+        隨機挑 6 張專輯封面填滿棋盤，拖曳交換相鄰的兩格，湊成三個以上同款封面連成一直線就能消除得分！四連、五連分數更高，消除後掉落補位若又自動連成一線，還有連鎖加成。
+      </p>
+
+      <div class="mode-selection">
+        <p class="selection-title">選擇模式</p>
+        <label class="mode-option">
+          <input type="radio" name="m3-mode" value="timed" checked>
+          <span class="mode-label">3 分鐘挑戰</span>
+          <span class="mode-desc">限時 3 分鐘，結束可登上排行榜</span>
+        </label>
+        <label class="mode-option">
+          <input type="radio" name="m3-mode" value="endless">
+          <span class="mode-label">自由消除</span>
+          <span class="mode-desc">不限時間，玩到自己按結束為止（不計入排行榜）</span>
+        </label>
+      </div>
+
+      <button class="btn-primary" id="m3StartBtn">開始遊戲</button>
+
+      <div class="leaderboard-section">
+        <h3 class="leaderboard-title">🏆 3 分鐘挑戰排行榜</h3>
+        <div class="leaderboard-grid">
+          <div class="leaderboard-col">
+            <div id="lbTimed"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 遊戲進行中 -->
+  <section id="m3-game" class="screen" hidden>
+    <div class="m3-game-inner">
+      <div class="whack-status">
+        <span id="m3Score">分數：0</span>
+        <span id="m3Combo">連鎖：0</span>
+        <span id="m3TimeLeft">⏱ 03:00</span>
+      </div>
+
+      <div class="m3-board-wrap">
+        <div class="m3-board" id="m3Board"></div>
+        <div class="m3-reshuffle-notice" id="m3ReshuffleNotice" hidden>沒有可消除的組合了，重新洗牌中...</div>
+      </div>
+
+      <button class="btn-secondary" id="m3StopBtn">結束遊戲</button>
+    </div>
+  </section>
+
+  <!-- 結果頁 -->
+  <section id="m3-result" class="screen" hidden>
+    <div class="champion-inner">
+      <img class="result-photo" src="images/champion.jpeg" alt="Sandy Lam">
+      <p class="eyebrow">Result</p>
+      <h2>遊戲結束！</h2>
+      <div class="guess-result-card">
+        <p class="result-mode" id="resultMode"></p>
+        <p class="result-big" id="resultScore"></p>
+        <p class="result-detail" id="resultDetail"></p>
+      </div>
+
+      <div id="submitScoreWrap" class="submit-score-wrap" hidden>
+        <p class="submit-title">登上排行榜</p>
+        <div class="submit-form">
+          <input type="text" id="playerName" placeholder="輸入你的暱稱" maxlength="20">
+          <button class="btn-primary" id="submitScoreBtn">提交成績</button>
+        </div>
+      </div>
+      <p id="scoreSubmitted" class="score-submitted" hidden>✓ 成績已提交！</p>
+
+      <div id="resultLeaderboard" hidden></div>
+
+      <div class="champion-actions">
+        <button class="btn-secondary" id="m3Restart">再玩一次</button>
+      </div>
+    </div>
+  </section>
+
+  <script src="js/nav-toggle.js" defer></script>
+  <script src="js/match3.js"></script>
+</body>
+</html>
