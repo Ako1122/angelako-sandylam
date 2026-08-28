@@ -129,8 +129,9 @@
 .m3-tile.selected img{ outline:3px solid #B08A3E; outline-offset:-3px; }
 
 .m3-reshuffle-notice{
+  display:none;
   position:absolute; inset:0;
-  display:flex; align-items:center; justify-content:center;
+  align-items:center; justify-content:center;
   background:rgba(246,242,234,.92);
   font:700 14px "Noto Sans TC",sans-serif;
   color:#5C6B73;
@@ -138,6 +139,9 @@
   z-index:20;
   text-align:center;
   padding:1rem;
+}
+.m3-reshuffle-notice:not([hidden]){
+  display:flex;
 }
 
 .m3-score-float{
