@@ -13,7 +13,7 @@ const EXCLUDED_MATCH3_COVERS = new Set(
     "53.webp", "54.jpg", "55.jpg", "56.jpg", "57.png", "58.webp", "59.jpg",
     "60.jpg", "61.png", "61.jpg", "62.jpg", "64.jpg", "65.jpg", "66.jpg", "67.jpg",
     "68.png", "69.jpg", "70.webp", "77.webp", "34.jpg", "33.webp", "31.jpg",
-    "35.jpg", "36.png", "37.webp", "38.jpg", "27.jpg", "28.jpg", "32.jpg",
+    "35.jpg", "36.png", "37.webp", "38.jpg", "27.jpg", "28.jpg", "32.jpg", "21.jpg",
   ].map((f) => "images/covers/" + f),
 );
 
