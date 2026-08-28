@@ -69,7 +69,61 @@ function showScreen(id) {
   });
 }
 
-/* ---------------- 棋盤資料 ---------------- */
+/* ---------------- 音效（Web Audio API 即時合成，不需外部音檔） ---------------- */
+
+let audioCtx = null;
+
+function ensureAudioCtx() {
+  if (!audioCtx) {
+    const Ctx = window.AudioContext || window.webkitAudioContext;
+    if (!Ctx) return null;
+    audioCtx = new Ctx();
+  }
+  if (audioCtx.state === "suspended") {
+    audioCtx.resume();
+  }
+  return audioCtx;
+}
+
+function playTone(freq, duration, type, startVol) {
+  const ctx = ensureAudioCtx();
+  if (!ctx) return;
+  try {
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.type = type || "sine";
+    osc.frequency.value = freq;
+    gain.gain.setValueAtTime(startVol || 0.2, ctx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + duration);
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+    osc.start();
+    osc.stop(ctx.currentTime + duration);
+  } catch (e) {}
+}
+
+// 一般消除音效：連線越長音調越高，長度短（0.15秒），不會太干擾
+function playMatchSound(runLength) {
+  const freq = 523 + Math.min(runLength - 3, 4) * 80; // 從 C5 開始，連線越長音越高
+  playTone(freq, 0.15, "sine", 0.18);
+}
+
+// 連鎖音效：快速上升三音，聽起來比單一消除更有鼓勵感，連鎖越深音調越高
+function playComboSound(comboLevel) {
+  const base = 600 + Math.min(comboLevel - 2, 4) * 60;
+  const notes = [base, base * 1.25, base * 1.5];
+  notes.forEach((f, i) => {
+    setTimeout(() => playTone(f, 0.12, "triangle", 0.16), i * 55);
+  });
+}
+
+// 倒數最後 5 秒的提示音，越接近 0 音調越高，增加緊張感
+function playCountdownTick(secondsLeft) {
+  const freq = 500 + (5 - secondsLeft) * 60;
+  playTone(freq, 0.09, "square", 0.15);
+}
+
+
 
 function pickSixCovers() {
   selectedCovers = shuffle(uniqueCovers)
@@ -311,6 +365,13 @@ function clearMatches(runs, comboLevel) {
   updateStatus();
   showScoreFloat(gained, anchor[0], anchor[1]);
 
+  if (comboLevel >= 2) {
+    playComboSound(comboLevel);
+  } else {
+    const longestRun = Math.max(...runs.map((r) => r.length));
+    playMatchSound(longestRun);
+  }
+
   cellSet.forEach((key) => {
     const [r, c] = key.split(",").map(Number);
     tileEls[r][c].classList.add("clearing");
@@ -437,6 +498,9 @@ function updateStatus() {
 function tickTimer() {
   timeLeft--;
   updateStatus();
+  if (timeLeft > 0 && timeLeft <= 5) {
+    playCountdownTick(timeLeft);
+  }
   if (timeLeft <= 0) {
     endGame();
   }
@@ -445,6 +509,7 @@ function tickTimer() {
 /* ---------------- 遊戲流程 ---------------- */
 
 function startGame() {
+  ensureAudioCtx(); // 在使用者點擊當下解鎖音效，避免手機瀏覽器擋掉之後的自動播放
   gameMode = document.querySelector('input[name="m3-mode"]:checked').value;
   score = 0;
   maxCombo = 0;
