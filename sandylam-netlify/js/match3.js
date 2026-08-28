@@ -46,7 +46,7 @@ let uniqueCovers = [],
   gameRunning = false,
   inputLocked = false,
   boardEl = null,
-  dragState = null; // { row, col, startX, startY, pointerId, resolved }
+  dragStates = new Map(); // pointerId -> { row, col, startX, startY, resolved }
 
 function esc(str) {
   const d = document.createElement("div");
@@ -199,43 +199,42 @@ function attachTileEvents(el) {
     if (inputLocked || !gameRunning) return;
     const pos = findTilePosition(el);
     if (!pos) return;
-    dragState = {
+    dragStates.set(e.pointerId, {
       row: pos.row,
       col: pos.col,
       startX: e.clientX,
       startY: e.clientY,
-      pointerId: e.pointerId,
       resolved: false,
-    };
+    });
     try {
       el.setPointerCapture(e.pointerId);
     } catch (err) {}
   });
 
   el.addEventListener("pointermove", (e) => {
-    if (!dragState || dragState.resolved) return;
-    if (e.pointerId !== dragState.pointerId) return;
+    const state = dragStates.get(e.pointerId);
+    if (!state || state.resolved) return;
 
-    const dx = e.clientX - dragState.startX;
-    const dy = e.clientY - dragState.startY;
+    const dx = e.clientX - state.startX;
+    const dy = e.clientY - state.startY;
     if (Math.max(Math.abs(dx), Math.abs(dy)) < SWIPE_THRESHOLD) return;
 
-    let targetRow = dragState.row;
-    let targetCol = dragState.col;
+    let targetRow = state.row;
+    let targetCol = state.col;
     if (Math.abs(dx) > Math.abs(dy)) {
       targetCol += dx > 0 ? 1 : -1;
     } else {
       targetRow += dy > 0 ? 1 : -1;
     }
 
-    dragState.resolved = true;
+    state.resolved = true;
     if (targetRow >= 0 && targetRow < ROWS && targetCol >= 0 && targetCol < COLS) {
-      attemptSwap(dragState.row, dragState.col, targetRow, targetCol);
+      attemptSwap(state.row, state.col, targetRow, targetCol);
     }
   });
 
-  const endDrag = () => {
-    dragState = null;
+  const endDrag = (e) => {
+    dragStates.delete(e.pointerId);
   };
   el.addEventListener("pointerup", endDrag);
   el.addEventListener("pointercancel", endDrag);
@@ -254,6 +253,20 @@ function findTilePosition(el) {
 
 function attemptSwap(r1, c1, r2, c2) {
   if (inputLocked || !gameRunning) return;
+
+  // 防呆：確認兩格都是有效、目前沒有正在消除動畫中的方塊，避免用到過期或損毀的參照
+  const elA0 = tileEls[r1] && tileEls[r1][c1];
+  const elB0 = tileEls[r2] && tileEls[r2][c2];
+  if (
+    board[r1][c1] === null ||
+    board[r2][c2] === null ||
+    !elA0 ||
+    !elB0 ||
+    elA0.classList.contains("clearing") ||
+    elB0.classList.contains("clearing")
+  ) {
+    return;
+  }
 
   // 資料層交換
   const tmp = board[r1][c1];
@@ -517,6 +530,7 @@ function startGame() {
   timeLeft = TIMED_DURATION;
   gameRunning = true;
   inputLocked = false;
+  dragStates.clear();
 
   document.getElementById("m3TimeLeft").hidden = gameMode !== "timed";
   document.getElementById("m3Combo").textContent = "連鎖：0";
