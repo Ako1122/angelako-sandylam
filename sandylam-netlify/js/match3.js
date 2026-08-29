@@ -46,7 +46,9 @@ let uniqueCovers = [],
   gameRunning = false,
   inputLocked = false,
   boardEl = null,
-  dragStates = new Map(); // pointerId -> { row, col, startX, startY, resolved }
+  dragStates = new Map(), // pointerId -> { row, col, startX, startY, resolved }
+  lastClearTime = 0,
+  hintTimerId = null;
 
 function esc(str) {
   const d = document.createElement("div");
@@ -219,6 +221,16 @@ function attachTileEvents(el) {
     const dy = e.clientY - state.startY;
     if (Math.max(Math.abs(dx), Math.abs(dy)) < SWIPE_THRESHOLD) return;
 
+    state.resolved = true;
+
+    // 防呆：確認這個元素「現在」實際所在的格子，跟按下當下記錄的格子是否還一致。
+    // 如果棋盤在按下之後、滑動觸發之前，因為某些狀況已經變動過（例如中途發生連鎖），
+    // 直接放棄這次交換，避免用過期座標交換到錯誤位置。
+    const currentPos = findTilePosition(el);
+    if (!currentPos || currentPos.row !== state.row || currentPos.col !== state.col) {
+      return;
+    }
+
     let targetRow = state.row;
     let targetCol = state.col;
     if (Math.abs(dx) > Math.abs(dy)) {
@@ -227,7 +239,6 @@ function attachTileEvents(el) {
       targetRow += dy > 0 ? 1 : -1;
     }
 
-    state.resolved = true;
     if (targetRow >= 0 && targetRow < ROWS && targetCol >= 0 && targetCol < COLS) {
       attemptSwap(state.row, state.col, targetRow, targetCol);
     }
@@ -293,8 +304,10 @@ function attemptSwap(r1, c1, r2, c2) {
       const elB2 = tileEls[r2][c2];
       tileEls[r1][c1] = elB2;
       tileEls[r2][c2] = elA2;
-      positionTile(elA2, r1, c1);
-      positionTile(elB2, r2, c2);
+      // 注意：畫面定位要對應「交換後」的 tileEls 內容，不是交換前的變數本身，
+      // 否則資料跟畫面會對不起來（這正是先前造成封面錯位/消失的主因）
+      positionTile(elB2, r1, c1);
+      positionTile(elA2, r2, c2);
       setTimeout(() => {
         inputLocked = false;
       }, ANIM_MS);
@@ -361,6 +374,7 @@ function showScoreFloat(gained, r, c) {
 }
 
 function clearMatches(runs, comboLevel) {
+  lastClearTime = Date.now();
   const multiplier = comboMultiplier(comboLevel);
   const cellSet = new Set();
   let cycleScore = 0;
@@ -485,6 +499,29 @@ function hasPossibleMove() {
   return false;
 }
 
+// 找出第一組交換後可以湊成線的相鄰格子，用於提示閃爍
+function findHintPair() {
+  for (let r = 0; r < ROWS; r++) {
+    for (let c = 0; c < COLS; c++) {
+      if (c + 1 < COLS && wouldMatch(r, c, r, c + 1)) return [[r, c], [r, c + 1]];
+      if (r + 1 < ROWS && wouldMatch(r, c, r + 1, c)) return [[r, c], [r + 1, c]];
+    }
+  }
+  return null;
+}
+
+function showHint() {
+  if (inputLocked || !gameRunning) return;
+  const pair = findHintPair();
+  if (!pair) return;
+  pair.forEach(([r, c]) => {
+    const el = tileEls[r] && tileEls[r][c];
+    if (!el) return;
+    el.classList.add("hint-flash");
+    setTimeout(() => el.classList.remove("hint-flash"), 1000);
+  });
+}
+
 function reshuffleBoard() {
   inputLocked = true;
   const notice = document.getElementById("m3ReshuffleNotice");
@@ -494,6 +531,7 @@ function reshuffleBoard() {
     renderBoard();
     notice.hidden = true;
     inputLocked = false;
+    lastClearTime = Date.now();
   }, 1100);
 }
 
@@ -531,6 +569,14 @@ function startGame() {
   gameRunning = true;
   inputLocked = false;
   dragStates.clear();
+  lastClearTime = Date.now();
+  clearInterval(hintTimerId);
+  hintTimerId = setInterval(() => {
+    if (gameRunning && !inputLocked && Date.now() - lastClearTime >= 10000) {
+      showHint();
+      lastClearTime = Date.now();
+    }
+  }, 500);
 
   document.getElementById("m3TimeLeft").hidden = gameMode !== "timed";
   document.getElementById("m3Combo").textContent = "連鎖：0";
@@ -551,6 +597,7 @@ function endGame() {
   gameRunning = false;
   inputLocked = true;
   clearInterval(timerId);
+  clearInterval(hintTimerId);
 
   showScreen("m3-result");
   const ml = gameMode === "timed" ? "3 分鐘挑戰" : "自由消除";

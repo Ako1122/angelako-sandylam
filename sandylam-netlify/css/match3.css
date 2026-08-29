@@ -161,3 +161,14 @@
 
 #m3StopBtn{ margin-top:.5rem; }
 
+/* 提示閃爍：超過 10 秒沒消除任何一條線，就閃這兩格提示可以怎麼走 */
+.m3-tile.hint-flash img{
+  animation: m3-hint-pulse 1s ease;
+}
+@keyframes m3-hint-pulse{
+  0%, 100%{ box-shadow:0 2px 6px rgba(32,30,31,.2); transform:scale(1); }
+  25%{ box-shadow:0 0 0 4px rgba(176,138,62,.7); transform:scale(1.08); }
+  50%{ box-shadow:0 2px 6px rgba(32,30,31,.2); transform:scale(1); }
+  75%{ box-shadow:0 0 0 4px rgba(176,138,62,.7); transform:scale(1.08); }
+}
+
