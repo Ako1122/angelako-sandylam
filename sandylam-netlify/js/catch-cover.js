@@ -6,7 +6,7 @@ const CATCH_BAND_BOTTOM = 92;
 const MISS_TOP = 104; // 超過這個 top 視為掉出畫面、沒接到
 const LANE_COOLDOWN_MS = 700; // 同一條軌道封面離開後，要冷卻這麼久才能再出下一個
 const BASKET_HALF_WIDTH = 11; // 籃子寬度的一半（field 寬度百分比），對應 CSS 的 22% 寬
-const BASKET_SPEED_PER_FRAME = 1.29; // 籃子每個動畫影格移動的百分比（已累計提速 10% + 30%）
+const BASKET_SPEED_PER_FRAME = 1.806; // 籃子每個動畫影格移動的百分比（已累計提速 10% + 30%）
 
 const HIT_SCORE_BASE = 100;
 const MISS_PENALTY = 50;
