@@ -1,18 +1,20 @@
 const SONGS_URL = "data/songs.json";
 
-// 牌局結構：3 層，底層 7x8、中層 4x5、頂層 2x3，共 82 張（41 對）
-const LAYERS = [
-  { cols: 7, rows: 8 },
-  { cols: 4, rows: 5 },
-  { cols: 2, rows: 3 },
+// 牌局結構：底層滿版 + 左上/右上兩座小丘 + 下方橫條 + 架在雙丘縫隙間的尖塔，共 94 張（47 對）
+const BLOCKS = [
+  { layer: 0, cols: 8, rows: 8, offsetX: 0, offsetY: 0 }, // 底層滿版 64
+  { layer: 1, cols: 3, rows: 3, offsetX: 0, offsetY: 0 }, // 左上小丘 9
+  { layer: 1, cols: 3, rows: 3, offsetX: 5, offsetY: 0 }, // 右上小丘 9
+  { layer: 1, cols: 4, rows: 2, offsetX: 2, offsetY: 6 }, // 下方橫條 8
+  { layer: 2, cols: 2, rows: 2, offsetX: 3, offsetY: 1 }, // 雙丘縫隙間的尖塔 4
 ];
-const BASE_COLS = LAYERS[0].cols;
-const BASE_ROWS = LAYERS[0].rows;
-const BOARD_UNIT_W = BASE_COLS * 2; // 14
+const BASE_COLS = 8;
+const BASE_ROWS = 8;
+const BOARD_UNIT_W = BASE_COLS * 2; // 16
 const BOARD_UNIT_H = BASE_ROWS * 2; // 16
-const TOTAL_PAIRS = LAYERS.reduce((sum, l) => sum + l.cols * l.rows, 0) / 2;
+const TOTAL_PAIRS = BLOCKS.reduce((sum, b) => sum + b.cols * b.rows, 0) / 2;
 
-const TIME_LIMITS = { easy: 360, medium: 270, hard: 180 };
+const TIME_LIMITS = { easy: 420, medium: 300, hard: 210 };
 
 const MATCH_SCORE = 100;
 const STREAK_WINDOW_MS = 4000; // 這段時間內連續配對算連擊
@@ -84,17 +86,17 @@ function preloadAllCovers() {
 
 function buildPositions() {
   const list = [];
-  LAYERS.forEach((layer, layerIdx) => {
-    const offsetX = BASE_COLS - layer.cols;
-    const offsetY = BASE_ROWS - layer.rows;
-    for (let gy = 0; gy < layer.rows; gy++) {
-      for (let gx = 0; gx < layer.cols; gx++) {
+  BLOCKS.forEach((block) => {
+    for (let gy = 0; gy < block.rows; gy++) {
+      for (let gx = 0; gx < block.cols; gx++) {
+        const absGx = block.offsetX + gx;
+        const absGy = block.offsetY + gy;
         list.push({
-          layer: layerIdx,
-          gx,
-          gy,
-          absX: offsetX + 2 * gx,
-          absY: offsetY + 2 * gy,
+          layer: block.layer,
+          gx: absGx,
+          gy: absGy,
+          absX: absGx * 2,
+          absY: absGy * 2,
         });
       }
     }
@@ -481,7 +483,7 @@ function endGame(cleared) {
   clearInterval(timerId);
 
   showScreen("mj-result");
-  const ml = { easy: "初級（6分鐘）", medium: "中級（4.5分鐘）", hard: "最高級（3分鐘）" };
+  const ml = { easy: "初級（7分鐘）", medium: "中級（5分鐘）", hard: "最高級（3.5分鐘）" };
 
   let finalScore = score;
   let detail = "配對成功 " + pairsCleared + " / " + TOTAL_PAIRS + " 對";
