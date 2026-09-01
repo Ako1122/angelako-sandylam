@@ -1,17 +1,22 @@
 const SONGS_URL = "data/songs.json";
 
-// 牌局結構：底層滿版 + 左上/右上兩座小丘 + 下方橫條 + 架在雙丘縫隙間的尖塔，共 94 張（47 對）
+// 牌局結構：底層 7x7 滿版，往上收窄疊到第 6 層（L0~L5），共 96 張（48 對）
 const BLOCKS = [
-  { layer: 0, cols: 8, rows: 8, offsetX: 0, offsetY: 0 }, // 底層滿版 64
+  { layer: 0, cols: 7, rows: 7, offsetX: 0, offsetY: 0 }, // 底層滿版 49
   { layer: 1, cols: 3, rows: 3, offsetX: 0, offsetY: 0 }, // 左上小丘 9
-  { layer: 1, cols: 3, rows: 3, offsetX: 5, offsetY: 0 }, // 右上小丘 9
-  { layer: 1, cols: 4, rows: 2, offsetX: 2, offsetY: 6 }, // 下方橫條 8
-  { layer: 2, cols: 2, rows: 2, offsetX: 3, offsetY: 1 }, // 雙丘縫隙間的尖塔 4
+  { layer: 1, cols: 3, rows: 3, offsetX: 4, offsetY: 0 }, // 右上小丘 9
+  { layer: 1, cols: 3, rows: 3, offsetX: 2, offsetY: 4 }, // 下方小丘 9
+  { layer: 2, cols: 2, rows: 2, offsetX: 0, offsetY: 0 }, // 左上小丘再疊一層 4
+  { layer: 2, cols: 2, rows: 2, offsetX: 4, offsetY: 0 }, // 右上小丘再疊一層 4
+  { layer: 2, cols: 2, rows: 2, offsetX: 2, offsetY: 4 }, // 下方小丘再疊一層 4
+  { layer: 3, cols: 2, rows: 2, offsetX: 2, offsetY: 0 }, // 架在左右兩丘縫隙間的尖塔 4
+  { layer: 4, cols: 1, rows: 2, offsetX: 2, offsetY: 0 }, // 尖塔繼續往上收窄 2
+  { layer: 5, cols: 1, rows: 2, offsetX: 2, offsetY: 0 }, // 塔頂 2
 ];
-const BASE_COLS = 8;
-const BASE_ROWS = 8;
-const BOARD_UNIT_W = BASE_COLS * 2; // 16
-const BOARD_UNIT_H = BASE_ROWS * 2; // 16
+const BASE_COLS = 7;
+const BASE_ROWS = 7;
+const BOARD_UNIT_W = BASE_COLS * 2; // 14
+const BOARD_UNIT_H = BASE_ROWS * 2; // 14
 const TOTAL_PAIRS = BLOCKS.reduce((sum, b) => sum + b.cols * b.rows, 0) / 2;
 
 const TIME_LIMITS = { easy: 420, medium: 300, hard: 210 };
