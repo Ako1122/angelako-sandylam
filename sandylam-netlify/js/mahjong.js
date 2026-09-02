@@ -19,7 +19,11 @@ const BOARD_UNIT_W = BASE_COLS * 2; // 14
 const BOARD_UNIT_H = BASE_ROWS * 2; // 14
 const TOTAL_PAIRS = BLOCKS.reduce((sum, b) => sum + b.cols * b.rows, 0) / 2;
 
-const TIME_LIMITS = { easy: 420, medium: 300, hard: 210 };
+const TIME_LIMITS = { easy: 300, medium: 240, hard: 180 };
+const IDLE_HINT_MS = 10000; // 超過這麼久沒配對成功，系統自動提示
+const AUTO_HINT_PENALTY = 30; // 系統自動提示扣分
+const MANUAL_HINT_PENALTY = 50; // 玩家主動按提示扣分
+const MANUAL_HINT_LIMIT = 2; // 每回合最多可以主動按幾次提示
 
 const MATCH_SCORE = 100;
 const STREAK_WINDOW_MS = 4000; // 這段時間內連續配對算連擊
@@ -35,10 +39,14 @@ let uniqueCovers = [],
   gameMode = "easy",
   timeLeft = 0,
   timerId = null,
+  idleCheckId = null,
   gameRunning = false,
   inputLocked = false,
+  isPaused = false,
   selectedTile = null, // 目前選中的第一張牌 { idx }
   lastMatchTime = 0,
+  lastProgressTime = 0, // 上一次配對成功／系統自動提示的時間，用來算「幾秒沒進展」
+  manualHintsLeft = MANUAL_HINT_LIMIT,
   streakCount = 0,
   boardEl = null,
   imageCache = new Map();
@@ -319,7 +327,7 @@ function refreshBlockedStates() {
 /* ---------------- 點擊 / 配對邏輯 ---------------- */
 
 function handleTileClick(idx) {
-  if (inputLocked || !gameRunning) return;
+  if (inputLocked || !gameRunning || isPaused) return;
   const tile = tiles[idx];
   if (!tile.alive) return;
   if (!isFreeIdx(idx)) {
@@ -376,6 +384,7 @@ function removePair(idxA, idxB) {
     streakCount = 1;
   }
   lastMatchTime = now;
+  lastProgressTime = now;
 
   const gained = Math.round(MATCH_SCORE * comboMultiplier(streakCount));
   score += gained;
@@ -452,14 +461,34 @@ function findHintPair() {
   return null;
 }
 
-function showHint() {
-  if (inputLocked || !gameRunning) return;
-  const pair = findHintPair();
-  if (!pair) return;
+function flashHintPair(pair) {
   pair.forEach((i) => {
     tiles[i].el.classList.add("hint-flash");
     setTimeout(() => tiles[i].el.classList.remove("hint-flash"), 1000);
   });
+}
+
+// 玩家主動按提示：每回合限用 MANUAL_HINT_LIMIT 次，每次扣分
+function showHint() {
+  if (inputLocked || !gameRunning || isPaused) return;
+  if (manualHintsLeft <= 0) return;
+  const pair = findHintPair();
+  if (!pair) return;
+  manualHintsLeft--;
+  score = Math.max(0, score - MANUAL_HINT_PENALTY);
+  lastProgressTime = Date.now(); // 提示後重新起算 10 秒閒置倒數
+  flashHintPair(pair);
+  updateStatus();
+}
+
+// 系統偵測超過 10 秒沒有配對成功，自動閃動提示並扣分
+function triggerAutoHint() {
+  lastProgressTime = Date.now(); // 不管有沒有找到提示，都重新起算，避免連續扣分轟炸
+  const pair = findHintPair();
+  if (!pair) return;
+  score = Math.max(0, score - AUTO_HINT_PENALTY);
+  flashHintPair(pair);
+  updateStatus();
 }
 
 function reshuffleRemaining() {
@@ -503,6 +532,9 @@ function updateStatus() {
   const mm = String(Math.floor(timeLeft / 60)).padStart(2, "0");
   const ss = String(Math.floor(timeLeft % 60)).padStart(2, "0");
   document.getElementById("mjTimeLeft").textContent = "⏱ " + mm + ":" + ss;
+  const hintBtn = document.getElementById("mjHintBtn");
+  hintBtn.textContent = "💡 提示 (" + manualHintsLeft + ")";
+  hintBtn.disabled = manualHintsLeft <= 0;
 }
 
 function tickTimer() {
@@ -518,6 +550,33 @@ function tickTimer() {
 
 /* ---------------- 遊戲流程 ---------------- */
 
+function startTimers() {
+  clearInterval(timerId);
+  clearInterval(idleCheckId);
+  timerId = setInterval(tickTimer, 1000);
+  idleCheckId = setInterval(() => {
+    if (!isPaused && gameRunning && !inputLocked && Date.now() - lastProgressTime >= IDLE_HINT_MS) {
+      triggerAutoHint();
+    }
+  }, 500);
+}
+
+function pauseGame() {
+  if (!gameRunning || isPaused) return;
+  isPaused = true;
+  clearInterval(timerId);
+  clearInterval(idleCheckId);
+  document.getElementById("mjPauseOverlay").hidden = false;
+}
+
+function resumeGame() {
+  if (!gameRunning || !isPaused) return;
+  isPaused = false;
+  lastProgressTime = Date.now(); // 恢復時重新起算閒置倒數，暫停期間不算進 10 秒內
+  startTimers();
+  document.getElementById("mjPauseOverlay").hidden = true;
+}
+
 function startGame() {
   ensureAudioCtx(); // 在使用者點擊當下解鎖音效，避免手機瀏覽器擋掉之後的自動播放
   gameMode = document.querySelector('input[name="mj-mode"]:checked').value;
@@ -525,10 +584,15 @@ function startGame() {
   pairsCleared = 0;
   streakCount = 0;
   lastMatchTime = 0;
+  lastProgressTime = Date.now();
+  manualHintsLeft = MANUAL_HINT_LIMIT;
+  isPaused = false;
   selectedTile = null;
   timeLeft = TIME_LIMITS[gameMode];
   gameRunning = true;
   inputLocked = false;
+
+  document.getElementById("mjPauseOverlay").hidden = true;
 
   selectedCovers = shuffle(uniqueCovers)
     .slice(0, TOTAL_PAIRS)
@@ -539,17 +603,19 @@ function startGame() {
   renderBoard();
   updateStatus();
 
-  clearInterval(timerId);
-  timerId = setInterval(tickTimer, 1000);
+  startTimers();
 }
 
 function endGame(cleared) {
   gameRunning = false;
   inputLocked = true;
+  isPaused = false;
   clearInterval(timerId);
+  clearInterval(idleCheckId);
+  document.getElementById("mjPauseOverlay").hidden = true;
 
   showScreen("mj-result");
-  const ml = { easy: "初級（7分鐘）", medium: "中級（5分鐘）", hard: "最高級（3.5分鐘）" };
+  const ml = { easy: "初級（5分鐘）", medium: "中級（4分鐘）", hard: "最高級（3分鐘）" };
 
   let finalScore = score;
   let detail = "配對成功 " + pairsCleared + " / " + TOTAL_PAIRS + " 對";
@@ -673,11 +739,13 @@ async function boot() {
   });
   document.getElementById("mjHintBtn").addEventListener("click", showHint);
   document.getElementById("mjShuffleBtn").addEventListener("click", () => {
-    if (gameRunning && !inputLocked) {
+    if (gameRunning && !inputLocked && !isPaused) {
       showEmptyNotice("重新洗牌中...");
       reshuffleRemaining();
     }
   });
+  document.getElementById("mjPauseBtn").addEventListener("click", pauseGame);
+  document.getElementById("mjResumeBtn").addEventListener("click", resumeGame);
   document.getElementById("mjRestart").addEventListener("click", () => {
     showScreen("mj-intro");
   });

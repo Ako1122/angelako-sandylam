@@ -191,3 +191,33 @@
 }
 
 #mjStopBtn{ margin-top:.5rem; }
+
+/* 暫停遮罩：完全不透視、蓋住整個畫面，計時跟扣分都要停住 */
+.mj-pause-overlay{
+  position:fixed;
+  inset:0;
+  z-index:999;
+  background:#F6F2EA; /* 完全不透明，不能透視底下的牌局 */
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:.6rem;
+  padding:2rem;
+  text-align:center;
+}
+.mj-pause-title{
+  font:700 28px "Noto Serif TC",serif;
+  color:#201E1F;
+  margin:0;
+}
+.mj-pause-sub{
+  font:500 14px "Noto Sans TC",sans-serif;
+  color:#5C6B73;
+  margin:0 0 1rem;
+}
+
+#mjHintBtn:disabled{
+  opacity:.5;
+  cursor:not-allowed;
+}
