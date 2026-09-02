@@ -64,6 +64,57 @@ function showScreen(id) {
   });
 }
 
+/* ---------------- 音效（Web Audio API 即時合成，不需外部音檔） ---------------- */
+
+let audioCtx = null;
+
+function ensureAudioCtx() {
+  if (!audioCtx) {
+    const Ctx = window.AudioContext || window.webkitAudioContext;
+    if (!Ctx) return null;
+    audioCtx = new Ctx();
+  }
+  if (audioCtx.state === "suspended") {
+    audioCtx.resume();
+  }
+  return audioCtx;
+}
+
+function playTone(freq, duration, type, startVol) {
+  const ctx = ensureAudioCtx();
+  if (!ctx) return;
+  try {
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.type = type || "sine";
+    osc.frequency.value = freq;
+    gain.gain.setValueAtTime(startVol || 0.2, ctx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + duration);
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+    osc.start();
+    osc.stop(ctx.currentTime + duration);
+  } catch (e) {}
+}
+
+// 配對成功：短促的「叮」，連擊越高音調越高，帶一點鼓勵感
+function playMatchSound(streak) {
+  const freq = 600 + Math.min(streak - 1, 6) * 45;
+  playTone(freq, 0.15, "sine", 0.18);
+  setTimeout(() => playTone(freq * 1.5, 0.12, "sine", 0.12), 60);
+}
+
+// 錯誤提示：短促低音「嗡」，不管是點到不能選的格子、還是配對失敗都用這個
+function playErrorSound() {
+  playTone(180, 0.16, "square", 0.14);
+}
+
+// 最後 10 秒倒數提示，越接近 0 音調越高
+function playCountdownTick(secondsLeft) {
+  const freq = 440 + (10 - secondsLeft) * 30;
+  playTone(freq, 0.09, "square", 0.15);
+}
+
 /* ---------------- 圖片預先載入 ---------------- */
 
 function preloadImage(src) {
@@ -271,7 +322,10 @@ function handleTileClick(idx) {
   if (inputLocked || !gameRunning) return;
   const tile = tiles[idx];
   if (!tile.alive) return;
-  if (!isFreeIdx(idx)) return; // 被蓋住或兩側都被擋住，不能選
+  if (!isFreeIdx(idx)) {
+    playErrorSound(); // 被蓋住或兩側都被擋住，點了給錯誤提示音
+    return;
+  }
 
   if (selectedTile === null) {
     selectedTile = idx;
@@ -296,6 +350,7 @@ function handleTileClick(idx) {
     selectedTile = null;
   } else {
     // 型別不同，短暫抖動提示後取消選取
+    playErrorSound();
     firstTile.el.classList.remove("selected");
     tile.el.classList.add("mismatch");
     firstTile.el.classList.add("mismatch");
@@ -325,6 +380,8 @@ function removePair(idxA, idxB) {
   const gained = Math.round(MATCH_SCORE * comboMultiplier(streakCount));
   score += gained;
   pairsCleared++;
+
+  playMatchSound(streakCount);
 
   tiles[idxA].alive = false;
   tiles[idxB].alive = false;
@@ -451,6 +508,9 @@ function updateStatus() {
 function tickTimer() {
   timeLeft--;
   updateStatus();
+  if (timeLeft > 0 && timeLeft <= 10) {
+    playCountdownTick(timeLeft);
+  }
   if (timeLeft <= 0) {
     endGame(false);
   }
@@ -459,6 +519,7 @@ function tickTimer() {
 /* ---------------- 遊戲流程 ---------------- */
 
 function startGame() {
+  ensureAudioCtx(); // 在使用者點擊當下解鎖音效，避免手機瀏覽器擋掉之後的自動播放
   gameMode = document.querySelector('input[name="mj-mode"]:checked').value;
   score = 0;
   pairsCleared = 0;
