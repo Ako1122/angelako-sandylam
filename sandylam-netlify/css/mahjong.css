@@ -194,17 +194,20 @@
 
 /* 暫停遮罩：完全不透視、蓋住整個畫面，計時跟扣分都要停住 */
 .mj-pause-overlay{
+  display:none;
   position:fixed;
   inset:0;
   z-index:999;
   background:#F6F2EA; /* 完全不透明，不能透視底下的牌局 */
-  display:flex;
   flex-direction:column;
   align-items:center;
   justify-content:center;
   gap:.6rem;
   padding:2rem;
   text-align:center;
+}
+.mj-pause-overlay:not([hidden]){
+  display:flex;
 }
 .mj-pause-title{
   font:700 28px "Noto Serif TC",serif;
