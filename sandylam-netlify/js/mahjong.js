@@ -464,7 +464,7 @@ function findHintPair() {
 function flashHintPair(pair) {
   pair.forEach((i) => {
     tiles[i].el.classList.add("hint-flash");
-    setTimeout(() => tiles[i].el.classList.remove("hint-flash"), 1000);
+    setTimeout(() => tiles[i].el.classList.remove("hint-flash"), 3000);
   });
 }
 
