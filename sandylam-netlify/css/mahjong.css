@@ -224,3 +224,11 @@
   opacity:.5;
   cursor:not-allowed;
 }
+
+.mj-shape-name{
+  text-align:center;
+  font:600 13px "Noto Sans TC",sans-serif;
+  color:#708090;
+  margin:0 0 .5rem;
+  letter-spacing:.05em;
+}

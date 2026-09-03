@@ -13,7 +13,7 @@ exports.handler = async (event) => {
   }
 
   try {
-    const { name, mode, score, pairs, cleared, time } = JSON.parse(event.body);
+    const { name, mode, score, pairs, totalPairs, cleared, time } = JSON.parse(event.body);
 
     if (
       !name ||
@@ -35,6 +35,7 @@ exports.handler = async (event) => {
       name: name.replace(/[<>&"']/g, "").slice(0, 20),
       score,
       pairs,
+      totalPairs: totalPairs || pairs,
       cleared: !!cleared,
       time: Math.round(time * 100) / 100,
     };

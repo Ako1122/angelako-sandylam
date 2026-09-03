@@ -1,23 +1,100 @@
 const SONGS_URL = "data/songs.json";
 
-// 牌局結構：底層 7x7 滿版，往上收窄疊到第 6 層（L0~L5），共 96 張（48 對）
-const BLOCKS = [
-  { layer: 0, cols: 7, rows: 7, offsetX: 0, offsetY: 0 }, // 底層滿版 49
-  { layer: 1, cols: 3, rows: 3, offsetX: 0, offsetY: 0 }, // 左上小丘 9
-  { layer: 1, cols: 3, rows: 3, offsetX: 4, offsetY: 0 }, // 右上小丘 9
-  { layer: 1, cols: 3, rows: 3, offsetX: 2, offsetY: 4 }, // 下方小丘 9
-  { layer: 2, cols: 2, rows: 2, offsetX: 0, offsetY: 0 }, // 左上小丘再疊一層 4
-  { layer: 2, cols: 2, rows: 2, offsetX: 4, offsetY: 0 }, // 右上小丘再疊一層 4
-  { layer: 2, cols: 2, rows: 2, offsetX: 2, offsetY: 4 }, // 下方小丘再疊一層 4
-  { layer: 3, cols: 2, rows: 2, offsetX: 2, offsetY: 0 }, // 架在左右兩丘縫隙間的尖塔 4
-  { layer: 4, cols: 1, rows: 2, offsetX: 2, offsetY: 0 }, // 尖塔繼續往上收窄 2
-  { layer: 5, cols: 1, rows: 2, offsetX: 2, offsetY: 0 }, // 塔頂 2
-];
+// 牌局結構全部都用同一個底盤大小（7x7），這樣封面尺寸、版面比例每種花色都一致，
+// 只有「往上疊出來的形狀」不一樣。每次開局會從下面這幾種裡隨機挑一種。
 const BASE_COLS = 7;
 const BASE_ROWS = 7;
 const BOARD_UNIT_W = BASE_COLS * 2; // 14
 const BOARD_UNIT_H = BASE_ROWS * 2; // 14
-const TOTAL_PAIRS = BLOCKS.reduce((sum, b) => sum + b.cols * b.rows, 0) / 2;
+
+const SHAPE_TEMPLATES = [
+  {
+    name: "三丘尖塔",
+    blocks: [
+      { layer: 0, cols: 7, rows: 7, offsetX: 0, offsetY: 0 }, // 底層滿版 49
+      { layer: 1, cols: 3, rows: 3, offsetX: 0, offsetY: 0 }, // 左上小丘 9
+      { layer: 1, cols: 3, rows: 3, offsetX: 4, offsetY: 0 }, // 右上小丘 9
+      { layer: 1, cols: 3, rows: 3, offsetX: 2, offsetY: 4 }, // 下方小丘 9
+      { layer: 2, cols: 2, rows: 2, offsetX: 0, offsetY: 0 }, // 左上小丘再疊一層 4
+      { layer: 2, cols: 2, rows: 2, offsetX: 4, offsetY: 0 }, // 右上小丘再疊一層 4
+      { layer: 2, cols: 2, rows: 2, offsetX: 2, offsetY: 4 }, // 下方小丘再疊一層 4
+      { layer: 3, cols: 2, rows: 2, offsetX: 2, offsetY: 0 }, // 架在左右兩丘縫隙間的尖塔 4
+      { layer: 4, cols: 1, rows: 2, offsetX: 2, offsetY: 0 }, // 尖塔繼續往上收窄 2
+      { layer: 5, cols: 1, rows: 2, offsetX: 2, offsetY: 0 }, // 塔頂 2
+    ], // 共 96 張（48 對）
+  },
+  {
+    name: "十字架",
+    blocks: [
+      // 底層：正方形挖掉四個角，形成十字（+）外型
+      { layer: 0, cols: 3, rows: 3, offsetX: 2, offsetY: 2 }, // 中心 9
+      { layer: 0, cols: 3, rows: 2, offsetX: 2, offsetY: 0 }, // 上臂 6
+      { layer: 0, cols: 3, rows: 2, offsetX: 2, offsetY: 5 }, // 下臂 6
+      { layer: 0, cols: 2, rows: 3, offsetX: 0, offsetY: 2 }, // 左臂 6
+      { layer: 0, cols: 2, rows: 3, offsetX: 5, offsetY: 2 }, // 右臂 6
+      // 第二層：縮小一圈的十字
+      { layer: 1, cols: 3, rows: 3, offsetX: 2, offsetY: 2 }, // 中心 9
+      { layer: 1, cols: 3, rows: 1, offsetX: 2, offsetY: 1 }, // 上臂 3
+      { layer: 1, cols: 3, rows: 1, offsetX: 2, offsetY: 5 }, // 下臂 3
+      { layer: 1, cols: 1, rows: 3, offsetX: 1, offsetY: 2 }, // 左臂 3
+      { layer: 1, cols: 1, rows: 3, offsetX: 5, offsetY: 2 }, // 右臂 3
+      // 第三層：小十字
+      { layer: 2, cols: 1, rows: 1, offsetX: 3, offsetY: 3 }, // 中心 1
+      { layer: 2, cols: 1, rows: 1, offsetX: 3, offsetY: 2 }, // 上 1
+      { layer: 2, cols: 1, rows: 1, offsetX: 3, offsetY: 4 }, // 下 1
+      { layer: 2, cols: 1, rows: 1, offsetX: 2, offsetY: 3 }, // 左 1
+      { layer: 2, cols: 1, rows: 1, offsetX: 4, offsetY: 3 }, // 右 1
+      // 塔尖
+      { layer: 3, cols: 1, rows: 1, offsetX: 3, offsetY: 3 }, // 1
+    ], // 共 60 張（30 對）
+  },
+  {
+    name: "菱形",
+    blocks: [
+      // 底層：一列一列由窄到寬再到窄，疊出菱形外框
+      { layer: 0, cols: 1, rows: 1, offsetX: 3, offsetY: 0 },
+      { layer: 0, cols: 3, rows: 1, offsetX: 2, offsetY: 1 },
+      { layer: 0, cols: 5, rows: 1, offsetX: 1, offsetY: 2 },
+      { layer: 0, cols: 7, rows: 1, offsetX: 0, offsetY: 3 },
+      { layer: 0, cols: 5, rows: 1, offsetX: 1, offsetY: 4 },
+      { layer: 0, cols: 3, rows: 1, offsetX: 2, offsetY: 5 },
+      { layer: 0, cols: 1, rows: 1, offsetX: 3, offsetY: 6 }, // L0 共 25
+      // 第二層：縮小一圈的菱形
+      { layer: 1, cols: 3, rows: 1, offsetX: 2, offsetY: 1 },
+      { layer: 1, cols: 5, rows: 1, offsetX: 1, offsetY: 2 },
+      { layer: 1, cols: 5, rows: 1, offsetX: 1, offsetY: 3 },
+      { layer: 1, cols: 5, rows: 1, offsetX: 1, offsetY: 4 },
+      { layer: 1, cols: 3, rows: 1, offsetX: 2, offsetY: 5 }, // L1 共 21
+      // 第三層：再縮小
+      { layer: 2, cols: 3, rows: 1, offsetX: 2, offsetY: 2 },
+      { layer: 2, cols: 3, rows: 1, offsetX: 2, offsetY: 3 },
+      { layer: 2, cols: 3, rows: 1, offsetX: 2, offsetY: 4 }, // L2 共 9
+      // 塔尖
+      { layer: 3, cols: 1, rows: 1, offsetX: 3, offsetY: 3 }, // 1
+    ], // 共 56 張（28 對）
+  },
+  {
+    name: "蝴蝶",
+    blocks: [
+      // 底層：上下寬、中間窄的沙漏／蝴蝶外型
+      { layer: 0, cols: 7, rows: 2, offsetX: 0, offsetY: 0 }, // 上半段 14
+      { layer: 0, cols: 5, rows: 1, offsetX: 1, offsetY: 2 }, // 收窄 5
+      { layer: 0, cols: 3, rows: 1, offsetX: 2, offsetY: 3 }, // 腰身 3
+      { layer: 0, cols: 5, rows: 1, offsetX: 1, offsetY: 4 }, // 收窄 5
+      { layer: 0, cols: 7, rows: 2, offsetX: 0, offsetY: 5 }, // 下半段 14
+      // 第二層：翅膀上各疊一小塊 + 腰身加高
+      { layer: 1, cols: 5, rows: 1, offsetX: 1, offsetY: 0 }, // 5
+      { layer: 1, cols: 3, rows: 1, offsetX: 2, offsetY: 3 }, // 3
+      { layer: 1, cols: 5, rows: 1, offsetX: 1, offsetY: 5 }, // 5
+      // 塔尖：腰身正中央
+      { layer: 2, cols: 1, rows: 2, offsetX: 3, offsetY: 2 }, // 2
+    ], // 共 56 張（28 對）
+  },
+];
+
+let BLOCKS = SHAPE_TEMPLATES[0].blocks;
+let TOTAL_PAIRS = BLOCKS.reduce((sum, b) => sum + b.cols * b.rows, 0) / 2;
+let currentShapeName = SHAPE_TEMPLATES[0].name;
 
 const TIME_LIMITS = { easy: 300, medium: 240, hard: 180 };
 const IDLE_HINT_MS = 10000; // 超過這麼久沒配對成功，系統自動提示
@@ -594,6 +671,12 @@ function startGame() {
 
   document.getElementById("mjPauseOverlay").hidden = true;
 
+  const template = SHAPE_TEMPLATES[Math.floor(Math.random() * SHAPE_TEMPLATES.length)];
+  BLOCKS = template.blocks;
+  TOTAL_PAIRS = BLOCKS.reduce((sum, b) => sum + b.cols * b.rows, 0) / 2;
+  currentShapeName = template.name;
+  document.getElementById("mjShapeName").textContent = "花色：" + currentShapeName;
+
   selectedCovers = shuffle(uniqueCovers)
     .slice(0, TOTAL_PAIRS)
     .map((c) => c.cover);
@@ -666,6 +749,7 @@ function submitScore() {
       mode: gameMode,
       score: score,
       pairs: pairsCleared,
+      totalPairs: TOTAL_PAIRS,
       cleared: pairsCleared >= TOTAL_PAIRS,
       time: TIME_LIMITS[gameMode],
     }),
@@ -707,7 +791,7 @@ function loadLeaderboard(mode, containerId) {
         html += '<td class="rank-col">' + entry.rank + "</td>";
         html += '<td class="name-col">' + esc(entry.name) + "</td>";
         html += "<td>" + entry.score + "</td>";
-        html += "<td>" + entry.pairs + "/" + TOTAL_PAIRS + "</td>";
+        html += "<td>" + entry.pairs + "/" + (entry.totalPairs || TOTAL_PAIRS) + "</td>";
         html += "<td>" + (entry.cleared ? "✓" : "—") + "</td>";
         html += "</tr>";
       });
