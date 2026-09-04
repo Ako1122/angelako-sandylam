@@ -1,3 +1,4 @@
+mahjong-final.js
 const SONGS_URL = "data/songs.json";
 
 // 牌局結構全部都用同一個底盤大小（7x7），這樣封面尺寸、版面比例每種花色都一致，
@@ -850,3 +851,5 @@ async function boot() {
 }
 
 boot();
+
+

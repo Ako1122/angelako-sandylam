@@ -2,149 +2,191 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>封面連連看 — 林憶蓮</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700&family=Noto+Serif+TC:wght@700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="css/mahjong.css">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>封面連連看 — 林憶蓮鐵粉挑戰賽</title>
+<link rel="stylesheet" href="mahjong.css" />
 </head>
 <body>
 
-  <div class="nav-wrap">
-  <header class="site-header">
-    <button class="menu-toggle" id="menuToggle" type="button" aria-expanded="false" aria-controls="siteNav">
-      <span>MENU</span><span class="chevron">▾</span>
-    </button>
-    <div class="brand">
-      <span class="brand-disc" aria-hidden="true"></span>
-      <span class="brand-name">林憶蓮鐵粉挑戰賽</span>
+<!-- ==================== 導航列 ==================== -->
+<nav class="navbar">
+  <button class="hamburger" onclick="document.querySelector('.nav-links').classList.toggle('open')">
+    MENU▾
+  </button>
+  <a class="logo" href="/">
+    <img src="images/sandylam-icon.png" alt="">
+    林憶蓮鐵粉挑戰賽
+  </a>
+  <div class="nav-links">
+    <a href="/">首頁</a>
+    <a href="/championship.html">冠軍賽</a>
+    <a href="/song-quiz.html">猜歌挑戰</a>
+    <a href="/album-quiz.html">猜專輯</a>
+    <a href="/cover-quiz.html">猜翻唱歌名</a>
+    <a href="/cover-album-quiz.html">猜翻唱專輯</a>
+    <a href="/memory.html">記憶翻牌</a>
+    <a href="/match.html">封面消消樂</a>
+    <a href="/mahjong.html" class="active">封面連連看</a>
+  </div>
+  <div class="mj-global-toolbar">
+    <button id="mjSoundBtn" onclick="toggleSound()" title="音效開關">🔊</button>
+  </div>
+</nav>
+
+<!-- ==================== 首頁 ==================== -->
+<div id="mj-intro" class="mj-game-inner">
+  <div class="guess-result-card">
+    <h1 style="font:700 24px 'Noto Serif TC',serif;color:#B08A3E;margin-bottom:.2rem;">Cover Mahjong</h1>
+    <h2 style="font:700 18px 'Noto Serif TC',serif;color:#201E1F;margin-bottom:1rem;">封面連連看</h2>
+    <p style="font:400 14px 'Noto Sans TC',sans-serif;color:#5C6B73;line-height:1.6;margin-bottom:1.5rem;">
+      專輯封面堆成多層山丘，找出「上面沒被蓋住、左右至少一邊淨空」的兩張相同封面點掉它們，挑戰在時間內全部清空！
+    </p>
+
+    <!-- 難度選擇 -->
+    <div class="mode-selection">
+      <p class="selection-title">選擇難度</p>
+      <label class="mode-option">
+        <input type="radio" name="mj-mode" value="easy" checked>
+        <span class="mode-label">初級（5 分鐘）</span>
+        <span class="mode-desc">時間較充裕，慢慢找</span>
+      </label>
+      <label class="mode-option">
+        <input type="radio" name="mj-mode" value="medium">
+        <span class="mode-label">中級（4 分鐘）</span>
+        <span class="mode-desc">時間適中，手腳要快</span>
+      </label>
+      <label class="mode-option">
+        <input type="radio" name="mj-mode" value="hard">
+        <span class="mode-label">最高級（3 分鐘）</span>
+        <span class="mode-desc">時間緊迫，考驗眼力反應</span>
+      </label>
+      <label class="mode-option mode-zen">
+        <input type="radio" name="mj-mode" value="zen">
+        <span class="mode-label">🧘 禪模式</span>
+        <span class="mode-desc">無時間限制，純粹享受</span>
+      </label>
+      <label class="mode-option mode-speed">
+        <input type="radio" name="mj-mode" value="speed">
+        <span class="mode-label">⚡ 極速模式</span>
+        <span class="mode-desc">比誰清得快</span>
+      </label>
+      <label class="mode-option mode-daily">
+        <input type="radio" name="mj-mode" value="daily">
+        <span class="mode-label">📅 每日挑戰</span>
+        <span class="mode-desc">每天一局，公平比較</span>
+      </label>
     </div>
-  </header>
-  <nav class="site-nav" id="siteNav">
-    <a href="index.html" class="nav-link">首頁</a>
-    <a href="tournament.html" class="nav-link">冠軍賽</a>
-    <a href="guess.html" class="nav-link">猜歌挑戰</a>
-    <a href="guess-album.html" class="nav-link">猜專輯</a>
-    <a href="guess-cover-version-song.html" class="nav-link">猜翻唱歌名</a>
-    <a href="guess-cover-version-album.html" class="nav-link">猜翻唱專輯</a>
-    <a href="memory-match.html" class="nav-link">記憶翻牌</a>
-    <a href="match3.html" class="nav-link">封面消消樂</a>
-    <a href="mahjong.html" class="nav-link active">封面連連看</a>
-  </nav>
+
+    <!-- 牌型選擇 -->
+    <div class="mj-shape-selector">
+      <p class="selection-title">選擇牌型</p>
+      <div id="mjShapeSelector" class="mj-shape-options">
+        <!-- JS 動態渲染 -->
+      </div>
+    </div>
+
+    <button class="guess-option-btn" style="justify-content:center;font-weight:700;color:#B08A3E;border-color:#B08A3E;margin-top:1rem;" onclick="startGame()">開始挑戰</button>
+
+    <br>
+    <button class="guess-option-btn" style="justify-content:center;margin-top:.5rem;" onclick="toggleProfilePanel()">📊 我的紀錄 / 成就</button>
+    <div id="mjProfilePanel" hidden></div>
+
+    <!-- 排行榜 -->
+    <div class="leaderboard-section">
+      <p class="leaderboard-title">🏆 排行榜</p>
+      <div class="leaderboard-grid">
+        <details class="leaderboard-col">
+          <summary class="lb-col-title">最高級（3分鐘）</summary>
+          <div id="lbHard"></div>
+        </details>
+        <details class="leaderboard-col">
+          <summary class="lb-col-title">中級（4分鐘）</summary>
+          <div id="lbMedium"></div>
+        </details>
+        <details class="leaderboard-col">
+          <summary class="lb-col-title">初級（5分鐘）</summary>
+          <div id="lbEasy"></div>
+        </details>
+        <details class="leaderboard-col">
+          <summary class="lb-col-title">⚡ 極速模式</summary>
+          <div id="lbSpeed"></div>
+        </details>
+        <details class="leaderboard-col">
+          <summary class="lb-col-title">📅 每日挑戰</summary>
+          <div id="lbDaily"></div>
+        </details>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== 遊戲畫面 ==================== -->
+<div id="mj-game" class="mj-game-inner" hidden>
+  <p id="mjShapeName" class="mj-shape-name">花色：三丘尖塔</p>
+
+  <div class="whack-status">
+    <span id="mjScore">分數：0</span>
+    <span id="mjPairs">0 / 48 對</span>
+    <span id="mjTimeLeft">⏱ 05:00</span>
   </div>
 
-  <!-- 選擇難度 -->
-  <section id="mj-intro" class="screen">
-    <div class="champion-inner">
-      <p class="eyebrow">Cover Mahjong</p>
-      <h2>封面連連看</h2>
-      <p class="intro-desc">
-        96 張專輯封面堆成三座山丘、中間再架起一根直通塔頂的尖塔，最高疊到六層！找出「上面沒被蓋住、左右至少一邊淨空」的兩張相同封面點掉它們，挑戰在時間內全部清空！
-      </p>
+  <div id="mjComboDisplay" class="mj-combo-display" hidden></div>
 
-      <div class="mode-selection">
-        <p class="selection-title">選擇難度</p>
-        <label class="mode-option">
-          <input type="radio" name="mj-mode" value="easy" checked>
-          <span class="mode-label">初級（5 分鐘）</span>
-          <span class="mode-desc">時間較充裕，慢慢找</span>
-        </label>
-        <label class="mode-option">
-          <input type="radio" name="mj-mode" value="medium">
-          <span class="mode-label">中級（4 分鐘）</span>
-          <span class="mode-desc">時間適中，手腳要快</span>
-        </label>
-        <label class="mode-option">
-          <input type="radio" name="mj-mode" value="hard">
-          <span class="mode-label">最高級（3 分鐘）</span>
-          <span class="mode-desc">時間緊迫，考驗眼力反應</span>
-        </label>
-      </div>
+  <div class="mj-toolbar">
+    <button id="mjHintBtn" class="guess-option-btn mj-tool-btn" onclick="showHint()">💡 提示 (2)</button>
+    <button id="mjPauseBtn" class="guess-option-btn mj-tool-btn" onclick="pauseGame()">⏸ 暫停</button>
+    <button id="mjShuffleBtn" class="guess-option-btn mj-tool-btn" onclick="manualShuffle()">🔀 洗牌 (3)</button>
+  </div>
 
-      <button class="btn-primary" id="mjStartBtn">開始挑戰</button>
+  <div class="mj-board-wrap">
+    <div id="mjBoard" class="mj-board"></div>
+  </div>
 
-      <div class="leaderboard-section">
-        <h3 class="leaderboard-title">🏆 排行榜</h3>
-        <div class="leaderboard-grid">
-          <div class="leaderboard-col">
-            <h4 class="lb-col-title">最高級（3分鐘）</h4>
-            <div id="lbHard"></div>
-          </div>
-          <div class="leaderboard-col">
-            <h4 class="lb-col-title">中級（4分鐘）</h4>
-            <div id="lbMedium"></div>
-          </div>
-          <div class="leaderboard-col">
-            <h4 class="lb-col-title">初級（5分鐘）</h4>
-            <div id="lbEasy"></div>
-          </div>
-        </div>
+  <button id="mjStopBtn" class="guess-option-btn mj-tool-btn" onclick="endGame(false)">結束遊戲</button>
+
+  <div id="mjPauseOverlay" class="mj-pause-overlay" hidden>
+    <p class="mj-pause-title">⏸ 已暫停</p>
+    <p class="mj-pause-sub">計時跟扣分都停住了，準備好再繼續</p>
+    <button class="guess-option-btn mj-tool-btn" onclick="resumeGame()">▶ 繼續遊戲</button>
+  </div>
+</div>
+
+<!-- ==================== 結果頁 ==================== -->
+<div id="mj-result" class="mj-game-inner" hidden>
+  <div class="guess-result-card">
+    <h2 id="resultTitle" style="font:700 20px 'Noto Serif TC',serif;color:#201E1F;margin-bottom:.5rem;">挑戰結束！</h2>
+    <p id="resultMode" class="result-mode"></p>
+    <p id="resultScore" class="result-big"></p>
+    <p id="resultDetail" class="result-detail"></p>
+
+    <!-- 統計面板 -->
+    <div id="resultStats" hidden></div>
+
+    <!-- 提交成績 -->
+    <div id="submitScoreWrap" class="submit-score-wrap">
+      <p class="submit-title">登上排行榜</p>
+      <div class="submit-form">
+        <input type="text" id="playerName" placeholder="輸入你的名字" maxlength="20">
+        <button id="submitScoreBtn" class="guess-option-btn mj-tool-btn" onclick="submitScore()">提交成績</button>
       </div>
     </div>
-  </section>
 
-  <!-- 遊戲進行中 -->
-  <section id="mj-game" class="screen" hidden>
-    <div class="mj-game-inner">
-      <p class="mj-shape-name" id="mjShapeName">花色：三丘尖塔</p>
-      <div class="whack-status">
-        <span id="mjScore">分數：0</span>
-        <span id="mjPairs">0 / 48 對</span>
-        <span id="mjTimeLeft">⏱ 05:00</span>
-      </div>
+    <p id="scoreSubmitted" class="score-submitted" hidden>✓ 成績已提交！</p>
 
-      <div class="mj-toolbar">
-        <button class="btn-secondary mj-tool-btn" id="mjHintBtn">💡 提示 (2)</button>
-        <button class="btn-secondary mj-tool-btn" id="mjPauseBtn">⏸ 暫停</button>
-        <button class="btn-secondary mj-tool-btn" id="mjShuffleBtn">🔀 洗牌</button>
-      </div>
+    <div id="resultLeaderboard" hidden></div>
 
-      <div class="mj-board-wrap">
-        <div class="mj-board" id="mjBoard"></div>
-      </div>
-
-      <button class="btn-secondary" id="mjStopBtn">結束遊戲</button>
-
-      <div class="mj-pause-overlay" id="mjPauseOverlay" hidden>
-        <p class="mj-pause-title">⏸ 已暫停</p>
-        <p class="mj-pause-sub">計時跟扣分都停住了，準備好再繼續</p>
-        <button class="btn-primary" id="mjResumeBtn">▶ 繼續遊戲</button>
-      </div>
+    <!-- 分享 & 再玩 -->
+    <div style="display:flex;gap:.5rem;justify-content:center;margin-top:1rem;flex-wrap:wrap;">
+      <button id="mjShareBtn" class="mj-share-btn" onclick="shareResult()">📤 分享成績</button>
+      <button class="guess-option-btn mj-tool-btn" style="color:#B08A3E;border-color:#B08A3E;font-weight:700;" onclick="showScreen('mj-intro')">再玩一次</button>
     </div>
-  </section>
+  </div>
+</div>
 
-  <!-- 結果頁 -->
-  <section id="mj-result" class="screen" hidden>
-    <div class="champion-inner">
-      <img class="result-photo" src="images/champion.jpeg" alt="Sandy Lam">
-      <p class="eyebrow">Result</p>
-      <h2 id="resultTitle">挑戰結束！</h2>
-      <div class="guess-result-card">
-        <p class="result-mode" id="resultMode"></p>
-        <p class="result-big" id="resultScore"></p>
-        <p class="result-detail" id="resultDetail"></p>
-      </div>
+<!-- ==================== 載入遊戲引擎 ==================== -->
+<script src="mahjong.js"></script>
 
-      <div id="submitScoreWrap" class="submit-score-wrap" hidden>
-        <p class="submit-title">登上排行榜</p>
-        <div class="submit-form">
-          <input type="text" id="playerName" placeholder="輸入你的暱稱" maxlength="20">
-          <button class="btn-primary" id="submitScoreBtn">提交成績</button>
-        </div>
-      </div>
-      <p id="scoreSubmitted" class="score-submitted" hidden>✓ 成績已提交！</p>
-
-      <div id="resultLeaderboard" hidden></div>
-
-      <div class="champion-actions">
-        <button class="btn-secondary" id="mjRestart">再玩一次</button>
-      </div>
-    </div>
-  </section>
-
-  <script src="js/nav-toggle.js" defer></script>
-  <script src="js/mahjong.js"></script>
 </body>
 </html>
+
