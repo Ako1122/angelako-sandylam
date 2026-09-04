@@ -1,108 +1,22 @@
 
-/* ===================================================
-   封面連連看 — 完整 CSS（原始 + 全部新功能）
-   色系：#201E1F / #708090 / #B08A3E / #F6F2EA / #5C6B73
-   =================================================== */
-
-/* ===== 共用元件（原始） ===== */
-
-.guess-game-inner{max-width:600px;margin:0 auto;padding:1.5rem 1rem;text-align:center}
-.guess-status{display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;padding:.5rem .75rem;background:rgba(112,128,144,.08);border-radius:8px;font:600 13px "Noto Sans TC",sans-serif;color:#201E1F}
-.guess-status span:nth-child(2){color:#708090}
-.guess-status span:nth-child(3){color:#5C6B73}
-
-.audio-player-wrap{display:flex;align-items:center;justify-content:center;margin-bottom:1rem;padding:.6rem;background:#201E1F;border-radius:8px}
-.audio-play-btn{background:#708090;color:#F6F2EA;border:none;border-radius:6px;padding:.5rem 1.2rem;font:700 13px "Noto Sans TC",sans-serif;cursor:pointer;transition:background .2s}
-.audio-play-btn:hover{background:#5a6e7a}
-
-.guess-options{display:grid;grid-template-columns:1fr;gap:.4rem;margin-bottom:.75rem}
-.guess-option-btn{display:flex;align-items:center;gap:.5rem;text-align:left;background:#fff;border:2.5px solid rgba(32,30,31,.15);border-radius:8px;padding:.55rem .75rem;font:500 15px "Noto Sans TC",sans-serif;color:#201E1F;cursor:pointer;transition:all .15s;word-break:break-word}
-.guess-option-btn:hover:not(:disabled){border-color:#708090;background:rgba(112,128,144,.05)}
-.guess-option-btn:disabled{cursor:default}
-.guess-option-btn.correct{border-color:#1a7a3a;border-width:3.5px;background:rgba(26,122,58,.1);color:#1a7a3a;font-weight:700}
-.guess-option-btn.wrong{border-color:#a82318;border-width:3.5px;background:rgba(168,35,24,.08);color:#a82318;font-weight:700}
-
-.option-title{font:700 16px "Noto Sans TC",sans-serif;color:inherit}
-
-.answer-badge{font-weight:900;font-size:18px;flex-shrink:0;width:24px;text-align:center}
-.correct-badge{color:#1a7a3a}
-.wrong-badge{color:#a82318}
-
-.lang-selection{margin-bottom:1.5rem}
-.selection-title{font:700 15px "Noto Sans TC",sans-serif;color:#201E1F;margin-bottom:.75rem}
-.lang-options{display:flex;flex-wrap:wrap;gap:.5rem;justify-content:center;margin-bottom:.5rem}
-.lang-checkbox{display:flex;align-items:center;gap:.3rem;background:#fff;border:1.5px solid rgba(32,30,31,.15);border-radius:6px;padding:.4rem .75rem;cursor:pointer;transition:all .2s;font:500 14px "Noto Sans TC",sans-serif}
-.lang-checkbox:has(input:checked){border-color:#708090;background:rgba(112,128,144,.08)}
-.lang-checkbox input{accent-color:#708090}
-.lang-name{color:#201E1F}
-.lang-count{color:#5C6B73;font-size:12px}
-.lang-pool-info{font:500 13px "Noto Sans TC",sans-serif;color:#708090;margin-top:.5rem}
-
-.mode-selection{margin-bottom:1.5rem}
-.mode-option{display:block;padding:.6rem 1rem;margin-bottom:.4rem;border:1.5px solid rgba(32,30,31,.1);border-radius:8px;cursor:pointer;transition:all .2s}
-.mode-option:has(input:checked){border-color:#708090;background:rgba(112,128,144,.06)}
-.mode-option.disabled{opacity:.4;cursor:not-allowed}
-.mode-label{font:700 14px "Noto Sans TC",sans-serif;color:#201E1F;display:block}
-.mode-desc{font:400 12px "Noto Sans TC",sans-serif;color:#5C6B73}
-
-/* 結果頁 */
-.result-photo{width:180px;height:auto;border-radius:12px;margin:0 auto 1rem;display:block}
-.guess-result-card{text-align:center;padding:1.5rem;margin:1rem 0;background:#fff;border-radius:12px;border:1.5px solid rgba(32,30,31,.1)}
-.result-mode{font:500 14px "Noto Sans TC",sans-serif;color:#5C6B73;margin-bottom:.5rem}
-.result-big{font:700 48px "Noto Serif TC",serif;color:#708090;margin:.5rem 0}
-.result-detail{font:500 16px "Noto Sans TC",sans-serif;color:#201E1F}
-
-/* 提交成績表單 */
-.submit-score-wrap{margin:1.5rem 0;padding:1.25rem;background:#fff;border-radius:10px;border:1.5px solid rgba(32,30,31,.1)}
-.submit-title{font:700 15px "Noto Sans TC",sans-serif;color:#201E1F;margin-bottom:.75rem}
-.submit-form{display:flex;gap:.5rem;align-items:center;justify-content:center}
-.submit-form input{flex:1;max-width:200px;padding:.6rem .75rem;border:1.5px solid rgba(32,30,31,.2);border-radius:8px;font:500 14px "Noto Sans TC",sans-serif;outline:none;transition:border-color .2s}
-.submit-form input:focus{border-color:#708090}
-.score-submitted{font:600 14px "Noto Sans TC",sans-serif;color:#2d8a4e;margin-top:1rem}
-
-/* 排行榜 */
-.leaderboard-section{margin-top:2.5rem;text-align:center}
-.leaderboard-title{font:700 18px "Noto Serif TC",serif;color:#201E1F;margin-bottom:1rem}
-.leaderboard-grid{display:grid;grid-template-columns:1fr;gap:1.5rem;text-align:center}
-.leaderboard-col{min-width:0}
-.lb-col-title{font:700 14px "Noto Serif TC",serif;color:#708090;margin-bottom:.75rem}
-
-.leaderboard-card{background:#fff;border-radius:10px;border:1.5px solid rgba(32,30,31,.1);overflow:hidden}
-.leaderboard-table{width:100%;border-collapse:collapse;font:400 13px "Noto Sans TC",sans-serif;color:#201E1F}
-.leaderboard-table thead{background:rgba(112,128,144,.06)}
-.leaderboard-table th{font-weight:600;padding:.5rem .4rem;text-align:center;font-size:12px;color:#5C6B73}
-.leaderboard-table td{padding:.4rem .3rem;text-align:center;border-top:1px solid rgba(32,30,31,.06)}
-.leaderboard-table tbody tr:hover{background:rgba(112,128,144,.04)}
-.rank-col{font-weight:700;color:#708090}
-.name-col{font-weight:600;text-align:left;padding-left:.5rem}
-.langs-col{font-size:11px;color:#5C6B73}
-
-.leaderboard-loading{font:500 14px "Noto Sans TC",sans-serif;color:#5C6B73;padding:1.5rem 0}
-.leaderboard-empty{font:500 14px "Noto Sans TC",sans-serif;color:#5C6B73;padding:1.5rem 0}
-
-@media(max-width:480px){
-  .leaderboard-table{font-size:11px}
-  .leaderboard-table th,.leaderboard-table td{padding:.35rem .2rem}
-}
-
-
 /* =====================================================
-   封面連連看專屬樣式（原始 + 新功能擴充）
+   封面連連看 — 遊戲專屬 CSS
+   共用樣式由 style.css 提供（導航列、按鈕、排行榜等）
    ===================================================== */
 
-.mj-game-inner{max-width:520px;margin:0 auto;padding:1.5rem 1rem;text-align:center}
+.mj-game-inner{max-width:520px;margin:0 auto;padding:0;text-align:center}
 
 .whack-status{
   display:flex;justify-content:center;gap:1rem;flex-wrap:wrap;
-  font:700 14px "Noto Sans TC",sans-serif;color:#201E1F;
+  font:700 14px var(--font-body);color:var(--ink);
   margin-bottom:.75rem;
 }
 .whack-status span{
   background:#fff;border:1.5px solid rgba(32,30,31,.1);border-radius:8px;
   padding:.35rem .8rem;
 }
-#mjTimeLeft{color:#B08A3E}
-#mjPairs{color:#708090}
+#mjTimeLeft{color:var(--gold)}
+#mjPairs{color:var(--steel)}
 
 .mj-toolbar{
   display:flex;justify-content:center;gap:10px;margin-bottom:.85rem;
@@ -124,6 +38,7 @@
   margin:0 auto;
 }
 
+/* ===== 牌面 ===== */
 .mj-tile{
   position:absolute;
   box-sizing:border-box;
@@ -132,9 +47,7 @@
   transition: transform .15s ease, opacity .2s ease;
 }
 .mj-tile.removed{
-  opacity:0;
-  pointer-events:none;
-  transform:scale(.4);
+  opacity:0;pointer-events:none;transform:scale(.4);
 }
 .mj-tile-face{
   width:100%; height:100%;
@@ -149,17 +62,13 @@
   filter:brightness(.72) saturate(.7);
 }
 .mj-tile.blocked .mj-tile-face::after{
-  content:"";
-  position:absolute; inset:0;
-  background:rgba(32,30,31,.18);
+  content:"";position:absolute;inset:0;background:rgba(32,30,31,.18);
 }
 .mj-tile-face img{
-  width:100%; height:100%;
-  object-fit:cover;
-  display:block;
+  width:100%; height:100%;object-fit:cover;display:block;
 }
 .mj-tile.selected .mj-tile-face{
-  border-color:#B08A3E;
+  border-color:var(--gold);
   box-shadow:0 0 0 3px rgba(176,138,62,.55), 0 3px 6px rgba(32,30,31,.15);
 }
 .mj-tile.hint-flash .mj-tile-face{
@@ -182,15 +91,23 @@
   80%{ transform:translateX(3px); }
 }
 
+/* ===== 牌面角落小編號 ===== */
+.mj-tile-badge{
+  position:absolute;top:2px;left:3px;
+  font:600 8px var(--font-body);
+  background:rgba(32,30,31,.55);color:var(--paper);
+  padding:0 3px;border-radius:2px;line-height:1.3;
+  pointer-events:none;opacity:.7;z-index:2;
+}
+
+/* ===== 分數浮動 ===== */
 .mj-score-float{
   position:absolute;
-  font:700 13px "Noto Sans TC",sans-serif;
-  color:#B08A3E;
-  pointer-events:none;
-  z-index:20;
+  font:700 13px var(--font-body);
+  color:var(--gold);
+  pointer-events:none;z-index:20;
   animation: mj-float-up .8s ease forwards;
-  white-space:nowrap;
-  left:50%; top:0;
+  white-space:nowrap;left:50%;top:0;
 }
 @keyframes mj-float-up{
   0%{ opacity:1; transform:translate(-50%,0); }
@@ -198,83 +115,13 @@
 }
 
 .mj-empty-notice{
-  margin-top:1rem;
-  font:600 14px "Noto Sans TC",sans-serif;
-  color:#5C6B73;
+  margin-top:1rem;font:600 14px var(--font-body);color:var(--slate);
 }
 
-#mjStopBtn{ margin-top:.5rem; }
-
-/* 暫停遮罩 */
-.mj-pause-overlay{
-  display:none;
-  position:fixed;
-  inset:0;
-  z-index:999;
-  background:#F6F2EA;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  gap:.6rem;
-  padding:2rem;
-  text-align:center;
-}
-.mj-pause-overlay:not([hidden]){
-  display:flex;
-}
-.mj-pause-title{
-  font:700 28px "Noto Serif TC",serif;
-  color:#201E1F;
-  margin:0;
-}
-.mj-pause-sub{
-  font:500 14px "Noto Sans TC",sans-serif;
-  color:#5C6B73;
-  margin:0 0 1rem;
-}
-
-#mjHintBtn:disabled{
-  opacity:.5;
-  cursor:not-allowed;
-}
-
-.mj-shape-name{
-  text-align:center;
-  font:600 13px "Noto Sans TC",sans-serif;
-  color:#708090;
-  margin:0 0 .5rem;
-  letter-spacing:.05em;
-}
-
-
-/* =====================================================
-   新功能 #1：牌面角落小編號（無障礙辨識）
-   ===================================================== */
-
-.mj-tile-badge{
-  position:absolute;
-  top:2px; left:3px;
-  font:600 8px "Noto Sans TC",sans-serif;
-  background:rgba(32,30,31,.55);
-  color:#F6F2EA;
-  padding:0 3px;
-  border-radius:2px;
-  line-height:1.3;
-  pointer-events:none;
-  opacity:.7;
-  z-index:2;
-}
-
-
-/* =====================================================
-   新功能 #2：連擊視覺回饋
-   ===================================================== */
-
+/* ===== 連擊顯示 ===== */
 .mj-combo-display{
-  font:700 14px "Noto Sans TC",sans-serif;
-  color:#B08A3E;
-  text-align:center;
-  padding:.2rem 0;
+  font:700 14px var(--font-body);
+  color:var(--gold);text-align:center;padding:.2rem 0;
   animation: mj-combo-pulse .4s ease;
 }
 .mj-combo-display.combo-mid{ color:#c0792a; }
@@ -282,19 +129,15 @@
 .mj-combo-display.combo-mega{ color:#7b2d8b; font-size:16px; }
 
 @keyframes mj-combo-pulse{
-  0%{ transform:scale(1.25); }
-  100%{ transform:scale(1); }
+  0%{ transform:scale(1.25); } 100%{ transform:scale(1); }
 }
 
 .mj-combo-float{
   position:absolute;
-  font:700 11px "Noto Sans TC",sans-serif;
-  color:#c0792a;
-  pointer-events:none;
-  z-index:21;
+  font:700 11px var(--font-body);
+  color:#c0792a;pointer-events:none;z-index:21;
   animation: mj-combo-float-up 1.2s ease forwards;
-  white-space:nowrap;
-  left:50%; top:35%;
+  white-space:nowrap;left:50%;top:35%;
 }
 .mj-combo-float.combo-mid{ color:#c0792a; }
 .mj-combo-float.combo-high{ color:#a82318; font-size:12px; }
@@ -305,11 +148,7 @@
   100%{ opacity:0; transform:translate(-50%,-25px) scale(1); }
 }
 
-
-/* =====================================================
-   新功能 #3：洗牌翻轉動畫
-   ===================================================== */
-
+/* ===== 洗牌動畫 ===== */
 .mj-tile.shuffling .mj-tile-face{
   animation: mj-shuffle-flip .35s ease;
 }
@@ -319,312 +158,141 @@
   100%{ transform:rotateY(0deg); opacity:1; }
 }
 
-
-/* =====================================================
-   新功能 #4：鍵盤 focus 樣式（無障礙）
-   ===================================================== */
-
-.mj-tile:focus-visible{
-  outline:none;
-}
+/* ===== 鍵盤 focus ===== */
+.mj-tile:focus-visible{ outline:none; }
 .mj-tile:focus-visible .mj-tile-face{
-  box-shadow:0 0 0 3px #B08A3E, 0 0 0 5px rgba(176,138,62,.3);
+  box-shadow:0 0 0 3px var(--gold), 0 0 0 5px rgba(176,138,62,.3);
 }
 
+/* ===== 暫停遮罩 ===== */
+.mj-pause-overlay{
+  display:none;position:fixed;inset:0;z-index:999;
+  background:var(--paper);
+  flex-direction:column;align-items:center;justify-content:center;
+  gap:.6rem;padding:2rem;text-align:center;
+}
+.mj-pause-overlay:not([hidden]){ display:flex; }
+.mj-pause-title{ font:700 28px var(--font-display);color:var(--ink);margin:0; }
+.mj-pause-sub{ font:500 14px var(--font-body);color:var(--slate);margin:0 0 1rem; }
 
-/* =====================================================
-   新功能 #5：牌型選擇器
-   ===================================================== */
-
-.mj-shape-selector{
-  margin-bottom:1.25rem;
+.mj-shape-name{
+  text-align:center;font:600 13px var(--font-body);
+  color:var(--steel);margin:0 0 .5rem;letter-spacing:.05em;
 }
 
+#mjHintBtn:disabled, #mjShuffleBtn:disabled{
+  opacity:.5;cursor:not-allowed;
+}
+
+/* ===== 牌型選擇器 ===== */
 .mj-shape-options{
-  display:flex;
-  flex-wrap:wrap;
-  gap:.4rem;
-  justify-content:center;
+  display:flex;flex-wrap:wrap;gap:.4rem;justify-content:center;
 }
-
 .mj-shape-option{
-  display:flex;
-  align-items:center;
-  gap:.3rem;
-  background:#fff;
-  border:1.5px solid rgba(32,30,31,.15);
-  border-radius:6px;
-  padding:.35rem .7rem;
-  cursor:pointer;
-  font:500 13px "Noto Sans TC",sans-serif;
-  color:#201E1F;
-  transition:all .2s;
+  display:flex;align-items:center;gap:.3rem;
+  background:#fff;border:1.5px solid rgba(32,30,31,.15);border-radius:6px;
+  padding:.35rem .7rem;cursor:pointer;
+  font:500 13px var(--font-body);color:var(--ink);transition:all .2s;
 }
-.mj-shape-option:hover{
-  border-color:#708090;
-  background:rgba(112,128,144,.05);
-}
-.mj-shape-option:has(input:checked){
-  border-color:#B08A3E;
-  background:rgba(176,138,62,.08);
-}
-.mj-shape-option input[type="radio"]{
-  accent-color:#B08A3E;
-}
-.mj-shape-pairs{
-  font:400 11px "Noto Sans TC",sans-serif;
-  color:#5C6B73;
-}
+.mj-shape-option:hover{ border-color:var(--steel);background:rgba(112,128,144,.05); }
+.mj-shape-option:has(input:checked){ border-color:var(--gold);background:rgba(176,138,62,.08); }
+.mj-shape-option input[type="radio"]{ accent-color:var(--gold); }
+.mj-shape-pairs{ font:400 11px var(--font-body);color:var(--slate); }
 
-
-/* =====================================================
-   新功能 #6：難度選項擴充
-   ===================================================== */
-
-.mode-option.mode-zen .mode-label{ color:#2d8a4e; }
-.mode-option.mode-speed .mode-label{ color:#B08A3E; }
-.mode-option.mode-daily .mode-label{ color:#708090; }
-
-
-/* =====================================================
-   新功能 #7：遊戲結束統計面板
-   ===================================================== */
-
+/* ===== 結果頁統計 ===== */
 .mj-stats-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fill, minmax(130px, 1fr));
-  gap:.5rem;
-  text-align:left;
-  margin:1rem 0;
+  display:grid;grid-template-columns:repeat(auto-fill, minmax(130px, 1fr));
+  gap:.5rem;text-align:left;margin:1rem 0;
 }
-
 .mj-stat-item{
-  display:flex;
-  flex-direction:column;
-  padding:.5rem .65rem;
-  background:rgba(112,128,144,.06);
-  border:1px solid rgba(32,30,31,.06);
-  border-radius:8px;
+  display:flex;flex-direction:column;padding:.5rem .65rem;
+  background:var(--paper-dim);border:1px solid rgba(32,30,31,.06);border-radius:8px;
 }
+.mj-stat-label{ font:500 11px var(--font-body);color:var(--slate);margin-bottom:.15rem; }
+.mj-stat-value{ font:700 15px var(--font-body);color:var(--ink); }
 
-.mj-stat-label{
-  font:500 11px "Noto Sans TC",sans-serif;
-  color:#5C6B73;
-  margin-bottom:.15rem;
-}
-
-.mj-stat-value{
-  font:700 15px "Noto Sans TC",sans-serif;
-  color:#201E1F;
-}
-
-
-/* =====================================================
-   新功能 #8：成就系統
-   ===================================================== */
-
+/* ===== 成就系統 ===== */
 .mj-achievements-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fill, minmax(190px, 1fr));
-  gap:.5rem;
-  margin-top:.5rem;
+  display:grid;grid-template-columns:repeat(auto-fill, minmax(190px, 1fr));
+  gap:.5rem;margin-top:.5rem;
 }
-
 .mj-ach-card{
-  display:flex;
-  align-items:center;
-  gap:.5rem;
-  padding:.5rem .7rem;
-  background:#fff;
-  border:1.5px solid rgba(32,30,31,.1);
-  border-radius:8px;
-  transition:all .2s;
+  display:flex;align-items:center;gap:.5rem;padding:.5rem .7rem;
+  background:#fff;border:1.5px solid rgba(32,30,31,.1);border-radius:8px;transition:all .2s;
 }
+.mj-ach-card.locked{ opacity:.35;filter:grayscale(1); }
+.mj-ach-card.unlocked{ border-color:var(--gold);background:rgba(176,138,62,.06); }
+.mj-ach-card .ach-icon{ font-size:1.6rem;flex-shrink:0; }
+.mj-ach-card .ach-info{ min-width:0; }
+.mj-ach-card .ach-info strong{ font:700 13px var(--font-body);color:var(--ink);display:block; }
+.mj-ach-card .ach-info small{ font:400 11px var(--font-body);color:var(--slate); }
 
-.mj-ach-card.locked{
-  opacity:.35;
-  filter:grayscale(1);
-}
-
-.mj-ach-card.unlocked{
-  border-color:#B08A3E;
-  background:rgba(176,138,62,.06);
-}
-
-.mj-ach-card .ach-icon{
-  font-size:1.6rem;
-  flex-shrink:0;
-}
-
-.mj-ach-card .ach-info{
-  min-width:0;
-}
-
-.mj-ach-card .ach-info strong{
-  font:700 13px "Noto Sans TC",sans-serif;
-  color:#201E1F;
-  display:block;
-}
-
-.mj-ach-card .ach-info small{
-  font:400 11px "Noto Sans TC",sans-serif;
-  color:#5C6B73;
-}
-
-/* 成就解鎖彈窗 */
+/* 成就彈窗 */
 .mj-achievement-popup{
-  display:flex;
-  align-items:center;
-  gap:.6rem;
-  background:#fff;
-  border:2px solid #B08A3E;
-  border-radius:10px;
-  padding:.7rem 1.2rem;
-  box-shadow:0 4px 20px rgba(32,30,31,.2);
-  animation: mj-ach-slide-in .4s ease;
-  pointer-events:auto;
-  min-width:200px;
+  display:flex;align-items:center;gap:.6rem;
+  background:#fff;border:2px solid var(--gold);border-radius:10px;
+  padding:.7rem 1.2rem;box-shadow:0 4px 20px rgba(32,30,31,.2);
+  animation: mj-ach-slide-in .4s ease;pointer-events:auto;min-width:200px;
 }
-
-.mj-achievement-popup .ach-icon{
-  font-size:2rem;
-  flex-shrink:0;
-}
-
-.mj-achievement-popup .ach-text{
-  font:500 13px "Noto Sans TC",sans-serif;
-  color:#201E1F;
-}
-
-.mj-achievement-popup .ach-text strong{
-  color:#B08A3E;
-  display:block;
-  font-size:14px;
-}
-
-.mj-achievement-popup.fade-out{
-  animation: mj-ach-fade-out .5s ease forwards;
-}
+.mj-achievement-popup .ach-icon{ font-size:2rem;flex-shrink:0; }
+.mj-achievement-popup .ach-text{ font:500 13px var(--font-body);color:var(--ink); }
+.mj-achievement-popup .ach-text strong{ color:var(--gold);display:block;font-size:14px; }
+.mj-achievement-popup.fade-out{ animation: mj-ach-fade-out .5s ease forwards; }
 
 @keyframes mj-ach-slide-in{
   0%{ transform:translateX(120%); opacity:0; }
   100%{ transform:translateX(0); opacity:1; }
 }
-
 @keyframes mj-ach-fade-out{
   0%{ transform:translateX(0); opacity:1; }
   100%{ transform:translateX(120%); opacity:0; }
 }
 
-
-/* =====================================================
-   新功能 #9：個人檔案面板
-   ===================================================== */
-
+/* ===== 個人檔案面板 ===== */
 .mj-profile-panel{
-  background:#fff;
-  border:1.5px solid rgba(32,30,31,.1);
-  border-radius:10px;
-  padding:1.25rem;
-  margin:1rem 0;
-  text-align:left;
+  background:#fff;border:1.5px solid rgba(32,30,31,.1);border-radius:10px;
+  padding:1.25rem;margin:1rem 0;text-align:left;
 }
+.mj-profile-panel h3{ margin-bottom:.75rem; }
 
-.mj-profile-panel h3{
-  font:700 16px "Noto Serif TC",serif;
-  color:#201E1F;
-  margin-bottom:.75rem;
-}
+/* ===== 分享按鈕（結果頁用 btn-secondary，這裡只補 icon gap） ===== */
 
-
-/* =====================================================
-   新功能 #10：分享按鈕
-   ===================================================== */
-
-.mj-share-btn{
-  display:inline-flex;
-  align-items:center;
-  gap:.3rem;
-  padding:.5rem 1.2rem;
-  background:#fff;
-  border:1.5px solid #708090;
-  border-radius:8px;
-  font:600 14px "Noto Sans TC",sans-serif;
-  color:#708090;
-  cursor:pointer;
-  transition:all .2s;
-}
-
-.mj-share-btn:hover{
-  background:#708090;
-  color:#F6F2EA;
-}
-
-
-/* =====================================================
-   新功能 #11：音效開關按鈕
-   ===================================================== */
-
-.mj-global-toolbar{
-  display:flex;
-  gap:.3rem;
-}
-
+/* ===== 音效開關 ===== */
+.mj-global-toolbar{ display:flex;gap:.3rem; }
 .mj-global-toolbar button{
-  background:none;
-  border:1.5px solid rgba(32,30,31,.15);
-  border-radius:6px;
-  padding:.25rem .5rem;
-  cursor:pointer;
-  font-size:1rem;
-  color:#201E1F;
-  transition:all .2s;
-  line-height:1;
+  background:none;border:1.5px solid rgba(32,30,31,.15);border-radius:6px;
+  padding:.25rem .5rem;cursor:pointer;font-size:1rem;color:var(--ink);
+  transition:all .2s;line-height:1;
 }
+.mj-global-toolbar button:hover{ border-color:var(--steel);background:rgba(112,128,144,.06); }
 
-.mj-global-toolbar button:hover{
-  border-color:#708090;
-  background:rgba(112,128,144,.06);
+/* ===== 排行榜補充 ===== */
+.leaderboard-section details{ margin-bottom:.5rem; }
+.leaderboard-section summary{
+  cursor:pointer;font:700 14px var(--font-display);color:var(--steel);
+  padding:.6rem 0;border-bottom:1px solid rgba(32,30,31,.08);
 }
+.leaderboard-section details[open] summary{ color:var(--ink); }
 
+/* ===== 結果頁 ===== */
+.result-mode{ font:500 14px var(--font-body);color:var(--slate);margin-bottom:.5rem; }
+.result-big{ font:700 48px var(--font-display);color:var(--steel);margin:.5rem 0; }
+.result-detail{ font:500 16px var(--font-body);color:var(--ink); }
+.submit-score-wrap{ margin:1.5rem 0;padding:1.25rem;background:#fff;border-radius:10px;border:1.5px solid rgba(32,30,31,.1); }
+.submit-title{ font:700 15px var(--font-body);color:var(--ink);margin-bottom:.75rem; }
+.submit-form{ display:flex;gap:.5rem;align-items:center;justify-content:center; }
+.submit-form input{ flex:1;max-width:200px;padding:.6rem .75rem;border:1.5px solid rgba(32,30,31,.2);border-radius:8px;font:500 14px var(--font-body);outline:none;transition:border-color .2s; }
+.submit-form input:focus{ border-color:var(--steel); }
+.score-submitted{ font:600 14px var(--font-body);color:#2d8a4e;margin-top:1rem; }
 
-/* =====================================================
-   新功能 #12：洗牌按鈕 disabled 狀態
-   ===================================================== */
-
-#mjShuffleBtn:disabled{
-  opacity:.5;
-  cursor:not-allowed;
-}
-
-
-/* =====================================================
-   RWD 補充
-   ===================================================== */
-
+/* ===== RWD ===== */
 @media(max-width:480px){
-  .mj-stats-grid{
-    grid-template-columns:repeat(2, 1fr);
-  }
-  .mj-achievements-grid{
-    grid-template-columns:1fr;
-  }
-  .mj-shape-options{
-    flex-direction:column;
-    align-items:stretch;
-  }
-  .mj-combo-display{
-    font-size:12px;
-  }
-  .mj-achievement-popup{
-    min-width:160px;
-    padding:.5rem .8rem;
-  }
-  .mj-achievement-popup .ach-icon{
-    font-size:1.5rem;
-  }
-  .mj-achievement-popup .ach-text{
-    font-size:12px;
-  }
+  .mj-stats-grid{ grid-template-columns:repeat(2, 1fr); }
+  .mj-achievements-grid{ grid-template-columns:1fr; }
+  .mj-shape-options{ flex-direction:column;align-items:stretch; }
+  .mj-combo-display{ font-size:12px; }
+  .mj-achievement-popup{ min-width:160px;padding:.5rem .8rem; }
+  .mj-achievement-popup .ach-icon{ font-size:1.5rem; }
+  .mj-achievement-popup .ach-text{ font-size:12px; }
 }
 
