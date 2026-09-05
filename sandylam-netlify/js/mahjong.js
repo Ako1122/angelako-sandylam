@@ -790,10 +790,14 @@ function createAchievementContainer() {
 }
 
 // ==================== 分享功能 ====================
+var GAME_SHARE_URL = "https://sandylam.netlify.app/mahjong.html";
+
 function generateShareText() {
   var ml = { easy: "初級", medium: "中級", hard: "最高級", zen: "禪模式", speed: "極速", daily: "每日挑戰" };
   var isCleared = (pairsCleared >= TOTAL_PAIRS);
-  var text = "🀄 封面連連看 " + (ml[gameMode] || gameMode) + "\n";
+  var text = "林憶蓮鐵粉挑戰賽－封面連連看\n";
+  text += "網址：" + GAME_SHARE_URL + "\n\n";
+  text += "🀄 封面連連看 " + (ml[gameMode] || gameMode) + "\n";
   text += "🎯 " + pairsCleared + "/" + TOTAL_PAIRS + " 對";
   if (isCleared) text += " ✅ 全清！";
   text += "\n";
@@ -808,7 +812,7 @@ function generateShareText() {
 function shareResult() {
   var text = generateShareText();
   if (navigator.share) {
-    navigator.share({ title: "封面連連看", text: text }).catch(function() {});
+    navigator.share({ title: "林憶蓮鐵粉挑戰賽－封面連連看", text: text, url: GAME_SHARE_URL }).catch(function() {});
   } else if (navigator.clipboard) {
     navigator.clipboard.writeText(text).then(function() {
       var btn = document.getElementById("mjShareBtn");

@@ -266,6 +266,30 @@
 }
 .mj-global-toolbar button:hover{ border-color:var(--steel);background:rgba(112,128,144,.06); }
 
+/* ===== 排行榜表格（跟其他遊戲頁面統一樣式） ===== */
+.leaderboard-card{
+  background:#fff;border-radius:10px;overflow:hidden;
+  border:1.5px solid rgba(32,30,31,.08);
+}
+.leaderboard-table{
+  width:100%;border-collapse:collapse;font:500 13px var(--font-body);
+}
+.leaderboard-table thead th{
+  font-weight:600;padding:.55rem .4rem;text-align:center;
+  font-size:12px;color:var(--slate);background:rgba(32,30,31,.03);
+}
+.leaderboard-table td{
+  padding:.45rem .35rem;text-align:center;
+  border-top:1px solid rgba(32,30,31,.07);
+}
+.leaderboard-table tbody tr:hover{ background:rgba(112,128,144,.04); }
+.rank-col{ font-weight:700;color:var(--steel); }
+.name-col{ font-weight:600;text-align:left;padding-left:.6rem; }
+.leaderboard-loading, .leaderboard-empty{
+  font:500 14px var(--font-body);color:var(--slate);
+  padding:1.25rem 0;text-align:center;
+}
+
 /* ===== 排行榜補充 ===== */
 .leaderboard-section details{ margin-bottom:.5rem; }
 .leaderboard-section summary{
