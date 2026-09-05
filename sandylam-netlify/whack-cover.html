@@ -4,11 +4,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>猜歌挑戰 — 林憶蓮</title>
+  <title>打地鼠猜封面 — 林憶蓮</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700&family=Noto+Serif+TC:wght@700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="css/guess.css">
+  <link rel="stylesheet" href="css/whack-cover.css">
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5491012467741215"
      crossorigin="anonymous"></script>
 </head>
@@ -27,62 +27,57 @@
 <nav class="site-nav" id="siteNav">
   <a href="index.html" class="nav-link">首頁</a>
   <a href="tournament.html" class="nav-link">冠軍賽</a>
-  <a href="guess.html" class="nav-link active">猜歌挑戰</a>
+  <a href="guess.html" class="nav-link">猜歌挑戰</a>
   <a href="guess-album.html" class="nav-link">猜專輯</a>
   <a href="guess-cover-version-song.html" class="nav-link">猜翻唱歌名</a>
   <a href="guess-cover-version-album.html" class="nav-link">猜翻唱專輯</a>
   <a href="memory-match.html" class="nav-link">記憶翻牌</a>
-  <a href="match3.html" class="nav-link">封面消消樂</a>
 </nav>
 </div>
 
-  <!-- 選擇語言 + 難度 -->
-  <section id="guess-intro" class="screen">
+  <!-- 選擇難度 -->
+  <section id="whack-intro" class="screen">
     <div class="champion-inner">
-      <p class="eyebrow">Song Guess Challenge</p>
-      <h2>猜歌挑戰</h2>
-      <p class="intro-desc">聽 30 秒音樂片段，猜出是哪首歌！</p>
-
-      <div class="lang-selection">
-        <p class="selection-title">選擇語言（至少選一種）</p>
-        <div class="lang-options" id="langOptions"></div>
-        <p class="lang-pool-info" id="langPoolInfo"></p>
-      </div>
+      <p class="eyebrow">Whack-A-Cover</p>
+      <h2>打地鼠猜封面</h2>
+      <p class="intro-desc">
+        播放一首歌，畫面上會不斷冒出各種專輯封面，看準了就手刀點下去——只有跟現在播放的這首歌相同的封面才是正解，其他都是陷阱！
+      </p>
 
       <div class="mode-selection">
         <p class="selection-title">選擇難度</p>
         <label class="mode-option">
-          <input type="radio" name="guess-mode" value="easy" checked>
-          <span class="mode-label">初級（20題）</span>
-          <span class="mode-desc">輕鬆入門，20 題隨機出題</span>
+          <input type="radio" name="whack-mode" value="easy" checked>
+          <span class="mode-label">初級（30 秒）</span>
+          <span class="mode-desc">速度較慢，正解出現機率較高</span>
         </label>
         <label class="mode-option">
-          <input type="radio" name="guess-mode" value="medium">
-          <span class="mode-label">中級（50題）</span>
-          <span class="mode-desc">進階挑戰，50 題隨機出題</span>
+          <input type="radio" name="whack-mode" value="medium">
+          <span class="mode-label">中級（45 秒）</span>
+          <span class="mode-desc">速度中等，同時最多 2 個封面冒出</span>
         </label>
         <label class="mode-option">
-          <input type="radio" name="guess-mode" value="hard">
-          <span class="mode-label">最高級（全曲目）</span>
-          <span class="mode-desc">終極挑戰，答錯即結束</span>
+          <input type="radio" name="whack-mode" value="hard">
+          <span class="mode-label">最高級（60 秒）</span>
+          <span class="mode-desc">速度最快，正解機率最低，手要快！</span>
         </label>
       </div>
 
-      <button class="btn-primary" id="guessStartBtn">開始挑戰</button>
+      <button class="btn-primary" id="whackStartBtn">開始挑戰</button>
 
       <div class="leaderboard-section">
         <h3 class="leaderboard-title">🏆 排行榜</h3>
         <div class="leaderboard-grid">
           <div class="leaderboard-col">
-            <h4 class="lb-col-title">最高級（全曲目）</h4>
+            <h4 class="lb-col-title">最高級（60秒）</h4>
             <div id="lbHard"></div>
           </div>
           <div class="leaderboard-col">
-            <h4 class="lb-col-title">中級（50題）</h4>
+            <h4 class="lb-col-title">中級（45秒）</h4>
             <div id="lbMedium"></div>
           </div>
           <div class="leaderboard-col">
-            <h4 class="lb-col-title">初級（20題）</h4>
+            <h4 class="lb-col-title">初級（30秒）</h4>
             <div id="lbEasy"></div>
           </div>
         </div>
@@ -91,26 +86,25 @@
   </section>
 
   <!-- 遊戲進行中 -->
-  <section id="guess-game" class="screen" hidden>
-    <div class="guess-game-inner">
-      <div class="guess-status">
-        <span id="guessProgress">第 1 / 20 題</span>
-        <span id="guessScore">正確：0</span>
-        <span id="guessTimer">⏱ 0.00s</span>
+  <section id="whack-game" class="screen" hidden>
+    <div class="whack-game-inner">
+      <div class="whack-status">
+        <span id="whackScore">分數：0</span>
+        <span id="whackCombo">連擊：0</span>
+        <span id="whackTimeLeft">⏱ 30</span>
       </div>
 
-      <div class="audio-player-wrap">
-        <button class="audio-play-btn" id="audioPlayBtn">⏸ 暫停</button>
+      <div class="whack-target-banner" id="whackTargetBanner">
+        <span class="target-label">正在播放</span>
+        <span class="target-hint">找出跟這首歌一樣的封面！</span>
       </div>
 
-      <div class="guess-options" id="guessOptions"></div>
-
-      <button class="btn-primary" id="guessNextBtn" hidden>下一題</button>
+      <div class="whack-grid" id="whackGrid"></div>
     </div>
   </section>
 
   <!-- 結果頁 -->
-  <section id="guess-result" class="screen" hidden>
+  <section id="whack-result" class="screen" hidden>
     <div class="champion-inner">
       <img class="result-photo" src="images/champion.jpeg" alt="Sandy Lam">
       <p class="eyebrow">Result</p>
@@ -133,20 +127,13 @@
       <div id="resultLeaderboard" hidden></div>
 
       <div class="champion-actions">
-        <button class="btn-primary" id="guessGenerateCard">產生成績圖</button>
-        <button class="btn-secondary" id="guessRestart">再玩一次</button>
-      </div>
-      <canvas id="guessResultCanvas" hidden></canvas>
-      <div id="guessCardPreviewWrap" hidden>
-        <img id="guessCardPreviewImg" alt="成績圖">
-        <a id="guessCardDownloadLink" class="btn-secondary" download="guess-result.png">下載圖片</a>
+        <button class="btn-secondary" id="whackRestart">再玩一次</button>
       </div>
     </div>
   </section>
 
   <script src="js/nav-toggle.js" defer></script>
 
-  <script src="js/guess.js"></script>
+  <script src="js/whack-cover.js"></script>
 </body>
 </html>
-

@@ -73,16 +73,158 @@
 .leaderboard-loading{font:500 14px "Noto Sans TC",sans-serif;color:#5C6B73;padding:1.5rem 0}
 .leaderboard-empty{font:500 14px "Noto Sans TC",sans-serif;color:#5C6B73;padding:1.5rem 0}
 
-/* 版本說明提示 */
-.game-notice{max-width:600px;margin:0 auto 1.5rem;padding:.85rem 1rem;background:rgba(176,138,62,.1);border:1.5px solid rgba(176,138,62,.35);border-radius:8px;font:500 12.5px "Noto Sans TC",sans-serif;color:#8a6a2c;line-height:1.6;text-align:left}
-
-/* 翻唱來源資訊面板 — 作答後於播放器下方顯示 */
-.cover-source-info{max-width:600px;margin:0 auto 1rem;padding:.75rem 1rem;background:rgba(112,128,144,.08);border-left:3px solid #708090;border-radius:6px;text-align:left}
-.cover-source-info .source-label{font:600 11px "Noto Sans TC",sans-serif;color:#708090;letter-spacing:.05em;display:block;margin-bottom:.2rem}
-.cover-source-info .source-name{font:700 15px "Noto Sans TC",sans-serif;color:#201E1F}
-
 @media(max-width:480px){
   .leaderboard-table{font-size:11px}
   .leaderboard-table th,.leaderboard-table td{padding:.35rem .2rem}
+}
+
+/* ===== 接住封面專屬樣式 ===== */
+
+.catch-game-inner{max-width:640px;margin:0 auto;padding:1.5rem 1rem;text-align:center}
+
+.whack-status{
+  display:flex;justify-content:center;gap:1.5rem;flex-wrap:wrap;
+  font:700 15px "Noto Sans TC",sans-serif;color:#201E1F;
+  margin-bottom:.85rem;
+}
+.whack-status span{
+  background:#fff;border:1.5px solid rgba(32,30,31,.1);border-radius:8px;
+  padding:.35rem .9rem;
+}
+#catchTimeLeft{color:#B08A3E}
+#catchCombo{color:#708090}
+
+.whack-target-banner{
+  background:linear-gradient(135deg,#708090,#4a5f6b);
+  color:#F6F2EA;border-radius:10px;padding:.7rem 1rem;
+  margin-bottom:1rem;
+  display:flex;flex-direction:column;gap:.15rem;
+}
+.whack-target-banner .target-label{
+  font:600 11px "Noto Sans TC",sans-serif;letter-spacing:.1em;
+  text-transform:uppercase;opacity:.85;
+}
+.whack-target-banner .target-hint{
+  font:700 15px "Noto Sans TC",sans-serif;
+}
+.whack-target-banner.pulse{
+  animation:whack-banner-pulse .5s ease;
+}
+@keyframes whack-banner-pulse{
+  0%{ transform:scale(1.03); box-shadow:0 0 0 4px rgba(176,138,62,.35); }
+  100%{ transform:scale(1); box-shadow:0 0 0 0 rgba(176,138,62,0); }
+}
+
+.catch-field{
+  position:relative;
+  width:100%;
+  max-width:520px;
+  aspect-ratio: 3 / 4;
+  margin:0 auto 1rem;
+  background: linear-gradient(180deg, rgba(112,128,144,.06) 0%, rgba(112,128,144,.02) 100%);
+  border:1.5px solid rgba(32,30,31,.1);
+  border-radius:14px;
+  overflow:hidden;
+}
+
+.falling-cover{
+  position:absolute;
+  width:15%;
+  aspect-ratio:1/1;
+  border-radius:8px;
+  overflow:hidden;
+  box-shadow:0 4px 10px rgba(32,30,31,.25);
+  will-change:transform;
+}
+.falling-cover img{
+  width:100%; height:100%;
+  object-fit:cover;
+  display:block;
+}
+.falling-cover.caught-hit img{ outline:4px solid #2d8a4e; outline-offset:-4px; }
+.falling-cover.caught-wrong img{
+  outline:4px solid #b03a3a; outline-offset:-4px;
+  animation:whack-shake .25s ease;
+}
+
+.catch-basket{
+  position:absolute;
+  bottom:4%;
+  left:50%;
+  width:22%;
+  aspect-ratio: 3/1.6;
+  transform:translate(-50%, 0);
+  background: linear-gradient(180deg, #B08A3E 0%, #8a6a2c 100%);
+  border-radius: 0 0 14px 14px;
+  box-shadow: inset 0 4px 6px rgba(255,255,255,.25), 0 4px 8px rgba(32,30,31,.25);
+}
+.catch-basket::before{
+  content:"";
+  position:absolute;
+  top:-6%; left:-4%; right:-4%;
+  height:22%;
+  border-radius:6px;
+  background:#4a5f6b;
+}
+
+.catch-controls{
+  display:flex; justify-content:space-between; align-items:center;
+  max-width:520px;
+  margin: .3rem auto 0;
+  padding: 0 6px;
+}
+.catch-btn{
+  width:64px; height:64px;
+  border-radius:50%;
+  border:1.5px solid rgba(32,30,31,.15);
+  background:#fff;
+  font-size:22px;
+  color:var(--ink,#201E1F);
+  box-shadow:0 3px 8px rgba(32,30,31,.12);
+  cursor:pointer;
+  user-select:none;
+  -webkit-tap-highlight-color: transparent;
+}
+.catch-btn:active{
+  background: rgba(112,128,144,.15);
+  transform: scale(0.95);
+}
+
+.whack-float-score{
+  position:absolute; top:-6px; left:50%;
+  transform:translate(-50%,0);
+  font:700 14px "Noto Sans TC",sans-serif;
+  pointer-events:none;
+  animation:whack-float-up .6s ease forwards;
+  white-space:nowrap;
+  z-index:5;
+}
+.whack-float-score.plus{ color:#2d8a4e; }
+.whack-float-score.minus{ color:#b03a3a; }
+
+@keyframes whack-float-up{
+  0%{ opacity:1; transform:translate(-50%,0); }
+  100%{ opacity:0; transform:translate(-50%,-28px); }
+}
+
+@keyframes whack-shake{
+  0%,100%{ transform:rotate(0); }
+  25%{ transform:rotate(-4deg); }
+  75%{ transform:rotate(4deg); }
+}
+
+.whack-flash-wrong{
+  position:fixed; inset:0; background:rgba(176,58,58,.18);
+  pointer-events:none; z-index:50; opacity:0;
+  transition:opacity .08s ease;
+}
+.whack-flash-wrong.show{ opacity:1; }
+
+@media(max-width:480px){
+  .catch-btn{ width:56px; height:56px; font-size:19px; }
+  .catch-controls{ padding: 0 2px; }
+  .whack-status{ gap:.6rem; }
+  .whack-status span{ padding:.3rem .6rem; font-size:13px; }
+  .whack-target-banner .target-hint{ font-size:13px; }
 }
 

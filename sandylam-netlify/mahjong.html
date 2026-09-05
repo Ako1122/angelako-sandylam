@@ -1,0 +1,199 @@
+
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>封面連連看 — 林憶蓮鐵粉挑戰賽</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700&family=Noto+Serif+TC:wght@700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css" />
+<link rel="stylesheet" href="css/mahjong.css" />
+</head>
+<body>
+
+<!-- ==================== 導航列（與其他頁面統一） ==================== -->
+<header class="nav-wrap">
+  <div class="site-header">
+    <div class="brand">
+      <span class="brand-disc"></span>
+      <span class="brand-name">林憶蓮鐵粉挑戰賽</span>
+    </div>
+    <div class="mj-global-toolbar">
+      <button id="mjSoundBtn" onclick="toggleSound()" title="音效開關">🔊</button>
+    </div>
+    <button class="menu-toggle" aria-expanded="false">
+      MENU <span class="chevron">▾</span>
+    </button>
+  </div>
+  <nav class="site-nav">
+    <a class="nav-link" href="/">首頁</a>
+    <a class="nav-link" href="/tournament.html">冠軍賽</a>
+    <a class="nav-link" href="/guess.html">猜歌挑戰</a>
+    <a class="nav-link" href="/guess-album.html">猜專輯</a>
+    <a class="nav-link" href="/guess-cover-version-song.html">猜翻唱歌名</a>
+    <a class="nav-link" href="/guess-cover-version-album.html">猜翻唱專輯</a>
+    <a class="nav-link" href="/memory-match.html">記憶翻牌</a>
+    <a class="nav-link" href="/match3.html">封面消消樂</a>
+    <a class="nav-link active" href="/mahjong.html">封面連連看</a>
+  </nav>
+</header>
+
+<main>
+
+<!-- ==================== 首頁 ==================== -->
+<section id="mj-intro" class="screen">
+  <div class="intro-inner">
+    <p class="eyebrow">COVER MAHJONG</p>
+    <h1 id="introTitle">封面連連看</h1>
+    <p class="intro-desc">
+      專輯封面堆成多層山丘，找出「上面沒被蓋住、左右至少一邊淨空」的兩張相同封面點掉它們，挑戰在時間內全部清空！
+    </p>
+
+    <!-- 難度選擇 -->
+    <div class="mode-card">
+      <h3 class="rule-title">選擇難度</h3>
+      <label class="mode-option">
+        <input type="radio" name="mj-mode" value="easy" checked>
+        <span class="mode-label">初級（5 分鐘）</span>
+        <span class="mode-sub">時間較充裕，慢慢找</span>
+      </label>
+      <label class="mode-option">
+        <input type="radio" name="mj-mode" value="medium">
+        <span class="mode-label">中級（4 分鐘）</span>
+        <span class="mode-sub">時間適中，手腳要快</span>
+      </label>
+      <label class="mode-option">
+        <input type="radio" name="mj-mode" value="hard">
+        <span class="mode-label">最高級（3 分鐘）</span>
+        <span class="mode-sub">時間緊迫，考驗眼力反應</span>
+      </label>
+      <label class="mode-option">
+        <input type="radio" name="mj-mode" value="zen">
+        <span class="mode-label">🧘 禪模式</span>
+        <span class="mode-sub">無時間限制，純粹享受</span>
+      </label>
+      <label class="mode-option">
+        <input type="radio" name="mj-mode" value="speed">
+        <span class="mode-label">⚡ 極速模式</span>
+        <span class="mode-sub">比誰清得快</span>
+      </label>
+      <label class="mode-option">
+        <input type="radio" name="mj-mode" value="daily">
+        <span class="mode-label">📅 每日挑戰</span>
+        <span class="mode-sub">每天一局，公平比較</span>
+      </label>
+    </div>
+
+    <!-- 牌型選擇 -->
+    <div class="mode-card">
+      <h3 class="rule-title">選擇牌型</h3>
+      <div id="mjShapeSelector" class="mj-shape-options">
+        <!-- JS 動態渲染 -->
+      </div>
+    </div>
+
+    <button class="btn-primary" onclick="startGame()">開始挑戰</button>
+
+    <div style="margin-top:14px;">
+      <button class="btn-secondary" onclick="toggleProfilePanel()">📊 我的紀錄／成就</button>
+    </div>
+    <div id="mjProfilePanel" hidden></div>
+
+    <!-- 排行榜 -->
+    <div class="leaderboard-section" style="margin-top:2.5rem;text-align:left;">
+      <h3>🏆 排行榜</h3>
+      <details>
+        <summary class="lb-col-title">最高級（3分鐘）</summary>
+        <div id="lbHard"></div>
+      </details>
+      <details>
+        <summary class="lb-col-title">中級（4分鐘）</summary>
+        <div id="lbMedium"></div>
+      </details>
+      <details>
+        <summary class="lb-col-title">初級（5分鐘）</summary>
+        <div id="lbEasy"></div>
+      </details>
+      <details>
+        <summary class="lb-col-title">⚡ 極速模式</summary>
+        <div id="lbSpeed"></div>
+      </details>
+      <details>
+        <summary class="lb-col-title">📅 每日挑戰</summary>
+        <div id="lbDaily"></div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== 遊戲畫面 ==================== -->
+<section id="mj-game" class="screen" hidden>
+  <div class="mj-game-inner">
+    <p id="mjShapeName" class="mj-shape-name">花色：三丘尖塔</p>
+
+    <div class="whack-status">
+      <span id="mjScore">分數：0</span>
+      <span id="mjPairs">0 / 48 對</span>
+      <span id="mjTimeLeft">⏱ 05:00</span>
+    </div>
+
+    <div id="mjComboDisplay" class="mj-combo-display" hidden></div>
+
+    <div class="mj-toolbar">
+      <button id="mjHintBtn" class="btn-secondary mj-tool-btn" onclick="showHint()">💡 提示 (2)</button>
+      <button id="mjPauseBtn" class="btn-secondary mj-tool-btn" onclick="pauseGame()">⏸ 暫停</button>
+      <button id="mjShuffleBtn" class="btn-secondary mj-tool-btn" onclick="manualShuffle()">🔀 洗牌 (3)</button>
+    </div>
+
+    <div class="mj-board-wrap">
+      <div id="mjBoard" class="mj-board"></div>
+    </div>
+
+    <button id="mjStopBtn" class="btn-secondary mj-tool-btn" onclick="endGame(false)" style="margin-top:.5rem;">結束遊戲</button>
+
+    <div id="mjPauseOverlay" class="mj-pause-overlay" hidden>
+      <p class="mj-pause-title">⏸ 已暫停</p>
+      <p class="mj-pause-sub">計時跟扣分都停住了，準備好再繼續</p>
+      <button class="btn-primary" onclick="resumeGame()">▶ 繼續遊戲</button>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== 結果頁 ==================== -->
+<section id="mj-result" class="screen" hidden>
+  <div class="intro-inner" style="text-align:center;">
+    <h2 id="resultTitle">挑戰結束！</h2>
+    <p id="resultMode" class="result-mode"></p>
+    <p id="resultScore" class="result-big"></p>
+    <p id="resultDetail" class="result-detail"></p>
+
+    <div id="resultStats" hidden></div>
+
+    <div id="submitScoreWrap" class="submit-score-wrap">
+      <p class="submit-title">登上排行榜</p>
+      <div class="submit-form">
+        <input type="text" id="playerName" placeholder="輸入你的名字" maxlength="20">
+        <button id="submitScoreBtn" class="btn-primary" onclick="submitScore()" style="padding:10px 20px;font-size:.85rem;">提交成績</button>
+      </div>
+    </div>
+
+    <p id="scoreSubmitted" class="score-submitted" hidden>✓ 成績已提交！</p>
+
+    <div id="resultLeaderboard" hidden></div>
+
+    <div style="display:flex;gap:.75rem;justify-content:center;margin-top:1.5rem;flex-wrap:wrap;">
+      <button id="mjShareBtn" class="btn-secondary" onclick="shareResult()">📤 分享成績</button>
+      <button class="btn-primary" onclick="showScreen('mj-intro')">再玩一次</button>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<script src="js/nav-toggle.js"></script>
+<script src="js/mahjong.js"></script>
+
+</body>
+</html>
+

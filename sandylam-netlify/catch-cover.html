@@ -1,0 +1,145 @@
+
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>接住封面 — 林憶蓮</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700&family=Noto+Serif+TC:wght@700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/catch-cover.css">
+</head>
+<body>
+
+  <div class="nav-wrap">
+  <header class="site-header">
+    <button class="menu-toggle" id="menuToggle" type="button" aria-expanded="false" aria-controls="siteNav">
+      <span>MENU</span><span class="chevron">▾</span>
+    </button>
+    <div class="brand">
+      <span class="brand-disc" aria-hidden="true"></span>
+      <span class="brand-name">林憶蓮鐵粉挑戰賽</span>
+    </div>
+  </header>
+  <nav class="site-nav" id="siteNav">
+    <a href="index.html" class="nav-link">首頁</a>
+    <a href="tournament.html" class="nav-link">冠軍賽</a>
+    <a href="guess.html" class="nav-link">猜歌挑戰</a>
+    <a href="guess-album.html" class="nav-link">猜專輯</a>
+    <a href="guess-cover-version-song.html" class="nav-link">猜翻唱歌名</a>
+    <a href="guess-cover-version-album.html" class="nav-link">猜翻唱專輯</a>
+    <a href="memory-match.html" class="nav-link">記憶翻牌</a>
+    <a href="match3.html" class="nav-link">封面消消樂</a>
+    <a href="catch-cover.html" class="nav-link active">接住封面</a>
+  </nav>
+  </div>
+
+  <!-- 選擇難度 -->
+  <section id="catch-intro" class="screen">
+    <div class="champion-inner">
+      <p class="eyebrow">Catch The Cover</p>
+      <h2>接住封面</h2>
+      <p class="intro-desc">
+        播放一首歌，專輯封面會從天而降，移動下方的籃子接住跟現在播放同一首歌的封面——接對加分，接錯扣分，別手滑！
+      </p>
+
+      <div class="mode-selection">
+        <p class="selection-title">選擇難度</p>
+        <label class="mode-option">
+          <input type="radio" name="catch-mode" value="easy" checked>
+          <span class="mode-label">初級（30 秒）</span>
+          <span class="mode-desc">掉落較慢，同時最多 1 個封面</span>
+        </label>
+        <label class="mode-option">
+          <input type="radio" name="catch-mode" value="medium">
+          <span class="mode-label">中級（45 秒）</span>
+          <span class="mode-desc">掉落中等，同時最多 2 個封面</span>
+        </label>
+        <label class="mode-option">
+          <input type="radio" name="catch-mode" value="hard">
+          <span class="mode-label">最高級（60 秒）</span>
+          <span class="mode-desc">掉落最快，同時最多 3 個封面</span>
+        </label>
+      </div>
+
+      <button class="btn-primary" id="catchStartBtn">開始挑戰</button>
+
+      <div class="leaderboard-section">
+        <h3 class="leaderboard-title">🏆 排行榜</h3>
+        <div class="leaderboard-grid">
+          <div class="leaderboard-col">
+            <h4 class="lb-col-title">最高級（60秒）</h4>
+            <div id="lbHard"></div>
+          </div>
+          <div class="leaderboard-col">
+            <h4 class="lb-col-title">中級（45秒）</h4>
+            <div id="lbMedium"></div>
+          </div>
+          <div class="leaderboard-col">
+            <h4 class="lb-col-title">初級（30秒）</h4>
+            <div id="lbEasy"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 遊戲進行中 -->
+  <section id="catch-game" class="screen" hidden>
+    <div class="catch-game-inner">
+      <div class="whack-status">
+        <span id="catchScore">分數：0</span>
+        <span id="catchCombo">連擊：0</span>
+        <span id="catchTimeLeft">⏱ 30</span>
+      </div>
+
+      <div class="whack-target-banner" id="catchTargetBanner">
+        <span class="target-label">正在播放</span>
+        <span class="target-hint">接住跟這首歌一樣的封面！</span>
+      </div>
+
+      <div class="catch-field" id="catchField">
+        <div class="catch-basket" id="catchBasket"></div>
+      </div>
+
+      <div class="catch-controls">
+        <button class="catch-btn" id="catchLeftBtn" aria-label="往左移動">◀</button>
+        <button class="catch-btn" id="catchRightBtn" aria-label="往右移動">▶</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 結果頁 -->
+  <section id="catch-result" class="screen" hidden>
+    <div class="champion-inner">
+      <img class="result-photo" src="images/champion.jpeg" alt="Sandy Lam">
+      <p class="eyebrow">Result</p>
+      <h2>挑戰結束！</h2>
+      <div class="guess-result-card">
+        <p class="result-mode" id="resultMode"></p>
+        <p class="result-big" id="resultScore"></p>
+        <p class="result-detail" id="resultDetail"></p>
+      </div>
+
+      <div id="submitScoreWrap" class="submit-score-wrap" hidden>
+        <p class="submit-title">登上排行榜</p>
+        <div class="submit-form">
+          <input type="text" id="playerName" placeholder="輸入你的暱稱" maxlength="20">
+          <button class="btn-primary" id="submitScoreBtn">提交成績</button>
+        </div>
+      </div>
+      <p id="scoreSubmitted" class="score-submitted" hidden>✓ 成績已提交！</p>
+
+      <div id="resultLeaderboard" hidden></div>
+
+      <div class="champion-actions">
+        <button class="btn-secondary" id="catchRestart">再玩一次</button>
+      </div>
+    </div>
+  </section>
+
+  <script src="js/nav-toggle.js" defer></script>
+  <script src="js/catch-cover.js"></script>
+</body>
+</html>

@@ -14,24 +14,36 @@
 </head>
 <body>
 
-  <nav class="site-nav">
-    <a href="index.html" class="nav-link">首頁</a>
-    <a href="tournament.html" class="nav-link">冠軍賽</a>
-    <a href="guess.html" class="nav-link">猜歌挑戰</a>
-    <a href="guess-album.html" class="nav-link">猜專輯</a>
-    <a href="guess-cover-version-song.html" class="nav-link active">猜翻唱歌名</a>
-    <a href="guess-cover-version-album.html" class="nav-link">猜翻唱專輯</a>
-    <a href="memory-match.html" class="nav-link">記憶翻牌</a>
-  </nav>
+<div class="nav-wrap">
+<header class="site-header">
+  <button class="menu-toggle" id="menuToggle" type="button" aria-expanded="false" aria-controls="siteNav">
+    <span>MENU</span><span class="chevron">▾</span>
+  </button>
+  <div class="brand">
+    <span class="brand-disc" aria-hidden="true"></span>
+    <span class="brand-name">林憶蓮鐵粉挑戰賽</span>
+  </div>
+</header>
+<nav class="site-nav" id="siteNav">
+  <a href="index.html" class="nav-link">首頁</a>
+  <a href="tournament.html" class="nav-link">冠軍賽</a>
+  <a href="guess.html" class="nav-link">猜歌挑戰</a>
+  <a href="guess-album.html" class="nav-link">猜專輯</a>
+  <a href="guess-cover-version-song.html" class="nav-link active">猜翻唱歌名</a>
+  <a href="guess-cover-version-album.html" class="nav-link">猜翻唱專輯</a>
+  <a href="memory-match.html" class="nav-link">記憶翻牌</a>
+  <a href="match3.html" class="nav-link">封面消消樂</a>
+</nav>
+</div>
 
   <!-- 選擇難度 -->
   <section id="guess-intro" class="screen">
     <div class="champion-inner">
       <p class="eyebrow">Cover Version Song Guess</p>
       <h2>猜翻唱歌名挑戰</h2>
-      <p class="intro-desc">聽一段「翻唱原曲或其他人演繹版本」的音樂片段，猜猜看 Sandy 翻唱的歌名！</p>
+      <p class="intro-desc">聽一段「翻唱原曲或其他人演繹版本」的音樂片段，猜猜看林憶蓮翻唱的是哪首歌！</p>
 
-      <p class="game-notice">由於許多翻唱歌曲原曲年代久遠，無法找到數位發行版本，部分歌曲將提供其他翻唱或演繹版本在遊戲內，敬請見諒。</p>
+      <p class="game-notice">由於許多翻唱歌曲原曲年代久遠，已經無法找到數位發行版本，所以部分歌曲會提供其他翻唱版本或是其他演繹版本在遊戲內，敬請見諒。</p>
 
       <div class="mode-selection">
         <p class="selection-title">選擇難度</p>
@@ -133,6 +145,8 @@
       </div>
     </div>
   </section>
+
+  <script src="js/nav-toggle.js" defer></script>
 
   <script src="js/guess-cover-version-song.js"></script>
 </body>
