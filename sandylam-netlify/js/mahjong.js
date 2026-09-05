@@ -325,8 +325,11 @@ function generateSolvableTypesForAlive(aliveIndexes, typePool, rng) {
   }
 
   var shuffleFn = rng ? function(a) { return seededShuffle(a, rng); } : shuffle;
+  // 每一輪找出「當下同時空閒」的格子，優先湊成 4 張一組（同一種封面兩對），
+  // 湊不到 4 張才退回 2 張一組。同一組內的牌是同一時刻證明空閒的，
+  // 所以之後不管玩家用哪種兩兩組合去消，都還是保證解得開。
   var remaining = aliveIndexes.slice();
-  var pairOrder = [];
+  var groups = [];
   var guard = 0;
   while (remaining.length > 0) {
     guard++;
@@ -334,14 +337,18 @@ function generateSolvableTypesForAlive(aliveIndexes, typePool, rng) {
     var freeList = remaining.filter(function(i) { return isFreeTemp(i); });
     if (freeList.length < 2) return null;
     var shuffled = shuffleFn(freeList);
-    var a = shuffled[0], b = shuffled[1];
-    pairOrder.push([a, b]);
-    tempAlive[a] = false; tempAlive[b] = false;
-    remaining = remaining.filter(function(i) { return i !== a && i !== b; });
+    var groupSize = shuffled.length >= 4 ? 4 : 2;
+    var group = shuffled.slice(0, groupSize);
+    groups.push(group);
+    group.forEach(function(idx) { tempAlive[idx] = false; });
+    remaining = remaining.filter(function(i) { return group.indexOf(i) === -1; });
   }
   var typeMap = {};
   var shuffledTypes = shuffleFn(typePool);
-  pairOrder.forEach(function(pair, i) { typeMap[pair[0]] = shuffledTypes[i]; typeMap[pair[1]] = shuffledTypes[i]; });
+  groups.forEach(function(group, i) {
+    var type = shuffledTypes[i];
+    group.forEach(function(idx) { typeMap[idx] = type; });
+  });
   return typeMap;
 }
 
