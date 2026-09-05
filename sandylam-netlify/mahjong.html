@@ -12,32 +12,31 @@
 </head>
 <body>
 
-<!-- ==================== 導航列（與其他頁面統一） ==================== -->
-<header class="nav-wrap">
-  <div class="site-header">
-    <div class="brand">
-      <span class="brand-disc"></span>
-      <span class="brand-name">林憶蓮鐵粉挑戰賽</span>
-    </div>
-    <div class="mj-global-toolbar">
-      <button id="mjSoundBtn" onclick="toggleSound()" title="音效開關">🔊</button>
-    </div>
-    <button class="menu-toggle" aria-expanded="false">
-      MENU <span class="chevron">▾</span>
-    </button>
+<div class="nav-wrap">
+<header class="site-header">
+  <button class="menu-toggle" id="menuToggle" type="button" aria-expanded="false" aria-controls="siteNav">
+    <span>MENU</span><span class="chevron">▾</span>
+  </button>
+  <div class="brand">
+    <span class="brand-disc" aria-hidden="true"></span>
+    <span class="brand-name">林憶蓮鐵粉挑戰賽</span>
   </div>
-  <nav class="site-nav">
-    <a class="nav-link" href="/">首頁</a>
-    <a class="nav-link" href="/tournament.html">冠軍賽</a>
-    <a class="nav-link" href="/guess.html">猜歌挑戰</a>
-    <a class="nav-link" href="/guess-album.html">猜專輯</a>
-    <a class="nav-link" href="/guess-cover-version-song.html">猜翻唱歌名</a>
-    <a class="nav-link" href="/guess-cover-version-album.html">猜翻唱專輯</a>
-    <a class="nav-link" href="/memory-match.html">記憶翻牌</a>
-    <a class="nav-link" href="/match3.html">封面消消樂</a>
-    <a class="nav-link active" href="/mahjong.html">封面連連看</a>
-  </nav>
+  <div class="mj-global-toolbar">
+    <button id="mjSoundBtn" onclick="toggleSound()" title="音效開關">🔊</button>
+  </div>
 </header>
+<nav class="site-nav" id="siteNav">
+  <a href="index.html" class="nav-link">首頁</a>
+  <a href="tournament.html" class="nav-link">冠軍賽</a>
+  <a href="guess.html" class="nav-link">猜歌挑戰</a>
+  <a href="guess-album.html" class="nav-link">猜專輯</a>
+  <a href="guess-cover-version-song.html" class="nav-link">猜翻唱歌名</a>
+  <a href="guess-cover-version-album.html" class="nav-link">猜翻唱專輯</a>
+  <a href="memory-match.html" class="nav-link">記憶翻牌</a>
+  <a href="match3.html" class="nav-link">封面消消樂</a>
+  <a href="mahjong.html" class="nav-link active">封面連連看</a>
+</nav>
+</div>
 
 <main>
 
@@ -191,7 +190,7 @@
 
 </main>
 
-<script src="js/nav-toggle.js"></script>
+<script src="js/nav-toggle.js" defer></script>
 <script src="js/mahjong.js"></script>
 
 </body>
