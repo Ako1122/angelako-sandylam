@@ -969,7 +969,7 @@ async function boot() {
     uniqueCovers = Array.from(albumMap.values());
   } catch(e) { console.error("Failed to load songs:", e); }
 
-  ["hard", "medium", "easy", "speed", "daily"].forEach(function(mode) {
+  ["speed", "daily"].forEach(function(mode) {
     var containerId = "lb" + mode.charAt(0).toUpperCase() + mode.slice(1);
     var el = document.getElementById(containerId);
     if (el) {
