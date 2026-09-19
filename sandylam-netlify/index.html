@@ -13,28 +13,34 @@
 </head>
 <body>
 
+<div class="nav-wrap">
 <header class="site-header">
-  <nav class="site-nav">
-    <a href="index.html" class="nav-link active">首頁</a>
-    <a href="tournament.html" class="nav-link">冠軍賽</a>
-    <a href="guess.html" class="nav-link">猜歌挑戰</a>
-    <a href="guess-album.html" class="nav-link">猜專輯</a>
-    <a href="guess-cover-version-song.html" class="nav-link">猜翻唱歌名</a>
-    <a href="guess-cover-version-album.html" class="nav-link">猜翻唱專輯</a>
-    <a href="memory-match.html" class="nav-link">記憶翻牌</a>
-  </nav>
+  <button class="menu-toggle" id="menuToggle" type="button" aria-expanded="false" aria-controls="siteNav">
+    <span>MENU</span><span class="chevron">▾</span>
+  </button>
   <div class="brand">
     <span class="brand-disc" aria-hidden="true"></span>
     <span class="brand-name">林憶蓮鐵粉挑戰賽</span>
   </div>
 </header>
+<nav class="site-nav" id="siteNav">
+  <a href="index.html" class="nav-link active">首頁</a>
+  <a href="tournament.html" class="nav-link">冠軍賽</a>
+  <a href="guess.html" class="nav-link">猜歌挑戰</a>
+  <a href="guess-album.html" class="nav-link">猜專輯</a>
+  <a href="guess-cover-version-song.html" class="nav-link">猜翻唱歌名</a>
+  <a href="guess-cover-version-album.html" class="nav-link">猜翻唱專輯</a>
+  <a href="memory-match.html" class="nav-link">記憶翻牌</a>
+  <a href="match3.html" class="nav-link">封面消消樂</a>
+  <a href="mahjong.html" class="nav-link">封面連連看</a>
+  <a href="catch-cover.html" class="nav-link">接住封面</a>
+</nav>
+</div>
 
 <main id="app">
   <section class="screen">
     <div class="intro-inner home-inner">
-      <p class="eyebrow">Sandy Lam Ultimate Fan Challenge</p>
       <img class="intro-photo" src="images/intro-sandy.jpg" alt="林憶蓮">
-      <h1 class="home-title">林憶蓮鐵粉挑戰賽</h1>
       <p class="intro-desc">選擇你想挑戰的遊戲，證明你是最強鐵粉！</p>
 
       <div class="game-cards">
@@ -79,15 +85,37 @@
           <p class="game-card-desc">翻開專輯封面找配對，看誰最快配對完成</p>
           <span class="game-card-cta">進入記憶翻牌 →</span>
         </a>
+
+        <a href="match3.html" class="game-card">
+          <span class="game-card-eyebrow">Cover Match-3</span>
+          <h2 class="game-card-title">封面消消樂</h2>
+          <p class="game-card-desc">交換相鄰封面湊成一直線，三消四消五消分數更高，連鎖加成停不下來</p>
+          <span class="game-card-cta">進入消消樂 →</span>
+        </a>
+
+        <a href="mahjong.html" class="game-card">
+          <span class="game-card-eyebrow">Cover Mahjong</span>
+          <h2 class="game-card-title">封面連連看</h2>
+          <p class="game-card-desc">封面堆成山丘、十字架、菱形或蝴蝶，找出淨空的兩張一樣封面點掉它們，挑戰全部清空</p>
+          <span class="game-card-cta">進入連連看 →</span>
+        </a>
+
+        <a href="catch-cover.html" class="game-card">
+          <span class="game-card-eyebrow">Catch The Cover</span>
+          <h2 class="game-card-title">接住封面</h2>
+          <p class="game-card-desc">專輯封面從天而降，移動籃子接住跟現在播放同一首歌的封面，接對加分、接錯扣分</p>
+          <span class="game-card-cta">進入接住封面 →</span>
+        </a>
       </div>
     </div>
   </section>
 </main>
 
 <footer class="site-footer">
-  <p>林憶蓮鐵粉挑戰賽 — 收錄 402 首歌曲，涵蓋 77 張專輯</p>
+  <p>林憶蓮鐵粉挑戰賽 created by 荒唐事務所</p>
 </footer>
 
+<script src="js/nav-toggle.js" defer></script>
 </body>
 </html>
 

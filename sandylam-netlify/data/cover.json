@@ -1354,5 +1354,17 @@
     "appleMusicUrl": "https://music.apple.com/us/song/%E5%85%A9%E5%80%8B%E5%A5%B3%E4%BA%BA/1443314441",
     "trackId": "1443314441",
     "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/c8/c6/dd/c8c6dd30-604d-0f00-04b7-2c045f77abb7/mzaf_18014034764441440379.plus.aac.p.m4a"
+  },
+  {
+    "id": "cover0114",
+    "name": "張震嶽 - 捨不得",
+    "correctAnswer": "Let Go",
+    "album": "鏗鏘玫瑰",
+    "correctCover": "images/covers/46.jpg",
+    "excludeCoverFile": null,
+    "excludeSongName": null,
+    "appleMusicUrl": "https://music.apple.com/us/song/unwilling-to-let-go/164051870",
+    "trackId": "164051870",
+    "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/65/08/0e/65080ef6-08c1-8cb8-ab66-fe4d01e7733b/mzaf_3485578773154496463.plus.aac.p.m4a"
   }
 ]

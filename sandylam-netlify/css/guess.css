@@ -55,10 +55,10 @@
 
 /* 排行榜 */
 .leaderboard-section{margin-top:2.5rem;text-align:center}
-.leaderboard-title{font:700 18px "Noto Sans TC",sans-serif;color:#201E1F;margin-bottom:1rem}
+.leaderboard-title{font:700 18px "Noto Serif TC",serif;color:#201E1F;margin-bottom:1rem}
 .leaderboard-grid{display:grid;grid-template-columns:1fr;gap:1.5rem;text-align:center}
 .leaderboard-col{min-width:0}
-.lb-col-title{font:700 14px "Noto Sans TC",sans-serif;color:#708090;margin-bottom:.75rem}
+.lb-col-title{font:700 14px "Noto Serif TC",serif;color:#708090;margin-bottom:.75rem}
 
 .leaderboard-card{background:#fff;border-radius:10px;border:1.5px solid rgba(32,30,31,.1);overflow:hidden}
 .leaderboard-table{width:100%;border-collapse:collapse;font:400 13px "Noto Sans TC",sans-serif;color:#201E1F}
