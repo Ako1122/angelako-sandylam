@@ -1,0 +1,80 @@
+.puzzle-game-inner{max-width:600px;margin:0 auto;padding:1.2rem 1rem;text-align:center}
+
+.puzzle-status{display:flex;justify-content:space-between;align-items:center;margin-bottom:.75rem;padding:.4rem .6rem;background:rgba(112,128,144,.08);border-radius:8px;font:600 13px "Noto Sans TC",sans-serif;color:#201E1F}
+.puzzle-status span:nth-child(2){color:#708090}
+.puzzle-status span:nth-child(3){color:#5C6B73}
+
+/* 難度選擇 */
+.mode-selection{margin-bottom:1.25rem}
+.mode-option{display:block;padding:.6rem 1rem;margin-bottom:.4rem;border:1.5px solid rgba(32,30,31,.1);border-radius:8px;cursor:pointer;transition:all .2s}
+.mode-option:has(input:checked){border-color:#708090;background:rgba(112,128,144,.06)}
+.mode-label{font:700 14px "Noto Sans TC",sans-serif;color:#201E1F;display:block}
+.mode-desc{font:400 12px "Noto Sans TC",sans-serif;color:#5C6B73}
+
+/* 封面選擇 */
+.cover-selection{margin-bottom:1.25rem}
+.selection-title{font:700 15px "Noto Sans TC",sans-serif;color:#201E1F;margin-bottom:.6rem}
+.cover-picker{display:grid;grid-template-columns:repeat(auto-fill,minmax(56px,1fr));gap:6px;max-height:220px;overflow-y:auto;padding:.5rem;background:rgba(112,128,144,.05);border-radius:10px;margin-top:.6rem}
+.cover-thumb{aspect-ratio:1/1;border-radius:6px;overflow:hidden;cursor:pointer;border:2px solid transparent;transition:border-color .15s;background:#fff}
+.cover-thumb img{width:100%;height:100%;object-fit:cover;display:block}
+.cover-thumb.selected{border-color:#708090;box-shadow:0 0 0 2px rgba(112,128,144,.3)}
+
+/* 拼圖舞台 */
+.puzzle-stage{display:flex;gap:1rem;align-items:flex-start;justify-content:center;flex-wrap:wrap}
+.puzzle-board{position:relative;width:min(90vw,420px);height:min(90vw,420px);background:#201E1F;border-radius:10px;overflow:hidden;box-shadow:0 4px 16px rgba(32,30,31,.2);touch-action:manipulation}
+.puzzle-tile{position:absolute;background-repeat:no-repeat;cursor:pointer;transition:left .16s ease,top .16s ease;box-shadow:inset 0 0 0 1px rgba(246,242,234,.12)}
+.puzzle-tile.movable{box-shadow:inset 0 0 0 1px rgba(246,242,234,.12),0 0 0 2px rgba(112,128,144,.35)}
+.puzzle-tile.blank{visibility:hidden}
+.puzzle-board.solved .puzzle-tile{transition:opacity .4s ease;box-shadow:none}
+.puzzle-board.solved .puzzle-tile.blank{visibility:visible;animation:tileDrop .5s ease}
+@keyframes tileDrop{0%{opacity:0;transform:scale(.5)}60%{transform:scale(1.08)}100%{opacity:1;transform:scale(1)}}
+
+.puzzle-preview-wrap{flex:0 0 auto}
+.puzzle-preview-label{font:600 12px "Noto Sans TC",sans-serif;color:#5C6B73;margin-bottom:.35rem}
+.puzzle-preview-img{width:96px;height:96px;object-fit:cover;border-radius:8px;border:1.5px solid rgba(32,30,31,.12);opacity:.85}
+
+/* 結果頁 */
+.result-photo{width:180px;height:180px;object-fit:cover;border-radius:12px;margin:0 auto 1rem;display:block}
+.guess-result-card{text-align:center;padding:1.5rem;margin:1rem 0;background:#fff;border-radius:12px;border:1.5px solid rgba(32,30,31,.1)}
+.result-mode{font:500 14px "Noto Sans TC",sans-serif;color:#5C6B73;margin-bottom:.5rem}
+.result-big{font:700 48px "Noto Serif TC",serif;color:#708090;margin:.5rem 0}
+.result-detail{font:500 16px "Noto Sans TC",sans-serif;color:#201E1F}
+
+/* 提交成績表單 */
+.submit-score-wrap{margin:1.5rem 0;padding:1.25rem;background:#fff;border-radius:10px;border:1.5px solid rgba(32,30,31,.1)}
+.submit-title{font:700 15px "Noto Sans TC",sans-serif;color:#201E1F;margin-bottom:.75rem}
+.submit-form{display:flex;gap:.5rem;align-items:center;justify-content:center}
+.submit-form input{flex:1;max-width:200px;padding:.6rem .75rem;border:1.5px solid rgba(32,30,31,.2);border-radius:8px;font:500 14px "Noto Sans TC",sans-serif;outline:none;transition:border-color .2s}
+.submit-form input:focus{border-color:#708090}
+.score-submitted{font:600 14px "Noto Sans TC",sans-serif;color:#2d8a4e;margin-top:1rem}
+
+/* 排行榜 */
+.leaderboard-section{margin-top:2.5rem;text-align:center}
+.leaderboard-title{font:700 18px "Noto Serif TC",serif;color:#201E1F;margin-bottom:1rem}
+.leaderboard-grid{display:grid;grid-template-columns:1fr;gap:1.5rem;text-align:center}
+.leaderboard-col{min-width:0}
+.lb-col-title{font:700 14px "Noto Serif TC",serif;color:#708090;margin-bottom:.75rem}
+.leaderboard-card{background:#fff;border-radius:10px;border:1.5px solid rgba(32,30,31,.1);overflow:hidden;max-width:520px;margin:0 auto}
+.leaderboard-table{width:100%;border-collapse:collapse;font:400 13px "Noto Sans TC",sans-serif;color:#201E1F}
+.leaderboard-table thead{background:rgba(112,128,144,.06)}
+.leaderboard-table th{font-weight:600;padding:.5rem .4rem;text-align:center;font-size:12px;color:#5C6B73}
+.leaderboard-table td{padding:.4rem .3rem;text-align:center;border-top:1px solid rgba(32,30,31,.06)}
+.leaderboard-table tbody tr:hover{background:rgba(112,128,144,.04)}
+.rank-col{font-weight:700;color:#708090}
+.name-col{font-weight:600;text-align:left;padding-left:.5rem}
+.lb-thumb{width:32px;height:32px;object-fit:cover;border-radius:4px;display:block;margin:0 auto}
+
+.leaderboard-loading{font:500 14px "Noto Sans TC",sans-serif;color:#5C6B73;padding:1.5rem 0}
+.leaderboard-empty{font:500 14px "Noto Sans TC",sans-serif;color:#5C6B73;padding:1.5rem 0}
+
+@media(max-width:480px){
+  .puzzle-status{flex-direction:column;gap:.2rem}
+  .puzzle-preview-img{width:72px;height:72px}
+  .leaderboard-table{font-size:11px}
+  .leaderboard-table th,.leaderboard-table td{padding:.35rem .2rem}
+  .lb-thumb{width:26px;height:26px}
+}
+
+@media(orientation:landscape){
+  .puzzle-game-inner{max-width:min(960px,94vw)}
+}
