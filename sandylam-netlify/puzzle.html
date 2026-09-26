@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>封面拼圖 — 林憶蓮</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700&family=Noto+Serif+TC:wght@700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/puzzle.css">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5491012467741215"
+     crossorigin="anonymous"></script>
+</head>
+<body>
+
+<div class="nav-wrap">
+<header class="site-header">
+  <button class="menu-toggle" id="menuToggle" type="button" aria-expanded="false" aria-controls="siteNav">
+    <span>MENU</span><span class="chevron">▾</span>
+  </button>
+  <div class="brand">
+    <span class="brand-disc" aria-hidden="true"></span>
+    <span class="brand-name">林憶蓮鐵粉挑戰賽</span>
+  </div>
+</header>
+<nav class="site-nav" id="siteNav">
+  <a href="index.html" class="nav-link">首頁</a>
+  <a href="tournament.html" class="nav-link">冠軍賽</a>
+  <a href="guess.html" class="nav-link">猜歌挑戰</a>
+  <a href="guess-album.html" class="nav-link">猜專輯</a>
+  <a href="guess-cover-version-song.html" class="nav-link">猜翻唱歌名</a>
+  <a href="guess-cover-version-album.html" class="nav-link">猜翻唱專輯</a>
+  <a href="memory-match.html" class="nav-link">記憶翻牌</a>
+  <a href="match3.html" class="nav-link">封面消消樂</a>
+  <a href="mahjong.html" class="nav-link">封面連連看</a>
+  <a href="catch-cover.html" class="nav-link">接住封面</a>
+  <a href="puzzle.html" class="nav-link active">封面拼圖</a>
+</nav>
+</div>
+
+  <!-- 選擇難度 & 封面 -->
+  <section id="puzzle-intro" class="screen">
+    <div class="champion-inner">
+      <p class="eyebrow">Cover Puzzle</p>
+      <h2>封面拼圖</h2>
+      <p class="intro-desc">封面被打散成滑塊，移動方塊拼回原本的樣子，最後一塊會自動歸位！</p>
+
+      <div class="mode-selection">
+        <p class="selection-title">選擇難度</p>
+        <label class="mode-option">
+          <input type="radio" name="puzzle-mode" value="3" checked>
+          <span class="mode-label">初級（3 × 3）</span>
+          <span class="mode-desc">9 格，輕鬆入門</span>
+        </label>
+        <label class="mode-option">
+          <input type="radio" name="puzzle-mode" value="4">
+          <span class="mode-label">中級（4 × 4）</span>
+          <span class="mode-desc">16 格，經典挑戰</span>
+        </label>
+        <label class="mode-option">
+          <input type="radio" name="puzzle-mode" value="5">
+          <span class="mode-label">高級（5 × 5）</span>
+          <span class="mode-desc">25 格，終極挑戰</span>
+        </label>
+      </div>
+
+      <div class="cover-selection">
+        <p class="selection-title">選擇封面</p>
+        <button class="btn-secondary" id="puzzleRandomBtn" type="button">🎲 隨機一張</button>
+        <div class="cover-picker" id="coverPicker"></div>
+      </div>
+
+      <button class="btn-primary" id="puzzleStartBtn">開始挑戰</button>
+
+      <div class="leaderboard-section">
+        <h3 class="leaderboard-title">🏆 排行榜</h3>
+        <div class="leaderboard-grid">
+          <div class="leaderboard-col">
+            <h4 class="lb-col-title">初級（3 × 3）</h4>
+            <div id="lbEasy"></div>
+          </div>
+          <div class="leaderboard-col">
+            <h4 class="lb-col-title">中級（4 × 4）</h4>
+            <div id="lbMedium"></div>
+          </div>
+          <div class="leaderboard-col">
+            <h4 class="lb-col-title">高級（5 × 5）</h4>
+            <div id="lbHard"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 遊戲進行中 -->
+  <section id="puzzle-game" class="screen" hidden>
+    <div class="puzzle-game-inner">
+      <div class="puzzle-status">
+        <span id="puzzleProgress">0 / 0</span>
+        <span id="puzzleMoves">移動：0</span>
+        <span id="puzzleTimer">⏱ 0.00s</span>
+      </div>
+
+      <div class="puzzle-stage">
+        <div class="puzzle-board" id="puzzleBoard"></div>
+        <div class="puzzle-preview-wrap">
+          <p class="puzzle-preview-label">完成目標</p>
+          <img id="puzzlePreviewImg" class="puzzle-preview-img" alt="完整封面預覽">
+        </div>
+      </div>
+
+      <button class="btn-secondary" id="puzzleQuitBtn" type="button">← 放棄本局</button>
+    </div>
+  </section>
+
+  <!-- 結果頁 -->
+  <section id="puzzle-result" class="screen" hidden>
+    <div class="champion-inner">
+      <img class="result-photo" id="puzzleResultCover" src="images/champion.jpeg" alt="完成的封面">
+      <p class="eyebrow">Result</p>
+      <h2>拼圖完成！</h2>
+      <div class="guess-result-card">
+        <p class="result-mode" id="resultMode"></p>
+        <p class="result-big" id="resultScore"></p>
+        <p class="result-detail" id="resultDetail"></p>
+      </div>
+
+      <div id="submitScoreWrap" class="submit-score-wrap" hidden>
+        <p class="submit-title">登上排行榜</p>
+        <div class="submit-form">
+          <input type="text" id="playerName" placeholder="輸入你的暱稱" maxlength="20">
+          <button class="btn-primary" id="submitScoreBtn">提交成績</button>
+        </div>
+      </div>
+      <p id="scoreSubmitted" class="score-submitted" hidden>✓ 成績已提交！</p>
+
+      <div id="resultLeaderboard" hidden></div>
+
+      <div class="champion-actions">
+        <button class="btn-secondary" id="puzzleRestart">再玩一次</button>
+      </div>
+    </div>
+  </section>
+
+  <script src="js/nav-toggle.js" defer></script>
+  <script src="js/puzzle.js"></script>
+</body>
+</html>
