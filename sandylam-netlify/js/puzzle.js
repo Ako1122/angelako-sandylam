@@ -18,6 +18,7 @@ let elapsedMs = 0;
 let timerHandle = null;
 let gameFinished = false;
 let gameSession = 0;
+const MOVE_ANIM_MS = 170; // 對應 css/puzzle.css 的 .puzzle-tile transition (.16s) 再加一點緩衝
 
 const diffLabel = {
   3: "初級（3 × 3）",
@@ -232,6 +233,38 @@ function buildBoard() {
   layoutTiles();
 }
 
+// 視窗尺寸變化（縮放視窗、轉橫直屏）時，board 的 clientWidth 會變，
+// 但原本 boardPx 只在 buildBoard() 量過一次，之後 tile 的 px 定位/背景圖切片
+// 都還是用舊的 boardPx 算，畫面會跟容器實際大小對不齊。這裡重新量測並
+// 套用到每個 tile（尺寸、背景圖切片位置），再呼叫 layoutTiles() 重新擺放。
+function handleBoardResize() {
+  const board = document.getElementById("puzzleBoard");
+  if (!board || !board._tileEls || document.getElementById("puzzle-game").hidden) return;
+  const newBoardPx = board.clientWidth || boardPx;
+  if (!newBoardPx || Math.abs(newBoardPx - boardPx) < 1) return;
+  boardPx = newBoardPx;
+  const tilePx = boardPx / gridN;
+  for (let val = 0; val < tileCount; val++) {
+    const el = board._tileEls[val];
+    if (!el) continue;
+    el.style.width = tilePx + "px";
+    el.style.height = tilePx + "px";
+    if (val !== tileCount - 1) {
+      const origRow = Math.floor(val / gridN);
+      const origCol = val % gridN;
+      el.style.backgroundSize = boardPx + "px " + boardPx + "px";
+      el.style.backgroundPosition = "-" + origCol * tilePx + "px -" + origRow * tilePx + "px";
+    }
+  }
+  layoutTiles();
+}
+
+let resizeDebounceHandle = null;
+function onWindowResize() {
+  if (resizeDebounceHandle) clearTimeout(resizeDebounceHandle);
+  resizeDebounceHandle = setTimeout(handleBoardResize, 120);
+}
+
 // 依 tiles（position→val）把每個 tile 放到它該在的位置
 function layoutTiles() {
   const board = document.getElementById("puzzleBoard");
@@ -282,6 +315,11 @@ function handleTileClick(val) {
   tiles[pos] = tileCount - 1;
   blankPos = pos;
   moves++;
+
+  // 鎖住輸入直到滑動動畫（css/puzzle.css 的 .16s transition）跑完，
+  // 避免連續快速點擊時同一格疊加多個尚未結束的動畫。
+  busy = true;
+  setTimeout(() => { busy = false; }, MOVE_ANIM_MS);
 
   layoutTiles();
   updateStatus();
@@ -450,6 +488,9 @@ function init() {
   loadLeaderboard("lbEasy", 3);
   loadLeaderboard("lbMedium", 4);
   loadLeaderboard("lbHard", 5);
+
+  window.addEventListener("resize", onWindowResize);
+  window.addEventListener("orientationchange", onWindowResize);
 }
 
 document.addEventListener("DOMContentLoaded", init);
