@@ -1,4 +1,3 @@
-
 const SONGS_URL = "data/songs.json";
 
 // ==================== 牌局結構 ====================
@@ -397,7 +396,10 @@ function renderBoard() {
     el.style.left = s.leftPct + "%"; el.style.top = s.topPct + "%";
     el.style.width = s.widthPct + "%"; el.style.height = s.heightPct + "%";
     el.style.transform = "translate(" + (-pos.layer * 3) + "px, " + (-pos.layer * 4) + "px)";
-    el.style.zIndex = 100 + pos.layer * 50 + pos.gy * 10 + pos.gx;
+    // gx/gy 可能是半格（如 1.5、2.5，用於「半疊」牌型），CSS z-index 只接受整數，
+    // 賦值非整數會被瀏覽器直接忽略（整個 z-index 變成空字串，等同沒設定），
+    // 導致該牌疊放順序跑掉。這裡先乘 2 轉成整數，相對順序不受影響。
+    el.style.zIndex = 100 + pos.layer * 50 + Math.round(pos.gy * 2) * 10 + Math.round(pos.gx * 2);
     var coverInfo = uniqueCovers.find(function(c) { return c.cover === selectedCovers[tile.type]; });
     el.setAttribute("aria-label", coverInfo ? coverInfo.album : "封面 " + tile.type);
     el.setAttribute("role", "button"); el.setAttribute("tabindex", "0");
@@ -1000,4 +1002,3 @@ async function boot() {
 }
 
 document.addEventListener("DOMContentLoaded", boot);
-
