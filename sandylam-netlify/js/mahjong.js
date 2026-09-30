@@ -79,6 +79,20 @@ const SHAPE_TEMPLATES = [
       { layer: 2, cols: 1, rows: 2, offsetX: 3, offsetY: 2 },
     ],
   },
+  {
+    // 測試用牌型：上層以「半格」偏移蓋在下層之上，
+    // 因此每張上層牌會蓋住下層兩張牌各一半，而非完整蓋住單張牌。
+    // layer1 只在 X 方向偏移 0.5（橫向半疊）；
+    // layer2 只在 Y 方向偏移 0.5（縱向半疊），彼此獨立測試兩種半疊方向。
+    name: "磚牆",
+    blocks: [
+      { layer: 0, cols: 7, rows: 5, offsetX: 0, offsetY: 0 },
+      { layer: 1, cols: 6, rows: 3, offsetX: 0.5, offsetY: 1 },
+      { layer: 2, cols: 4, rows: 1, offsetX: 1.5, offsetY: 2.5 },
+      { layer: 3, cols: 2, rows: 1, offsetX: 2.5, offsetY: 2.5 },
+      { layer: 4, cols: 1, rows: 1, offsetX: 3, offsetY: 2.5 },
+    ],
+  },
 ];
 
 var BLOCKS = SHAPE_TEMPLATES[0].blocks;
@@ -106,7 +120,7 @@ var ACHIEVEMENTS = [
   { id: "combo_10", name: "連擊達人", icon: "🔥", desc: "單局達成 10 連擊" },
   { id: "speed_demon", name: "閃電手", icon: "⚡", desc: "30 秒內清 10 對" },
   { id: "no_hints", name: "不靠提示", icon: "🧠", desc: "全清且未使用任何提示" },
-  { id: "all_shapes", name: "四種花色", icon: "🎴", desc: "玩過所有四種牌型" },
+  { id: "all_shapes", name: "集齊花色", icon: "🎴", desc: "玩過所有牌型" },
   { id: "veteran", name: "鐵粉認證", icon: "💎", desc: "累計遊玩 50 局" },
   { id: "combo_20", name: "超級連擊", icon: "💥", desc: "單局達成 20 連擊" },
   { id: "perfect_hard", name: "完美最高級", icon: "🏆", desc: "最高級全清且不用提示不洗牌" },
@@ -752,7 +766,7 @@ function endGame(cleared) {
   if (maxStreak >= 20) unlock("combo_20");
   if (pairsIn30s >= 10) unlock("speed_demon");
   if (cleared && manualHintsUsed === 0 && autoHintsUsed === 0) unlock("no_hints");
-  if (profile.shapesPlayed.length >= 4) unlock("all_shapes");
+  if (profile.shapesPlayed.length >= SHAPE_TEMPLATES.length) unlock("all_shapes");
   if (profile.totalGames >= 50) unlock("veteran");
   if (cleared && gameMode === "hard" && manualHintsUsed === 0 && autoHintsUsed === 0 && manualShufflesUsed === 0) unlock("perfect_hard");
   saveProfile(profile);
