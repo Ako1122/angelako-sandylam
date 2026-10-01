@@ -1,5 +1,5 @@
 const DATA_URL = "data/songs.json";
-const CLIP_MS = 1600; // 每次翻牌播放的試聽片段長度（毫秒），聽這麼多就夠判斷是不是同一首
+const CLIP_MS = 5000; // 每次翻牌播放的試聽片段長度（毫秒）；翻下一張會在 playClip() 裡先 stopAudio() 再播新的
 
 let coverPool = []; // [{ cover, album, previewUrl }]，只收有試聽網址的封面
 let cards = [];
@@ -17,6 +17,7 @@ let gameSession = 0;
 
 let currentAudio = null;
 let clipTimeoutHandle = null;
+let currentPlayingEl = null; // 目前在播放試聽片段的那張卡片元素，用來切換「聆聽中」動畫
 
 const diffLabel = {
   10: "初級（10 組）",
