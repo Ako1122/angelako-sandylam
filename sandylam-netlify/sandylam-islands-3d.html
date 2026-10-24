@@ -165,6 +165,29 @@ main.isl-main{max-width:none;margin:0;padding:0}
   background:transparent;color:var(--isl-ink);cursor:pointer;
 }
 .isl-listbox button:hover,.isl-listbox button:focus-visible{background:var(--c);color:#fff;outline:none}
+/* 點小人跳出的對話框 */
+.isl-bubble{
+  position:absolute;z-index:3;left:0;top:0;width:210px;padding:10px 14px 12px;
+  background:#fff;border:1px solid rgba(32,30,31,.15);border-radius:12px;
+  box-shadow:0 8px 24px rgba(32,30,31,.25);color:#201E1F;line-height:1.5;font-size:13px;
+}
+.isl-bubble[hidden]{display:none}
+.isl-bubble::after{
+  content:"";position:absolute;left:50%;bottom:-7px;width:12px;height:12px;background:#fff;
+  border-right:1px solid rgba(32,30,31,.15);border-bottom:1px solid rgba(32,30,31,.15);
+  transform:translateX(-50%) rotate(45deg);
+}
+.isl-bubble.below::after{bottom:auto;top:-7px;transform:translateX(-50%) rotate(225deg)}
+.isl-bubble .bx{position:absolute;top:2px;right:4px;border:0;background:none;font-size:20px;line-height:1;color:#5C6B73;padding:6px 8px;cursor:pointer}
+.isl-bubble .bl{margin:0;font-size:12px;color:#5C6B73}
+.isl-bubble .bt{margin:2px 0 0;font-weight:700;font-size:15px;overflow-wrap:anywhere;padding-right:14px;color:#201E1F}
+.isl-bubble .ba{margin:0 0 8px;font-size:12px;color:#5C6B73}
+.isl-bubble .bplay{
+  display:inline-flex;align-items:center;gap:6px;border:1.5px solid #708090;background:#fff;color:#4a5f6b;
+  font:700 13px var(--font-body,"Noto Sans TC",sans-serif);padding:6px 12px;border-radius:999px;cursor:pointer;
+}
+.isl-bubble .bplay:hover{background:#EDE7DA}
+.isl-bubble .bplay.playing{background:#708090;color:#fff}
 @media (max-width:560px){
   .isl-stage{height:clamp(380px,calc(100svh - 230px),720px)}
   .isl-desc{display:none}
@@ -206,7 +229,7 @@ main.isl-main{max-width:none;margin:0;padding:0}
     <section class="map-col">
       <p class="eyebrow">Album Islands · 3D</p>
       <h1 class="isl-title">林憶蓮 專輯島</h1>
-      <p class="isl-desc">拖曳旋轉，滾輪或雙指縮放，點島看專輯。島上戴耳機的小人數量，等於那張專輯的曲目數。</p>
+      <p class="isl-desc">拖曳旋轉，滾輪或雙指縮放，點島看專輯。每座島有 1 到 5 個戴耳機的小人（曲目越多人越多），還有貓、狗和松鼠，他們會跑到鄰島串門子。點小人，看她正在聽哪一首。</p>
       <div class="isl-stage" id="stage">
         <div class="isl-loading" id="loading">載入 3D 場景…</div>
         <div class="isl-fail" id="fail"><p>這個瀏覽器沒辦法顯示 3D 場景。<br><a href="sandylam-islands.html">改看 2D 版 →</a></p></div>
@@ -215,6 +238,7 @@ main.isl-main{max-width:none;margin:0;padding:0}
           <button type="button" data-view="bird" aria-pressed="false">鳥瞰</button>
           <a href="sandylam-islands.html">2D 版</a>
         </div>
+        <div class="isl-bubble" id="bubble" hidden><button type="button" class="bx" aria-label="關閉">×</button><div class="bbody"></div></div>
         <ul class="legend" id="legend"></ul>
       </div>
       <details class="isl-list">
@@ -469,7 +493,7 @@ const stage = document.getElementById('stage');
 const calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
 let selIdx = -1, hoverIdx = -1;
 
-/* 固定種子的亂數，讓每次載入島上的樹和小人起點都一樣 */
+/* 固定種子的亂數，讓每次載入島上的樹、小人和動物起點都一樣 */
 function rng(seed){
   let a = seed >>> 0;
   return () => {
@@ -481,18 +505,22 @@ function rng(seed){
   };
 }
 
-/* 把幾個方塊合併成一個幾何體（小人的耳機、臉用） */
-function mergeBoxes(parts){
-  const pos = [], nor = [];
+/* 把幾個方塊合併成一個幾何體。c 是頂點色（預設白色＝會被實例顏色染色，深色的部分如眼睛則不會被染） */
+function mergeParts(parts){
+  const pos = [], nor = [], col = [], cc = new THREE.Color();
   parts.forEach(p => {
     const g = new THREE.BoxGeometry(p.w, p.h, p.d).toNonIndexed();
     g.translate(p.x, p.y, p.z);
+    cc.setHex(p.c === undefined ? 0xffffff : p.c);
+    const n = g.attributes.position.count;
     for (const v of g.attributes.position.array) pos.push(v);
     for (const v of g.attributes.normal.array) nor.push(v);
+    for (let k = 0; k < n; k++) col.push(cc.r, cc.g, cc.b);
   });
   const g = new THREE.BufferGeometry();
   g.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3));
   g.setAttribute('normal', new THREE.Float32BufferAttribute(nor, 3));
+  g.setAttribute('color', new THREE.Float32BufferAttribute(col, 3));
   return g;
 }
 
@@ -526,28 +554,41 @@ function init3D(){
   sun.position.set(12, 24, 10);
   scene.add(sun);
 
-  /* ---- 海面：低面數、會輕輕起伏 ---- */
+  /* ---- 海面：半透明、有浪的深淺變化，底下有海床，看得到魚蝦 ---- */
   const wGeo = new THREE.PlaneGeometry(240, 240, 56, 56);
   wGeo.rotateX(-Math.PI / 2);
   const wPos = wGeo.attributes.position;
   const wBase = Float32Array.from(wPos.array);
-  const water = new THREE.Mesh(wGeo, new THREE.MeshPhongMaterial({color:0x6FBFD3, flatShading:true, shininess:12, specular:0x1a2a33}));
-  water.position.y = -0.2;
+  const wCol = new Float32Array(wPos.count * 3);
+  wGeo.setAttribute('color', new THREE.BufferAttribute(wCol, 3));
+  const water = new THREE.Mesh(wGeo, new THREE.MeshPhongMaterial({
+    vertexColors:true, flatShading:true, shininess:10, specular:0x0d161c,
+    transparent:true, opacity:0.8, depthWrite:false
+  }));
+  water.position.y = -0.2; water.renderOrder = 1;
   scene.add(water);
+  const seabed = new THREE.Mesh(new THREE.PlaneGeometry(240, 240).rotateX(-Math.PI / 2), new THREE.MeshLambertMaterial({color:0x4FA9BE}));
+  seabed.position.y = -1.6;
+  scene.add(seabed);
   function animWater(t){
     for (let k = 0; k < wPos.count; k++){
       const x = wBase[k*3], z = wBase[k*3+2];
-      wPos.setY(k, Math.sin(x*0.22 + t*0.9)*0.07 + Math.cos(z*0.19 + t*0.7)*0.07);
+      const h = Math.sin(x*0.22 + t*0.9)*0.07 + Math.cos(z*0.19 + t*0.7)*0.07;
+      wPos.setY(k, h);
+      const u = (h + 0.14) / 0.28;
+      wCol[k*3] = 0.20 + 0.14*u; wCol[k*3+1] = 0.56 + 0.13*u; wCol[k*3+2] = 0.70 + 0.11*u;
     }
-    wPos.needsUpdate = true;
+    wPos.needsUpdate = true; wGeo.attributes.color.needsUpdate = true;
   }
   animWater(0);
 
-  /* ---- 島：沙色底座 + 語言色草地 + 幾棵方塊樹 + 平貼在上面的名稱 ---- */
+  /* ---- 島：沙色底座 + 語言色草地 + 角落的方塊樹 + 平貼的名稱 + 腳邊的浪花 ---- */
   const islands = [], pickables = [];
   const sandMat = new THREE.MeshPhongMaterial({color:0xE3D3A0, flatShading:true, shininess:0});
   const baseGeo = new THREE.CylinderGeometry(R*0.97, R*1.05, 0.9, 6);
   const topGeo = new THREE.CylinderGeometry(R*0.88, R*0.9, 0.3, 6);
+  const foamGeo = new THREE.CylinderGeometry(R*1.12, R*1.12, 0.02, 6);
+  const foamMat = new THREE.MeshBasicMaterial({color:0xffffff, transparent:true, opacity:0.32, depthWrite:false});
   const trunkGeo = new THREE.BoxGeometry(0.18, 0.4, 0.18); trunkGeo.translate(0, 0.2, 0);
   const leafGeo = new THREE.ConeGeometry(0.55, 1.1, 5); leafGeo.translate(0, 0.95, 0);
   const trunkMat = new THREE.MeshPhongMaterial({color:0x7A5A3C, flatShading:true, shininess:0});
@@ -565,23 +606,25 @@ function init3D(){
     g.add(base, top);
 
     const corners = [0, 1, 2, 3, 4, 5].sort(() => rnd() - 0.5).slice(0, 2 + Math.floor(rnd() * 2));
-    for (let k = 0; k < corners.length; k++){
-      const ang = corners[k] * Math.PI / 3, rad = R * 0.88 * 0.8;
+    corners.forEach((cn, k) => {
+      const ang = cn * Math.PI / 3, rad = R * 0.88 * 0.8;
       const tree = new THREE.Group();
       tree.add(new THREE.Mesh(trunkGeo, trunkMat), new THREE.Mesh(leafGeo, leafMats[k % 2]));
       tree.position.set(Math.sin(ang) * rad, 0.45, Math.cos(ang) * rad);
       tree.scale.setScalar(0.85 + rnd() * 0.35);
       g.add(tree);
-    }
+    });
 
     const cv = document.createElement('canvas'); cv.width = cv.height = 512;
     const tex = new THREE.CanvasTexture(cv); tex.anisotropy = Math.min(4, maxAniso);
     const lab = new THREE.Mesh(new THREE.PlaneGeometry(3.8, 3.8), new THREE.MeshBasicMaterial({map:tex, transparent:true, depthWrite:false}));
-    lab.rotation.x = -Math.PI / 2; lab.position.y = 0.47;
+    lab.rotation.x = -Math.PI / 2; lab.position.y = 0.47; lab.renderOrder = 3;
     g.add(lab);
-
     scene.add(g);
-    islands.push({i, a, g, topMat, col, cv, tex, pos:new THREE.Vector3(), lift:0, glow:0});
+
+    const foam = new THREE.Mesh(foamGeo, foamMat); foam.position.y = -0.12; foam.renderOrder = 2;
+    scene.add(foam);
+    islands.push({i, a, g, topMat, col, cv, tex, foam, pos:new THREE.Vector3(), lift:0, glow:0, nb:[]});
   });
 
   function drawIsland(s){
@@ -608,7 +651,7 @@ function init3D(){
     const cv = document.createElement('canvas'); cv.width = 256; cv.height = 128;
     const tex = new THREE.CanvasTexture(cv);
     const mesh = new THREE.Mesh(new THREE.PlaneGeometry(4, 2), new THREE.MeshBasicMaterial({map:tex, transparent:true, depthWrite:false}));
-    mesh.rotation.x = -Math.PI / 2; mesh.position.y = 0.05;
+    mesh.rotation.x = -Math.PI / 2; mesh.position.y = 0.05; mesh.renderOrder = 3;
     scene.add(mesh);
     yearLabels.push({cv, tex, mesh});
   }
@@ -623,6 +666,7 @@ function init3D(){
   /* ---- 版面：和 2D 一樣的蜂巢，每列的起始年份標在左邊 ---- */
   let cols = 0, rows = 0, mapW = 40, mapD = 40;
   const bounds = {minX:-20, maxX:20, minZ:-20, maxZ:20};
+  const ring = {a:20, b:20};               // 魚群繞島游的橢圓大小
   function applyLayout(){
     rows = Math.ceil(A.length / cols);
     let minX = 1e9, maxX = -1e9;
@@ -633,9 +677,16 @@ function init3D(){
       minX = Math.min(minX, x); maxX = Math.max(maxX, x);
     });
     const cx = (minX + maxX) / 2, cz = ((rows - 1) * 1.5 * R) / 2;
-    islands.forEach(s => { s.pos.x -= cx; s.pos.z -= cz; s.g.position.set(s.pos.x, s.lift, s.pos.z); });
+    islands.forEach(s => {
+      s.pos.x -= cx; s.pos.z -= cz;
+      s.g.position.set(s.pos.x, s.lift, s.pos.z);
+      s.foam.position.set(s.pos.x, -0.12, s.pos.z);
+    });
+    /* 鄰島：中心距離約等於一個 W 的就是共邊的鄰居，小人可以從這裡走過去 */
+    islands.forEach(s => { s.nb = islands.filter(o => o !== s && s.pos.distanceTo(o.pos) < W * 1.15); });
     bounds.minX = minX - cx - R - 4.2; bounds.maxX = maxX - cx + R;
     bounds.minZ = -cz - R; bounds.maxZ = cz + R;
+    ring.a = (maxX - minX) / 2 + R + 3.2; ring.b = cz + R + 2.8;
     yearLabels.forEach((yl, r) => {
       yl.mesh.visible = r < rows;
       if (r < rows){
@@ -647,101 +698,405 @@ function init3D(){
     mapD = bounds.maxZ - bounds.minZ;
   }
 
-  /* ---- 小人：數量 = 專輯曲目數；身體、頭、耳機各一個批次繪製，上百個也不會卡 ---- */
-  const bodyPal = [0xE9C46A, 0xF4A261, 0xE76F51, 0x8AB17D, 0x6C9BD2, 0xB28DD0, 0xF28482, 0xFAF3DD].map(c => new THREE.Color(c));
-  const skinPal = [0xF1C9A5, 0xE0AC84, 0xC68B63, 0x8D5A3B].map(c => new THREE.Color(c));
-  const PIN = 1.3, POUT = 1.95;              // 小人走在島的外圈（內圈留給島名，角落留給樹）
-  const ringPoint = () => { const ang = Math.random() * TAU, rad = Math.sqrt(PIN * PIN + Math.random() * (POUT * POUT - PIN * PIN)); return [Math.sin(ang) * rad, Math.cos(ang) * rad]; };
-  const people = [];
-  islands.forEach(s => {
-    const n = Math.max(4, Math.min(16, (TRACKS[s.a.t] || []).length || 8));
-    const rr = rng(s.i * 131 + 7);
-    for (let k = 0; k < n; k++){
-      const ang = rr() * TAU, rad = Math.sqrt(PIN * PIN + rr() * (POUT * POUT - PIN * PIN));
-      people.push({
-        s, x:Math.sin(ang) * rad, z:Math.cos(ang) * rad, tx:0, tz:0,
-        heading:rr() * TAU, speed:0.45 + rr() * 0.5, wait:rr() * 2.5,
-        walk:rr() * TAU, phase:rr() * TAU,
-        body:bodyPal[Math.floor(rr() * bodyPal.length)], skin:skinPal[Math.floor(rr() * skinPal.length)]
-      });
-    }
-  });
-  const N = people.length;
-  function pickTarget(p){
-    const q = ringPoint(); p.tx = q[0]; p.tz = q[1];
-  }
-  people.forEach(pickTarget);
-
-  const mat = () => new THREE.MeshLambertMaterial({color:0xffffff});
-  const legGeo = new THREE.BoxGeometry(0.15, 0.4, 0.16); legGeo.translate(0, -0.2, 0);
-  const bodyGeo = new THREE.BoxGeometry(0.46, 0.42, 0.28); bodyGeo.translate(0, 0.21, 0);
-  const headGeo = new THREE.BoxGeometry(0.34, 0.34, 0.34); headGeo.translate(0, 0.17, 0);
-  const phoneGeo = mergeBoxes([
-    {w:0.40, h:0.05, d:0.08, x:0, y:0.36, z:0},
-    {w:0.04, h:0.20, d:0.06, x:-0.19, y:0.26, z:0}, {w:0.04, h:0.20, d:0.06, x:0.19, y:0.26, z:0},
-    {w:0.10, h:0.20, d:0.20, x:-0.22, y:0.17, z:0}, {w:0.10, h:0.20, d:0.20, x:0.22, y:0.17, z:0},
-    {w:0.05, h:0.06, d:0.02, x:-0.08, y:0.20, z:0.175}, {w:0.05, h:0.06, d:0.02, x:0.08, y:0.20, z:0.175}
-  ]);
-  const legsM = new THREE.InstancedMesh(legGeo, mat(), N * 2);
-  const bodyM = new THREE.InstancedMesh(bodyGeo, mat(), N);
-  const headM = new THREE.InstancedMesh(headGeo, mat(), N);
-  const phoneM = new THREE.InstancedMesh(phoneGeo, new THREE.MeshLambertMaterial({color:0x26262E}), N);
-  const dark = new THREE.Color(0x3a3a46);
-  people.forEach((p, i) => {
-    bodyM.setColorAt(i, p.body); headM.setColorAt(i, p.skin);
-    legsM.setColorAt(i * 2, dark); legsM.setColorAt(i * 2 + 1, dark);
-  });
-  [legsM, bodyM, headM, phoneM].forEach(m => { m.frustumCulled = false; scene.add(m); });
-
+  /* ================= 生物 ================= */
   const AX = new THREE.Vector3(1, 0, 0), AY = new THREE.Vector3(0, 1, 0);
-  const ONE = new THREE.Vector3(0.92, 0.92, 0.92);
   const tv = new THREE.Vector3(), lv = new THREE.Vector3(), tq = new THREE.Quaternion(), lq = new THREE.Quaternion();
-  const baseM = new THREE.Matrix4(), partM = new THREE.Matrix4(), outM = new THREE.Matrix4();
   const unitScale = new THREE.Vector3(1, 1, 1);
-  function part2(mesh, idx, ox, oy, oz, rx){
+  const baseM = new THREE.Matrix4(), partM = new THREE.Matrix4(), outM = new THREE.Matrix4();
+  const lamb = () => new THREE.MeshLambertMaterial({color:0xffffff});
+  const lambV = () => new THREE.MeshLambertMaterial({color:0xffffff, vertexColors:true});
+  function part(mesh, idx, ox, oy, oz, rx){
     lq.setFromAxisAngle(AX, rx);
     partM.compose(lv.set(ox, oy, oz), lq, unitScale);
     outM.multiplyMatrices(baseM, partM);
     mesh.setMatrixAt(idx, outM);
   }
+  const NORMALS = [30, 90, 150].map(d => [Math.sin(d * Math.PI / 180), Math.cos(d * Math.PI / 180)]);
+  const smooth = (x, a, b) => { const t = Math.min(1, Math.max(0, (x - a) / (b - a))); return t * t * (3 - 2 * t); };
+  /* 這個位置的地面高度：草地 0.45，走到邊緣會踏下沙灘 0.15，所以過島時會「走下去再走上來」 */
+  function groundAt(x, z, s){
+    const dx = x - s.pos.x, dz = z - s.pos.z;
+    let m = 0;
+    for (const n of NORMALS) m = Math.max(m, Math.abs(dx * n[0] + dz * n[1]));
+    return s.lift + 0.45 - 0.30 * smooth(m, 0.74 * R, 0.82 * R);
+  }
+  const PIN = 1.2, POUT = 1.95;            // 島上活動的外圈（中間留給島名，角落留給樹）
+  function ringPoint(s, rand){
+    const ang = rand() * TAU, rad = Math.sqrt(PIN * PIN + rand() * (POUT * POUT - PIN * PIN));
+    return [s.pos.x + Math.sin(ang) * rad, s.pos.z + Math.cos(ang) * rad];
+  }
+  function turnTo(o, dx, dz, dt, k){
+    let da = Math.atan2(dx, dz) - o.heading;
+    da = Math.atan2(Math.sin(da), Math.cos(da));
+    o.heading += da * Math.min(1, dt * k);
+  }
+
+  /* ---- 小人：每張專輯 1 到 5 個（依曲目數換算），可以走到鄰島，耳機顏色各異 ---- */
+  const trackLen = A.map(a => (TRACKS[a.t] || []).length || 10);
+  const tMin = Math.min(...trackLen), tMax = Math.max(...trackLen);
+  const peopleFor = i => tMax === tMin ? 3 : 1 + Math.round((trackLen[i] - tMin) / (tMax - tMin) * 4);
+  const bodyPal = [0xE9C46A, 0xF4A261, 0xE76F51, 0x8AB17D, 0x6C9BD2, 0xB28DD0, 0xF28482, 0xFAF3DD].map(c => new THREE.Color(c));
+  const skinPal = [0xF1C9A5, 0xE0AC84, 0xC68B63, 0x8D5A3B].map(c => new THREE.Color(c));
+  const phonePal = [0xFF4D8D, 0x2EC4B6, 0xFFD23F, 0x7B61FF, 0xFF8A3D, 0x35A7FF, 0x7ED957, 0xFFFFFF, 0xE63946].map(c => new THREE.Color(c));
+  const people = [];
+  islands.forEach(s => {
+    const n = peopleFor(s.i), rr = rng(s.i * 131 + 7);
+    for (let k = 0; k < n; k++){
+      people.push({
+        home:s, cur:s, x:0, z:0, y:0.45, path:[], tx:0, tz:0,
+        heading:rr() * TAU, speed:0.5 + rr() * 0.45, wait:rr() * 2.5,
+        walk:rr() * TAU, phase:rr() * TAU, seed:s.i * 31 + k, songT:0, song:null,
+        body:bodyPal[Math.floor(rr() * bodyPal.length)], skin:skinPal[Math.floor(rr() * skinPal.length)],
+        phone:phonePal[Math.floor(rr() * phonePal.length)]
+      });
+    }
+  });
+  const NP = people.length;
+  const legGeo = new THREE.BoxGeometry(0.15, 0.4, 0.16); legGeo.translate(0, -0.2, 0);
+  const bodyGeo = new THREE.BoxGeometry(0.46, 0.42, 0.28); bodyGeo.translate(0, 0.21, 0);
+  const headGeo = mergeParts([
+    {w:0.34, h:0.34, d:0.34, x:0, y:0.17, z:0},
+    {w:0.05, h:0.06, d:0.02, x:-0.08, y:0.20, z:0.175, c:0x26262E}, {w:0.05, h:0.06, d:0.02, x:0.08, y:0.20, z:0.175, c:0x26262E}
+  ]);
+  const phoneGeo = mergeParts([
+    {w:0.40, h:0.05, d:0.08, x:0, y:0.36, z:0},
+    {w:0.04, h:0.20, d:0.06, x:-0.19, y:0.26, z:0}, {w:0.04, h:0.20, d:0.06, x:0.19, y:0.26, z:0},
+    {w:0.10, h:0.20, d:0.20, x:-0.22, y:0.17, z:0}, {w:0.10, h:0.20, d:0.20, x:0.22, y:0.17, z:0}
+  ]);
+  const legsM = new THREE.InstancedMesh(legGeo, lamb(), NP * 2);
+  const bodyM = new THREE.InstancedMesh(bodyGeo, lamb(), NP);
+  const headM = new THREE.InstancedMesh(headGeo, lambV(), NP);
+  const phoneM = new THREE.InstancedMesh(phoneGeo, lambV(), NP);
+  const darkLeg = new THREE.Color(0x3a3a46);
+  people.forEach((p, i) => {
+    bodyM.setColorAt(i, p.body); headM.setColorAt(i, p.skin); phoneM.setColorAt(i, p.phone);
+    legsM.setColorAt(i * 2, darkLeg); legsM.setColorAt(i * 2 + 1, darkLeg);
+  });
+  const PSCALE = new THREE.Vector3(0.92, 0.92, 0.92);
+
+  /* 她正在聽的歌：從她腳下那座島的專輯隨機挑（只挑有試聽的），每 20～40 秒換一首 */
+  function assignSong(p){
+    const a = p.cur.a, list = (TRACKS[a.t] || []).filter(x => x[1]);
+    if (!list.length){ p.song = null; return; }
+    const x = list[Math.floor(Math.random() * list.length)];
+    p.song = {t:x[0], u:x[1], al:a.t};
+    p.songT = 20 + Math.random() * 20;
+  }
+  function nearestIsland(p){
+    let best = p.cur, bd = Math.hypot(p.x - best.pos.x, p.z - best.pos.z);
+    for (const o of p.cur.nb){
+      const d = Math.hypot(p.x - o.pos.x, p.z - o.pos.z);
+      if (d < bd){ bd = d; best = o; }
+    }
+    return best;
+  }
+  function planPerson(p){
+    const rr = Math.random;
+    if (p.cur.nb.length && rr() < 0.4){                 // 有時候走去鄰島，經過兩島交界的「門」
+      const o = p.cur.nb[Math.floor(rr() * p.cur.nb.length)];
+      const door = [(p.cur.pos.x + o.pos.x) / 2, (p.cur.pos.z + o.pos.z) / 2];
+      p.path = [door, ringPoint(o, rr)];
+    } else p.path = [ringPoint(p.cur, rr)];
+    p.tx = p.path[0][0]; p.tz = p.path[0][1];
+  }
+  function resetPeople(){
+    const rr = Math.random;
+    people.forEach(p => {
+      p.cur = p.home;
+      const q = ringPoint(p.home, rr); p.x = q[0]; p.z = q[1];
+      p.y = groundAt(p.x, p.z, p.home); p.path = []; p.wait = rr() * 2;
+      assignSong(p);
+    });
+  }
+
+  /* ---- 動物：貓、狗、松鼠，在自己的島上跑來跑去 ---- */
+  const DK = 0x222222;
+  const animalGeo = {
+    cat: mergeParts([
+      {w:0.16, h:0.17, d:0.36, x:0, y:0.2, z:0}, {w:0.17, h:0.16, d:0.15, x:0, y:0.31, z:0.22},
+      {w:0.05, h:0.07, d:0.03, x:-0.05, y:0.42, z:0.22}, {w:0.05, h:0.07, d:0.03, x:0.05, y:0.42, z:0.22},
+      {w:0.05, h:0.12, d:0.05, x:-0.05, y:0.06, z:0.12}, {w:0.05, h:0.12, d:0.05, x:0.05, y:0.06, z:0.12},
+      {w:0.05, h:0.12, d:0.05, x:-0.05, y:0.06, z:-0.12}, {w:0.05, h:0.12, d:0.05, x:0.05, y:0.06, z:-0.12},
+      {w:0.04, h:0.22, d:0.04, x:0, y:0.34, z:-0.21},
+      {w:0.03, h:0.03, d:0.01, x:-0.04, y:0.33, z:0.30, c:DK}, {w:0.03, h:0.03, d:0.01, x:0.04, y:0.33, z:0.30, c:DK}
+    ]),
+    dog: mergeParts([
+      {w:0.20, h:0.22, d:0.44, x:0, y:0.27, z:0}, {w:0.20, h:0.20, d:0.20, x:0, y:0.42, z:0.27},
+      {w:0.10, h:0.08, d:0.10, x:0, y:0.38, z:0.40}, {w:0.04, h:0.04, d:0.02, x:0, y:0.40, z:0.46, c:DK},
+      {w:0.05, h:0.12, d:0.07, x:-0.12, y:0.40, z:0.26, c:0x8a6a50}, {w:0.05, h:0.12, d:0.07, x:0.12, y:0.40, z:0.26, c:0x8a6a50},
+      {w:0.06, h:0.16, d:0.06, x:-0.06, y:0.08, z:0.15}, {w:0.06, h:0.16, d:0.06, x:0.06, y:0.08, z:0.15},
+      {w:0.06, h:0.16, d:0.06, x:-0.06, y:0.08, z:-0.15}, {w:0.06, h:0.16, d:0.06, x:0.06, y:0.08, z:-0.15},
+      {w:0.05, h:0.05, d:0.22, x:0, y:0.38, z:-0.30},
+      {w:0.035, h:0.035, d:0.01, x:-0.05, y:0.46, z:0.375, c:DK}, {w:0.035, h:0.035, d:0.01, x:0.05, y:0.46, z:0.375, c:DK}
+    ]),
+    squirrel: mergeParts([
+      {w:0.12, h:0.14, d:0.22, x:0, y:0.14, z:0}, {w:0.12, h:0.12, d:0.12, x:0, y:0.25, z:0.14},
+      {w:0.04, h:0.05, d:0.03, x:-0.04, y:0.34, z:0.14}, {w:0.04, h:0.05, d:0.03, x:0.04, y:0.34, z:0.14},
+      {w:0.04, h:0.08, d:0.04, x:-0.04, y:0.04, z:0.07}, {w:0.04, h:0.08, d:0.04, x:0.04, y:0.04, z:0.07},
+      {w:0.04, h:0.08, d:0.04, x:-0.04, y:0.04, z:-0.07}, {w:0.04, h:0.08, d:0.04, x:0.04, y:0.04, z:-0.07},
+      {w:0.10, h:0.30, d:0.09, x:0, y:0.30, z:-0.17}, {w:0.08, h:0.10, d:0.08, x:0, y:0.50, z:-0.16, c:0xE8D8C0},
+      {w:0.025, h:0.03, d:0.01, x:-0.03, y:0.27, z:0.205, c:DK}, {w:0.025, h:0.03, d:0.01, x:0.03, y:0.27, z:0.205, c:DK}
+    ])
+  };
+  const animalCol = {
+    cat:[0xE8A04A, 0x9AA0A6, 0x4a4a55, 0xF3EEE3].map(c => new THREE.Color(c)),
+    dog:[0xC99A62, 0x7B5236, 0xEFE0C0, 0x4a4a50].map(c => new THREE.Color(c)),
+    squirrel:[0xA6683A, 0x8E8E92, 0xC27C45].map(c => new THREE.Color(c))
+  };
+  const animalSpeed = {cat:0.9, dog:1.25, squirrel:1.9};
+  const animals = [], animalOf = {cat:[], dog:[], squirrel:[]};
+  const TYPES = ['cat', 'dog', 'squirrel'];
+  islands.forEach(s => {
+    const rr = rng(s.i * 313 + 5), n = 1 + (rr() < 0.55 ? 1 : 0);
+    for (let k = 0; k < n; k++){
+      const type = s.i < 3 && k === 0 ? TYPES[s.i] : TYPES[Math.floor(rr() * 3)];
+      const pal = animalCol[type], an = {
+        type, home:s, x:0, z:0, tx:0, tz:0, heading:rr() * TAU, wait:rr() * 2, phase:rr() * TAU,
+        speed:animalSpeed[type] * (0.85 + rr() * 0.3), tint:pal[Math.floor(rr() * pal.length)], idx:animalOf[type].length
+      };
+      animalOf[type].push(an); animals.push(an);
+    }
+  });
+  const animalM = {};
+  TYPES.forEach(t => {
+    const m = new THREE.InstancedMesh(animalGeo[t], lambV(), Math.max(1, animalOf[t].length));
+    animalOf[t].forEach(an => m.setColorAt(an.idx, an.tint));
+    animalM[t] = m;
+  });
+  function resetAnimals(){
+    animals.forEach(an => {
+      const q = ringPoint(an.home, Math.random); an.x = q[0]; an.z = q[1];
+      const t = ringPoint(an.home, Math.random); an.tx = t[0]; an.tz = t[1];
+    });
+  }
+
+  /* ---- 音符：三種形狀，隨著小人的節奏飄起來 ---- */
+  function noteTex(kind){
+    const c = document.createElement('canvas'); c.width = c.height = 128;
+    const g = c.getContext('2d'); g.fillStyle = '#fff'; g.strokeStyle = '#fff'; g.lineCap = 'round';
+    const head = (x, y) => { g.beginPath(); g.ellipse(x, y, 19, 14, -0.35, 0, TAU); g.fill(); };
+    g.lineWidth = 8;
+    if (kind === 0){              // ♪
+      head(46, 98); g.beginPath(); g.moveTo(62, 92); g.lineTo(62, 26); g.stroke();
+      g.beginPath(); g.moveTo(62, 26); g.quadraticCurveTo(70, 64, 100, 62); g.lineWidth = 9; g.stroke();
+    } else if (kind === 1){       // ♫
+      head(34, 100); head(88, 88);
+      g.beginPath(); g.moveTo(50, 94); g.lineTo(50, 30); g.moveTo(104, 82); g.lineTo(104, 20); g.stroke();
+      g.beginPath(); g.moveTo(48, 28); g.lineTo(106, 18); g.lineTo(106, 36); g.lineTo(48, 46); g.closePath(); g.fill();
+    } else {                      // ♩
+      head(50, 98); g.beginPath(); g.moveTo(66, 92); g.lineTo(66, 20); g.stroke();
+    }
+    const t = new THREE.CanvasTexture(c);
+    return t;
+  }
+  const NOTE_PER = 36, NOTE_PAL = [0xFF4D8D, 0x2EC4B6, 0xFFD23F, 0x7B61FF, 0xFF8A3D, 0x35A7FF, 0x7ED957, 0xFFFFFF].map(c => new THREE.Color(c));
+  const noteGeo = new THREE.PlaneGeometry(1, 1);
+  const noteM = [0, 1, 2].map(k => {
+    const m = new THREE.InstancedMesh(noteGeo, new THREE.MeshBasicMaterial({map:noteTex(k), transparent:true, depthWrite:false}), NOTE_PER);
+    m.frustumCulled = false; m.renderOrder = 4;
+    for (let i = 0; i < NOTE_PER; i++) m.setColorAt(i, NOTE_PAL[0]);
+    return m;
+  });
+  const notes = [];
+  for (let k = 0; k < 3; k++) for (let i = 0; i < NOTE_PER; i++) notes.push({type:k, idx:i, life:0, t:1, x:0, y:0, z:0, sw:0, size:0.6});
+  let noteNext = 0;
+  const hideM = new THREE.Matrix4().makeScale(0, 0, 0);
+  function emitNote(x, y, z){
+    const n = notes[noteNext]; noteNext = (noteNext + 1) % notes.length;
+    n.life = 2 + Math.random() * 1.2; n.t = 0; n.x = x; n.y = y; n.z = z; n.sw = Math.random() * TAU; n.size = 0.5 + Math.random() * 0.3;
+    noteM[n.type].setColorAt(n.idx, NOTE_PAL[Math.floor(Math.random() * NOTE_PAL.length)]);
+    noteM[n.type].instanceColor.needsUpdate = true;
+  }
+  function updateNotes(dt){
+    notes.forEach(n => {
+      const m = noteM[n.type];
+      if (n.t >= n.life){ m.setMatrixAt(n.idx, hideM); return; }
+      n.t += dt; n.y += 0.85 * dt;
+      const a = n.t / n.life, s = n.size * Math.min(1, a * 6) * Math.min(1, (1 - a) * 3.5);
+      lv.set(n.x + Math.sin(n.t * 2.4 + n.sw) * 0.25, n.y, n.z);
+      partM.compose(lv, camera.quaternion, tv.set(s, s, s));
+      m.setMatrixAt(n.idx, partM);
+    });
+    noteM.forEach(m => { m.instanceMatrix.needsUpdate = true; });
+  }
+
+  /* ---- 魚和蝦：在島的外圍游，隔著半透明的海面看得到 ---- */
+  const fishGeo = mergeParts([
+    {w:0.2, h:0.26, d:0.5, x:0, y:0, z:0}, {w:0.04, h:0.3, d:0.18, x:0, y:0, z:-0.33},
+    {w:0.03, h:0.12, d:0.22, x:0, y:0.18, z:0.02},
+    {w:0.03, h:0.04, d:0.05, x:-0.11, y:0.04, z:0.17, c:DK}, {w:0.03, h:0.04, d:0.05, x:0.11, y:0.04, z:0.17, c:DK}
+  ]);
+  const shrimpGeo = mergeParts([
+    {w:0.12, h:0.1, d:0.3, x:0, y:0, z:0}, {w:0.1, h:0.1, d:0.1, x:0, y:0.01, z:0.2},
+    {w:0.1, h:0.07, d:0.14, x:0, y:-0.04, z:-0.2}, {w:0.012, h:0.012, d:0.22, x:-0.03, y:0.04, z:0.32}, {w:0.012, h:0.012, d:0.22, x:0.03, y:0.04, z:0.32},
+    {w:0.025, h:0.03, d:0.02, x:-0.05, y:0.04, z:0.25, c:DK}, {w:0.025, h:0.03, d:0.02, x:0.05, y:0.04, z:0.25, c:DK}
+  ]);
+  const fishPal = [0xFF9F43, 0xFFD93D, 0xFF7AA2, 0x4D96FF, 0xFFFFFF, 0x6BCB77].map(c => new THREE.Color(c));
+  const shrimpPal = [0xFF8A80, 0xFFB067].map(c => new THREE.Color(c));
+  const fr = rng(4242);
+  const fishes = Array.from({length:38}, (_, i) => ({
+    th:fr() * TAU, dir:fr() < 0.5 ? -1 : 1, k:0.92 + fr() * 0.32, w:0.55 + fr() * 0.5, y:-0.45 - fr() * 0.5,
+    ph:fr() * TAU, sz:0.8 + fr() * 0.7, col:fishPal[Math.floor(fr() * fishPal.length)], x:0, z:0, heading:0
+  }));
+  const shrimps = Array.from({length:14}, () => ({
+    x:0, z:0, tx:0, tz:0, heading:fr() * TAU, wait:fr() * 2, ph:fr() * TAU, col:shrimpPal[Math.floor(fr() * 2)]
+  }));
+  const fishM = new THREE.InstancedMesh(fishGeo, lambV(), fishes.length);
+  const shrimpM = new THREE.InstancedMesh(shrimpGeo, lambV(), shrimps.length);
+  fishes.forEach((f, i) => fishM.setColorAt(i, f.col));
+  shrimps.forEach((s, i) => shrimpM.setColorAt(i, s.col));
+  function seaPoint(k){                      // 島外圍一圈的海
+    const ang = Math.random() * TAU, kk = k || (1.0 + Math.random() * 0.3);
+    return [ring.a * kk * Math.cos(ang), ring.b * kk * Math.sin(ang)];
+  }
+  function resetSea(){
+    shrimps.forEach(s => { const q = seaPoint(); s.x = q[0]; s.z = q[1]; const t = seaPoint(); s.tx = t[0]; s.tz = t[1]; });
+  }
+
+  [legsM, bodyM, headM, phoneM, animalM.cat, animalM.dog, animalM.squirrel, fishM, shrimpM].forEach(m => { m.frustumCulled = false; scene.add(m); });
+  noteM.forEach(m => scene.add(m));
+  [legsM, bodyM, headM, phoneM, animalM.cat, animalM.dog, animalM.squirrel, fishM, shrimpM].forEach(m => { if (m.instanceColor) m.instanceColor.needsUpdate = true; });
+
+  /* ---- 點小人：跳出她在聽的歌 ---- */
+  const bubble = document.getElementById('bubble');
+  let bubbleP = null, hoverP = null;
+  function closeBubble(){
+    if (playingBtn && playingBtn.classList.contains('bplay')) stopAudio();
+    bubble.hidden = true; bubbleP = null;
+  }
+  function openBubble(p){
+    closeBubble();
+    if (!p.song) assignSong(p);
+    bubbleP = p; hideTip();
+    const body = bubble.querySelector('.bbody'); body.replaceChildren();
+    body.append(el('p', {class:'bl'}, '🎧 正在聽'));
+    if (p.song){
+      body.append(el('p', {class:'bt'}, p.song.t), el('p', {class:'ba'}, '《' + p.song.al + '》'));
+      const b = el('button', {type:'button', class:'bplay'}, el('span', {class:'ic', 'aria-hidden':'true'}, '▶'), el('span', null, '一起聽 30 秒'));
+      b.dataset.url = p.song.u; b.addEventListener('click', () => togglePlay(b));
+      body.append(b);
+    } else body.append(el('p', {class:'bt'}, '（這座島還沒有試聽曲）'));
+    bubble.hidden = false;
+  }
+  bubble.querySelector('.bx').addEventListener('click', closeBubble);
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeBubble(); });
+  function placeBubble(){
+    if (!bubbleP) return;
+    const p = bubbleP, w = stage.clientWidth, h = stage.clientHeight;
+    tv.set(p.x, p.y + 1.3, p.z).project(camera);
+    let x = (tv.x + 1) / 2 * w, y = (1 - tv.y) / 2 * h;
+    const half = bubble.offsetWidth / 2 + 6;
+    x = Math.min(w - half, Math.max(half, x));
+    const below = y < bubble.offsetHeight + 50;
+    bubble.classList.toggle('below', below);
+    bubble.style.left = x + 'px';
+    bubble.style.top = (below ? y + 56 : y - 6) + 'px';
+    bubble.style.transform = below ? 'translate(-50%, 0)' : 'translate(-50%, -100%)';
+  }
+
+  /* ---- 每一幀更新生物 ---- */
+  const BEAT = TAU * 1.8;                     // 約 108 BPM，同一座島的小人一起點頭
   function updatePeople(dt, t){
-    for (let i = 0; i < N; i++){
-      const p = people[i], s = p.s, act = (s.i === selIdx || s.i === hoverIdx);
+    const nowAudio = playingBtn && !audio.paused;
+    for (let i = 0; i < NP; i++){
+      const p = people[i], listening = (p === bubbleP);
       let moving = false;
-      if (!calm){
+      p.songT -= dt;
+      if (!calm && !listening){
         if (p.wait > 0) p.wait -= dt;
         else {
+          if (!p.path.length) planPerson(p);
           const dx = p.tx - p.x, dz = p.tz - p.z, d = Math.hypot(dx, dz);
-          if (d < 0.1){ p.wait = 0.6 + Math.random() * 2.4; pickTarget(p); }
-          else {
-            const sp = p.speed * (act ? 1.5 : 1), st = Math.min(d, sp * dt);
+          if (d < 0.12){
+            p.path.shift();
+            if (p.path.length){ p.tx = p.path[0][0]; p.tz = p.path[0][1]; }
+            else p.wait = 0.8 + Math.random() * 2.6;
+          } else {
+            const near = p.cur, act0 = (near.i === selIdx || near.i === hoverIdx);
+            const sp = p.speed * (act0 ? 1.4 : 1), st = Math.min(d, sp * dt);
             p.x += dx / d * st; p.z += dz / d * st; p.walk += sp * dt * 6; moving = true;
-            let da = Math.atan2(dx, dz) - p.heading;
-            da = Math.atan2(Math.sin(da), Math.cos(da));
-            p.heading += da * Math.min(1, dt * 9);
+            turnTo(p, dx, dz, dt, 9);
           }
         }
       }
-      const beat = t * TAU * 1.8 + p.phase;                 // 約 108 BPM，同一座島的小人一起點頭
+      const nb = nearestIsland(p);
+      if (nb !== p.cur){ p.cur = nb; if (!listening) assignSong(p); }
+      else if (p.songT <= 0 && !listening) assignSong(p);
+      const act = listening || p.cur.i === selIdx || p.cur.i === hoverIdx;
+      const gy = groundAt(p.x, p.z, p.cur);
+      p.y += (gy - p.y) * (1 - Math.exp(-dt * 14));
+      const beat = t * BEAT + p.phase;
       const nod = calm ? 0 : Math.sin(beat) * (act ? 0.05 : 0.025);
-      const hop = act && !calm ? Math.abs(Math.sin(beat * 0.5)) * 0.12 : 0;
+      const hop = act && !calm ? Math.abs(Math.sin(beat * 0.5)) * (listening ? 0.16 : 0.1) : 0;
       const bob = moving ? Math.abs(Math.sin(p.walk)) * 0.04 : 0;
-      const gp = s.g.position;
-      tv.set(gp.x + p.x, gp.y + 0.45 + hop, gp.z + p.z);
+      if (!calm && Math.random() < dt * (listening && nowAudio ? 2.2 : act ? 0.7 : 0.07)) emitNote(p.x, p.y + 1.3 + hop, p.z);
+      tv.set(p.x, p.y + hop, p.z);
       tq.setFromAxisAngle(AY, p.heading);
-      baseM.compose(tv, tq, ONE);
+      baseM.compose(tv, tq, PSCALE);
       const sw = moving ? Math.sin(p.walk) * 0.75 : 0;
-      part2(legsM, i * 2, 0.11, 0.4, 0, sw);
-      part2(legsM, i * 2 + 1, -0.11, 0.4, 0, -sw);
-      part2(bodyM, i, 0, 0.4 + bob, 0, 0);
-      part2(headM, i, 0, 0.82 + bob + nod, 0, 0);
-      part2(phoneM, i, 0, 0.82 + bob + nod, 0, 0);
+      part(legsM, i * 2, 0.11, 0.4, 0, sw);
+      part(legsM, i * 2 + 1, -0.11, 0.4, 0, -sw);
+      part(bodyM, i, 0, 0.4 + bob, 0, 0);
+      part(headM, i, 0, 0.82 + bob + nod, 0, 0);
+      part(phoneM, i, 0, 0.82 + bob + nod, 0, 0);
     }
     [legsM, bodyM, headM, phoneM].forEach(m => { m.instanceMatrix.needsUpdate = true; });
   }
-  legsM.instanceColor.needsUpdate = bodyM.instanceColor.needsUpdate = headM.instanceColor.needsUpdate = true;
+  function updateAnimals(dt, t){
+    animals.forEach(an => {
+      let moving = false;
+      if (!calm){
+        if (an.wait > 0) an.wait -= dt;
+        else {
+          const dx = an.tx - an.x, dz = an.tz - an.z, d = Math.hypot(dx, dz);
+          if (d < 0.12){
+            an.wait = (an.type === 'squirrel' ? 0.3 : 0.8) + Math.random() * 2;
+            const q = ringPoint(an.home, Math.random); an.tx = q[0]; an.tz = q[1];
+          } else {
+            const st = Math.min(d, an.speed * dt);
+            an.x += dx / d * st; an.z += dz / d * st; moving = true; an.phase += dt * an.speed * 8;
+            turnTo(an, dx, dz, dt, 12);
+          }
+        }
+      }
+      const hop = moving ? Math.abs(Math.sin(an.phase)) * (an.type === 'squirrel' ? 0.12 : 0.06) : 0;
+      tv.set(an.x, groundAt(an.x, an.z, an.home) + hop, an.z);
+      tq.setFromAxisAngle(AY, an.heading);
+      baseM.compose(tv, tq, unitScale);
+      animalM[an.type].setMatrixAt(an.idx, baseM);
+    });
+    TYPES.forEach(tp => { animalM[tp].instanceMatrix.needsUpdate = true; });
+  }
+  function updateSea(dt, t){
+    fishes.forEach((f, i) => {
+      const w = f.w / ((ring.a + ring.b) / 2) * (calm ? 0 : 1);
+      f.th += f.dir * w * dt * 2;
+      const c = Math.cos(f.th), s = Math.sin(f.th), a = ring.a * f.k, b = ring.b * f.k;
+      f.x = a * c; f.z = b * s;
+      f.heading = Math.atan2(-a * s * f.dir, b * c * f.dir) + Math.sin(t * 7 + f.ph) * 0.18;
+      tv.set(f.x, f.y + Math.sin(t * 1.6 + f.ph) * 0.06, f.z);
+      tq.setFromAxisAngle(AY, f.heading);
+      baseM.compose(tv, tq, lv.set(f.sz, f.sz, f.sz));
+      fishM.setMatrixAt(i, baseM);
+    });
+    shrimps.forEach((s, i) => {
+      if (!calm){
+        if (s.wait > 0) s.wait -= dt;
+        else {
+          const dx = s.tx - s.x, dz = s.tz - s.z, d = Math.hypot(dx, dz);
+          if (d < 0.3){ s.wait = 0.5 + Math.random() * 1.8; const q = seaPoint(); s.tx = q[0]; s.tz = q[1]; }
+          else { const st = Math.min(d, 2.6 * dt); s.x += dx / d * st; s.z += dz / d * st; turnTo(s, dx, dz, dt, 12); }
+        }
+      }
+      tv.set(s.x, -0.55 + Math.sin(t * 3 + s.ph) * 0.03, s.z);
+      tq.setFromAxisAngle(AY, s.heading);
+      baseM.compose(tv, tq, unitScale);
+      shrimpM.setMatrixAt(i, baseM);
+    });
+    fishM.instanceMatrix.needsUpdate = true; shrimpM.instanceMatrix.needsUpdate = true;
+  }
 
-  /* ---- 鏡頭：自己寫的簡單環繞（旋轉、縮放、平移），不用額外函式庫 ---- */
+  /* ================= 鏡頭：自己寫的簡單環繞（旋轉、縮放、平移） ================= */
   const cam = {az:0, pol:0.95, dist:50, tx:0, tz:0};
   const goal = Object.assign({}, cam);
   let view = 'pano', viewShift = 0, viewShiftGoal = 0;
@@ -754,7 +1109,8 @@ function init3D(){
   }
   function setView(v, snap){
     view = v;
-    goal.pol = (v === 'pano' && camera.aspect < 0.95) ? 0.7 : POL[v]; goal.az = 0; goal.tx = (bounds.minX + bounds.maxX) / 2; goal.tz = 0; goal.dist = fitDist(goal.pol);
+    goal.pol = (v === 'pano' && camera.aspect < 0.95) ? 0.7 : POL[v]; goal.az = 0;
+    goal.tx = (bounds.minX + bounds.maxX) / 2; goal.tz = 0; goal.dist = fitDist(goal.pol);
     document.querySelectorAll('.isl-hud [data-view]').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.view === v)));
     if (snap) Object.assign(cam, goal);
   }
@@ -792,7 +1148,7 @@ function init3D(){
     clampGoal();
   }
 
-  /* ---- 滑鼠、觸控 ---- */
+  /* ================= 滑鼠、觸控 ================= */
   const ray = new THREE.Raycaster(), ndc = new THREE.Vector2();
   function pick(cx, cy){
     const r = canvas.getBoundingClientRect();
@@ -801,10 +1157,22 @@ function init3D(){
     const hit = ray.intersectObjects(pickables, false);
     return hit.length ? hit[0].object.userData.i : -1;
   }
+  /* 小人很小，用「螢幕上離點擊位置最近的小人」來判斷，比較好點 */
+  function pickPerson(cx, cy, touch){
+    const r = canvas.getBoundingClientRect(), lim = touch ? 30 : 20;
+    let best = null, bd = lim;
+    for (const p of people){
+      tv.set(p.x, p.y + 0.65, p.z).project(camera);
+      if (tv.z > 1) continue;
+      const sx = r.left + (tv.x + 1) / 2 * r.width, sy = r.top + (1 - tv.y) / 2 * r.height;
+      const d = Math.hypot(sx - cx, sy - cy);
+      if (d < bd){ bd = d; best = p; }
+    }
+    return best;
+  }
   function setHover(i, e){
     if (i !== hoverIdx){
       hoverIdx = i;
-      canvas.style.cursor = i >= 0 ? 'pointer' : '';
       if (i >= 0) showTip(i); else hideTip();
     }
     if (i >= 0 && e) placeTip(e.clientX, e.clientY);
@@ -815,7 +1183,7 @@ function init3D(){
   canvas.addEventListener('pointerdown', e => {
     canvas.setPointerCapture(e.pointerId);
     ptrs.set(e.pointerId, {x:e.clientX, y:e.clientY});
-    if (ptrs.size === 1) drag = {x0:e.clientX, y0:e.clientY, t0:performance.now(), moved:false, pan:e.button === 2 || e.shiftKey};
+    if (ptrs.size === 1) drag = {x0:e.clientX, y0:e.clientY, t0:performance.now(), moved:false, pan:e.button === 2 || e.shiftKey, touch:e.pointerType !== 'mouse'};
     else if (ptrs.size === 2){
       drag.moved = true;
       const [a, b] = [...ptrs.values()];
@@ -825,7 +1193,11 @@ function init3D(){
   });
   canvas.addEventListener('pointermove', e => {
     if (!ptrs.has(e.pointerId)){
-      if (e.pointerType === 'mouse') setHover(pick(e.clientX, e.clientY), e);
+      if (e.pointerType === 'mouse'){
+        hoverP = pickPerson(e.clientX, e.clientY, false);
+        setHover(hoverP ? -1 : pick(e.clientX, e.clientY), e);
+        canvas.style.cursor = (hoverP || hoverIdx >= 0) ? 'pointer' : '';
+      }
       return;
     }
     const prev = ptrs.get(e.pointerId), dx = e.clientX - prev.x, dy = e.clientY - prev.y;
@@ -849,15 +1221,20 @@ function init3D(){
     const wasOne = ptrs.size === 1;
     ptrs.delete(e.pointerId);
     if (wasOne && drag && !drag.moved && !cancelled && performance.now() - drag.t0 < 700){
-      const i = pick(e.clientX, e.clientY);
-      if (i >= 0) select(i);
+      const pp = pickPerson(e.clientX, e.clientY, drag.touch);
+      if (pp) openBubble(pp);
+      else {
+        closeBubble();
+        const i = pick(e.clientX, e.clientY);
+        if (i >= 0) select(i);
+      }
     }
     if (ptrs.size === 0) drag = null;
     pinchD = 0;
   }
   canvas.addEventListener('pointerup', e => endPtr(e, false));
   canvas.addEventListener('pointercancel', e => endPtr(e, true));
-  canvas.addEventListener('pointerleave', e => { if (!ptrs.size) setHover(-1); });
+  canvas.addEventListener('pointerleave', () => { if (!ptrs.size){ setHover(-1); hoverP = null; canvas.style.cursor = ''; } });
   canvas.addEventListener('wheel', e => {
     e.preventDefault();
     goal.dist *= Math.exp(e.deltaY * 0.0012); clampGoal();
@@ -869,6 +1246,7 @@ function init3D(){
 
   /* 面板（點島、清單、Esc）通知 3D 場景 */
   window.onIslandSelect = function(i){
+    closeBubble();
     selIdx = i; hideTip(); focusIsland(i);
     viewShiftGoal = matchMedia('(max-width:899px)').matches ? stage.clientHeight * 0.2 : 0;
   };
@@ -877,17 +1255,20 @@ function init3D(){
   };
 
   /* ---- 尺寸變化 ---- */
+  let started = false;
   function resize(){
     const w = stage.clientWidth, h = stage.clientHeight;
     if (!w || !h) return;
     renderer.setSize(w, h, false);
     camera.aspect = w / h; camera.updateProjectionMatrix();
     const c = (w < 560 || w / h < 0.95) ? 4 : 6;
-    if (c !== cols){ cols = c; applyLayout(); islands.forEach(drawIsland); }
+    if (c !== cols){
+      cols = c; applyLayout(); islands.forEach(drawIsland);
+      resetPeople(); resetAnimals(); resetSea();
+    }
     if (selIdx >= 0) focusIsland(selIdx); else setView(view, !started);
     clampGoal();
   }
-  let started = false;
   new ResizeObserver(resize).observe(stage);
   resize();
   if (document.fonts && document.fonts.load){
@@ -908,10 +1289,13 @@ function init3D(){
       s.glow += ((sel ? 0.32 : hov ? 0.16 : 0) - s.glow) * k;
       s.g.position.y = s.lift;
       s.topMat.emissive.setHex(s.col).multiplyScalar(s.glow);
+      const f = 1 + 0.035 * Math.sin(time * 1.3 + s.i);
+      s.foam.scale.set(f, 1, f);
     });
     updateCamera(dt);
     if (!calm) animWater(time);
-    updatePeople(dt, time);
+    updatePeople(dt, time); updateAnimals(dt, time); updateSea(dt, time); updateNotes(dt);
+    placeBubble();
     renderer.render(scene, camera);
     if (!started){
       started = true;
@@ -919,7 +1303,7 @@ function init3D(){
     }
   }
   requestAnimationFrame(frame);
-  three3d = {renderer, scene, camera, islands, people, cam, goal};
+  three3d = {renderer, scene, camera, islands, people, animals, fishes, shrimps, notes, cam, goal, openBubble, closeBubble};
 }
 let three3d = null;
 try { init3D(); }
