@@ -1,4 +1,3 @@
-
 const SONGS_URL = "data/songs.json";
 
 // ==================== 牌局結構 ====================
@@ -9,18 +8,19 @@ const BOARD_UNIT_H = BASE_ROWS * 2;
 
 const SHAPE_TEMPLATES = [
   {
+    // 上層以半格偏移蓋在下層之上（半疊），offsetX/Y 用 .5 表示半格。
     name: "三丘尖塔",
     blocks: [
       { layer: 0, cols: 7, rows: 7, offsetX: 0, offsetY: 0 },
-      { layer: 1, cols: 3, rows: 3, offsetX: 0, offsetY: 0 },
-      { layer: 1, cols: 3, rows: 3, offsetX: 4, offsetY: 0 },
-      { layer: 1, cols: 3, rows: 3, offsetX: 2, offsetY: 4 },
-      { layer: 2, cols: 2, rows: 2, offsetX: 0, offsetY: 0 },
-      { layer: 2, cols: 2, rows: 2, offsetX: 4, offsetY: 0 },
-      { layer: 2, cols: 2, rows: 2, offsetX: 2, offsetY: 4 },
-      { layer: 3, cols: 2, rows: 2, offsetX: 2, offsetY: 0 },
-      { layer: 4, cols: 1, rows: 2, offsetX: 2, offsetY: 0 },
-      { layer: 5, cols: 1, rows: 2, offsetX: 2, offsetY: 0 },
+      { layer: 1, cols: 3, rows: 3, offsetX: 0.5, offsetY: 0 },
+      { layer: 1, cols: 3, rows: 3, offsetX: 3.5, offsetY: 0 },
+      { layer: 1, cols: 3, rows: 3, offsetX: 2.5, offsetY: 4 },
+      { layer: 2, cols: 2, rows: 2, offsetX: 1.5, offsetY: 0.5 },
+      { layer: 2, cols: 2, rows: 2, offsetX: 4.5, offsetY: 0.5 },
+      { layer: 2, cols: 2, rows: 2, offsetX: 3.5, offsetY: 4.5 },
+      { layer: 3, cols: 2, rows: 2, offsetX: 3, offsetY: 0.5 },
+      { layer: 4, cols: 1, rows: 2, offsetX: 3.5, offsetY: 0.5 },
+      { layer: 5, cols: 1, rows: 2, offsetX: 3.5, offsetY: 0.5 },
     ],
   },
   {
@@ -31,17 +31,17 @@ const SHAPE_TEMPLATES = [
       { layer: 0, cols: 3, rows: 2, offsetX: 2, offsetY: 5 },
       { layer: 0, cols: 2, rows: 3, offsetX: 0, offsetY: 2 },
       { layer: 0, cols: 2, rows: 3, offsetX: 5, offsetY: 2 },
-      { layer: 1, cols: 3, rows: 3, offsetX: 2, offsetY: 2 },
-      { layer: 1, cols: 3, rows: 1, offsetX: 2, offsetY: 1 },
-      { layer: 1, cols: 3, rows: 1, offsetX: 2, offsetY: 5 },
-      { layer: 1, cols: 1, rows: 3, offsetX: 1, offsetY: 2 },
-      { layer: 1, cols: 1, rows: 3, offsetX: 5, offsetY: 2 },
-      { layer: 2, cols: 1, rows: 1, offsetX: 3, offsetY: 3 },
-      { layer: 2, cols: 1, rows: 1, offsetX: 3, offsetY: 2 },
-      { layer: 2, cols: 1, rows: 1, offsetX: 3, offsetY: 4 },
-      { layer: 2, cols: 1, rows: 1, offsetX: 2, offsetY: 3 },
-      { layer: 2, cols: 1, rows: 1, offsetX: 4, offsetY: 3 },
-      { layer: 3, cols: 1, rows: 1, offsetX: 3, offsetY: 3 },
+      { layer: 1, cols: 3, rows: 3, offsetX: 2.5, offsetY: 2 },
+      { layer: 1, cols: 3, rows: 1, offsetX: 2.5, offsetY: 1 },
+      { layer: 1, cols: 3, rows: 1, offsetX: 2.5, offsetY: 5 },
+      { layer: 1, cols: 1, rows: 3, offsetX: 1.5, offsetY: 2 },
+      { layer: 1, cols: 1, rows: 3, offsetX: 5.5, offsetY: 2 },
+      { layer: 2, cols: 1, rows: 1, offsetX: 3, offsetY: 3.5 },
+      { layer: 2, cols: 1, rows: 1, offsetX: 3, offsetY: 2.5 },
+      { layer: 2, cols: 1, rows: 1, offsetX: 3, offsetY: 4.5 },
+      { layer: 2, cols: 1, rows: 1, offsetX: 2, offsetY: 3.5 },
+      { layer: 2, cols: 1, rows: 1, offsetX: 4, offsetY: 3.5 },
+      { layer: 3, cols: 1, rows: 1, offsetX: 3.5, offsetY: 3 },
     ],
   },
   {
@@ -54,15 +54,15 @@ const SHAPE_TEMPLATES = [
       { layer: 0, cols: 5, rows: 1, offsetX: 1, offsetY: 4 },
       { layer: 0, cols: 3, rows: 1, offsetX: 2, offsetY: 5 },
       { layer: 0, cols: 1, rows: 1, offsetX: 3, offsetY: 6 },
-      { layer: 1, cols: 3, rows: 1, offsetX: 2, offsetY: 1 },
-      { layer: 1, cols: 5, rows: 1, offsetX: 1, offsetY: 2 },
-      { layer: 1, cols: 5, rows: 1, offsetX: 1, offsetY: 3 },
-      { layer: 1, cols: 5, rows: 1, offsetX: 1, offsetY: 4 },
-      { layer: 1, cols: 3, rows: 1, offsetX: 2, offsetY: 5 },
-      { layer: 2, cols: 3, rows: 1, offsetX: 2, offsetY: 2 },
-      { layer: 2, cols: 3, rows: 1, offsetX: 2, offsetY: 3 },
-      { layer: 2, cols: 3, rows: 1, offsetX: 2, offsetY: 4 },
-      { layer: 3, cols: 1, rows: 1, offsetX: 3, offsetY: 3 },
+      { layer: 1, cols: 3, rows: 1, offsetX: 2.5, offsetY: 1 },
+      { layer: 1, cols: 5, rows: 1, offsetX: 1.5, offsetY: 2 },
+      { layer: 1, cols: 5, rows: 1, offsetX: 1.5, offsetY: 3 },
+      { layer: 1, cols: 5, rows: 1, offsetX: 1.5, offsetY: 4 },
+      { layer: 1, cols: 3, rows: 1, offsetX: 2.5, offsetY: 5 },
+      { layer: 2, cols: 3, rows: 1, offsetX: 2, offsetY: 2.5 },
+      { layer: 2, cols: 3, rows: 1, offsetX: 2, offsetY: 3.5 },
+      { layer: 2, cols: 3, rows: 1, offsetX: 2, offsetY: 4.5 },
+      { layer: 3, cols: 1, rows: 1, offsetX: 3.5, offsetY: 3 },
     ],
   },
   {
@@ -73,10 +73,24 @@ const SHAPE_TEMPLATES = [
       { layer: 0, cols: 3, rows: 1, offsetX: 2, offsetY: 3 },
       { layer: 0, cols: 5, rows: 1, offsetX: 1, offsetY: 4 },
       { layer: 0, cols: 7, rows: 2, offsetX: 0, offsetY: 5 },
-      { layer: 1, cols: 5, rows: 1, offsetX: 1, offsetY: 0 },
-      { layer: 1, cols: 3, rows: 1, offsetX: 2, offsetY: 3 },
-      { layer: 1, cols: 5, rows: 1, offsetX: 1, offsetY: 5 },
-      { layer: 2, cols: 1, rows: 2, offsetX: 3, offsetY: 2 },
+      { layer: 1, cols: 5, rows: 1, offsetX: 1.5, offsetY: 0 },
+      { layer: 1, cols: 3, rows: 1, offsetX: 2.5, offsetY: 3 },
+      { layer: 1, cols: 5, rows: 1, offsetX: 1.5, offsetY: 5 },
+      { layer: 2, cols: 1, rows: 2, offsetX: 3, offsetY: 2.5 },
+    ],
+  },
+  {
+    // 測試用牌型：上層以「半格」偏移蓋在下層之上，
+    // 因此每張上層牌會蓋住下層兩張牌各一半，而非完整蓋住單張牌。
+    // layer1 只在 X 方向偏移 0.5（橫向半疊）；
+    // layer2 只在 Y 方向偏移 0.5（縱向半疊），彼此獨立測試兩種半疊方向。
+    name: "磚牆",
+    blocks: [
+      { layer: 0, cols: 7, rows: 5, offsetX: 0, offsetY: 0 },
+      { layer: 1, cols: 6, rows: 3, offsetX: 0.5, offsetY: 1 },
+      { layer: 2, cols: 4, rows: 1, offsetX: 1.5, offsetY: 2.5 },
+      { layer: 3, cols: 2, rows: 1, offsetX: 2.5, offsetY: 2.5 },
+      { layer: 4, cols: 1, rows: 1, offsetX: 3, offsetY: 2.5 },
     ],
   },
 ];
@@ -106,7 +120,7 @@ var ACHIEVEMENTS = [
   { id: "combo_10", name: "連擊達人", icon: "🔥", desc: "單局達成 10 連擊" },
   { id: "speed_demon", name: "閃電手", icon: "⚡", desc: "30 秒內清 10 對" },
   { id: "no_hints", name: "不靠提示", icon: "🧠", desc: "全清且未使用任何提示" },
-  { id: "all_shapes", name: "四種花色", icon: "🎴", desc: "玩過所有四種牌型" },
+  { id: "all_shapes", name: "集齊花色", icon: "🎴", desc: "玩過所有牌型" },
   { id: "veteran", name: "鐵粉認證", icon: "💎", desc: "累計遊玩 50 局" },
   { id: "combo_20", name: "超級連擊", icon: "💥", desc: "單局達成 20 連擊" },
   { id: "perfect_hard", name: "完美最高級", icon: "🏆", desc: "最高級全清且不用提示不洗牌" },
@@ -383,7 +397,10 @@ function renderBoard() {
     el.style.left = s.leftPct + "%"; el.style.top = s.topPct + "%";
     el.style.width = s.widthPct + "%"; el.style.height = s.heightPct + "%";
     el.style.transform = "translate(" + (-pos.layer * 3) + "px, " + (-pos.layer * 4) + "px)";
-    el.style.zIndex = 100 + pos.layer * 50 + pos.gy * 10 + pos.gx;
+    // gx/gy 可能是半格（如 1.5、2.5，用於「半疊」牌型），CSS z-index 只接受整數，
+    // 賦值非整數會被瀏覽器直接忽略（整個 z-index 變成空字串，等同沒設定），
+    // 導致該牌疊放順序跑掉。這裡先乘 2 轉成整數，相對順序不受影響。
+    el.style.zIndex = 100 + pos.layer * 50 + Math.round(pos.gy * 2) * 10 + Math.round(pos.gx * 2);
     var coverInfo = uniqueCovers.find(function(c) { return c.cover === selectedCovers[tile.type]; });
     el.setAttribute("aria-label", coverInfo ? coverInfo.album : "封面 " + tile.type);
     el.setAttribute("role", "button"); el.setAttribute("tabindex", "0");
@@ -752,7 +769,7 @@ function endGame(cleared) {
   if (maxStreak >= 20) unlock("combo_20");
   if (pairsIn30s >= 10) unlock("speed_demon");
   if (cleared && manualHintsUsed === 0 && autoHintsUsed === 0) unlock("no_hints");
-  if (profile.shapesPlayed.length >= 4) unlock("all_shapes");
+  if (profile.shapesPlayed.length >= SHAPE_TEMPLATES.length) unlock("all_shapes");
   if (profile.totalGames >= 50) unlock("veteran");
   if (cleared && gameMode === "hard" && manualHintsUsed === 0 && autoHintsUsed === 0 && manualShufflesUsed === 0) unlock("perfect_hard");
   saveProfile(profile);
@@ -986,4 +1003,3 @@ async function boot() {
 }
 
 document.addEventListener("DOMContentLoaded", boot);
-
