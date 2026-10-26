@@ -900,6 +900,15 @@
     "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/31/58/34/3158346a-75ed-ca8b-1712-b06da66dfd06/mzaf_13535620651478025106.plus.aac.p.m4a"
   },
   {
+    "id": "e0036",
+    "title": "Wildflower",
+    "album": "野花",
+    "lang": "粵語",
+    "cover": "images/covers/10.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/52/82/8b/52828b23-791a-6430-b8a5-3eee5d9ba6f3/mzaf_16447224494818164688.plus.aac.p.m4a"
+  },
+  {
     "id": "c0101",
     "title": "醒醒",
     "album": "回來愛的身邊",
@@ -1366,6 +1375,15 @@
     "cover": "images/covers/16.jpg",
     "coverConfirmed": true,
     "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview126/v4/5d/51/1b/5d511b9c-4587-19ed-5081-8590aee74039/mzaf_3062568656799438129.plus.aac.p.m4a"
+  },
+  {
+    "id": "m0141",
+    "title": "Stay",
+    "album": "Re:Workz",
+    "lang": "國語",
+    "cover": "images/covers/16.jpg",
+    "coverConfirmed": true,
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/ba/af/2a/baaf2ac0-2339-9aaf-580d-63875fd8ed70/mzaf_11257619897961262005.plus.aac.p.m4a"
   },
   {
     "id": "c0153",
