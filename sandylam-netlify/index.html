@@ -13,9 +13,9 @@
 .isl-main{
   --isl-sea:#E8F0F2;
   --isl-y:#B5472F;   /* 粵語 */
-  --isl-m:#D9A21B;   /* 國語（已與日語對調）*/
+  --isl-m:#667A35;   /* 國語（與英語對調）*/
   --isl-j:#1B7F8E;   /* 日語（已與國語對調）*/
-  --isl-e:#667A35;   /* 英語 */
+  --isl-e:#D9A21B;   /* 英語（與國語對調）*/
   --isl-ink:var(--ink,#201E1F);
   --isl-soft:var(--slate,#5C6B73);
   --isl-paper:var(--paper-dim,#EDE7DA);
@@ -492,7 +492,7 @@ function select(i){
 
   const a = A[i], L = LANG[a.l];
 
-  const chip = el('span', {class:'chip' + (a.l === 'm' ? ' dark' : '')}, L.n);
+  const chip = el('span', {class:'chip' + (a.l === 'e' ? ' dark' : '')}, L.n);
   chip.style.setProperty('--c', L.v);
   const dl = el('dl', null,
     el('dt', null, '發行'), el('dd', null, dateText(a)),
@@ -569,7 +569,7 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape') closePanel()
 
 
 /* ================= 3D 場景 ================= */
-const HEX = {y:0xB5472F, m:0xD9A21B, j:0x1B7F8E, e:0x667A35};
+const HEX = {y:0xB5472F, m:0x667A35, j:0x1B7F8E, e:0xD9A21B};
 const R = 3, W = Math.sqrt(3) * R, TAU = Math.PI * 2;
 const FONT = '"Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif';
 const stage = document.getElementById('stage');
@@ -874,12 +874,12 @@ function init3D(){
       const w = c.measureText(ln).width;
       if (w > 390){ fs = Math.floor(fs * 390 / w); c.font = '700 ' + fs + 'px ' + FONT; }
       /* 和遊戲島名一樣的細黑框：先描邊再填白字 */
-      c.lineJoin = 'round'; c.lineWidth = Math.max(5, fs * 0.087); c.strokeStyle = 'rgba(30,26,24,0.55)';
+      c.lineJoin = 'round'; c.lineWidth = Math.max(5, fs * 0.087) * (a.l === 'e' ? 1.6 : 1); c.strokeStyle = 'rgba(30,26,24,0.55)';
       c.strokeText(ln, 256, y); c.fillText(ln, 256, y); y += lh;
     });
     c.font = '500 56px ' + FONT; c.globalAlpha = 0.9;
     const yy = y - lh / 2 + yh / 2 + 6;
-    c.lineJoin = 'round'; c.lineWidth = 5; c.strokeStyle = 'rgba(30,26,24,0.55)';
+    c.lineJoin = 'round'; c.lineWidth = a.l === 'e' ? 8 : 5; c.strokeStyle = 'rgba(30,26,24,0.55)';
     c.strokeText(year(a), 256, yy); c.fillText(year(a), 256, yy);
     c.globalAlpha = 1;
     s.tex.needsUpdate = true;
