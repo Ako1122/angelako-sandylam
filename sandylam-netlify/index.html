@@ -240,6 +240,7 @@ main.isl-main{max-width:none;margin:0;padding:0}
   <a href="match3.html" class="nav-link">封面消消樂</a>
   <a href="mahjong.html" class="nav-link">封面連連看</a>
   <a href="catch-cover.html" class="nav-link">接住封面</a>
+  <a href="sand-drop.html" class="nav-link">沙畫消消樂</a>
 </nav>
 </div>
 
@@ -366,7 +367,10 @@ const GAMES = [
    say:['這兩張一樣！','全部清空挑戰！','這關好難喔～','欸找到一對了！']},
   {t:'接住封面', href:'catch-cover.html', grp:'games',
    desc:'專輯封面從天而降，移動籃子接住跟現在播放同一首歌的封面。',
-   say:['接住接住！','這張是對的嗎？','手要快一點！','又接到一張～']}
+   say:['接住接住！','這張是對的嗎？','手要快一點！','又接到一張～']},
+  {t:'沙畫消消樂', href:'sand-drop.html', grp:'games',
+   desc:'封面化成一整片細沙，派金龜車從沙畫下方開過，把頭頂上同顏色的沙吸走。',
+   say:['這台車是什麼顏色？','嗶嗶～讓一下讓一下！','又吸滿一台了！','沙畫快清空啦～']}
 ];
 /* 3 群：name 半空漂浮的群名、key、color（群名牌底色） */
 const GROUPS = [
@@ -812,7 +816,7 @@ function init3D(){
   /* ---- 遊戲島：和專輯島同樣的六角島幾何，顏色依群組 ---- */
   const GRPCOL = {fav:0xC65B4E, games:0xD9A21B};
   GAMES.forEach((gm, k) => {
-    const GAMEPAL = [0xB5472F,0xC9743B,0xD9A21B,0xA98B3A,0x667A35,0x4F8A6B,0x1B7F8E,0x3E6E8E,0xB06A3A];
+    const GAMEPAL = [0xA4604A,0xC9743B,0xD9A21B,0xA98B3A,0x667A35,0x4F8A6B,0x1B7F8E,0x3E6E8E,0xB06A3A,0xB5472F];   // 第 10 個（沙畫消消樂）用陶土紅，其餘維持原本的顏色
     const i = A.length + k, col = (gm.grp === 'games' ? GAMEPAL[k % GAMEPAL.length] : GRPCOL[gm.grp]), rnd = rng(i * 977 + 13);
     const g = new THREE.Group();
     const base = new THREE.Mesh(baseGeo, sandMat); base.position.y = -0.3;
@@ -913,11 +917,12 @@ function init3D(){
   const groupCenters = {};   // key -> {x, z, r}
 
   /* 把一組島排成小蜂巢，回傳相對中心的座標陣列與半徑 */
-  function hexCluster(n, perRow){
+  /* slots（可省略）：自訂每座島的 [欄, 列]，例如 Games 用 3-4-3 排法 */
+  function hexCluster(n, perRow, slots){
     const pts = [], rws = Math.ceil(n / perRow);
     let miX = 1e9, maX = -1e9, miZ = 1e9, maZ = -1e9;
     for (let i = 0; i < n; i++){
-      const r = Math.floor(i / perRow), c = i % perRow;
+      const r = slots && slots[i] ? slots[i][1] : Math.floor(i / perRow), c = slots && slots[i] ? slots[i][0] : i % perRow;
       const x = (c + (r % 2 ? 0.5 : 0)) * W, z = r * 1.5 * R;
       pts.push([x, z]);
       miX = Math.min(miX, x); maX = Math.max(maX, x); miZ = Math.min(miZ, z); maZ = Math.max(maZ, z);
@@ -943,18 +948,20 @@ function init3D(){
     const albumHalfW = (aMaxX - aMinX) / 2 + R, albumHalfD = acz + R;
     groupCenters.album = {x:0, z:0, r:Math.max(albumHalfW, albumHalfD)};
 
-    /* ---- 2. 其餘 2 群（My Favorite 單島、Games 九島）：環繞在專輯島四周 ---- */
+    /* ---- 2. 其餘 2 群（My Favorite 單島、Games 十島 3-4-3）：環繞在專輯島四周 ---- */
     const orbit = Math.max(albumHalfW, albumHalfD) + 8;   // 衛星群離中心的距離（海域縮約 10%）
     /* My Favorite 放上方、Games 放右下方，離遠一點免得九島壓到專輯島 */
     const angs = {fav:-Math.PI/2, games:Math.PI*0.18};
     const perRow = {fav:1, games:3};
+    /* Games 排成 3-4-3：原本九島位置不變（每排 3 座），第 10 座（沙畫消消樂）放在第二排最左邊 */
+    const SLOTS = {games:[[0,0],[1,0],[2,0],[0,1],[1,1],[2,1],[0,2],[1,2],[2,2],[-1,1]]};
     const orbitK = {fav:1.0, games:1.18};
     const orbitAdd = {fav:0, games:2.5};   // Games 再往外推一點，讓它和專輯島之間的橋長一些   // Games 九島較大，略往外推
     const keys = ['fav','games'];
     let WX0 = -albumHalfW, WX1 = albumHalfW, WZ0 = -albumHalfD, WZ1 = albumHalfD;
     keys.forEach((k, gi) => {
       const grp = gameGroups[gi];
-      const cl = hexCluster(grp.length, perRow[k]);
+      const cl = hexCluster(grp.length, perRow[k], SLOTS[k]);
       const oR = orbit * (orbitK[k] || 1) + (orbitAdd[k] || 0); const gx = Math.cos(angs[k]) * oR, gz = Math.sin(angs[k]) * oR;
       grp.forEach((s, i) => { s.pos.set(gx + cl.rel[i][0], 0, gz + cl.rel[i][1]); });
       groupCenters[k] = {x:gx, z:gz, r:cl.rad};
@@ -1553,7 +1560,7 @@ function init3D(){
   const trackLen = A.map(a => (TRACKS[a.t] || []).length || 10);
   const tMin = Math.min(...trackLen), tMax = Math.max(...trackLen);
   const peopleFor = i => tMax === tMin ? 3 : 1 + Math.round((trackLen[i] - tMin) / (tMax - tMin) * 4);
-  const bodyPal = [0xE9C46A, 0xF4A261, 0xE76F51, 0x8AB17D, 0x6C9BD2, 0xB28DD0, 0xF28482, 0xFAF3DD].map(c => new THREE.Color(c));
+  const bodyPal = [0xE9C46A, 0xF4A261, 0xE76F51, 0x8AB17D, 0x6C9BD2, 0x5FA8A0, 0xF28482, 0xFAF3DD].map(c => new THREE.Color(c));
   const skinPal = [0xF1C9A5, 0xE0AC84, 0xC68B63, 0x8D5A3B].map(c => new THREE.Color(c));
   const phonePal = [0xFF4D8D, 0x2EC4B6, 0xFFD23F, 0x7B61FF, 0xFF8A3D, 0x35A7FF, 0x7ED957, 0xFFFFFF, 0xE63946].map(c => new THREE.Color(c));
   const people = [];

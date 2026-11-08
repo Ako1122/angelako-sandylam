@@ -221,6 +221,7 @@ main.isl-main{max-width:none;margin:0;padding:0}
   <a href="match3.html" class="nav-link">封面消消樂</a>
   <a href="mahjong.html" class="nav-link">封面連連看</a>
   <a href="catch-cover.html" class="nav-link">接住封面</a>
+  <a href="sand-drop.html" class="nav-link">沙畫消消樂</a>
 </nav>
 </div>
 
@@ -735,7 +736,7 @@ function init3D(){
   const trackLen = A.map(a => (TRACKS[a.t] || []).length || 10);
   const tMin = Math.min(...trackLen), tMax = Math.max(...trackLen);
   const peopleFor = i => tMax === tMin ? 3 : 1 + Math.round((trackLen[i] - tMin) / (tMax - tMin) * 4);
-  const bodyPal = [0xE9C46A, 0xF4A261, 0xE76F51, 0x8AB17D, 0x6C9BD2, 0xB28DD0, 0xF28482, 0xFAF3DD].map(c => new THREE.Color(c));
+  const bodyPal = [0xE9C46A, 0xF4A261, 0xE76F51, 0x8AB17D, 0x6C9BD2, 0x5FA8A0, 0xF28482, 0xFAF3DD].map(c => new THREE.Color(c));
   const skinPal = [0xF1C9A5, 0xE0AC84, 0xC68B63, 0x8D5A3B].map(c => new THREE.Color(c));
   const phonePal = [0xFF4D8D, 0x2EC4B6, 0xFFD23F, 0x7B61FF, 0xFF8A3D, 0x35A7FF, 0x7ED957, 0xFFFFFF, 0xE63946].map(c => new THREE.Color(c));
   const people = [];

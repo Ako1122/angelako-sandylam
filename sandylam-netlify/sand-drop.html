@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>沙畫消消樂 — 林憶蓮</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700&family=Noto+Serif+TC:wght@700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/sand-drop.css">
+</head>
+<body>
+
+<div class="nav-wrap">
+<header class="site-header">
+  <button class="menu-toggle" id="menuToggle" type="button" aria-expanded="false" aria-controls="siteNav">
+    <span>MENU</span><span class="chevron">▾</span>
+  </button>
+  <div class="brand">
+    <span class="brand-disc" aria-hidden="true"></span>
+    <span class="brand-name">林憶蓮鐵粉挑戰賽</span>
+  </div>
+</header>
+<nav class="site-nav" id="siteNav">
+  <a href="index.html" class="nav-link">首頁</a>
+  <a href="sandylam-islands.html" class="nav-link">專輯島</a>
+  <a href="tournament.html" class="nav-link">冠軍賽</a>
+  <a href="guess.html" class="nav-link">猜歌挑戰</a>
+  <a href="guess-album.html" class="nav-link">猜專輯</a>
+  <a href="guess-cover-version-song.html" class="nav-link">猜翻唱歌名</a>
+  <a href="guess-cover-version-album.html" class="nav-link">猜翻唱專輯</a>
+  <a href="memory-match.html" class="nav-link">記憶翻牌</a>
+  <a href="audio-memory-match.html" class="nav-link">盲猜配對</a>
+  <a href="match3.html" class="nav-link">封面消消樂</a>
+  <a href="mahjong.html" class="nav-link">封面連連看</a>
+  <a href="catch-cover.html" class="nav-link">接住封面</a>
+  <a href="sand-drop.html" class="nav-link active">沙畫消消樂</a>
+</nav>
+</div>
+
+  <!-- 選關 -->
+  <section id="sd-intro" class="screen">
+    <div class="champion-inner sd-intro-inner">
+      <p class="eyebrow">Sand Art</p>
+      <h2>沙畫消消樂</h2>
+      <p class="intro-desc">
+        專輯封面化成一整片細沙。把車庫裡的金龜車派上沙畫下方的路，車子經過時會把頭頂上同顏色的沙吸進車裡。把沙子全部運光，就能看見完整的封面！
+      </p>
+
+      <div class="sd-rules">
+        <p><span class="sd-rule-n">1</span>點車庫每排最前面的車，把它派上沙畫下方的路，車子會從左往右開</p>
+        <p><span class="sd-rule-n">2</span>車子經過時，正上方沙畫最底部只要有同顏色的沙，就會被吸進車裡，車身由下往上被填滿</p>
+        <p><span class="sd-rule-n">3</span>裝滿的車會開出畫面；沒裝滿的車會繞回左邊再開一次。路上最多 6 台車</p>
+        <p><span class="sd-rule-n">4</span>可以隨時按「丟回車庫」選一台車送回去（每關 5 次）；路上 6 台車都繞一整圈還吸不到沙時也會自動跳出。次數用完又動彈不得就挑戰失敗</p>
+      </div>
+
+      <button class="btn-primary" id="sdContinueBtn" type="button">從第 1 關開始</button>
+
+      <div class="sd-picker-wrap">
+        <p class="selection-title">選擇關卡</p>
+        <p class="sd-progress-text" id="sdProgressText"></p>
+        <div class="sd-levels" id="sdLevels"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 遊戲進行中 -->
+  <section id="sd-game" class="screen" hidden>
+    <div class="sd-game-inner">
+      <div class="sd-head">
+        <button class="sd-back" id="sdBackBtn" type="button">← 選關</button>
+        <div class="sd-title">
+          <span class="sd-level-label" id="sdLevelLabel">第 1 關</span>
+          <span class="sd-diff" id="sdDiff"></span>
+        </div>
+        <button class="sd-icon-btn" id="sdMuteBtn" type="button">🔊</button>
+      </div>
+
+      <div class="sd-status">
+        <span id="sdPct">進度 0%</span>
+        <span id="sdTime">⏱ 0:00</span>
+        <span id="sdMiss">失誤 0</span>
+      </div>
+
+      <div class="sd-board">
+        <canvas id="sdCanvas" aria-label="沙畫遊戲畫面"></canvas>
+        <div class="sd-ask" id="sdStuck" hidden>
+          <div class="sd-ask-card sd-stuck-card" role="dialog" aria-modal="true" aria-labelledby="sdStuckTitle">
+            <p class="sd-ask-title" id="sdStuckTitle">動彈不得了！</p>
+            <p class="sd-ask-text" id="sdStuckText"></p>
+            <div class="sd-stuck-cars" id="sdStuckCars"></div>
+            <button class="btn-secondary sd-stuck-cancel" id="sdStuckCancel" type="button" hidden>取消</button>
+          </div>
+        </div>
+      </div>
+      <p class="sd-msg" id="sdMsg"></p>
+
+      <div class="sd-actions">
+        <button class="btn-secondary" id="sdHintBtn" type="button">💡 提示</button>
+        <button class="btn-secondary" id="sdReverseBtn" type="button">🚗 丟回車庫（剩 5 次）</button>
+        <button class="btn-secondary" id="sdRestartBtn" type="button">重新開始</button>
+      </div>
+
+      <div class="guess-result-card sd-result" id="sdResult" hidden>
+        <p class="eyebrow" id="sdResultEyebrow">Clear</p>
+        <h3 class="sd-result-title" id="sdResultTitle">過關！</h3>
+        <p class="sd-result-stars" id="sdResultStars"></p>
+        <p class="result-detail" id="sdResultDetail"></p>
+        <div class="champion-actions">
+          <button class="btn-secondary" id="sdRetryBtn" type="button">再玩一次</button>
+          <button class="btn-primary" id="sdNextBtn" type="button">下一關 →</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script src="js/nav-toggle.js" defer></script>
+  <script src="js/sand-drop.js"></script>
+</body>
+</html>

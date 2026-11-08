@@ -1,0 +1,137 @@
+/* ===== 沙畫消消樂 ===== */
+
+/* 選關畫面 */
+.sd-intro-inner{ padding:0 1rem 3rem; }
+.sd-rules{
+  text-align:left;
+  background:var(--paper-dim);
+  border-left:3px solid var(--steel);
+  padding:14px 18px;
+  margin:0 0 28px;
+  border-radius:0 8px 8px 0;
+}
+.sd-rules p{ margin:4px 0; font:500 14px "Noto Sans TC",sans-serif; color:#46403f; line-height:1.7; display:flex; gap:10px; align-items:baseline; }
+.sd-rule-n{
+  flex:0 0 20px; height:20px; border-radius:50%;
+  background:var(--steel); color:var(--paper);
+  font:700 11px "Noto Sans TC",sans-serif;
+  display:inline-flex; align-items:center; justify-content:center;
+  transform:translateY(-1px);
+}
+
+.sd-picker-wrap{ margin-top:2.5rem; }
+.selection-title{ font:700 15px "Noto Sans TC",sans-serif; color:var(--ink); margin-bottom:.35rem; }
+.sd-progress-text{ font:500 13px "Noto Sans TC",sans-serif; color:var(--slate); margin:0 0 .75rem; }
+.sd-levels{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(64px,1fr));
+  gap:8px;
+  padding:10px;
+  background:rgba(112,128,144,.05);
+  border-radius:10px;
+}
+.sd-level{
+  position:relative;
+  aspect-ratio:1/1;
+  padding:0;
+  border:2px solid transparent;
+  border-radius:8px;
+  overflow:hidden;
+  background:#fff;
+  cursor:pointer;
+  transition:transform .15s ease, border-color .15s ease, box-shadow .15s ease;
+}
+.sd-level img{ width:100%; height:100%; object-fit:cover; display:block; filter:saturate(.55) brightness(.92); transition:filter .2s; }
+.sd-level.cleared img{ filter:none; }
+.sd-level:hover{ transform:translateY(-2px); border-color:var(--steel); box-shadow:0 4px 12px rgba(32,30,31,.12); }
+.sd-level:hover img{ filter:none; }
+.sd-level-no{
+  position:absolute; top:4px; left:4px;
+  min-width:20px; height:20px; padding:0 5px;
+  border-radius:10px;
+  background:rgba(32,30,31,.72); color:var(--paper);
+  font:700 11px/20px "Noto Sans TC",sans-serif;
+}
+.sd-level.cleared .sd-level-no{ background:var(--steel); }
+.sd-level-stars{
+  position:absolute; left:0; right:0; bottom:0;
+  padding:8px 0 2px;
+  background:linear-gradient(transparent, rgba(32,30,31,.65));
+  color:#F2D58A;
+  font-size:11px; letter-spacing:1px; line-height:1;
+}
+.sd-level-stars:empty{ display:none; }
+
+/* 遊戲畫面 */
+.sd-game-inner{ max-width:440px; margin:0 auto; padding:0 1rem 3rem; text-align:center; }
+.sd-head{ display:flex; align-items:center; justify-content:space-between; gap:.5rem; margin-bottom:.75rem; }
+.sd-back{
+  background:none; border:none; padding:.4rem 0; cursor:pointer;
+  font:600 14px "Noto Sans TC",sans-serif; color:var(--slate);
+}
+.sd-back:hover{ color:var(--ink); }
+.sd-title{ display:flex; flex-direction:column; align-items:center; line-height:1.3; }
+.sd-level-label{ font:700 1.25rem "Noto Serif TC",serif; color:var(--ink); }
+.sd-diff{ font:600 12px "Noto Sans TC",sans-serif; color:var(--gold); letter-spacing:.04em; }
+.sd-icon-btn{
+  width:36px; height:36px; border-radius:50%;
+  border:1.5px solid rgba(32,30,31,.15); background:#fff;
+  font-size:15px; cursor:pointer; transition:border-color .2s;
+}
+.sd-icon-btn:hover{ border-color:var(--steel); }
+
+.sd-status{
+  display:flex; justify-content:space-between; align-items:center;
+  margin-bottom:.75rem; padding:.45rem .75rem;
+  background:rgba(112,128,144,.08); border-radius:8px;
+  font:600 13px "Noto Sans TC",sans-serif; color:var(--ink);
+}
+.sd-status span:nth-child(2){ color:var(--gold); }
+.sd-status span:nth-child(3){ color:var(--slate); }
+
+.sd-board{
+  position:relative;
+  background:#F6F2EA;
+  border:1.5px solid rgba(32,30,31,.1);
+  border-radius:14px;
+  overflow:hidden;
+  box-shadow:0 6px 24px rgba(32,30,31,.08);
+  line-height:0;
+}
+#sdCanvas{ width:100%; height:auto; aspect-ratio:400/720; display:block; touch-action:manipulation; cursor:pointer; -webkit-tap-highlight-color:transparent; }
+
+.sd-msg{ min-height:22px; margin:.7rem 0 .4rem; font:500 14px "Noto Sans TC",sans-serif; color:var(--steel-deep); }
+.sd-actions{ display:flex; gap:10px; justify-content:center; flex-wrap:wrap; }
+.sd-actions .btn-secondary{ padding:10px 22px; border-radius:6px; border-color:rgba(32,30,31,.35); }
+
+.sd-result{ margin-top:1.25rem; }
+.sd-result .eyebrow{ margin-bottom:6px; }
+.sd-result-title{ font-size:1.5rem; margin-bottom:.25rem; }
+.sd-result-stars{ font-size:34px; letter-spacing:4px; color:#D9D2C3; margin:.25rem 0 .5rem; }
+.sd-result-stars .on{ color:var(--gold); }
+.sd-result .result-detail{ font:500 14px "Noto Sans TC",sans-serif; color:var(--ink); line-height:1.7; margin:0; }
+.sd-result .champion-actions{ margin-top:18px; }
+
+@media (max-width:480px){
+  .sd-levels{ grid-template-columns:repeat(auto-fill,minmax(54px,1fr)); gap:6px; }
+  .sd-status{ font-size:12px; }
+}
+
+/* 倒車詢問視窗 */
+.sd-ask{ position:absolute; left:0; right:0; top:0; height:55%; display:flex; align-items:center; justify-content:center; background:rgba(32,30,31,.32); padding:20px; line-height:1.5; z-index:5; }
+.sd-ask[hidden]{ display:none; }
+.sd-ask-card{ background:var(--paper); border-radius:12px; padding:20px 18px 18px; width:100%; max-width:300px; box-shadow:0 12px 32px rgba(32,30,31,.25); text-align:center; }
+.sd-ask-title{ font:700 1.1rem "Noto Serif TC",serif; color:var(--ink); margin:0 0 6px; }
+.sd-ask-text{ font:500 14px "Noto Sans TC",sans-serif; color:#46403f; margin:0 0 16px; }
+.sd-ask-actions{ display:flex; gap:10px; justify-content:center; }
+.sd-ask-actions button{ flex:1; padding:11px 10px; border-radius:6px; font-size:.9rem; }
+.sd-actions .btn-secondary:disabled{ opacity:.45; cursor:not-allowed; }
+
+/* 動彈不得：選一台車丟回車庫 */
+.sd-stuck-card{ max-width:340px; }
+.sd-stuck-cars{ display:grid; grid-template-columns:repeat(3,1fr); gap:8px; }
+.sd-stuck-car{ display:flex; flex-direction:column; align-items:center; gap:2px; padding:6px 4px 4px; background:#fff; border:1.5px solid rgba(32,30,31,.12); border-radius:8px; cursor:pointer; font:600 12px "Noto Sans TC",sans-serif; color:var(--slate); transition:border-color .15s, transform .15s; }
+.sd-stuck-car:hover{ border-color:#C8372D; transform:translateY(-1px); }
+.sd-stuck-car canvas{ width:66px; height:35px; display:block; }
+.sd-stuck-cancel{ margin-top:12px; width:100%; padding:10px; border-radius:6px; }
+.sd-stuck-cancel[hidden]{ display:none; }
