@@ -54,8 +54,9 @@
         else if (car.p >= LOOP) { car.p -= LOOP; car.laps++; }
       }
       if (out.length) { S.road = S.road.filter(c => !out.includes(c)); if (ev && ev.exit) out.forEach(ev.exit); }
+      S.qwait = S.queue.length ? (S.qwait || 0) + 1 : 0;   // 等待進場的車等了幾步
       if (S.queue.length && Core.entryFree(S)) {
-        const car = S.queue.shift(); car.p = 0; car.dry = 0; S.road.push(car);
+        const car = S.queue.shift(); car.p = 0; car.dry = 0; S.road.push(car); S.qwait = 0;
         if (ev && ev.enter) ev.enter(car);
       }
       let moved = false;
@@ -78,7 +79,8 @@
       return moved;
     },
     // 動彈不得：路上滿 6 台，而且每台都繞了一整圈沒接到沙
-    stuck(S) { return S.road.length > 0 && Core.onRoad(S) >= MAX_ROAD && S.road.every(c => c.dry >= LOOP); },
+    // 有車在等進場時，要等滿一整圈都進不來才算（不然它只是在等入口空出來）
+    stuck(S) { return S.road.length > 0 && Core.onRoad(S) >= MAX_ROAD && S.road.every(c => c.dry >= LOOP) && (!S.queue.length || S.qwait > LOOP / SPEED); },
     exposed(cols, ptr, n) {
       const e = new Int32Array(n);
       for (let x = 0; x < GRID; x++) if (ptr[x] < GRID) e[cols[x][ptr[x]]]++;
@@ -218,7 +220,7 @@
     if (d < 1e-6) return rgb;
     const sat = d / (1 - Math.abs(2 * l - 1));
     let h = mx === r ? ((g - b) / d) % 6 : mx === g ? (b - r) / d + 2 : (r - g) / d + 4; h = (h * 60 + 360) % 360;
-    if (h < 228 || h > 340 || sat < 0.15 || l < 0.08 || l > 0.95) return rgb;
+    if (h < 228 || h > 340 || sat < 0.07 || l < 0.06 || l > 0.96) return rgb;
     const h2 = h < 290 ? 212 : 348;   // 偏藍的紫 → 藍；偏粉的紫 → 玫瑰紅
     const c = (1 - Math.abs(2 * l - 1)) * sat, x = c * (1 - Math.abs((h2 / 60) % 2 - 1)), m = l - c / 2;
     const seg = Math.floor(h2 / 60), rgb1 = [[c, x, 0], [x, c, 0], [0, c, x], [0, x, c], [x, 0, c], [c, 0, x]][seg];
@@ -226,41 +228,99 @@
   }
   const MIN_DE = 0.22;
   const MAX_HUE_SHIFT = 0.7;   // 色相最多偏移約 40 度，保留原圖的感覺
-  function vividPalette(labCenters) {
+  /* ---------- 膚色保護：臉不要變成慘白、灰綠或紙紮人的粉黃粉紅 ---------- */
+  // 像素是不是膚色（常用的 RGB 膚色判斷）
+  function isSkinPx(p) {
+    const r = p[0], g = p[1], b = p[2], mx = Math.max(r, g, b), mn = Math.min(r, g, b);
+    return r > 95 && g > 40 && b > 20 && mx - mn > 15 && r - g > 12 && r > b && g >= b * 0.85 && r < 252;
+  }
+  // 每個顏色群裡有多少比例是膚色
+  function skinShares(px, index, n) {
+    const tot = new Array(n).fill(0), sk = new Array(n).fill(0);
+    for (let i = 0; i < px.length; i++) { tot[index[i]]++; if (isSkinPx(px[i])) sk[index[i]]++; }
+    return tot.map((t, j) => t ? sk[j] / t : 0);
+  }
+  // 自然膚色的範圍（OKLab）：色相 42°～76°（暖杏到米色），彩度 0.03～0.085（不加彩度，避免變成鮮黃、鮮橘的假臉），明度 0.45～0.94（保留原本的明暗）
+  const SKIN = { h0: 42 * Math.PI / 180, h1: 76 * Math.PI / 180, c0: 0.03, c1: 0.085, l0: 0.45, l1: 0.94 };
+  function toSkin(lab) {
+    const L = Math.max(SKIN.l0, Math.min(SKIN.l1, lab[0]));
+    let h = Math.atan2(lab[2], lab[1]), C = Math.hypot(lab[1], lab[2]);
+    if (!(h >= SKIN.h0 && h <= SKIN.h1)) h = Math.abs(Math.atan2(Math.sin(h - SKIN.h0), Math.cos(h - SKIN.h0))) < Math.abs(Math.atan2(Math.sin(h - SKIN.h1), Math.cos(h - SKIN.h1))) ? SKIN.h0 : SKIN.h1;
+    C = Math.max(SKIN.c0, Math.min(SKIN.c1, C));
+    return toLab(lch2rgb(L, C, h));
+  }
+
+  /* 鮮豔化＋拉開顏色：
+     1. 保留原本的明暗與色相、拉高彩度（膚色除外：固定在自然膚色範圍）
+     2. 任兩色在 OKLab 裡的距離小於 MIN_DE，就互相推開（主要靠明暗，其次色相／彩度），
+        膚色幾乎不動、由其他顏色讓開；每一步都拉回螢幕能顯示的範圍 */
+  function vividPalette(labCenters, skin) {
     const n = labCenters.length;
-    const P = labCenters.map(x => {
+    // 膚色群：裡面至少 35% 是膚色像素，而且這個顏色本身是橘杏色系（粉紅、紅色背景不算）
+    const isSkin = labCenters.map((x, i) => {
+      if (!skin || skin[i] < 0.35 || x[0] < 0.45) return false;
+      const hd = Math.atan2(x[2], x[1]) * 180 / Math.PI, c = Math.hypot(x[1], x[2]);
+      return hd >= 35 && hd <= 92 && c >= 0.02 && c <= 0.17;
+    });
+    const P = labCenters.map((x, i) => {
+      if (isSkin[i]) return toSkin(x);
       const c = Math.hypot(x[1], x[2]), h = Math.atan2(x[2], x[1]);
       const c2 = c < 0.03 ? c * 0.6 : Math.min(0.26, Math.max(0.13, c * 2.2));
       return toLab(noPurple(lch2rgb(x[0], c2, h)));
     });
     const H0 = P.map(x => Math.atan2(x[2], x[1]));
     const order = [...Array(n).keys()].sort((a, b) => P[a][0] - P[b][0]);
-    P[order[0]] = toLab(lch2rgb(Math.min(P[order[0]][0], 0.22), Math.hypot(P[order[0]][1], P[order[0]][2]), Math.atan2(P[order[0]][2], P[order[0]][1])));
-    P[order[n - 1]] = toLab(lch2rgb(Math.max(P[order[n - 1]][0], 0.95), Math.hypot(P[order[n - 1]][1], P[order[n - 1]][2]), Math.atan2(P[order[n - 1]][2], P[order[n - 1]][1])));
-    for (let it = 0; it < 600; it++) {
+    if (!isSkin[order[0]]) P[order[0]] = toLab(lch2rgb(Math.min(P[order[0]][0], 0.22), Math.hypot(P[order[0]][1], P[order[0]][2]), Math.atan2(P[order[0]][2], P[order[0]][1])));
+    if (!isSkin[order[n - 1]]) P[order[n - 1]] = toLab(lch2rgb(Math.max(P[order[n - 1]][0], 0.95), Math.hypot(P[order[n - 1]][1], P[order[n - 1]][2]), Math.atan2(P[order[n - 1]][2], P[order[n - 1]][1])));
+    const wt = isSkin.map(s => s ? 0.4 : 1);   // 膚色只在自然膚色範圍內小幅移動，主要由其他顏色讓開
+    const S0 = P.map(x => x.slice());          // 起點：每個顏色最多只能離開起點 MAX_MOVE，免得被推成完全不同的顏色
+    const MAX_MOVE = 0.16;
+    const leash = i => {
+      const d = Math.hypot(P[i][0] - S0[i][0], P[i][1] - S0[i][1], P[i][2] - S0[i][2]);
+      if (d > MAX_MOVE) for (let q = 0; q < 3; q++) P[i][q] = S0[i][q] + (P[i][q] - S0[i][q]) * MAX_MOVE / d;
+    };
+    for (let it = 0; it < 1500; it++) {
       let worst = Infinity;
       for (let i = 0; i < n; i++) for (let j = i + 1; j < n; j++) {
         const dL = P[j][0] - P[i][0], da = P[j][1] - P[i][1], db = P[j][2] - P[i][2];
         const d = Math.hypot(dL, da, db);
         worst = Math.min(worst, d);
         if (d >= MIN_DE) continue;
-        // 推開的方向：明暗加權 1.6 倍（暗色、淺色主要靠明暗拉開）；兩色幾乎一樣時直接用明暗
+        // 推開的方向：明暗加權（暗色、淺色主要靠明暗拉開）；兩色幾乎一樣時直接用明暗
         let v = d < 1e-4 ? [1, 0, 0] : [dL * 2.2, da, db];
         if (Math.abs(v[0]) < 1e-4 && d >= 1e-4) v[0] = (P[i][0] < 0.5 ? 1 : -1) * 0.02;
         // 兩色都很亮或都很暗時，螢幕能顯示的彩度很小，往色相方向推不開 → 改以明暗為主
         const tight = (P[i][0] > 0.82 && P[j][0] > 0.82) || (P[i][0] < 0.28 && P[j][0] < 0.28);
         if (tight) v[0] = (dL >= 0 ? 1 : -1) * Math.max(Math.abs(v[0]), 2 * Math.hypot(v[1], v[2]), 0.02);
-        const len = Math.hypot(v[0], v[1], v[2]), k = (MIN_DE - d) * 0.3 / len;
-        for (let q = 0; q < 3; q++) { P[i][q] -= v[q] * k; P[j][q] += v[q] * k; }
+        const len = Math.hypot(v[0], v[1], v[2]), k = (MIN_DE - d) * 0.6 / len;
+        const ki = k * wt[i] / (wt[i] + wt[j]), kj = k * wt[j] / (wt[i] + wt[j]);
+        for (let q = 0; q < 3; q++) { P[i][q] -= v[q] * ki; P[j][q] += v[q] * kj; }
       }
       if (worst >= MIN_DE) break;
-      // 拉回能顯示的範圍
+      // 拉回能顯示的範圍（膚色拉回自然膚色範圍）
       for (let i = 0; i < n; i++) {
+        leash(i);
+        if (isSkin[i]) { P[i] = toSkin(P[i]); continue; }
         const L = Math.max(0.08, Math.min(0.98, P[i][0])), C = Math.hypot(P[i][1], P[i][2]);
         let h = Math.atan2(P[i][2], P[i][1]);
         if (C > 0.04) { const dh = Math.atan2(Math.sin(h - H0[i]), Math.cos(h - H0[i])); if (Math.abs(dh) > MAX_HUE_SHIFT) h = H0[i] + Math.sign(dh) * MAX_HUE_SHIFT; }
         P[i] = toLab(noPurple(lch2rgb(L, Math.min(C, 0.3), h)));
       }
+    }
+    // 最後補強：兩個都很淺、還是太像的顏色（例如淡藍和米白），把比較有顏色的那個再調得更有顏色一點
+    for (let it = 0; it < 30; it++) {
+      let fixed = false;
+      for (let i = 0; i < n; i++) for (let j = i + 1; j < n; j++) {
+        if (isSkin[i] || isSkin[j] || P[i][0] < 0.8 || P[j][0] < 0.8) continue;
+        if (Math.hypot(P[i][0] - P[j][0], P[i][1] - P[j][1], P[i][2] - P[j][2]) >= 0.15) continue;
+        const k = Math.hypot(P[i][1], P[i][2]) >= Math.hypot(P[j][1], P[j][2]) ? i : j;
+        const C = Math.hypot(P[k][1], P[k][2]), h = Math.atan2(P[k][2], P[k][1]);
+        if (C < 0.012) continue;   // 幾乎沒有顏色的就不硬加顏色
+        P[k] = toLab(noPurple(lch2rgb(Math.max(0.8, P[k][0] - 0.01), Math.min(0.16, C * 1.2), h)));
+        leash(k);
+        fixed = true;
+      }
+      if (!fixed) break;
     }
     return P.map(x => noPurple(fromLab(x).map(clamp255)));
   }
@@ -274,7 +334,7 @@
     for (let k = 0; k < d.length; k += 4) px.push([d[k], d[k + 1], d[k + 2]]);
     const km = kmeansLab(px, nColors), grid = [];
     for (let y = 0; y < GRID; y++) { const row = new Int8Array(GRID); for (let X = 0; X < GRID; X++) row[X] = km.index[y * GRID + X]; grid.push(row); }
-    const pal = vividPalette(km.centers);
+    const pal = vividPalette(km.centers, skinShares(px, km.index, nColors));
     const cols = []; for (let X = 0; X < GRID; X++) { const c = new Int8Array(GRID); for (let y = 0; y < GRID; y++) c[y] = grid[GRID - 1 - y][X]; cols.push(c); }
     const cap = Math.ceil(GRID * GRID / nCars);
     const q = Core.buildQueue(cols, pal.length, cap, seed + 1);
