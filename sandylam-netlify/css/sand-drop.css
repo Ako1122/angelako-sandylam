@@ -98,7 +98,7 @@
   box-shadow:0 6px 24px rgba(32,30,31,.08);
   line-height:0;
 }
-#sdCanvas{ width:100%; height:auto; aspect-ratio:400/720; display:block; touch-action:manipulation; cursor:pointer; -webkit-tap-highlight-color:transparent; }
+#sdCanvas{ width:100%; height:auto; aspect-ratio:400/748; display:block; touch-action:manipulation; cursor:pointer; -webkit-tap-highlight-color:transparent; }
 
 .sd-msg{ min-height:22px; margin:.7rem 0 .4rem; font:500 14px "Noto Sans TC",sans-serif; color:var(--steel-deep); }
 .sd-actions{ display:flex; gap:10px; justify-content:center; flex-wrap:wrap; }

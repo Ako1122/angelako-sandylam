@@ -1,31 +1,32 @@
-/* ===== 沙畫消消樂 ===== */
+/* ===== 沙畫消消樂（纜車珠子版） ===== */
 (function () {
   "use strict";
 
   /* ---------- 關卡圖片（相對於 sand-drop.html 的路徑） ---------- */
   const IMAGES = ["images/covers/01.jpg", "images/covers/02.jpg", "images/covers/03.jpg", "images/covers/04.jpg", "images/covers/05.jpg", "images/covers/06.jpg", "images/covers/07.jpg", "images/covers/08.jpg", "images/covers/09.jpg", "images/covers/10.jpg", "images/covers/11.jpg", "images/covers/12.jpg", "images/covers/13.jpg", "images/covers/14.jpg", "images/covers/15.jpg", "images/covers/16.jpg", "images/covers/17.jpg", "images/covers/18.jpg", "images/covers/19.jpg", "images/covers/20.jpg", "images/covers/21.jpg", "images/covers/22.jpg", "images/covers/23.jpg", "images/covers/24.jpg", "images/covers/25.jpg", "images/covers/26.jpg", "images/covers/27.jpg", "images/covers/28.jpg", "images/covers/29.jpg", "images/covers/30.jpg", "images/covers/31.jpg", "images/covers/32.jpg", "images/covers/33.webp", "images/covers/34.jpg", "images/covers/35.jpg", "images/covers/36.jpg", "images/covers/37.webp", "images/covers/38.jpg", "images/covers/39.jpg", "images/covers/40.jpg", "images/covers/41.jpg", "images/covers/42.jpg", "images/covers/43.jpg", "images/covers/44.jpg", "images/covers/45.jpg", "images/covers/46.jpg", "images/covers/47.jpg", "images/covers/48.jpg", "images/covers/49.jpg", "images/covers/50.jpg", "images/covers/51.jpg", "images/covers/52.jpg", "images/covers/53.webp", "images/covers/54.jpg", "images/covers/55.jpg", "images/covers/56.jpg", "images/covers/57.jpg", "images/covers/58.webp", "images/covers/59.jpg", "images/covers/60.jpg", "images/covers/61.jpg", "images/covers/62.jpg", "images/covers/63.jpg", "images/covers/64.jpg", "images/covers/65.jpg", "images/covers/66.jpg", "images/covers/67.jpg", "images/covers/68.jpg", "images/covers/69.jpg", "images/covers/70.webp", "images/covers/71.jpg", "images/covers/72.jpg", "images/covers/73.webp", "images/covers/74.jpg", "images/covers/75.jpg", "images/covers/76.jpg", "images/covers/77.webp", "images/covers/78.jpg"];
 
-  const GRID = 160;          // 沙畫解析度：160×160 粒
+  const GRID = 60;           // 珠子解析度：60×60 顆
   const W = 400;             // 畫面寬度
-  const CELL = W / GRID;     // 一粒沙的寬度（px）
+  const CELL = W / GRID;     // 一顆珠子的寬度（px）
   const LANES = 3;           // 三排等候車道（車庫）
   const MAX_ROAD = 6;        // 路上最多同時幾台車
   const TICK_HZ = 60;        // 遊戲邏輯每秒跑 60 步（固定步長，跟螢幕更新率無關）
-  const SPEED = W / (4 * TICK_HZ);   // 車速：約 4 秒從左開到右
-  const FAST_SPEED = W / (1 * TICK_HZ);   // 車庫的車全部派出後：約 1 秒從左開到右
+  const SPEED = W * 1.5 / (4 * TICK_HZ);   // 車速：原本 4 秒開過畫面，加快 50% → 約 2.7 秒
+  const FAST_SPEED = W * 1.5 / (1 * TICK_HZ);   // 車庫的車全部派出後：再加快 4 倍，約 0.7 秒開過畫面
   const ENTER_X = -40;       // 車子從畫面左邊外面進場
   const EXIT_X = W + 40;     // 裝滿的車開到右邊外面就離場
   const LOOP = 600;          // 繞一圈的長度：畫面 400 + 左右兩邊各 40 + 回到左邊的路 120
   const GAP = 56;            // 車與車之間的距離（路上最多 5 台時，入口一定等得到 2×GAP 的空位：600÷5 = 120 > 112）
   const INTAKE = 12;         // 車子正上方左右各 12px 範圍內的沙都接得到
-  const TAKE_PER_TICK = 6;   // 每台車每步最多吸幾粒
+  const TAKE_PER_TICK = 1;   // 每台車每次最多吸幾顆
+  const TAKE_EVERY = 2;      // 每 2 步吸一次（每秒最多 30 顆）
   const MAX_REVERSE = 5;     // 每關可以丟回車庫的次數
   const MAX_HINT = 3;        // 每關可以用提示的次數
 
   function difficulty(i) {
     const t = i / (IMAGES.length - 1);
     return {
-      colors: t < 1 / 3 ? 4 : t < 2 / 3 ? 5 : 6,
+      colors: t < 2 / 3 ? 6 : 7,   // 珠子版顏色多一點，圖案才認得出來（路上最多 6 台車，顏色不能太多）
       cars: t < 1 / 3 ? 40 : t < 2 / 3 ? 60 : 80,
       stars: 1 + Math.floor(t * 4.99)
     };
@@ -60,7 +61,7 @@
         if (ev && ev.enter) ev.enter(car);
       }
       let moved = false;
-      const order = S.road.slice().sort((a, b) => b.p - a.p);   // 前面的車先吸
+      const order = S.t % TAKE_EVERY === 0 ? S.road.slice().sort((a, b) => b.p - a.p) : [];   // 前面的車先吸
       for (const car of order) {
         if (car.claimed >= car.cap) continue;
         const x = Core.carX(car);
@@ -115,7 +116,7 @@
     },
     rng(seed) { let s = seed >>> 0 || 1; return () => (s = (s * 1664525 + 1013904223) >>> 0) / 4294967296; },
     /* 驗證：用不同手速的玩家照順序重玩（單位：步，60 步 = 1 秒） */
-    PLAYERS: [{ m: 0 }, { m: 10 }, { m: 20 }, { m: 30 }, { m: 45 }, { m: 60 }, { m: 90 }, { m: 120 }, { m: 160 }, { m: 200 }],
+    PLAYERS: [0, 5, 10, 15, 20, 25, 30, 35, 40, 40, 45, 50, 55, 60, 60, 70, 80, 100, 140, 200].map(m => ({ m })),
     validate(cols, nColor, q, seed, need) {
       let pass = 0, fail = 0, steps = 0;
       for (let k = 0; k < Core.PLAYERS.length; k++) {
@@ -132,7 +133,7 @@
       cols.forEach(col => col.forEach(v => unres[v]++));
       let best = null; const t0 = Date.now();
       for (let k = 0; k < (maxTry || 120); k++) {
-        if (best && Date.now() - t0 > 1100) break;   // 最多花約 1 秒挑最穩的順序
+        if (best && Date.now() - t0 > 1200) break;   // 最多花約 1.2 秒挑最穩的順序
         const rnd = Core.rng(seed * 977 + k * 131 + 1);
         // 挑色原則：路上顏色越分散越好；優先派「底部露出最多、路上還沒有」的顏色
         const choose = (exp, S, un) => {
@@ -324,18 +325,93 @@
     }
     return P.map(x => noPurple(fromLab(x).map(clamp255)));
   }
+  /* ---------- 卡通色盤（不含紫色） ---------- */
+  const POSTER = [
+    ["#26272C", "黑"], ["#F7F6F0", "白"], ["#F9E6B8", "米"], ["#F8C81F", "黃"], ["#F59A2E", "橘"], ["#E5484D", "紅"],
+    ["#F59CB0", "粉"], ["#8C4B2C", "棕"], ["#5A3322", "深棕"], ["#D4A06A", "卡其"], ["#2F6FDB", "藍"], ["#7CC8F2", "天藍"],
+    ["#22406F", "深藍"], ["#1FA39A", "青綠"], ["#5CBC48", "綠"], ["#2E7B4B", "深綠"], ["#A3A8AF", "灰"], ["#5F6770", "深灰"],
+    ["#F8CBB0", "淺膚", 1], ["#F2AC88", "膚", 1], ["#D9895F", "深膚", 1]
+  ].map(([h, name, skin]) => ({ rgb: [1, 3, 5].map(k => parseInt(h.substr(k, 2), 16)), name, skin: !!skin }));
+  POSTER.forEach(p => p.lab = toLab(p.rgb));
+  // 匈牙利演算法：n 個顏色群配到 m 個色盤顏色（n ≤ m），總差距最小、每個色盤顏色只用一次
+  function assign(cost) {
+    const n = cost.length, m = cost[0].length, INF = 1e18;
+    const u = new Array(n + 1).fill(0), v = new Array(m + 1).fill(0), p = new Array(m + 1).fill(0), way = new Array(m + 1).fill(0);
+    for (let i = 1; i <= n; i++) {
+      p[0] = i; let j0 = 0; const minv = new Array(m + 1).fill(INF), used = new Array(m + 1).fill(false);
+      do {
+        used[j0] = true; const i0 = p[j0]; let delta = INF, j1 = 0;
+        for (let j = 1; j <= m; j++) if (!used[j]) {
+          const cur = cost[i0 - 1][j - 1] - u[i0] - v[j];
+          if (cur < minv[j]) { minv[j] = cur; way[j] = j0; }
+          if (minv[j] < delta) { delta = minv[j]; j1 = j; }
+        }
+        for (let j = 0; j <= m; j++) if (used[j]) { u[p[j]] += delta; v[j] -= delta; } else minv[j] -= delta;
+        j0 = j1;
+      } while (p[j0] !== 0);
+      do { const j1 = way[j0]; p[j0] = p[j1]; j0 = j1; } while (j0);
+    }
+    const res = new Array(n); for (let j = 1; j <= m; j++) if (p[j]) res[p[j] - 1] = j - 1;
+    return res;
+  }
+  function posterPalette(labCenters, skin) {
+    const isSkin = labCenters.map((x, i) => {
+      if (!skin || skin[i] < 0.35 || x[0] < 0.45) return false;
+      const hd = Math.atan2(x[2], x[1]) * 180 / Math.PI, c = Math.hypot(x[1], x[2]);
+      return hd >= 35 && hd <= 92 && c >= 0.02 && c <= 0.17;
+    });
+    const cost = labCenters.map((x, i) => POSTER.map(p => {
+      const dL = x[0] - p.lab[0], da = x[1] - p.lab[1], db = x[2] - p.lab[2];
+      let c = dL * dL + 3 * (da * da + db * db);
+      if (isSkin[i] && !p.skin) c += 1;        // 臉一定配到膚色
+      if (!isSkin[i] && p.skin) c += 0.02;     // 不是臉的盡量不用膚色
+      return c;
+    }));
+    return assign(cost).map(j => POSTER[j].rgb.slice());
+  }
+  // 拼豆感：把零星的雜點換成周圍最多的顏色
+  function cleanSpeckles(index, n) {
+    const out = index.slice();
+    for (let y = 0; y < GRID; y++) for (let x = 0; x < GRID; x++) {
+      const cnt = new Array(n).fill(0);
+      for (let dy = -1; dy <= 1; dy++) for (let dx = -1; dx <= 1; dx++) {
+        const yy = y + dy, xx = x + dx; if (yy < 0 || xx < 0 || yy >= GRID || xx >= GRID) continue;
+        cnt[index[yy * GRID + xx]]++;
+      }
+      const me = index[y * GRID + x];
+      let best = me; for (let k = 0; k < n; k++) if (cnt[k] > cnt[best]) best = k;
+      if (cnt[me] <= 2 && cnt[best] >= 5) out[y * GRID + x] = best;
+    }
+    return out;
+  }
   function loadImage(src) { return new Promise((res, rej) => { const m = new Image(); m.onload = () => res(m); m.onerror = rej; m.src = src; }); }
+  // 找不到夠穩的派車順序時（20 種派車節奏裡有 2 種以上過不了），少用一種顏色重新產生，確保每關都過得了
   function makeLevel(im, nColors, nCars, seed) {
-    const t = document.createElement("canvas"); t.width = t.height = GRID;
+    let L = makeLevelOnce(im, nColors, nCars, seed);
+    while ((!L.q || L.q.pass < L.q.total - 1) && nColors > 5) { nColors--; L = makeLevelOnce(im, nColors, nCars, seed); }
+    return L;
+  }
+  function makeLevelOnce(im, nColors, nCars, seed) {
+    // 先縮成 4 倍大，再每 4×4 取平均（顏色比直接縮小乾淨）
+    const BIG = GRID * 4, t = document.createElement("canvas"); t.width = t.height = BIG;
     const x = t.getContext("2d", { willReadFrequently: true });
     const s = Math.min(im.width, im.height);
-    x.drawImage(im, (im.width - s) / 2, (im.height - s) / 2, s, s, 0, 0, GRID, GRID);
-    const d = x.getImageData(0, 0, GRID, GRID).data, px = [];
-    for (let k = 0; k < d.length; k += 4) px.push([d[k], d[k + 1], d[k + 2]]);
-    const km = kmeansLab(px, nColors), grid = [];
-    for (let y = 0; y < GRID; y++) { const row = new Int8Array(GRID); for (let X = 0; X < GRID; X++) row[X] = km.index[y * GRID + X]; grid.push(row); }
-    const pal = vividPalette(km.centers, skinShares(px, km.index, nColors));
-    const cols = []; for (let X = 0; X < GRID; X++) { const c = new Int8Array(GRID); for (let y = 0; y < GRID; y++) c[y] = grid[GRID - 1 - y][X]; cols.push(c); }
+    x.imageSmoothingQuality = "high";
+    x.drawImage(im, (im.width - s) / 2, (im.height - s) / 2, s, s, 0, 0, BIG, BIG);
+    const d = x.getImageData(0, 0, BIG, BIG).data, px = [];
+    for (let Y = 0; Y < GRID; Y++) for (let X = 0; X < GRID; X++) {
+      let r = 0, gg = 0, b = 0;
+      for (let dy = 0; dy < 4; dy++) for (let dx = 0; dx < 4; dx++) { const k = ((Y * 4 + dy) * BIG + X * 4 + dx) * 4; r += d[k]; gg += d[k + 1]; b += d[k + 2]; }
+      // 稍微加強對比與彩度，五官和輪廓比較清楚
+      r /= 16; gg /= 16; b /= 16;
+      const L = 0.299 * r + 0.587 * gg + 0.114 * b;
+      px.push([r, gg, b].map(v => Math.max(0, Math.min(255, (L + (v - L) * 1.2 - 128) * 1.12 + 128))));
+    }
+    const km = kmeansLab(px, nColors), idx = cleanSpeckles(km.index, nColors), grid = [];
+    for (let y = 0; y < GRID; y++) { const row = new Int8Array(GRID); for (let X = 0; X < GRID; X++) row[X] = idx[y * GRID + X]; grid.push(row); }
+    const pal = posterPalette(km.centers, skinShares(px, km.index, nColors));
+    // 纜車從上方吸：每一欄由上往下排，ptr = 已經被吸走幾顆
+    const cols = []; for (let X = 0; X < GRID; X++) { const c = new Int8Array(GRID); for (let y = 0; y < GRID; y++) c[y] = grid[y][X]; cols.push(c); }
     const cap = Math.ceil(GRID * GRID / nCars);
     const q = Core.buildQueue(cols, pal.length, cap, seed + 1);
     return { pal, grid, cols, cap, q };
@@ -377,10 +453,11 @@
   /* ---------- 畫面元素 ---------- */
   const scrIntro = $("sd-intro"), scrGame = $("sd-game");
   const cv = $("sdCanvas"); let g = cv.getContext("2d");
-  const H = 720, DPR = Math.min(2, window.devicePixelRatio || 1);
+  const H = 748, DPR = Math.min(2, window.devicePixelRatio || 1);
   cv.width = W * DPR; cv.height = H * DPR;
-  const PIC_H = 400, ROAD_Y = 404, ROAD_H = 56, CAR_Y = ROAD_Y + 44, CAR_SC = 0.55;
-  const LANE_TOP = 494, LANE_Y = LANE_TOP + 64, LANE_GAP = 40;
+  const CABLE_Y = 14, CAR_SC = 0.76, CAR_Y = CABLE_Y + 72 * CAR_SC;   // 纜線位置；CAR_Y = 纜車車廂底部
+  const PIC_Y = Math.round(CAR_Y) + 18, PIC_H = 400;                    // 沙畫跟纜車之間留 18px
+  const LANE_TOP = PIC_Y + PIC_H + 36, LANE_Y = LANE_TOP + 62, LANE_GAP = 44, GARAGE_SC = 0.66;
   const off = document.createElement("canvas"); off.width = off.height = GRID;
   const og = off.getContext("2d"), oimg = og.createImageData(GRID, GRID);
 
@@ -431,6 +508,7 @@
     catch (e) { setMsg("無法讀取圖片像素（請用本機伺服器開啟）"); return; }
     if (level !== i) return;
     if (!L.q) { setMsg("這關產生失敗，請按「重新開始」"); return; }
+    $("sdDiff").textContent = "★".repeat(df.stars) + "☆".repeat(5 - df.stars) + "　" + L.pal.length + " 色";
     img = im; pal = L.pal; reset();
   }
   function reset() {
@@ -443,7 +521,7 @@
     nextK = 0; onTrack = true; REVERSE = 0; HINTS = 0; acc = 0; updateHintBtn(); updateReverseBtn(); hideStuck();
     NCARS = L.q.seq.length; PAR = Math.round((L.q.steps || NCARS * 150) / TICK_HZ * 1.4) + 15;
     $("sdResult").hidden = true;
-    setMsg("點車庫最前面的車派上路，它經過時會吸走上方同顏色的沙！");
+    setMsg("點纜車站最前面的纜車送上纜線，它經過時會吸走正下方最上面一顆同色的珠子！");
   }
   function setMsg(t) { $("sdMsg").textContent = t; }
 
@@ -454,8 +532,8 @@
     const ln = lanes[l];
     if (!ln || !ln.length) return false;
     if (!T0) T0 = performance.now();
-    if (k > 0) { setMsg("🚧 前面的車還沒開走，後面的車出不去！"); S_.err(); MISS++; flash.push({ l, t: 0 }); return false; }
-    if (Core.onRoad(S) >= MAX_ROAD) { setMsg("路上已經有 6 台車了，等有車裝滿離開再派"); S_.err(); return false; }
+    if (k > 0) { setMsg("🚧 前面的纜車還沒出發，後面的出不去！"); S_.err(); MISS++; flash.push({ l, t: 0 }); return false; }
+    if (Core.onRoad(S) >= MAX_ROAD) { setMsg("纜線上已經有 6 台纜車了，等有纜車裝滿離開再派"); S_.err(); return false; }
     const car = ln.shift();
     if (onTrack && car.k === nextK) nextK++; else onTrack = false;
     car.p = 0; car.dry = 0; S.queue.push(car); S_.tap(); setMsg(""); hintUntil = 0;
@@ -470,23 +548,23 @@
     parts = parts.filter(p => p.car !== car);
     REVERSE++; onTrack = false; S_.tap(); hideStuck(); updateReverseBtn();
     state = "play"; if (T0) T0 += performance.now() - pauseAt;
-    setMsg(`🚗 丟回車庫了（倒車剩 ${MAX_REVERSE - REVERSE} 次）`);
+    setMsg(`🚡 送回纜車站了（送回剩 ${MAX_REVERSE - REVERSE} 次）`);
     return true;
   }
   // manual = 玩家自己按「丟回車庫」；否則是動彈不得時自動跳出
   function showStuck(manual) {
     state = manual ? "choose" : "stuck"; pauseAt = performance.now(); if (!manual) S_.err();
-    $("sdStuckTitle").textContent = manual ? "選一台丟回車庫" : "動彈不得了！";
+    $("sdStuckTitle").textContent = manual ? "選一台送回纜車站" : "動彈不得了！";
     $("sdStuckText").textContent = manual
-      ? `丟回去的車會回到原本那排車庫的最後面（倒車剩 ${MAX_REVERSE - REVERSE} 次）`
-      : `路上 6 台車都繞了一整圈，一粒沙都接不到。選一台丟回車庫（倒車剩 ${MAX_REVERSE - REVERSE} 次）`;
+      ? `送回去的纜車會回到原本那排的最後面（送回剩 ${MAX_REVERSE - REVERSE} 次）`
+      : `纜線上 6 台纜車都繞了一整圈，一顆珠子都吸不到。選一台送回纜車站（送回剩 ${MAX_REVERSE - REVERSE} 次）`;
     $("sdStuckCancel").hidden = !manual;
     const wrap = $("sdStuckCars"); wrap.innerHTML = "";
     S.road.slice().sort((a, b) => b.p - a.p).concat(S.queue).filter(c => c.claimed < c.cap).forEach(car => {
       const b = document.createElement("button"); b.type = "button"; b.className = "sd-stuck-car";
       const c = document.createElement("canvas"); c.width = 132; c.height = 70; b.appendChild(c);
       const t = document.createElement("span"); t.textContent = Math.round(100 * car.claimed / car.cap) + "%"; b.appendChild(t);
-      const cg = c.getContext("2d"); const keep = g; g = cg; drawCar(66, 64, car.c, car.claimed / car.cap, 1.2, { flip: true }); g = keep;
+      const cg = c.getContext("2d"); const keep = g; g = cg; drawCar(66, 68, car.c, car.claimed / car.cap, 0.92, { noGrip: true }); g = keep;
       b.onclick = () => reverseCar(car);
       wrap.appendChild(b);
     });
@@ -495,12 +573,12 @@
   function hideStuck() { const el = $("sdStuck"); if (el) el.hidden = true; }
   function updateReverseBtn() {
     const b = $("sdReverseBtn"), n = MAX_REVERSE - REVERSE;
-    b.textContent = n > 0 ? `🚗 丟回車庫（剩 ${n} 次）` : "🚗 倒車次數已用完";
+    b.textContent = n > 0 ? `🚡 送回纜車站（剩 ${n} 次）` : "🚡 送回次數已用完";
     b.disabled = n <= 0;
   }
   $("sdReverseBtn").onclick = () => {
     if (state !== "play" || REVERSE >= MAX_REVERSE) return;
-    if (!S.road.concat(S.queue).some(c => c.claimed < c.cap)) { setMsg("路上沒有可以丟回車庫的車"); return; }
+    if (!S.road.concat(S.queue).some(c => c.claimed < c.cap)) { setMsg("纜線上沒有可以送回去的纜車"); return; }
     showStuck(true);
   };
   $("sdStuckCancel").onclick = () => {
@@ -534,8 +612,8 @@
     if (state !== "play" || HINTS >= MAX_HINT) return;
     HINTS++; updateHintBtn();
     hint = suggest(); hintUntil = performance.now() + 2800;
-    if (hint.lane != null) setMsg(hint.dig ? "💡 前面的車都吸不到沙，先派發亮那排，讓後面的車往前" : "💡 派發亮那排最前面的車");
-    else setMsg("💡 路上的車正在吸沙，等有車裝滿離開再派");
+    if (hint.lane != null) setMsg(hint.dig ? "💡 前面的纜車都吸不到珠子，先派發亮那排，讓後面的往前" : "💡 派發亮那排最前面的纜車");
+    else setMsg("💡 纜車正在吸珠子，等有纜車裝滿離開再派");
   };
   cv.addEventListener("click", e => {
     if (state !== "play") return;
@@ -554,18 +632,17 @@
   function gravity() {
     for (let y = GRID - 2; y >= 0; y--) { const a = grid[y], b = grid[y + 1]; for (let x = 0; x < GRID; x++) if (a[x] >= 0 && b[x] < 0) { b[x] = a[x]; a[x] = -1; } }
   }
-  function removeBottom(x) { for (let y = GRID - 1; y >= 0; y--) if (grid[y][x] >= 0) { grid[y][x] = -1; return y; } return 0; }
+  function removeTop(x) { for (let y = 0; y < GRID; y++) if (grid[y][x] >= 0) { grid[y][x] = -1; return y; } return 0; }
   const EV = {
     take: (car, col) => {
-      const y = removeBottom(col);
+      const y = removeTop(col);
       car.pend++;
-      parts.push({ x: col * CELL + CELL / 2, y: y * CELL, car, c: car.c, t: 0 });
+      parts.push({ x: col * CELL + CELL / 2, y: PIC_Y + y * CELL + CELL / 2, car, c: car.c, t: 0 });
     },
     full: () => S_.full(),
     exit: car => { car.got = car.claimed; car.pend = 0; }
   };
   function tick() {
-    if (S.t % 2 === 0) gravity();
     S.fast = lanes.every(l => !l.length) && !S.queue.length;   // 車庫空了就加速
     Core.tick(S, EV);
     if (S.left === 0) return;
@@ -598,8 +675,8 @@
     $("sdResultStars").innerHTML = ok ? '<span class="on">' + "★".repeat(r) + "</span>" + "☆".repeat(3 - r) : "";
     $("sdResultStars").hidden = !ok;
     $("sdResultDetail").textContent = ok
-      ? `用時 ${fmt(ELAPSED)}（標準 ${fmt(PAR)}）・失誤 ${MISS} 次` + (REVERSE ? `・倒車 ${REVERSE} 次` : "")
-      : "倒車次數用完，路上的車又都吸不到沙了。派車前先看看沙畫最底下露出哪些顏色！";
+      ? `用時 ${fmt(ELAPSED)}（標準 ${fmt(PAR)}）・失誤 ${MISS} 次` + (REVERSE ? `・送回 ${REVERSE} 次` : "")
+      : "送回次數用完，纜線上的纜車又都吸不到珠子了。派纜車前先看看圖畫最上面露出哪些顏色！";
     $("sdNextBtn").hidden = !ok;
     $("sdRetryBtn").textContent = ok ? "再玩一次" : "重新開始";
     setMsg(ok ? "" : "😢 動彈不得");
@@ -611,82 +688,114 @@
   const rgb = p => `rgb(${p[0]},${p[1]},${p[2]})`;
   function rr(x, y, w, h, r) { g.beginPath(); g.moveTo(x + r, y); g.arcTo(x + w, y, x + w, y + h, r); g.arcTo(x + w, y + h, x, y + h, r); g.arcTo(x, y + h, x, y, r); g.arcTo(x, y, x + w, y, r); g.closePath(); }
 
-  /* 側面金龜車（原圖面向左，opt.flip 時面向右）。fill：0~1，車身由下往上從淡色變成沙子的顏色。
-     (x, yb) = 車子底部中心；sc = 縮放（原始尺寸 100×50） */
+  /* 纜車（正面）：滑輪夾壓在纜線上，吊臂往下接圓弧頂蓋和車廂，正面一整片環景窗。
+     fill：0~1，車廂由下往上從淡色變成珠子的顏色。(x, yb) = 車廂底部中心；sc = 縮放（原始尺寸 60×72，y=0 是纜線） */
   function drawCar(x, yb, c, fill, sc, opt) {
     const P = pal[c];
-  opt=opt||{};
-    const lum=0.299*P[0]+0.587*P[1]+0.114*P[2];
-  const base=rgb(P), pale=rgb(mix(P,255,.6));
-  const fenderBase=rgb(mix(P,0,.08)), fenderPale=rgb(mix(mix(P,255,.6),0,.06));
-  const line=lum<55?'#1b191a':rgb(mix(P,0,.45));
-  const CHROME='#D9DDE0', CHROME_D='#9EA6AC', TIRE='#2A2627', CREAM='#FBF3E2';
-  g.save(); g.translate(x - 50 * sc, yb - 50 * sc); g.scale(sc, sc);
-  if (opt.flip) { g.translate(100, 0); g.scale(-1, 1); }   // 車頭朝右
-  if(opt.alpha!=null) g.globalAlpha=opt.alpha;
-  if(opt.bounce){const b=Math.sin(opt.bounce*Math.PI)*2.5; g.translate(0,-b);}
-  g.lineJoin='round'; g.lineCap='round';
-  // 影子
-  g.fillStyle='rgba(32,30,31,.14)'; g.beginPath(); g.ellipse(50,50.2,46,2.6,0,0,7); g.fill();
-  const shell=()=>{g.beginPath();
-    g.moveTo(9,38); g.bezierCurveTo(5,36,5,29,13,27);       // 車頭
-    g.bezierCurveTo(19,25.5,25,24,30,22.5);                 // 引擎蓋（前行李廂）
-    g.bezierCurveTo(34,11,43,5.5,55,5.5);                    // 擋風玻璃
-    g.bezierCurveTo(70,5.5,83,12,90,24);                     // 圓頂車頂
-    g.bezierCurveTo(94,30,95,35,92,38);                      // 車尾
-    g.closePath();};
-  const fender=(cx,a,b)=>{g.beginPath();
-    g.moveTo(cx-a,40.5); g.bezierCurveTo(cx-a,30,cx-9,25,cx,25); g.bezierCurveTo(cx+9,25,cx+b,30,cx+b,40.5);
-    g.lineTo(cx+11,40.5); g.arc(cx,41,11,0,Math.PI,true); g.closePath();};
-  const fF=()=>fender(22,16,15), fR=()=>fender(78,15,17);
-  const paint=(path,pl,bs)=>{path(); g.fillStyle=pl; g.fill();
-    if(fill>0){g.save(); path(); g.clip(); g.fillStyle=bs; g.fillRect(0,41-37*Math.min(1,fill),100,40); g.restore();}
-    g.lineWidth=1.5; g.strokeStyle=line; path(); g.stroke();};
-  // 車身
-  paint(shell,pale,base);
-  // 車窗
-  const win=()=>{g.beginPath(); g.moveTo(35,21.5); g.bezierCurveTo(38,13,45,9.3,55,9.3); g.bezierCurveTo(66,9.3,76,13.5,82.5,21.5); g.closePath();};
-  win(); g.fillStyle='#E6EDF0'; g.fill();
-  g.save(); win(); g.clip();
-  g.fillStyle='rgba(255,255,255,.75)'; g.beginPath(); g.moveTo(44,22); g.lineTo(50,8); g.lineTo(54,8); g.lineTo(48,22); g.closePath(); g.fill();
-  g.fillStyle='rgba(112,128,144,.18)'; g.fillRect(30,17,60,6);
-  g.restore();
-  g.lineWidth=1.3; g.strokeStyle=line; win(); g.stroke();
-  // B 柱
-  g.strokeStyle=line; g.lineWidth=2.4; g.beginPath(); g.moveTo(61,9.6); g.lineTo(61.5,21.5); g.stroke();
-  // 車門線、門把
-  g.strokeStyle='rgba(0,0,0,.22)'; g.lineWidth=1; g.beginPath(); g.moveTo(36,23); g.bezierCurveTo(36.5,30,37,35,37.5,38); g.moveTo(61.5,22); g.lineTo(62,38); g.stroke();
-  g.fillStyle=CHROME; g.strokeStyle=CHROME_D; g.lineWidth=.6; g.beginPath(); g.roundRect?g.roundRect(54,25,5,1.8,.9):g.rect(54,25,5,1.8); g.fill(); g.stroke();
-  // 車頂光澤
-  g.strokeStyle='rgba(255,255,255,.45)'; g.lineWidth=1.6; g.beginPath(); g.moveTo(58,7.3); g.bezierCurveTo(68,7.6,77,11.5,83,17.5); g.stroke();
-  // 輪子
-  for(const cx of [22,78]){
-    g.fillStyle=TIRE; g.beginPath(); g.arc(cx,41,9,0,7); g.fill();
-    g.fillStyle=CREAM; g.beginPath(); g.arc(cx,41,5.4,0,7); g.fill();
-    g.fillStyle=CHROME; g.strokeStyle=CHROME_D; g.lineWidth=.7; g.beginPath(); g.arc(cx,41,2.6,0,7); g.fill(); g.stroke();
+  opt = opt || {};
+  const mix = (p, to, k) => p.map(v => Math.round(v + (to - v) * k)), rgb = p => `rgb(${p[0]},${p[1]},${p[2]})`;
+  const L = 0.299 * P[0] + 0.587 * P[1] + 0.114 * P[2];
+  const base = P, pale = mix(P, 255, .62);
+  const line = L < 55 ? "#151416" : rgb(mix(P, 0, .5));
+  const STEEL = "#3A4656", STEEL_L = "#6E7C8C";
+  g.save(); g.translate(x - 30 * sc, yb - 72 * sc); g.scale(sc, sc);
+  if (opt.alpha != null) g.globalAlpha = opt.alpha;
+  if (opt.bounce) g.translate(0, -Math.sin(opt.bounce * Math.PI) * 2.5);
+  g.lineJoin = "round"; g.lineCap = "round";
+  if (!opt.noGrip) {
+    // 滑輪夾：兩個輪子壓在纜線上
+    g.fillStyle = STEEL; rr(18, -3.5, 24, 7, 3.5); g.fill();
+    for (const wx of [24, 36]) { g.fillStyle = STEEL_L; g.beginPath(); g.arc(wx, -1.5, 3, 0, 7); g.fill(); g.fillStyle = STEEL; g.beginPath(); g.arc(wx, -1.5, 1.1, 0, 7); g.fill(); }
+    // 吊臂：圓潤的弧形
+    g.strokeStyle = STEEL; g.lineWidth = 3.2;
+    g.beginPath(); g.moveTo(30, 3); g.bezierCurveTo(30, 10, 36, 12, 34, 18); g.lineTo(32, 23); g.stroke();
+    g.fillStyle = STEEL_L; g.beginPath(); g.arc(30, 4, 2.2, 0, 7); g.fill();
   }
-  // 腳踏板
-  g.fillStyle='#3a3536'; g.beginPath(); g.moveTo(36,39); g.lineTo(64,39); g.lineTo(63.5,41.6); g.lineTo(36.5,41.6); g.closePath(); g.fill();
-  // 葉子板
-  paint(fF,fenderPale,fenderBase); paint(fR,fenderPale,fenderBase);
-  // 大燈（青蛙眼）
-  g.fillStyle=CHROME; g.strokeStyle=CHROME_D; g.lineWidth=.8; g.beginPath(); g.ellipse(11.5,30,3.4,4.2,-.25,0,7); g.fill(); g.stroke();
-  g.fillStyle='#FFF6DA'; g.beginPath(); g.ellipse(11,30,2.3,3.1,-.25,0,7); g.fill();
-  g.fillStyle='rgba(255,255,255,.9)'; g.beginPath(); g.arc(10.2,28.8,.9,0,7); g.fill();
-  // 尾燈
-  g.fillStyle='#C8473B'; g.beginPath(); g.ellipse(93.3,31.5,1.5,3,.2,0,7); g.fill();
-  // 保險桿
-  for(const [bx,w] of [[1.5,10],[89,10]]){g.fillStyle=CHROME; g.strokeStyle=CHROME_D; g.lineWidth=.8; g.beginPath(); g.roundRect?g.roundRect(bx,36.4,w,2.9,1.45):g.rect(bx,36.4,w,2.9); g.fill(); g.stroke();}
-    g.restore();
+  // 車頂：圓弧頂蓋＋小通風口
+  g.fillStyle = "#E7EBEE"; g.strokeStyle = "rgba(40,48,58,.55)"; g.lineWidth = 1.1;
+  g.beginPath(); g.moveTo(12, 28); g.bezierCurveTo(14, 21, 22, 20, 30, 20); g.bezierCurveTo(38, 20, 46, 21, 48, 28); g.closePath(); g.fill(); g.stroke();
+  g.fillStyle = STEEL; rr(25, 18.5, 10, 3, 1.5); g.fill();
+  // 車廂外形
+  const body = () => {
+    g.beginPath();
+    g.moveTo(14, 27); g.lineTo(46, 27);
+    g.bezierCurveTo(53, 27, 56, 33, 56, 42);
+    g.lineTo(56, 56); g.bezierCurveTo(56, 66, 50, 71, 42, 71);
+    g.lineTo(18, 71); g.bezierCurveTo(10, 71, 4, 66, 4, 56);
+    g.lineTo(4, 42); g.bezierCurveTo(4, 33, 7, 27, 14, 27); g.closePath();
+  };
+  body(); g.fillStyle = rgb(pale); g.fill();
+  if (fill > 0) { g.save(); body(); g.clip(); g.fillStyle = rgb(base); g.fillRect(0, 71 - 44 * Math.min(1, fill), 60, 44); g.restore(); }
+  // 立體感：左亮右暗
+  g.save(); body(); g.clip();
+  const sh = g.createLinearGradient(4, 0, 56, 0);
+  sh.addColorStop(0, "rgba(255,255,255,.28)"); sh.addColorStop(.35, "rgba(255,255,255,0)"); sh.addColorStop(.8, "rgba(0,0,0,0)"); sh.addColorStop(1, "rgba(0,0,0,.16)");
+  g.fillStyle = sh; g.fillRect(0, 20, 60, 55);
+  g.restore();
+  g.strokeStyle = line; g.lineWidth = 1.5; body(); g.stroke();
+  // 大片環景窗
+  const win = () => { rr(9, 32, 42, 18, 6); };
+  const gl = g.createLinearGradient(0, 32, 0, 50); gl.addColorStop(0, "#DDEFF8"); gl.addColorStop(1, "#9FC6DB");
+  win(); g.fillStyle = gl; g.fill();
+  g.save(); win(); g.clip();
+  g.fillStyle = "rgba(255,255,255,.55)"; g.beginPath(); g.moveTo(14, 50); g.lineTo(22, 32); g.lineTo(27, 32); g.lineTo(19, 50); g.closePath(); g.fill();
+  g.fillStyle = "rgba(255,255,255,.3)"; g.beginPath(); g.moveTo(31, 50); g.lineTo(39, 32); g.lineTo(41, 32); g.lineTo(33, 50); g.closePath(); g.fill();
+  g.restore();
+  g.strokeStyle = line; g.lineWidth = 1.2; win(); g.stroke();
+  // 窗框直條
+  g.strokeStyle = line; g.lineWidth = 1.6; g.beginPath(); g.moveTo(23, 32.5); g.lineTo(23, 49.5); g.moveTo(37, 32.5); g.lineTo(37, 49.5); g.stroke();
+  // 腰線＋底座
+  g.strokeStyle = "rgba(255,255,255,.55)"; g.lineWidth = 1.3; g.beginPath(); g.moveTo(8, 53.5); g.lineTo(52, 53.5); g.stroke();
+  g.fillStyle = "rgba(0,0,0,.22)"; g.beginPath(); g.moveTo(12, 68.5); g.lineTo(48, 68.5); g.bezierCurveTo(46, 71, 44, 71, 42, 71); g.lineTo(18, 71); g.bezierCurveTo(16, 71, 14, 71, 12, 68.5); g.closePath(); g.fill();
+  g.restore();
   }
 
-  function drawSand() {
-    const D = oimg.data;
-    for (let y = 0; y < GRID; y++) for (let x = 0; x < GRID; x++) {
-      const v = grid[y][x], k = (y * GRID + x) * 4;
-      if (v >= 0) { const p = pal[v]; D[k] = p[0]; D[k + 1] = p[1]; D[k + 2] = p[2]; D[k + 3] = 255; } else D[k + 3] = 0;
+  /* 有光澤的圓珠：每種顏色先畫好一顆，之後直接貼上 */
+  let beadCache = null, beadPal = null, holeBg = null, board = { color: "#2E2F35", dark: true };
+  /* 底板顏色：從幾種底色裡，挑跟這關所有珠子顏色差最多的那個（例如黑珠子多就用淺色底板） */
+  const BOARDS = ["#2E2F35", "#F1EBDF", "#8E8A82", "#CBD9D0", "#DCCDB9", "#4A5A55"];
+  function pickBoard(p) {
+    let best = BOARDS[0], bd = -1;
+    for (const hx of BOARDS) {
+      const c = [1, 3, 5].map(k => parseInt(hx.substr(k, 2), 16)), L = toLab(c);
+      const d = Math.min(...p.map(q => { const Q = toLab(q); return Math.hypot(L[0] - Q[0], L[1] - Q[1], L[2] - Q[2]); }));
+      if (d > bd) { bd = d; best = hx; }
     }
-    og.putImageData(oimg, 0, 0); g.imageSmoothingEnabled = false; g.drawImage(off, 0, 0, W, PIC_H);
+    const c = [1, 3, 5].map(k => parseInt(best.substr(k, 2), 16));
+    return { color: best, dark: 0.299 * c[0] + 0.587 * c[1] + 0.114 * c[2] < 110 };
+  }
+  function beadSprite(p) {
+    const sz = Math.round(CELL * DPR), c = document.createElement("canvas"); c.width = c.height = sz;
+    const b = c.getContext("2d"), r = sz * 0.47, cx = sz / 2, cy = sz / 2;
+    const lite = mix(p, 255, .45), dark = mix(p, 0, .28);
+    const gr = b.createRadialGradient(cx - r * .35, cy - r * .4, r * .1, cx, cy, r);
+    gr.addColorStop(0, rgb(lite)); gr.addColorStop(.45, rgb(p)); gr.addColorStop(1, rgb(dark));
+    b.fillStyle = gr; b.beginPath(); b.arc(cx, cy, r, 0, 7); b.fill();
+    b.fillStyle = "rgba(255,255,255,.55)"; b.beginPath(); b.ellipse(cx - r * .32, cy - r * .38, r * .22, r * .14, -.6, 0, 7); b.fill();
+    // 細邊：深色珠子加亮邊、淺色珠子加暗邊，放在任何底板上都看得出輪廓
+    const lum = 0.299 * p[0] + 0.587 * p[1] + 0.114 * p[2];
+    b.strokeStyle = lum < 110 ? "rgba(255,255,255,.32)" : "rgba(0,0,0,.22)"; b.lineWidth = Math.max(1, sz * 0.07);
+    b.beginPath(); b.arc(cx, cy, r - b.lineWidth / 2, 0, 7); b.stroke();
+    return c;
+  }
+  // 車子上的數字：還能裝幾顆
+  function carLabel(x, y, n, size) {
+    g.font = `800 ${size}px "Noto Sans TC",sans-serif`; g.textAlign = "center"; g.textBaseline = "middle";
+    g.lineWidth = 3.5; g.strokeStyle = "rgba(32,30,31,.85)"; g.lineJoin = "round"; g.strokeText(String(n), x, y);
+    g.fillStyle = "#fff"; g.fillText(String(n), x, y);
+    g.textAlign = "left"; g.textBaseline = "alphabetic";
+  }
+  function drawSand() {
+    if (beadPal !== pal) { beadPal = pal; beadCache = pal.map(beadSprite); board = pickBoard(pal); holeBg = null; }
+    // 深色底板＋每格一個淡淡的凹洞（只畫一次，之後直接貼上）
+    if (!holeBg) {
+      holeBg = document.createElement("canvas"); holeBg.width = Math.round(W * DPR); holeBg.height = Math.round(PIC_H * DPR);
+      const h = holeBg.getContext("2d"); h.scale(DPR, DPR);
+      h.fillStyle = board.color; h.fillRect(0, 0, W, PIC_H); h.fillStyle = board.dark ? "rgba(0,0,0,.25)" : "rgba(0,0,0,.10)";
+      for (let y = 0; y < GRID; y++) for (let x = 0; x < GRID; x++) { h.beginPath(); h.arc(x * CELL + CELL / 2, y * CELL + CELL / 2, CELL * .3, 0, 7); h.fill(); }
+    }
+    g.drawImage(holeBg, 0, 0, W, PIC_H);
+    for (let y = 0; y < GRID; y++) for (let x = 0; x < GRID; x++) { const v = grid[y][x]; if (v >= 0) g.drawImage(beadCache[v], x * CELL, y * CELL, CELL, CELL); }
   }
 
 
@@ -694,10 +803,8 @@
     // 固定步長：不管螢幕是 60Hz 還是 120Hz，遊戲速度都一樣
     const dt = Math.min(100, (now || 0) - (lastT || now || 0)); lastT = now;
     g.setTransform(DPR, 0, 0, DPR, 0, 0);
-    g.fillStyle = "#EDE7DA"; g.fillRect(0, 0, W, PIC_H);
-    g.fillStyle = "#F6F2EA"; g.fillRect(0, PIC_H, W, H - PIC_H);
-    g.fillStyle = "rgba(32,30,31,.035)";
-    for (let y = 10; y < PIC_H; y += 20) for (let x = (y / 20 % 2) * 10 + 5; x < W; x += 20) { g.beginPath(); g.arc(x, y, 1.2, 0, 7); g.fill(); }
+    g.fillStyle = "#F6F2EA"; g.fillRect(0, 0, W, H);
+    g.fillStyle = board.color; g.fillRect(0, PIC_Y, W, PIC_H);
     if (!grid || state === "loading" || state === "idle") { requestAnimationFrame(draw); return; }
 
     if (state === "play") {
@@ -707,44 +814,42 @@
       if (S.left === 0 && !parts.length && state === "play") win();
     }
 
+    g.save(); g.translate(0, PIC_Y);
     if (state === "win") {
       winT = Math.min(1, winT + 0.025); drawSand(); g.globalAlpha = winT; g.imageSmoothingEnabled = true;
       const s = Math.min(img.width, img.height); g.drawImage(img, (img.width - s) / 2, (img.height - s) / 2, s, s, 0, 0, W, PIC_H); g.globalAlpha = 1;
     } else drawSand();
+    g.restore();
 
-    // 路
-    g.fillStyle = "#E6DFD1"; g.fillRect(0, ROAD_Y, W, ROAD_H);
-    g.fillStyle = "rgba(32,30,31,.10)"; g.fillRect(0, ROAD_Y, W, 1.5); g.fillRect(0, ROAD_Y + ROAD_H - 1.5, W, 1.5);
-    g.strokeStyle = "rgba(255,255,255,.75)"; g.lineWidth = 2; g.setLineDash([10, 10]);
-    g.beginPath(); g.moveTo(0, ROAD_Y + ROAD_H - 6); g.lineTo(W, ROAD_Y + ROAD_H - 6); g.stroke(); g.setLineDash([]);
-    // 進出口箭頭
-    g.fillStyle = "rgba(92,107,115,.35)";
-    for (const ax of [6, W - 14]) { g.beginPath(); g.moveTo(ax, ROAD_Y + 8); g.lineTo(ax + 8, ROAD_Y + 14); g.lineTo(ax, ROAD_Y + 20); g.closePath(); g.fill(); }
+    // 纜線（兩條，下面那條是纜車掛的）
+    g.strokeStyle = "#6B4A36"; g.lineWidth = 1.2; g.beginPath(); g.moveTo(0, CABLE_Y - 6); g.lineTo(W, CABLE_Y - 6); g.stroke();
+    g.lineWidth = 2; g.beginPath(); g.moveTo(0, CABLE_Y); g.lineTo(W, CABLE_Y); g.stroke();
+    // 兩端的支架
+    g.fillStyle = "#3B4A5C";
+    for (const ax of [0, W - 6]) { g.fillRect(ax, CABLE_Y - 9, 6, 14); }
 
-    // 路上的車（車頭朝右）
+    // 纜線上的纜車
     const nowMs = performance.now();
     for (const car of S.road) {
       const x = Core.carX(car);
       if (x < -50 || x > W + 50) continue;
       const stuckGlow = state === "stuck" || state === "choose";
-      if (stuckGlow) { g.fillStyle = `rgba(200,55,45,${.12 + .08 * Math.sin(nowMs / 180)})`; rr(x - 36, ROAD_Y + 4, 72, ROAD_H - 8, 10); g.fill(); }
-      drawCar(x, CAR_Y, car.c, car.got / car.cap, CAR_SC, { flip: true });
-      // 小進度條
-      g.fillStyle = "rgba(32,30,31,.12)"; rr(x - 18, CAR_Y + 3, 36, 3, 1.5); g.fill();
-      g.fillStyle = "#B08A3E"; rr(x - 18, CAR_Y + 3, 36 * Math.min(1, car.got / car.cap), 3, 1.5); g.fill();
+      if (stuckGlow) { g.fillStyle = `rgba(200,55,45,${.18 + .1 * Math.sin(nowMs / 180)})`; rr(x - 25, CABLE_Y + 10, 50, CAR_Y - CABLE_Y - 8, 10); g.fill(); }
+      drawCar(x, CAR_Y, car.c, car.got / car.cap, CAR_SC, {});
+      carLabel(x, CAR_Y - 9, car.cap - car.claimed, 11);
     }
-    // 等待進場的車
+    // 等待出發的纜車
     if (S.queue.length) {
       g.font = '600 11px "Noto Sans TC",sans-serif'; g.fillStyle = "#B08A3E"; g.textAlign = "left";
-      g.fillText("等待進場 " + S.queue.length, 6, ROAD_Y + ROAD_H - 10);
+      g.fillText("等待出發 " + S.queue.length, 10, CABLE_Y + 22);
     }
 
     // 車庫（等候車道）
     const hintLane = (nowMs < hintUntil && hint && hint.lane != null) ? hint.lane : -1;
     g.font = '600 12px "Noto Sans TC",sans-serif'; g.fillStyle = "#5C6B73"; g.textAlign = "left";
-    g.fillText("車庫", 12, LANE_TOP - 10);
+    g.fillText("纜車站", 12, LANE_TOP - 10);
     g.textAlign = "right"; g.fillStyle = Core.onRoad(S) >= MAX_ROAD ? "#A8392E" : "#5C6B73";
-    g.fillText("路上 " + Core.onRoad(S) + " / " + MAX_ROAD, W - 12, LANE_TOP - 10); g.textAlign = "left";
+    g.fillText("纜線上 " + Core.onRoad(S) + " / " + MAX_ROAD, W - 12, LANE_TOP - 10); g.textAlign = "left";
     lanes.forEach((ln, l) => {
       const cx = laneX(l), lx = l * W / LANES + 8, lw = W / LANES - 16;
       g.fillStyle = l === hintLane ? "rgba(176,138,62,.16)" : "rgba(112,128,144,.06)";
@@ -753,8 +858,8 @@
       const fl = flash.find(f => f.l === l);
       if (fl) { g.fillStyle = `rgba(168,35,24,${.12 * (1 - fl.t)})`; rr(lx, LANE_TOP, lw, H - LANE_TOP - 8, 14); g.fill(); }
       ln.slice(0, 4).forEach((s, k) => {
-        if (k === 0) drawCar(cx, LANE_Y, s.c, 1, 0.92, { flip: true });
-        else drawCar(cx, LANE_Y + k * LANE_GAP, s.c, 1, 0.74, { flip: true, alpha: .9 });
+        if (k === 0) { drawCar(cx, LANE_Y, s.c, 1, GARAGE_SC, { noGrip: true }); carLabel(cx, LANE_Y - 8, s.cap - s.claimed, 12); }
+        else drawCar(cx, LANE_Y + k * LANE_GAP, s.c, 1, GARAGE_SC * 0.92, { noGrip: true, alpha: .9 });
       });
       if (ln.length) {
         const bob = l === hintLane ? Math.sin(nowMs / 120) * 3 : 0;
@@ -770,14 +875,14 @@
       p.t += 0.12;
       const tx = Core.carX(p.car), ty = CAR_Y - 14, e = Math.min(1, p.t);
       g.fillStyle = rgb(pal[p.c]);
-      g.fillRect(p.x + (tx - p.x) * e - 1.3, p.y + (ty - p.y) * e * e - 1.3, 2.6, 2.6);
+      if (beadCache) g.drawImage(beadCache[p.c], p.x + (tx - p.x) * e - 3.5, p.y + (ty - p.y) * e - 3.5, 7, 7);
       if (p.t >= 1) { p.car.pend--; p.car.got = Math.min(p.car.claimed, p.car.got + 1); if (Math.random() < 0.03) S_.grain(); return false; }
       return true;
     });
 
     $("sdPct").textContent = "進度 " + Math.round(100 * (1 - S.left / total)) + "%";
     $("sdTime").textContent = "⏱ " + fmt(ELAPSED) + " / " + fmt(PAR);
-    $("sdMiss").textContent = "失誤 " + MISS + "・倒車剩 " + (MAX_REVERSE - REVERSE);
+    $("sdMiss").textContent = "失誤 " + MISS + "・送回剩 " + (MAX_REVERSE - REVERSE);
     requestAnimationFrame(draw);
   }
 
