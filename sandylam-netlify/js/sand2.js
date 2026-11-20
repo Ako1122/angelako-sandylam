@@ -453,10 +453,11 @@
   /* ---------- 畫面元素 ---------- */
   const scrIntro = $("sd-intro"), scrGame = $("sd-game");
   const cv = $("sdCanvas"); let g = cv.getContext("2d");
-  const H = 730, DPR = Math.min(2, window.devicePixelRatio || 1);
+  const H = 748, DPR = Math.min(2, window.devicePixelRatio || 1);
   cv.width = W * DPR; cv.height = H * DPR;
-  const CABLE_Y = 12, PIC_Y = 68, PIC_H = 400, CAR_SC = 0.76, CAR_Y = CABLE_Y + 70 * CAR_SC;   // 纜線、圖畫位置；CAR_Y = 纜車車廂底部
-  const LANE_TOP = 502, LANE_Y = LANE_TOP + 62, LANE_GAP = 44, GARAGE_SC = 0.66;
+  const CABLE_Y = 14, CAR_SC = 0.76, CAR_Y = CABLE_Y + 72 * CAR_SC;   // 纜線位置；CAR_Y = 纜車車廂底部
+  const PIC_Y = Math.round(CAR_Y) + 18, PIC_H = 400;                    // 沙畫跟纜車之間留 18px
+  const LANE_TOP = PIC_Y + PIC_H + 36, LANE_Y = LANE_TOP + 62, LANE_GAP = 44, GARAGE_SC = 0.66;
   const off = document.createElement("canvas"); off.width = off.height = GRID;
   const og = off.getContext("2d"), oimg = og.createImageData(GRID, GRID);
 
@@ -687,53 +688,66 @@
   const rgb = p => `rgb(${p[0]},${p[1]},${p[2]})`;
   function rr(x, y, w, h, r) { g.beginPath(); g.moveTo(x + r, y); g.arcTo(x + w, y, x + w, y + h, r); g.arcTo(x + w, y + h, x, y + h, r); g.arcTo(x, y + h, x, y, r); g.arcTo(x, y, x + w, y, r); g.closePath(); }
 
-  /* 纜車（正面）：上面是掛在纜線上的滑輪夾，吊臂往下接車廂。
-     fill：0~1，車廂由下往上從淡色變成珠子的顏色。(x, yb) = 車廂底部中心；sc = 縮放（原始尺寸 60×70，最上面 y=0 是纜線） */
+  /* 纜車（正面）：滑輪夾壓在纜線上，吊臂往下接圓弧頂蓋和車廂，正面一整片環景窗。
+     fill：0~1，車廂由下往上從淡色變成珠子的顏色。(x, yb) = 車廂底部中心；sc = 縮放（原始尺寸 60×72，y=0 是纜線） */
   function drawCar(x, yb, c, fill, sc, opt) {
-    opt = opt || {};
-    const P = pal[c], L = 0.299 * P[0] + 0.587 * P[1] + 0.114 * P[2];
-    const base = rgb(P), pale = rgb(mix(P, 255, .6));
-    const line = L < 55 ? "#1b191a" : rgb(mix(P, 0, .45));
-    const STEEL = "#3B4A5C", GLASS = "#F4EBDD", GLASS_D = "#E3D3BE";
-    g.save(); g.translate(x - 30 * sc, yb - 70 * sc); g.scale(sc, sc);
-    if (opt.alpha != null) g.globalAlpha = opt.alpha;
-    if (opt.bounce) g.translate(0, -Math.sin(opt.bounce * Math.PI) * 2.5);
-    g.lineJoin = "round"; g.lineCap = "round";
-    // 滑輪夾＋吊臂
-    if (!opt.noGrip) {
-      g.fillStyle = STEEL; g.beginPath(); g.roundRect ? g.roundRect(19, -2, 22, 6, 2) : g.rect(19, -2, 22, 6); g.fill();
-      g.fillStyle = "#8C9AAB"; for (const wx of [23, 30, 37]) { g.beginPath(); g.arc(wx, -2, 2.2, 0, 7); g.fill(); }
-      g.strokeStyle = STEEL; g.lineWidth = 3; g.beginPath(); g.moveTo(30, 4); g.bezierCurveTo(30, 12, 33, 14, 31, 22); g.stroke();
-    }
-    g.fillStyle = STEEL; g.beginPath(); g.roundRect ? g.roundRect(20, 21, 20, 4, 1.5) : g.rect(20, 21, 20, 4); g.fill();
-    // 車廂：兩側微微外凸、底部圓弧
-    const body = () => {
-      g.beginPath();
-      g.moveTo(12, 25); g.lineTo(48, 25);
-      g.bezierCurveTo(54, 25, 56, 40, 55, 52);
-      g.bezierCurveTo(54, 64, 50, 70, 42, 70);
-      g.lineTo(18, 70);
-      g.bezierCurveTo(10, 70, 6, 64, 5, 52);
-      g.bezierCurveTo(4, 40, 6, 25, 12, 25);
-      g.closePath();
-    };
-    body(); g.fillStyle = pale; g.fill();
-    if (fill > 0) { g.save(); body(); g.clip(); g.fillStyle = base; g.fillRect(0, 70 - 46 * Math.min(1, fill), 60, 46); g.restore(); }
-    g.lineWidth = 1.6; g.strokeStyle = line; body(); g.stroke();
-    // 兩側小窗
-    g.fillStyle = GLASS_D;
-    g.beginPath(); g.moveTo(10, 32); g.quadraticCurveTo(7, 42, 9, 52); g.lineTo(12.5, 52); g.lineTo(12.5, 32); g.closePath(); g.fill();
-    g.beginPath(); g.moveTo(50, 32); g.quadraticCurveTo(53, 42, 51, 52); g.lineTo(47.5, 52); g.lineTo(47.5, 32); g.closePath(); g.fill();
-    // 兩扇門＋門上的窗
-    g.strokeStyle = line; g.lineWidth = 1.2; g.strokeRect(16, 29, 28, 39);
-    g.beginPath(); g.moveTo(30, 29); g.lineTo(30, 68); g.stroke();
-    for (const wx of [18.5, 32]) {
-      const gr = g.createLinearGradient(0, 31, 0, 51); gr.addColorStop(0, GLASS); gr.addColorStop(1, GLASS_D);
-      g.fillStyle = gr; g.fillRect(wx, 31, 9.5, 20);
-      g.strokeStyle = "rgba(0,0,0,.18)"; g.lineWidth = 0.8; g.beginPath(); g.moveTo(wx, 35); g.lineTo(wx + 9.5, 35); g.stroke();
-      g.strokeStyle = "rgba(255,255,255,.7)"; g.lineWidth = 1; g.beginPath(); g.moveTo(wx + 2, 48); g.lineTo(wx + 6, 38); g.stroke();
-    }
-    g.restore();
+    const P = pal[c];
+  opt = opt || {};
+  const mix = (p, to, k) => p.map(v => Math.round(v + (to - v) * k)), rgb = p => `rgb(${p[0]},${p[1]},${p[2]})`;
+  const L = 0.299 * P[0] + 0.587 * P[1] + 0.114 * P[2];
+  const base = P, pale = mix(P, 255, .62);
+  const line = L < 55 ? "#151416" : rgb(mix(P, 0, .5));
+  const STEEL = "#3A4656", STEEL_L = "#6E7C8C";
+  g.save(); g.translate(x - 30 * sc, yb - 72 * sc); g.scale(sc, sc);
+  if (opt.alpha != null) g.globalAlpha = opt.alpha;
+  if (opt.bounce) g.translate(0, -Math.sin(opt.bounce * Math.PI) * 2.5);
+  g.lineJoin = "round"; g.lineCap = "round";
+  if (!opt.noGrip) {
+    // 滑輪夾：兩個輪子壓在纜線上
+    g.fillStyle = STEEL; rr(18, -3.5, 24, 7, 3.5); g.fill();
+    for (const wx of [24, 36]) { g.fillStyle = STEEL_L; g.beginPath(); g.arc(wx, -1.5, 3, 0, 7); g.fill(); g.fillStyle = STEEL; g.beginPath(); g.arc(wx, -1.5, 1.1, 0, 7); g.fill(); }
+    // 吊臂：圓潤的弧形
+    g.strokeStyle = STEEL; g.lineWidth = 3.2;
+    g.beginPath(); g.moveTo(30, 3); g.bezierCurveTo(30, 10, 36, 12, 34, 18); g.lineTo(32, 23); g.stroke();
+    g.fillStyle = STEEL_L; g.beginPath(); g.arc(30, 4, 2.2, 0, 7); g.fill();
+  }
+  // 車頂：圓弧頂蓋＋小通風口
+  g.fillStyle = "#E7EBEE"; g.strokeStyle = "rgba(40,48,58,.55)"; g.lineWidth = 1.1;
+  g.beginPath(); g.moveTo(12, 28); g.bezierCurveTo(14, 21, 22, 20, 30, 20); g.bezierCurveTo(38, 20, 46, 21, 48, 28); g.closePath(); g.fill(); g.stroke();
+  g.fillStyle = STEEL; rr(25, 18.5, 10, 3, 1.5); g.fill();
+  // 車廂外形
+  const body = () => {
+    g.beginPath();
+    g.moveTo(14, 27); g.lineTo(46, 27);
+    g.bezierCurveTo(53, 27, 56, 33, 56, 42);
+    g.lineTo(56, 56); g.bezierCurveTo(56, 66, 50, 71, 42, 71);
+    g.lineTo(18, 71); g.bezierCurveTo(10, 71, 4, 66, 4, 56);
+    g.lineTo(4, 42); g.bezierCurveTo(4, 33, 7, 27, 14, 27); g.closePath();
+  };
+  body(); g.fillStyle = rgb(pale); g.fill();
+  if (fill > 0) { g.save(); body(); g.clip(); g.fillStyle = rgb(base); g.fillRect(0, 71 - 44 * Math.min(1, fill), 60, 44); g.restore(); }
+  // 立體感：左亮右暗
+  g.save(); body(); g.clip();
+  const sh = g.createLinearGradient(4, 0, 56, 0);
+  sh.addColorStop(0, "rgba(255,255,255,.28)"); sh.addColorStop(.35, "rgba(255,255,255,0)"); sh.addColorStop(.8, "rgba(0,0,0,0)"); sh.addColorStop(1, "rgba(0,0,0,.16)");
+  g.fillStyle = sh; g.fillRect(0, 20, 60, 55);
+  g.restore();
+  g.strokeStyle = line; g.lineWidth = 1.5; body(); g.stroke();
+  // 大片環景窗
+  const win = () => { rr(9, 32, 42, 18, 6); };
+  const gl = g.createLinearGradient(0, 32, 0, 50); gl.addColorStop(0, "#DDEFF8"); gl.addColorStop(1, "#9FC6DB");
+  win(); g.fillStyle = gl; g.fill();
+  g.save(); win(); g.clip();
+  g.fillStyle = "rgba(255,255,255,.55)"; g.beginPath(); g.moveTo(14, 50); g.lineTo(22, 32); g.lineTo(27, 32); g.lineTo(19, 50); g.closePath(); g.fill();
+  g.fillStyle = "rgba(255,255,255,.3)"; g.beginPath(); g.moveTo(31, 50); g.lineTo(39, 32); g.lineTo(41, 32); g.lineTo(33, 50); g.closePath(); g.fill();
+  g.restore();
+  g.strokeStyle = line; g.lineWidth = 1.2; win(); g.stroke();
+  // 窗框直條
+  g.strokeStyle = line; g.lineWidth = 1.6; g.beginPath(); g.moveTo(23, 32.5); g.lineTo(23, 49.5); g.moveTo(37, 32.5); g.lineTo(37, 49.5); g.stroke();
+  // 腰線＋底座
+  g.strokeStyle = "rgba(255,255,255,.55)"; g.lineWidth = 1.3; g.beginPath(); g.moveTo(8, 53.5); g.lineTo(52, 53.5); g.stroke();
+  g.fillStyle = "rgba(0,0,0,.22)"; g.beginPath(); g.moveTo(12, 68.5); g.lineTo(48, 68.5); g.bezierCurveTo(46, 71, 44, 71, 42, 71); g.lineTo(18, 71); g.bezierCurveTo(16, 71, 14, 71, 12, 68.5); g.closePath(); g.fill();
+  g.restore();
   }
 
   /* 有光澤的圓珠：每種顏色先畫好一顆，之後直接貼上 */
@@ -820,9 +834,9 @@
       const x = Core.carX(car);
       if (x < -50 || x > W + 50) continue;
       const stuckGlow = state === "stuck" || state === "choose";
-      if (stuckGlow) { g.fillStyle = `rgba(200,55,45,${.18 + .1 * Math.sin(nowMs / 180)})`; rr(x - 25, CABLE_Y + 14, 50, CAR_Y - CABLE_Y - 12, 10); g.fill(); }
+      if (stuckGlow) { g.fillStyle = `rgba(200,55,45,${.18 + .1 * Math.sin(nowMs / 180)})`; rr(x - 25, CABLE_Y + 10, 50, CAR_Y - CABLE_Y - 8, 10); g.fill(); }
       drawCar(x, CAR_Y, car.c, car.got / car.cap, CAR_SC, {});
-      carLabel(x, CAR_Y - 22, car.cap - car.claimed, 12);
+      carLabel(x, CAR_Y - 9, car.cap - car.claimed, 11);
     }
     // 等待出發的纜車
     if (S.queue.length) {
@@ -844,7 +858,7 @@
       const fl = flash.find(f => f.l === l);
       if (fl) { g.fillStyle = `rgba(168,35,24,${.12 * (1 - fl.t)})`; rr(lx, LANE_TOP, lw, H - LANE_TOP - 8, 14); g.fill(); }
       ln.slice(0, 4).forEach((s, k) => {
-        if (k === 0) { drawCar(cx, LANE_Y, s.c, 1, GARAGE_SC, { noGrip: true }); carLabel(cx, LANE_Y - 18, s.cap - s.claimed, 14); }
+        if (k === 0) { drawCar(cx, LANE_Y, s.c, 1, GARAGE_SC, { noGrip: true }); carLabel(cx, LANE_Y - 8, s.cap - s.claimed, 12); }
         else drawCar(cx, LANE_Y + k * LANE_GAP, s.c, 1, GARAGE_SC * 0.92, { noGrip: true, alpha: .9 });
       });
       if (ln.length) {
@@ -859,7 +873,7 @@
     // 沙粒從沙畫底部被吸進車裡
     if (state !== "stuck" && state !== "choose") parts = parts.filter(p => {
       p.t += 0.12;
-      const tx = Core.carX(p.car), ty = CAR_Y - 18, e = Math.min(1, p.t);
+      const tx = Core.carX(p.car), ty = CAR_Y - 14, e = Math.min(1, p.t);
       g.fillStyle = rgb(pal[p.c]);
       if (beadCache) g.drawImage(beadCache[p.c], p.x + (tx - p.x) * e - 3.5, p.y + (ty - p.y) * e - 3.5, 7, 7);
       if (p.t >= 1) { p.car.pend--; p.car.got = Math.min(p.car.claimed, p.car.got + 1); if (Math.random() < 0.03) S_.grain(); return false; }
