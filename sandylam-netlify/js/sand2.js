@@ -11,8 +11,8 @@
   const LANES = 3;           // 三排等候車道（車庫）
   const MAX_ROAD = 6;        // 路上最多同時幾台車
   const TICK_HZ = 60;        // 遊戲邏輯每秒跑 60 步（固定步長，跟螢幕更新率無關）
-  const SPEED = W / (4 * TICK_HZ);   // 車速：約 4 秒從左開到右
-  const FAST_SPEED = W / (1 * TICK_HZ);   // 車庫的車全部派出後：約 1 秒從左開到右
+  const SPEED = W * 1.5 / (4 * TICK_HZ);   // 車速：原本 4 秒開過畫面，加快 50% → 約 2.7 秒
+  const FAST_SPEED = W * 1.5 / (1 * TICK_HZ);   // 車庫的車全部派出後：再加快 4 倍，約 0.7 秒開過畫面
   const ENTER_X = -40;       // 車子從畫面左邊外面進場
   const EXIT_X = W + 40;     // 裝滿的車開到右邊外面就離場
   const LOOP = 600;          // 繞一圈的長度：畫面 400 + 左右兩邊各 40 + 回到左邊的路 120
