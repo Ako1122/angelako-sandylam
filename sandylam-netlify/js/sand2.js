@@ -116,7 +116,7 @@
     },
     rng(seed) { let s = seed >>> 0 || 1; return () => (s = (s * 1664525 + 1013904223) >>> 0) / 4294967296; },
     /* 驗證：用不同手速的玩家照順序重玩（單位：步，60 步 = 1 秒） */
-    PLAYERS: [{ m: 0 }, { m: 10 }, { m: 20 }, { m: 30 }, { m: 40 }, { m: 40 }, { m: 40 }, { m: 45 }, { m: 60 }, { m: 60 }, { m: 90 }, { m: 120 }, { m: 160 }, { m: 200 }],
+    PLAYERS: [0, 5, 10, 15, 20, 25, 30, 35, 40, 40, 45, 50, 55, 60, 60, 70, 80, 100, 140, 200].map(m => ({ m })),
     validate(cols, nColor, q, seed, need) {
       let pass = 0, fail = 0, steps = 0;
       for (let k = 0; k < Core.PLAYERS.length; k++) {
@@ -133,7 +133,7 @@
       cols.forEach(col => col.forEach(v => unres[v]++));
       let best = null; const t0 = Date.now();
       for (let k = 0; k < (maxTry || 120); k++) {
-        if (best && Date.now() - t0 > 1500) break;   // 最多花約 1.5 秒挑最穩的順序
+        if (best && Date.now() - t0 > 1200) break;   // 最多花約 1.2 秒挑最穩的順序
         const rnd = Core.rng(seed * 977 + k * 131 + 1);
         // 挑色原則：路上顏色越分散越好；優先派「底部露出最多、路上還沒有」的顏色
         const choose = (exp, S, un) => {
@@ -385,7 +385,7 @@
     return out;
   }
   function loadImage(src) { return new Promise((res, rej) => { const m = new Image(); m.onload = () => res(m); m.onerror = rej; m.src = src; }); }
-  // 找不到夠穩的派車順序時（14 種節奏裡過不到 13 種），少用一種顏色重新產生，確保每關都過得了
+  // 找不到夠穩的派車順序時（20 種派車節奏裡有 2 種以上過不了），少用一種顏色重新產生，確保每關都過得了
   function makeLevel(im, nColors, nCars, seed) {
     let L = makeLevelOnce(im, nColors, nCars, seed);
     while ((!L.q || L.q.pass < L.q.total - 1) && nColors > 5) { nColors--; L = makeLevelOnce(im, nColors, nCars, seed); }
@@ -410,7 +410,8 @@
     const km = kmeansLab(px, nColors), idx = cleanSpeckles(km.index, nColors), grid = [];
     for (let y = 0; y < GRID; y++) { const row = new Int8Array(GRID); for (let X = 0; X < GRID; X++) row[X] = idx[y * GRID + X]; grid.push(row); }
     const pal = posterPalette(km.centers, skinShares(px, km.index, nColors));
-    const cols = []; for (let X = 0; X < GRID; X++) { const c = new Int8Array(GRID); for (let y = 0; y < GRID; y++) c[y] = grid[GRID - 1 - y][X]; cols.push(c); }
+    // 纜車從上方吸：每一欄由上往下排，ptr = 已經被吸走幾顆
+    const cols = []; for (let X = 0; X < GRID; X++) { const c = new Int8Array(GRID); for (let y = 0; y < GRID; y++) c[y] = grid[y][X]; cols.push(c); }
     const cap = Math.ceil(GRID * GRID / nCars);
     const q = Core.buildQueue(cols, pal.length, cap, seed + 1);
     return { pal, grid, cols, cap, q };
@@ -452,10 +453,10 @@
   /* ---------- 畫面元素 ---------- */
   const scrIntro = $("sd-intro"), scrGame = $("sd-game");
   const cv = $("sdCanvas"); let g = cv.getContext("2d");
-  const H = 720, DPR = Math.min(2, window.devicePixelRatio || 1);
+  const H = 730, DPR = Math.min(2, window.devicePixelRatio || 1);
   cv.width = W * DPR; cv.height = H * DPR;
-  const PIC_H = 400, ROAD_Y = 404, ROAD_H = 56, CAR_Y = ROAD_Y + 44, CAR_SC = 0.55;
-  const LANE_TOP = 494, LANE_Y = LANE_TOP + 64, LANE_GAP = 40;
+  const CABLE_Y = 12, PIC_Y = 68, PIC_H = 400, CAR_SC = 0.76, CAR_Y = CABLE_Y + 70 * CAR_SC;   // 纜線、圖畫位置；CAR_Y = 纜車車廂底部
+  const LANE_TOP = 502, LANE_Y = LANE_TOP + 62, LANE_GAP = 44, GARAGE_SC = 0.66;
   const off = document.createElement("canvas"); off.width = off.height = GRID;
   const og = off.getContext("2d"), oimg = og.createImageData(GRID, GRID);
 
@@ -519,7 +520,7 @@
     nextK = 0; onTrack = true; REVERSE = 0; HINTS = 0; acc = 0; updateHintBtn(); updateReverseBtn(); hideStuck();
     NCARS = L.q.seq.length; PAR = Math.round((L.q.steps || NCARS * 150) / TICK_HZ * 1.4) + 15;
     $("sdResult").hidden = true;
-    setMsg("點車庫最前面的車派上路，它經過時會吸走上方同顏色的沙！");
+    setMsg("點纜車站最前面的纜車送上纜線，它經過時會吸走正下方最上面一顆同色的珠子！");
   }
   function setMsg(t) { $("sdMsg").textContent = t; }
 
@@ -530,8 +531,8 @@
     const ln = lanes[l];
     if (!ln || !ln.length) return false;
     if (!T0) T0 = performance.now();
-    if (k > 0) { setMsg("🚧 前面的車還沒開走，後面的車出不去！"); S_.err(); MISS++; flash.push({ l, t: 0 }); return false; }
-    if (Core.onRoad(S) >= MAX_ROAD) { setMsg("路上已經有 6 台車了，等有車裝滿離開再派"); S_.err(); return false; }
+    if (k > 0) { setMsg("🚧 前面的纜車還沒出發，後面的出不去！"); S_.err(); MISS++; flash.push({ l, t: 0 }); return false; }
+    if (Core.onRoad(S) >= MAX_ROAD) { setMsg("纜線上已經有 6 台纜車了，等有纜車裝滿離開再派"); S_.err(); return false; }
     const car = ln.shift();
     if (onTrack && car.k === nextK) nextK++; else onTrack = false;
     car.p = 0; car.dry = 0; S.queue.push(car); S_.tap(); setMsg(""); hintUntil = 0;
@@ -546,23 +547,23 @@
     parts = parts.filter(p => p.car !== car);
     REVERSE++; onTrack = false; S_.tap(); hideStuck(); updateReverseBtn();
     state = "play"; if (T0) T0 += performance.now() - pauseAt;
-    setMsg(`🚗 丟回車庫了（倒車剩 ${MAX_REVERSE - REVERSE} 次）`);
+    setMsg(`🚡 送回纜車站了（送回剩 ${MAX_REVERSE - REVERSE} 次）`);
     return true;
   }
   // manual = 玩家自己按「丟回車庫」；否則是動彈不得時自動跳出
   function showStuck(manual) {
     state = manual ? "choose" : "stuck"; pauseAt = performance.now(); if (!manual) S_.err();
-    $("sdStuckTitle").textContent = manual ? "選一台丟回車庫" : "動彈不得了！";
+    $("sdStuckTitle").textContent = manual ? "選一台送回纜車站" : "動彈不得了！";
     $("sdStuckText").textContent = manual
-      ? `丟回去的車會回到原本那排車庫的最後面（倒車剩 ${MAX_REVERSE - REVERSE} 次）`
-      : `路上 6 台車都繞了一整圈，一粒沙都接不到。選一台丟回車庫（倒車剩 ${MAX_REVERSE - REVERSE} 次）`;
+      ? `送回去的纜車會回到原本那排的最後面（送回剩 ${MAX_REVERSE - REVERSE} 次）`
+      : `纜線上 6 台纜車都繞了一整圈，一顆珠子都吸不到。選一台送回纜車站（送回剩 ${MAX_REVERSE - REVERSE} 次）`;
     $("sdStuckCancel").hidden = !manual;
     const wrap = $("sdStuckCars"); wrap.innerHTML = "";
     S.road.slice().sort((a, b) => b.p - a.p).concat(S.queue).filter(c => c.claimed < c.cap).forEach(car => {
       const b = document.createElement("button"); b.type = "button"; b.className = "sd-stuck-car";
       const c = document.createElement("canvas"); c.width = 132; c.height = 70; b.appendChild(c);
       const t = document.createElement("span"); t.textContent = Math.round(100 * car.claimed / car.cap) + "%"; b.appendChild(t);
-      const cg = c.getContext("2d"); const keep = g; g = cg; drawCar(66, 64, car.c, car.claimed / car.cap, 1.2, { flip: true }); g = keep;
+      const cg = c.getContext("2d"); const keep = g; g = cg; drawCar(66, 68, car.c, car.claimed / car.cap, 0.92, { noGrip: true }); g = keep;
       b.onclick = () => reverseCar(car);
       wrap.appendChild(b);
     });
@@ -571,12 +572,12 @@
   function hideStuck() { const el = $("sdStuck"); if (el) el.hidden = true; }
   function updateReverseBtn() {
     const b = $("sdReverseBtn"), n = MAX_REVERSE - REVERSE;
-    b.textContent = n > 0 ? `🚗 丟回車庫（剩 ${n} 次）` : "🚗 倒車次數已用完";
+    b.textContent = n > 0 ? `🚡 送回纜車站（剩 ${n} 次）` : "🚡 送回次數已用完";
     b.disabled = n <= 0;
   }
   $("sdReverseBtn").onclick = () => {
     if (state !== "play" || REVERSE >= MAX_REVERSE) return;
-    if (!S.road.concat(S.queue).some(c => c.claimed < c.cap)) { setMsg("路上沒有可以丟回車庫的車"); return; }
+    if (!S.road.concat(S.queue).some(c => c.claimed < c.cap)) { setMsg("纜線上沒有可以送回去的纜車"); return; }
     showStuck(true);
   };
   $("sdStuckCancel").onclick = () => {
@@ -610,8 +611,8 @@
     if (state !== "play" || HINTS >= MAX_HINT) return;
     HINTS++; updateHintBtn();
     hint = suggest(); hintUntil = performance.now() + 2800;
-    if (hint.lane != null) setMsg(hint.dig ? "💡 前面的車都吸不到沙，先派發亮那排，讓後面的車往前" : "💡 派發亮那排最前面的車");
-    else setMsg("💡 路上的車正在吸沙，等有車裝滿離開再派");
+    if (hint.lane != null) setMsg(hint.dig ? "💡 前面的纜車都吸不到珠子，先派發亮那排，讓後面的往前" : "💡 派發亮那排最前面的纜車");
+    else setMsg("💡 纜車正在吸珠子，等有纜車裝滿離開再派");
   };
   cv.addEventListener("click", e => {
     if (state !== "play") return;
@@ -630,18 +631,17 @@
   function gravity() {
     for (let y = GRID - 2; y >= 0; y--) { const a = grid[y], b = grid[y + 1]; for (let x = 0; x < GRID; x++) if (a[x] >= 0 && b[x] < 0) { b[x] = a[x]; a[x] = -1; } }
   }
-  function removeBottom(x) { for (let y = GRID - 1; y >= 0; y--) if (grid[y][x] >= 0) { grid[y][x] = -1; return y; } return 0; }
+  function removeTop(x) { for (let y = 0; y < GRID; y++) if (grid[y][x] >= 0) { grid[y][x] = -1; return y; } return 0; }
   const EV = {
     take: (car, col) => {
-      const y = removeBottom(col);
+      const y = removeTop(col);
       car.pend++;
-      parts.push({ x: col * CELL + CELL / 2, y: y * CELL + CELL / 2, car, c: car.c, t: 0 });
+      parts.push({ x: col * CELL + CELL / 2, y: PIC_Y + y * CELL + CELL / 2, car, c: car.c, t: 0 });
     },
     full: () => S_.full(),
     exit: car => { car.got = car.claimed; car.pend = 0; }
   };
   function tick() {
-    if (S.t % 4 === 0) gravity();
     S.fast = lanes.every(l => !l.length) && !S.queue.length;   // 車庫空了就加速
     Core.tick(S, EV);
     if (S.left === 0) return;
@@ -674,8 +674,8 @@
     $("sdResultStars").innerHTML = ok ? '<span class="on">' + "★".repeat(r) + "</span>" + "☆".repeat(3 - r) : "";
     $("sdResultStars").hidden = !ok;
     $("sdResultDetail").textContent = ok
-      ? `用時 ${fmt(ELAPSED)}（標準 ${fmt(PAR)}）・失誤 ${MISS} 次` + (REVERSE ? `・倒車 ${REVERSE} 次` : "")
-      : "倒車次數用完，路上的車又都吸不到沙了。派車前先看看沙畫最底下露出哪些顏色！";
+      ? `用時 ${fmt(ELAPSED)}（標準 ${fmt(PAR)}）・失誤 ${MISS} 次` + (REVERSE ? `・送回 ${REVERSE} 次` : "")
+      : "送回次數用完，纜線上的纜車又都吸不到珠子了。派纜車前先看看圖畫最上面露出哪些顏色！";
     $("sdNextBtn").hidden = !ok;
     $("sdRetryBtn").textContent = ok ? "再玩一次" : "重新開始";
     setMsg(ok ? "" : "😢 動彈不得");
@@ -687,72 +687,52 @@
   const rgb = p => `rgb(${p[0]},${p[1]},${p[2]})`;
   function rr(x, y, w, h, r) { g.beginPath(); g.moveTo(x + r, y); g.arcTo(x + w, y, x + w, y + h, r); g.arcTo(x + w, y + h, x, y + h, r); g.arcTo(x, y + h, x, y, r); g.arcTo(x, y, x + w, y, r); g.closePath(); }
 
-  /* 側面金龜車（原圖面向左，opt.flip 時面向右）。fill：0~1，車身由下往上從淡色變成沙子的顏色。
-     (x, yb) = 車子底部中心；sc = 縮放（原始尺寸 100×50） */
+  /* 纜車（正面）：上面是掛在纜線上的滑輪夾，吊臂往下接車廂。
+     fill：0~1，車廂由下往上從淡色變成珠子的顏色。(x, yb) = 車廂底部中心；sc = 縮放（原始尺寸 60×70，最上面 y=0 是纜線） */
   function drawCar(x, yb, c, fill, sc, opt) {
-    const P = pal[c];
-  opt=opt||{};
-    const lum=0.299*P[0]+0.587*P[1]+0.114*P[2];
-  const base=rgb(P), pale=rgb(mix(P,255,.6));
-  const fenderBase=rgb(mix(P,0,.08)), fenderPale=rgb(mix(mix(P,255,.6),0,.06));
-  const line=lum<55?'#1b191a':rgb(mix(P,0,.45));
-  const CHROME='#D9DDE0', CHROME_D='#9EA6AC', TIRE='#2A2627', CREAM='#FBF3E2';
-  g.save(); g.translate(x - 50 * sc, yb - 50 * sc); g.scale(sc, sc);
-  if (opt.flip) { g.translate(100, 0); g.scale(-1, 1); }   // 車頭朝右
-  if(opt.alpha!=null) g.globalAlpha=opt.alpha;
-  if(opt.bounce){const b=Math.sin(opt.bounce*Math.PI)*2.5; g.translate(0,-b);}
-  g.lineJoin='round'; g.lineCap='round';
-  // 影子
-  g.fillStyle='rgba(32,30,31,.14)'; g.beginPath(); g.ellipse(50,50.2,46,2.6,0,0,7); g.fill();
-  const shell=()=>{g.beginPath();
-    g.moveTo(9,38); g.bezierCurveTo(5,36,5,29,13,27);       // 車頭
-    g.bezierCurveTo(19,25.5,25,24,30,22.5);                 // 引擎蓋（前行李廂）
-    g.bezierCurveTo(34,11,43,5.5,55,5.5);                    // 擋風玻璃
-    g.bezierCurveTo(70,5.5,83,12,90,24);                     // 圓頂車頂
-    g.bezierCurveTo(94,30,95,35,92,38);                      // 車尾
-    g.closePath();};
-  const fender=(cx,a,b)=>{g.beginPath();
-    g.moveTo(cx-a,40.5); g.bezierCurveTo(cx-a,30,cx-9,25,cx,25); g.bezierCurveTo(cx+9,25,cx+b,30,cx+b,40.5);
-    g.lineTo(cx+11,40.5); g.arc(cx,41,11,0,Math.PI,true); g.closePath();};
-  const fF=()=>fender(22,16,15), fR=()=>fender(78,15,17);
-  const paint=(path,pl,bs)=>{path(); g.fillStyle=pl; g.fill();
-    if(fill>0){g.save(); path(); g.clip(); g.fillStyle=bs; g.fillRect(0,41-37*Math.min(1,fill),100,40); g.restore();}
-    g.lineWidth=1.5; g.strokeStyle=line; path(); g.stroke();};
-  // 車身
-  paint(shell,pale,base);
-  // 車窗
-  const win=()=>{g.beginPath(); g.moveTo(35,21.5); g.bezierCurveTo(38,13,45,9.3,55,9.3); g.bezierCurveTo(66,9.3,76,13.5,82.5,21.5); g.closePath();};
-  win(); g.fillStyle='#E6EDF0'; g.fill();
-  g.save(); win(); g.clip();
-  g.fillStyle='rgba(255,255,255,.75)'; g.beginPath(); g.moveTo(44,22); g.lineTo(50,8); g.lineTo(54,8); g.lineTo(48,22); g.closePath(); g.fill();
-  g.fillStyle='rgba(112,128,144,.18)'; g.fillRect(30,17,60,6);
-  g.restore();
-  g.lineWidth=1.3; g.strokeStyle=line; win(); g.stroke();
-  // B 柱
-  g.strokeStyle=line; g.lineWidth=2.4; g.beginPath(); g.moveTo(61,9.6); g.lineTo(61.5,21.5); g.stroke();
-  // 車門線、門把
-  g.strokeStyle='rgba(0,0,0,.22)'; g.lineWidth=1; g.beginPath(); g.moveTo(36,23); g.bezierCurveTo(36.5,30,37,35,37.5,38); g.moveTo(61.5,22); g.lineTo(62,38); g.stroke();
-  g.fillStyle=CHROME; g.strokeStyle=CHROME_D; g.lineWidth=.6; g.beginPath(); g.roundRect?g.roundRect(54,25,5,1.8,.9):g.rect(54,25,5,1.8); g.fill(); g.stroke();
-  // 車頂光澤
-  g.strokeStyle='rgba(255,255,255,.45)'; g.lineWidth=1.6; g.beginPath(); g.moveTo(58,7.3); g.bezierCurveTo(68,7.6,77,11.5,83,17.5); g.stroke();
-  // 輪子
-  for(const cx of [22,78]){
-    g.fillStyle=TIRE; g.beginPath(); g.arc(cx,41,9,0,7); g.fill();
-    g.fillStyle=CREAM; g.beginPath(); g.arc(cx,41,5.4,0,7); g.fill();
-    g.fillStyle=CHROME; g.strokeStyle=CHROME_D; g.lineWidth=.7; g.beginPath(); g.arc(cx,41,2.6,0,7); g.fill(); g.stroke();
-  }
-  // 腳踏板
-  g.fillStyle='#3a3536'; g.beginPath(); g.moveTo(36,39); g.lineTo(64,39); g.lineTo(63.5,41.6); g.lineTo(36.5,41.6); g.closePath(); g.fill();
-  // 葉子板
-  paint(fF,fenderPale,fenderBase); paint(fR,fenderPale,fenderBase);
-  // 大燈（青蛙眼）
-  g.fillStyle=CHROME; g.strokeStyle=CHROME_D; g.lineWidth=.8; g.beginPath(); g.ellipse(11.5,30,3.4,4.2,-.25,0,7); g.fill(); g.stroke();
-  g.fillStyle='#FFF6DA'; g.beginPath(); g.ellipse(11,30,2.3,3.1,-.25,0,7); g.fill();
-  g.fillStyle='rgba(255,255,255,.9)'; g.beginPath(); g.arc(10.2,28.8,.9,0,7); g.fill();
-  // 尾燈
-  g.fillStyle='#C8473B'; g.beginPath(); g.ellipse(93.3,31.5,1.5,3,.2,0,7); g.fill();
-  // 保險桿
-  for(const [bx,w] of [[1.5,10],[89,10]]){g.fillStyle=CHROME; g.strokeStyle=CHROME_D; g.lineWidth=.8; g.beginPath(); g.roundRect?g.roundRect(bx,36.4,w,2.9,1.45):g.rect(bx,36.4,w,2.9); g.fill(); g.stroke();}
+    opt = opt || {};
+    const P = pal[c], L = 0.299 * P[0] + 0.587 * P[1] + 0.114 * P[2];
+    const base = rgb(P), pale = rgb(mix(P, 255, .6));
+    const line = L < 55 ? "#1b191a" : rgb(mix(P, 0, .45));
+    const STEEL = "#3B4A5C", GLASS = "#F4EBDD", GLASS_D = "#E3D3BE";
+    g.save(); g.translate(x - 30 * sc, yb - 70 * sc); g.scale(sc, sc);
+    if (opt.alpha != null) g.globalAlpha = opt.alpha;
+    if (opt.bounce) g.translate(0, -Math.sin(opt.bounce * Math.PI) * 2.5);
+    g.lineJoin = "round"; g.lineCap = "round";
+    // 滑輪夾＋吊臂
+    if (!opt.noGrip) {
+      g.fillStyle = STEEL; g.beginPath(); g.roundRect ? g.roundRect(19, -2, 22, 6, 2) : g.rect(19, -2, 22, 6); g.fill();
+      g.fillStyle = "#8C9AAB"; for (const wx of [23, 30, 37]) { g.beginPath(); g.arc(wx, -2, 2.2, 0, 7); g.fill(); }
+      g.strokeStyle = STEEL; g.lineWidth = 3; g.beginPath(); g.moveTo(30, 4); g.bezierCurveTo(30, 12, 33, 14, 31, 22); g.stroke();
+    }
+    g.fillStyle = STEEL; g.beginPath(); g.roundRect ? g.roundRect(20, 21, 20, 4, 1.5) : g.rect(20, 21, 20, 4); g.fill();
+    // 車廂：兩側微微外凸、底部圓弧
+    const body = () => {
+      g.beginPath();
+      g.moveTo(12, 25); g.lineTo(48, 25);
+      g.bezierCurveTo(54, 25, 56, 40, 55, 52);
+      g.bezierCurveTo(54, 64, 50, 70, 42, 70);
+      g.lineTo(18, 70);
+      g.bezierCurveTo(10, 70, 6, 64, 5, 52);
+      g.bezierCurveTo(4, 40, 6, 25, 12, 25);
+      g.closePath();
+    };
+    body(); g.fillStyle = pale; g.fill();
+    if (fill > 0) { g.save(); body(); g.clip(); g.fillStyle = base; g.fillRect(0, 70 - 46 * Math.min(1, fill), 60, 46); g.restore(); }
+    g.lineWidth = 1.6; g.strokeStyle = line; body(); g.stroke();
+    // 兩側小窗
+    g.fillStyle = GLASS_D;
+    g.beginPath(); g.moveTo(10, 32); g.quadraticCurveTo(7, 42, 9, 52); g.lineTo(12.5, 52); g.lineTo(12.5, 32); g.closePath(); g.fill();
+    g.beginPath(); g.moveTo(50, 32); g.quadraticCurveTo(53, 42, 51, 52); g.lineTo(47.5, 52); g.lineTo(47.5, 32); g.closePath(); g.fill();
+    // 兩扇門＋門上的窗
+    g.strokeStyle = line; g.lineWidth = 1.2; g.strokeRect(16, 29, 28, 39);
+    g.beginPath(); g.moveTo(30, 29); g.lineTo(30, 68); g.stroke();
+    for (const wx of [18.5, 32]) {
+      const gr = g.createLinearGradient(0, 31, 0, 51); gr.addColorStop(0, GLASS); gr.addColorStop(1, GLASS_D);
+      g.fillStyle = gr; g.fillRect(wx, 31, 9.5, 20);
+      g.strokeStyle = "rgba(0,0,0,.18)"; g.lineWidth = 0.8; g.beginPath(); g.moveTo(wx, 35); g.lineTo(wx + 9.5, 35); g.stroke();
+      g.strokeStyle = "rgba(255,255,255,.7)"; g.lineWidth = 1; g.beginPath(); g.moveTo(wx + 2, 48); g.lineTo(wx + 6, 38); g.stroke();
+    }
     g.restore();
   }
 
@@ -793,10 +773,8 @@
     // 固定步長：不管螢幕是 60Hz 還是 120Hz，遊戲速度都一樣
     const dt = Math.min(100, (now || 0) - (lastT || now || 0)); lastT = now;
     g.setTransform(DPR, 0, 0, DPR, 0, 0);
-    g.fillStyle = "#EDE7DA"; g.fillRect(0, 0, W, PIC_H);
-    g.fillStyle = "#F6F2EA"; g.fillRect(0, PIC_H, W, H - PIC_H);
-    g.fillStyle = "rgba(32,30,31,.035)";
-    for (let y = 10; y < PIC_H; y += 20) for (let x = (y / 20 % 2) * 10 + 5; x < W; x += 20) { g.beginPath(); g.arc(x, y, 1.2, 0, 7); g.fill(); }
+    g.fillStyle = "#F6F2EA"; g.fillRect(0, 0, W, H);
+    g.fillStyle = "#2E2F35"; g.fillRect(0, PIC_Y, W, PIC_H);
     if (!grid || state === "loading" || state === "idle") { requestAnimationFrame(draw); return; }
 
     if (state === "play") {
@@ -806,45 +784,42 @@
       if (S.left === 0 && !parts.length && state === "play") win();
     }
 
+    g.save(); g.translate(0, PIC_Y);
     if (state === "win") {
       winT = Math.min(1, winT + 0.025); drawSand(); g.globalAlpha = winT; g.imageSmoothingEnabled = true;
       const s = Math.min(img.width, img.height); g.drawImage(img, (img.width - s) / 2, (img.height - s) / 2, s, s, 0, 0, W, PIC_H); g.globalAlpha = 1;
     } else drawSand();
+    g.restore();
 
-    // 路
-    g.fillStyle = "#E6DFD1"; g.fillRect(0, ROAD_Y, W, ROAD_H);
-    g.fillStyle = "rgba(32,30,31,.10)"; g.fillRect(0, ROAD_Y, W, 1.5); g.fillRect(0, ROAD_Y + ROAD_H - 1.5, W, 1.5);
-    g.strokeStyle = "rgba(255,255,255,.75)"; g.lineWidth = 2; g.setLineDash([10, 10]);
-    g.beginPath(); g.moveTo(0, ROAD_Y + ROAD_H - 6); g.lineTo(W, ROAD_Y + ROAD_H - 6); g.stroke(); g.setLineDash([]);
-    // 進出口箭頭
-    g.fillStyle = "rgba(92,107,115,.35)";
-    for (const ax of [6, W - 14]) { g.beginPath(); g.moveTo(ax, ROAD_Y + 8); g.lineTo(ax + 8, ROAD_Y + 14); g.lineTo(ax, ROAD_Y + 20); g.closePath(); g.fill(); }
+    // 纜線（兩條，下面那條是纜車掛的）
+    g.strokeStyle = "#6B4A36"; g.lineWidth = 1.2; g.beginPath(); g.moveTo(0, CABLE_Y - 6); g.lineTo(W, CABLE_Y - 6); g.stroke();
+    g.lineWidth = 2; g.beginPath(); g.moveTo(0, CABLE_Y); g.lineTo(W, CABLE_Y); g.stroke();
+    // 兩端的支架
+    g.fillStyle = "#3B4A5C";
+    for (const ax of [0, W - 6]) { g.fillRect(ax, CABLE_Y - 9, 6, 14); }
 
-    // 路上的車（車頭朝右）
+    // 纜線上的纜車
     const nowMs = performance.now();
     for (const car of S.road) {
       const x = Core.carX(car);
       if (x < -50 || x > W + 50) continue;
       const stuckGlow = state === "stuck" || state === "choose";
-      if (stuckGlow) { g.fillStyle = `rgba(200,55,45,${.12 + .08 * Math.sin(nowMs / 180)})`; rr(x - 36, ROAD_Y + 4, 72, ROAD_H - 8, 10); g.fill(); }
-      drawCar(x, CAR_Y, car.c, car.got / car.cap, CAR_SC, { flip: true });
-      carLabel(x, CAR_Y - 30, car.cap - car.claimed, 13);
-      // 小進度條
-      g.fillStyle = "rgba(32,30,31,.12)"; rr(x - 18, CAR_Y + 3, 36, 3, 1.5); g.fill();
-      g.fillStyle = "#B08A3E"; rr(x - 18, CAR_Y + 3, 36 * Math.min(1, car.got / car.cap), 3, 1.5); g.fill();
+      if (stuckGlow) { g.fillStyle = `rgba(200,55,45,${.18 + .1 * Math.sin(nowMs / 180)})`; rr(x - 25, CABLE_Y + 14, 50, CAR_Y - CABLE_Y - 12, 10); g.fill(); }
+      drawCar(x, CAR_Y, car.c, car.got / car.cap, CAR_SC, {});
+      carLabel(x, CAR_Y - 22, car.cap - car.claimed, 12);
     }
-    // 等待進場的車
+    // 等待出發的纜車
     if (S.queue.length) {
       g.font = '600 11px "Noto Sans TC",sans-serif'; g.fillStyle = "#B08A3E"; g.textAlign = "left";
-      g.fillText("等待進場 " + S.queue.length, 6, ROAD_Y + ROAD_H - 10);
+      g.fillText("等待出發 " + S.queue.length, 10, CABLE_Y + 22);
     }
 
     // 車庫（等候車道）
     const hintLane = (nowMs < hintUntil && hint && hint.lane != null) ? hint.lane : -1;
     g.font = '600 12px "Noto Sans TC",sans-serif'; g.fillStyle = "#5C6B73"; g.textAlign = "left";
-    g.fillText("車庫", 12, LANE_TOP - 10);
+    g.fillText("纜車站", 12, LANE_TOP - 10);
     g.textAlign = "right"; g.fillStyle = Core.onRoad(S) >= MAX_ROAD ? "#A8392E" : "#5C6B73";
-    g.fillText("路上 " + Core.onRoad(S) + " / " + MAX_ROAD, W - 12, LANE_TOP - 10); g.textAlign = "left";
+    g.fillText("纜線上 " + Core.onRoad(S) + " / " + MAX_ROAD, W - 12, LANE_TOP - 10); g.textAlign = "left";
     lanes.forEach((ln, l) => {
       const cx = laneX(l), lx = l * W / LANES + 8, lw = W / LANES - 16;
       g.fillStyle = l === hintLane ? "rgba(176,138,62,.16)" : "rgba(112,128,144,.06)";
@@ -853,8 +828,8 @@
       const fl = flash.find(f => f.l === l);
       if (fl) { g.fillStyle = `rgba(168,35,24,${.12 * (1 - fl.t)})`; rr(lx, LANE_TOP, lw, H - LANE_TOP - 8, 14); g.fill(); }
       ln.slice(0, 4).forEach((s, k) => {
-        if (k === 0) { drawCar(cx, LANE_Y, s.c, 1, 0.92, { flip: true }); carLabel(cx + 4, LANE_Y - 22, s.cap - s.claimed, 15); }
-        else drawCar(cx, LANE_Y + k * LANE_GAP, s.c, 1, 0.74, { flip: true, alpha: .9 });
+        if (k === 0) { drawCar(cx, LANE_Y, s.c, 1, GARAGE_SC, { noGrip: true }); carLabel(cx, LANE_Y - 18, s.cap - s.claimed, 14); }
+        else drawCar(cx, LANE_Y + k * LANE_GAP, s.c, 1, GARAGE_SC * 0.92, { noGrip: true, alpha: .9 });
       });
       if (ln.length) {
         const bob = l === hintLane ? Math.sin(nowMs / 120) * 3 : 0;
@@ -868,16 +843,16 @@
     // 沙粒從沙畫底部被吸進車裡
     if (state !== "stuck" && state !== "choose") parts = parts.filter(p => {
       p.t += 0.12;
-      const tx = Core.carX(p.car), ty = CAR_Y - 14, e = Math.min(1, p.t);
+      const tx = Core.carX(p.car), ty = CAR_Y - 18, e = Math.min(1, p.t);
       g.fillStyle = rgb(pal[p.c]);
-      if (beadCache) g.drawImage(beadCache[p.c], p.x + (tx - p.x) * e - 3.5, p.y + (ty - p.y) * e * e - 3.5, 7, 7);
+      if (beadCache) g.drawImage(beadCache[p.c], p.x + (tx - p.x) * e - 3.5, p.y + (ty - p.y) * e - 3.5, 7, 7);
       if (p.t >= 1) { p.car.pend--; p.car.got = Math.min(p.car.claimed, p.car.got + 1); if (Math.random() < 0.03) S_.grain(); return false; }
       return true;
     });
 
     $("sdPct").textContent = "進度 " + Math.round(100 * (1 - S.left / total)) + "%";
     $("sdTime").textContent = "⏱ " + fmt(ELAPSED) + " / " + fmt(PAR);
-    $("sdMiss").textContent = "失誤 " + MISS + "・倒車剩 " + (MAX_REVERSE - REVERSE);
+    $("sdMiss").textContent = "失誤 " + MISS + "・送回剩 " + (MAX_REVERSE - REVERSE);
     requestAnimationFrame(draw);
   }
 
