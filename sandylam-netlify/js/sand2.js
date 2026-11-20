@@ -737,7 +737,19 @@
   }
 
   /* 有光澤的圓珠：每種顏色先畫好一顆，之後直接貼上 */
-  let beadCache = null, beadPal = null, holeBg = null;
+  let beadCache = null, beadPal = null, holeBg = null, board = { color: "#2E2F35", dark: true };
+  /* 底板顏色：從幾種底色裡，挑跟這關所有珠子顏色差最多的那個（例如黑珠子多就用淺色底板） */
+  const BOARDS = ["#2E2F35", "#F1EBDF", "#8E8A82", "#CBD9D0", "#DCCDB9", "#4A5A55"];
+  function pickBoard(p) {
+    let best = BOARDS[0], bd = -1;
+    for (const hx of BOARDS) {
+      const c = [1, 3, 5].map(k => parseInt(hx.substr(k, 2), 16)), L = toLab(c);
+      const d = Math.min(...p.map(q => { const Q = toLab(q); return Math.hypot(L[0] - Q[0], L[1] - Q[1], L[2] - Q[2]); }));
+      if (d > bd) { bd = d; best = hx; }
+    }
+    const c = [1, 3, 5].map(k => parseInt(best.substr(k, 2), 16));
+    return { color: best, dark: 0.299 * c[0] + 0.587 * c[1] + 0.114 * c[2] < 110 };
+  }
   function beadSprite(p) {
     const sz = Math.round(CELL * DPR), c = document.createElement("canvas"); c.width = c.height = sz;
     const b = c.getContext("2d"), r = sz * 0.47, cx = sz / 2, cy = sz / 2;
@@ -746,6 +758,10 @@
     gr.addColorStop(0, rgb(lite)); gr.addColorStop(.45, rgb(p)); gr.addColorStop(1, rgb(dark));
     b.fillStyle = gr; b.beginPath(); b.arc(cx, cy, r, 0, 7); b.fill();
     b.fillStyle = "rgba(255,255,255,.55)"; b.beginPath(); b.ellipse(cx - r * .32, cy - r * .38, r * .22, r * .14, -.6, 0, 7); b.fill();
+    // 細邊：深色珠子加亮邊、淺色珠子加暗邊，放在任何底板上都看得出輪廓
+    const lum = 0.299 * p[0] + 0.587 * p[1] + 0.114 * p[2];
+    b.strokeStyle = lum < 110 ? "rgba(255,255,255,.32)" : "rgba(0,0,0,.22)"; b.lineWidth = Math.max(1, sz * 0.07);
+    b.beginPath(); b.arc(cx, cy, r - b.lineWidth / 2, 0, 7); b.stroke();
     return c;
   }
   // 車子上的數字：還能裝幾顆
@@ -756,12 +772,12 @@
     g.textAlign = "left"; g.textBaseline = "alphabetic";
   }
   function drawSand() {
-    if (beadPal !== pal) { beadPal = pal; beadCache = pal.map(beadSprite); }
+    if (beadPal !== pal) { beadPal = pal; beadCache = pal.map(beadSprite); board = pickBoard(pal); holeBg = null; }
     // 深色底板＋每格一個淡淡的凹洞（只畫一次，之後直接貼上）
     if (!holeBg) {
       holeBg = document.createElement("canvas"); holeBg.width = Math.round(W * DPR); holeBg.height = Math.round(PIC_H * DPR);
       const h = holeBg.getContext("2d"); h.scale(DPR, DPR);
-      h.fillStyle = "#2E2F35"; h.fillRect(0, 0, W, PIC_H); h.fillStyle = "rgba(0,0,0,.22)";
+      h.fillStyle = board.color; h.fillRect(0, 0, W, PIC_H); h.fillStyle = board.dark ? "rgba(0,0,0,.25)" : "rgba(0,0,0,.10)";
       for (let y = 0; y < GRID; y++) for (let x = 0; x < GRID; x++) { h.beginPath(); h.arc(x * CELL + CELL / 2, y * CELL + CELL / 2, CELL * .3, 0, 7); h.fill(); }
     }
     g.drawImage(holeBg, 0, 0, W, PIC_H);
@@ -774,7 +790,7 @@
     const dt = Math.min(100, (now || 0) - (lastT || now || 0)); lastT = now;
     g.setTransform(DPR, 0, 0, DPR, 0, 0);
     g.fillStyle = "#F6F2EA"; g.fillRect(0, 0, W, H);
-    g.fillStyle = "#2E2F35"; g.fillRect(0, PIC_Y, W, PIC_H);
+    g.fillStyle = board.color; g.fillRect(0, PIC_Y, W, PIC_H);
     if (!grid || state === "loading" || state === "idle") { requestAnimationFrame(draw); return; }
 
     if (state === "play") {
